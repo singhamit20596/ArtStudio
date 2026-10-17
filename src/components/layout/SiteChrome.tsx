@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { mainNav } from "@/config/nav";
-import { searchIndex } from "@/lib/catalog";
+import { searchIndex, searchLinks } from "@/lib/catalog";
 import { AnnouncementBar } from "./AnnouncementBar";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
@@ -16,7 +16,7 @@ export function SiteChrome({ overlay = false, children }: { overlay?: boolean; c
       </a>
       <PreviewRibbon />
       <AnnouncementBar />
-      <Header overlay={overlay} menus={mainNav} searchItems={searchIndex()} />
+      <Header overlay={overlay} menus={mainNav} searchItems={searchIndex()} searchLinks={searchLinks()} />
       <main id="main" tabIndex={-1} className="outline-none">
         {children}
       </main>

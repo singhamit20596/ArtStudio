@@ -29,6 +29,11 @@ export const site = {
     freeShippingThreshold: 3000,
     flatFee: 100,
     panIndia: true,
+    /**
+     * TODO (placeholder): courier days once a piece is ready, used by the pincode checker
+     * on product pages. Replace when the courier partner and delivery times are confirmed.
+     */
+    courierDays: { min: 3, max: 7 },
   },
 
   payments: {

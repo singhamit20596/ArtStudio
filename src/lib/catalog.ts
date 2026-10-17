@@ -1,16 +1,21 @@
 import seed from "@/data/seed.json";
-import type { Category, Occasion, Product, SearchItem, Seed } from "./types";
+import { categoryHref, occasionHref, slugify } from "./product";
+import type { Category, Occasion, Product, SearchItem, SearchLink, Seed } from "./types";
+
+export { categoryHref, effectivePrice, occasionHref, productHref, shortName, slugify } from "./product";
 
 const data = seed as unknown as Seed;
 
 /** Every product, including unpublished drafts. */
 export const allProducts: Product[] = data.products;
 
-/** Products visible on the storefront. */
+/** Products visible on the storefront, in "Featured" order (their order in seed.json). */
 export const products: Product[] = data.products.filter((p) => p.published);
 
 export const categories: Category[] = data.categories;
 export const readyCategories = categories.filter((c) => c.type === "ready");
+/** Ready-made categories with their own /shop/[slug] page ("Gifts" lives at /gifts). */
+export const shopCategories = readyCategories.filter((c) => c.slug !== "gifts");
 export const customCategories = categories.filter((c) => c.type === "custom");
 export const occasions: Occasion[] = data.occasions;
 
@@ -20,6 +25,10 @@ export function getProduct(slug: string) {
 
 export function getCategory(slug: string) {
   return categories.find((c) => c.slug === slug);
+}
+
+export function getOccasion(slug: string) {
+  return occasions.find((o) => o.slug === slug);
 }
 
 const newestFirst = (a: Product, b: Product) => b.createdAt.localeCompare(a.createdAt);
@@ -35,23 +44,30 @@ export function forOccasions(slugs: string[], limit = 8) {
     .slice(0, limit);
 }
 
-export function productHref(p: Pick<Product, "slug">) {
-  return `/product/${p.slug}`;
+export function productsInCategory(slug: string) {
+  return products.filter((p) => p.category === slug);
 }
 
-export function categoryHref(c: Pick<Category, "slug" | "type">) {
-  if (c.type === "ready") return c.slug === "gifts" ? "/gifts" : `/shop/${c.slug}`;
-  return `/custom/${c.slug}`;
+export function productsForOccasion(slug: string) {
+  return products.filter((p) => p.occasions.includes(slug));
 }
 
-export function occasionHref(slug: string) {
-  return `/occasion/${slug}`;
+/** The curated gift shop: every product tagged "gift". */
+export function giftProducts() {
+  return products.filter((p) => p.tags.includes("gift"));
 }
 
-/** "Shubh Labh Toran | Resin Door Hanging | Pair" → "Shubh Labh Toran" */
-export function shortName(p: Pick<Product, "name">) {
-  return p.name.split(" | ")[0];
+/** Same category first, then pieces that share an occasion. */
+export function similarProducts(product: Product, limit = 8) {
+  const others = products.filter((p) => p.slug !== product.slug);
+  const sameCategory = others.filter((p) => p.category === product.category);
+  const shared = others
+    .filter((p) => p.category !== product.category && p.occasions.some((o) => product.occasions.includes(o)))
+    .sort((a, b) => sharedCount(b, product) - sharedCount(a, product));
+  return [...sameCategory, ...shared].slice(0, limit);
 }
+
+const sharedCount = (a: Product, b: Product) => a.occasions.filter((o) => b.occasions.includes(o)).length;
 
 export function searchIndex(): SearchItem[] {
   return products.map((p) => ({
@@ -64,4 +80,22 @@ export function searchIndex(): SearchItem[] {
     image: p.images[0] ?? null,
     tags: p.tags,
   }));
+}
+
+/** Categories and occasions the search overlay can suggest. */
+export function searchLinks(): SearchLink[] {
+  return [
+    ...readyCategories.map((c) => ({ label: c.name, kind: "Category", href: categoryHref(c) })),
+    ...customCategories.map((c) => ({ label: c.name, kind: "Custom", href: categoryHref(c) })),
+    ...occasions.map((o) => ({ label: o.name, kind: "Occasion", href: occasionHref(o.slug) })),
+  ];
+}
+
+/** Display names for every slug a listing filter can hold (categories, sub-categories, occasions). */
+export function listingLabels(): Record<string, string> {
+  const labels: Record<string, string> = {};
+  for (const c of categories) labels[c.slug] = c.name;
+  for (const o of occasions) labels[o.slug] = o.name;
+  for (const p of products) if (p.subcategory) labels[slugify(p.subcategory)] = p.subcategory;
+  return labels;
 }

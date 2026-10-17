@@ -1,12 +1,13 @@
 import clsx from "clsx";
 import type { Product } from "@/lib/types";
-import { productHref, shortName } from "@/lib/catalog";
+import { productHref, shortName } from "@/lib/product";
 import { AppLink } from "@/components/ui/AppLink";
 import { ProductImage } from "./ProductImage";
 import { Price } from "./Price";
 import { WishlistButton } from "./WishlistButton";
 
 function badgeFor(p: Product): string | null {
+  if (p.type === "ready" && p.stock != null && p.stock <= 0) return "Sold out";
   if (p.isNew) return "New";
   if (p.isBestseller) return "Bestseller";
   if (p.isCustomisable) return "Customisable";

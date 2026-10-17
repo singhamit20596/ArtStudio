@@ -5,7 +5,7 @@ import { ChevronDown, Heart, Menu, Search, ShoppingBag, User } from "lucide-reac
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { NavMenu } from "@/config/nav";
 import { site } from "@/config/site";
-import type { SearchItem } from "@/lib/types";
+import type { SearchItem, SearchLink } from "@/lib/types";
 import { useShop } from "@/components/providers/ShopProvider";
 import { AppLink } from "@/components/ui/AppLink";
 import { Logo } from "./Logo";
@@ -19,9 +19,10 @@ interface HeaderProps {
   overlay?: boolean;
   menus: NavMenu[];
   searchItems: SearchItem[];
+  searchLinks: SearchLink[];
 }
 
-export function Header({ overlay = false, menus, searchItems }: HeaderProps) {
+export function Header({ overlay = false, menus, searchItems, searchLinks }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -168,7 +169,7 @@ export function Header({ overlay = false, menus, searchItems }: HeaderProps) {
       </header>
 
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} menus={menus} />
-      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} items={searchItems} />
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} items={searchItems} links={searchLinks} />
       <CartDrawer />
     </>
   );

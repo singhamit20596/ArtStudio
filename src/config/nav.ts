@@ -108,9 +108,9 @@ export const mainNav: NavMenu[] = [
       {
         title: "Pooja & décor",
         links: [
-          { label: "Pooja thalis", href: "/shop/pooja-festive?type=thalis" },
-          { label: "Torans & door hangings", href: "/shop/pooja-festive?type=torans" },
-          { label: "Karwa Chauth sets", href: "/shop/pooja-festive?type=karwa-chauth" },
+          { label: "Pooja thalis", href: "/shop/pooja-festive?sub=pooja-thalis" },
+          { label: "Torans & door hangings", href: "/shop/pooja-festive?sub=torans-door-hangings" },
+          { label: "Karwa Chauth sets", href: "/shop/pooja-festive?sub=karwa-chauth" },
           { label: "All Pooja & Festive", href: "/shop/pooja-festive" },
         ],
       },

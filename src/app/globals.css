@@ -242,6 +242,31 @@ body {
   }
 }
 
+/* Product gallery: magnify around the pointer on devices with a mouse. */
+@media (hover: hover) and (pointer: fine) {
+  .zoom-box {
+    cursor: zoom-in;
+  }
+  .zoom-box img {
+    transform-origin: var(--zx, 50%) var(--zy, 50%);
+    transition: transform 0.35s var(--ease-soft);
+  }
+  .zoom-box:hover img {
+    transform: scale(2);
+  }
+}
+
+/* Floating WhatsApp button; it moves up while a product page's sticky buy bar is showing. */
+.wa-float {
+  right: calc(20px + env(safe-area-inset-right, 0px));
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+}
+@media (max-width: 767px) {
+  body:has([data-sticky-bar="shown"]) .wa-float {
+    bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 /* ---------- Motion ---------- */
 
 /* Fade-up on scroll, driven by scroll position (no JS, content visible at rest). */
@@ -368,6 +393,11 @@ body {
     transform: translateX(-100%);
   }
 }
+@keyframes slide-in-up {
+  from {
+    transform: translateY(100%);
+  }
+}
 @keyframes drop-in {
   from {
     opacity: 0;
@@ -386,11 +416,15 @@ body {
 .anim-drop {
   animation: drop-in 0.22s var(--ease-soft);
 }
+.anim-up {
+  animation: slide-in-up 0.32s var(--ease-soft);
+}
 @media (prefers-reduced-motion: reduce) {
   .anim-fade,
   .anim-right,
   .anim-left,
-  .anim-drop {
+  .anim-drop,
+  .anim-up {
     animation: none;
   }
 }

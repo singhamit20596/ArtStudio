@@ -6,7 +6,7 @@ export function PreviewRibbon() {
   return (
     <div className="bg-preview text-ink">
       <p className="container-x py-2 text-center text-[11.5px] leading-snug">
-        <strong className="font-semibold">Phase 1 preview.</strong> Photos are from Instagram; prices and making times are placeholders.
+        <strong className="font-semibold">Phase 2 preview.</strong> Photos are from Instagram; prices, stock and delivery times are placeholders.
       </p>
     </div>
   );

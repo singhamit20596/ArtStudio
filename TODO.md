@@ -1,7 +1,20 @@
 # Art Studio website: what I still need from you
 
-Everything below is a placeholder in the Phase 1 build. Reply with whatever you have; nothing here blocks Phase 2.
+Everything below is a placeholder in the Phase 2 build. Reply with whatever you have; nothing here blocks Phase 3.
 Product data lives in `src/data/seed.json`, business settings in `src/config/site.ts`.
+
+## New in Phase 2: please check
+
+- [ ] **Delivery times** for the pincode checker on product pages. It currently assumes **3–7 courier days** anywhere in India, on top of each product's making time (`shipping.courierDays` in `src/config/site.ts`). Send your courier partner and rough days by region and we will make it accurate.
+- [ ] **Army Post Office pincodes** (starting with 9): the checker asks these customers to message you on WhatsApp. Do you ship to APO addresses directly?
+- [ ] **Colours** (for the colour filter), read from the photos: Shubh Labh toran multicolour/green, Blush Agate pink/green/gold, Karwa Chauth set teal/gold, Lal Pooja Thali red/gold, Alphabet Letters multicolour, Botanical keychain clear/green, Marble Noir white/black/gold. Correct any that are wrong.
+- [ ] **The gift shop** (`/gifts`) shows products tagged `gift`: Blush Agate tray, IAF tribute frame, Birthday shadow box, Memory photo frame, Photo blocks & magnets, Alphabet letters, Botanical keychain, Marble Noir clock. Add or remove any.
+- [ ] **"Featured" order** on listing pages follows the order of products in `seed.json`. Tell us which pieces should come first.
+- [ ] **Custom order steps** shown next to every "Request this custom piece" button: (1) message us on WhatsApp, (2) share photos, names, colours and the date, (3) we reply with the design details and final price, (4) once you confirm, we make it and ship it. Does this match how you work? Do you take an advance for custom pieces?
+- [ ] **Cash on Delivery for custom pieces**: product pages for custom pieces do not mention COD. Is COD allowed for them?
+- [ ] **Short lines for each occasion page** (e.g. Housewarming: "Trays, clocks and torans for a new home."), in `occasions` in `seed.json`. Edit freely.
+- [ ] **Gift wrap**: the brief asks for a gift-wrap option. Is there a charge, and what does the wrap look like? (Built with the cart in Phase 3.)
+- [ ] **Sizes and weights** are not shown on product pages until you send them (the Specifications table hides empty rows).
 
 ## 1. Photos (biggest visual upgrade)
 

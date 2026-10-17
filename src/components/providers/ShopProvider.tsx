@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
+import { createLocalStore } from "@/lib/local-store";
 
 /**
  * Wishlist and cart state, kept in the visitor's browser for now.
@@ -24,48 +25,6 @@ interface ShopState {
 }
 
 const ShopContext = createContext<ShopState | null>(null);
-
-/** A tiny localStorage-backed store for useSyncExternalStore (safe when storage is blocked). */
-function createLocalStore<T>(key: string, fallback: T) {
-  let value: T | undefined;
-  const listeners = new Set<() => void>();
-
-  const read = (): T => {
-    try {
-      const raw = window.localStorage.getItem(key);
-      return raw ? (JSON.parse(raw) as T) : fallback;
-    } catch {
-      return fallback;
-    }
-  };
-
-  return {
-    get: (): T => (value === undefined ? (value = read()) : value),
-    server: (): T => fallback,
-    set(next: T) {
-      value = next;
-      try {
-        window.localStorage.setItem(key, JSON.stringify(next));
-      } catch {
-        /* storage unavailable (private mode, blocked): keep it in memory */
-      }
-      listeners.forEach((l) => l());
-    },
-    subscribe(listener: () => void) {
-      listeners.add(listener);
-      const onStorage = (e: StorageEvent) => {
-        if (e.key !== key) return;
-        value = read();
-        listeners.forEach((l) => l());
-      };
-      window.addEventListener("storage", onStorage);
-      return () => {
-        listeners.delete(listener);
-        window.removeEventListener("storage", onStorage);
-      };
-    },
-  };
-}
 
 const NO_SLUGS: string[] = [];
 const NO_LINES: CartLine[] = [];

@@ -1,8 +1,7 @@
 import { categoryHref, customCategories } from "@/lib/catalog";
-import { formatINR } from "@/lib/format";
 import { AppLink } from "@/components/ui/AppLink";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { ProductImage } from "@/components/product/ProductImage";
+import { CustomCategoryCard } from "@/components/custom/CustomCategoryCard";
 
 const FEATURED = [
   "retirement-tribute-frames",
@@ -37,31 +36,7 @@ export function CustomMadeGrid() {
         <ul className="mt-10 grid grid-cols-2 gap-x-4 gap-y-9 md:grid-cols-4 md:gap-x-6">
           {featured.map((c) => (
             <li key={c.slug} className="reveal">
-              <AppLink href={categoryHref(c)} className="group block">
-                <span className="relative block aspect-[4/5] overflow-hidden bg-sand">
-                  <ProductImage
-                    src={c.image}
-                    alt={c.name}
-                    sizes="(min-width: 768px) 25vw, 46vw"
-                    fallbackTitle={c.name}
-                    fallbackNote={c.status === "coming-soon" ? "Coming soon" : "Made to order"}
-                  />
-                </span>
-                <h3 className="mt-3.5 text-[12.5px] font-semibold uppercase leading-snug tracking-[0.14em]">{c.name}</h3>
-                <p className="mt-1 line-clamp-2 text-[12.5px] leading-snug text-muted">{c.description}</p>
-                <p className="mt-1.5 text-[12.5px] tabular-nums">
-                  {c.status === "coming-soon" ? (
-                    <span className="text-muted">Coming soon</span>
-                  ) : c.startingPrice ? (
-                    <>
-                      <span className="text-muted">From </span>
-                      <span className="font-medium">{formatINR(c.startingPrice)}</span>
-                    </>
-                  ) : (
-                    <span className="text-muted">Price on request</span>
-                  )}
-                </p>
-              </AppLink>
+              <CustomCategoryCard category={c} sizes="(min-width: 768px) 25vw, 46vw" />
             </li>
           ))}
         </ul>

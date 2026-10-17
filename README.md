@@ -8,9 +8,9 @@ Built with Next.js 16 (App Router) · TypeScript · Tailwind CSS 4. Supabase, Ra
 
 | Phase | What | State |
 |---|---|---|
-| 1 | Design system + homepage | **Done (this build)** |
-| 2 | Catalogue: listing pages, filters, search, product and custom pages | Next |
-| 3 | Cart, wishlist, coupons, checkout (COD + WhatsApp; Razorpay wired but off), order emails | |
+| 1 | Design system + homepage | Done |
+| 2 | Catalogue: listing pages, filters, search, product and custom pages | **Done (this build)** |
+| 3 | Cart, wishlist, coupons, checkout (COD + WhatsApp; Razorpay wired but off), order emails | Next |
 | 4 | Accounts, order tracking, reviews & Q&A, admin panel (Supabase) | |
 | 5 | SEO, performance, accessibility, policy pages, final README | |
 
@@ -22,7 +22,7 @@ Needs [Node.js 20.9 or newer](https://nodejs.org/) (check with `node -v`).
 
 ```bash
 npm install
-npm run preview      # http://localhost:3000, with the "Phase 1 preview" banner
+npm run preview      # http://localhost:3000, with the "Phase 2 preview" banner
 npm run dev          # same site without the banner
 ```
 
@@ -40,9 +40,11 @@ npm run lint
 
 | To change… | Edit |
 |---|---|
-| Business name, WhatsApp, email, shipping rules, announcement bar, hero images/video | `src/config/site.ts` |
+| Business name, WhatsApp, email, shipping rules, courier days, announcement bar, hero images/video | `src/config/site.ts` |
 | Menu and footer links | `src/config/nav.ts` |
 | Products, categories, occasions (until the database arrives) | `src/data/seed.json` |
+| "Featured" order on shop pages | the order of products in `src/data/seed.json` |
+| What appears in the gift shop (`/gifts`) | add or remove the `"gift"` tag on a product |
 | Colours, type, buttons, motion | `src/app/globals.css` |
 | Homepage section order | `src/app/(home)/page.tsx` |
 | Product photos | `public/products/<product-slug>/1.jpg, 2.jpg …` |
@@ -53,8 +55,21 @@ npm run lint
 1. Copy one product block in `src/data/seed.json` and give it a new `id` and `slug`.
 2. Put its photos in `public/products/<slug>/` as `1.jpg`, `2.jpg`…, and list them in `images`.
 3. `type` is `"ready"` (Add to cart) or `"custom"` (made to order, WhatsApp request). Set `price` for ready items, `startingPrice` for custom ones.
+4. `colours` drive the colour filter (use the names in `COLOURS` in `src/lib/listing.ts`); add the `"gift"` tag to show it in the gift shop.
 
 From Phase 4 this moves to the admin panel at `/admin`; `seed.json` is imported into the database once.
+
+## Pages
+
+| URL | What it is |
+|---|---|
+| `/shop`, `/shop/<category>` | All products, and each ready-made category. Filters: category, ready or custom, occasion, price, colour, in stock. Sort: featured, newest, price, bestselling. |
+| `/gifts`, `/occasion/<occasion>` | The gift shop and each occasion (Diwali, Retirement, Birthday…) |
+| `/custom`, `/custom/<category>` | Custom-made hub and each custom category, with the WhatsApp request button |
+| `/product/<slug>` | Product page. Ready pieces: variants, quantity, Order on WhatsApp, pincode checker. Custom pieces: past work, "From" price, making time, request button |
+| `/search?q=…` | Search results, with the same filters |
+
+Filters live in the address (for example `/shop?category=pooja-festive&max=1500&sort=newest`), so a filtered page can be shared or bookmarked.
 
 ## Design notes
 

@@ -3,39 +3,48 @@
   "occasions": [
     {
       "slug": "retirement",
-      "name": "Retirement"
+      "name": "Retirement",
+      "description": "Tribute frames and keepsakes that honour a lifetime of service."
     },
     {
       "slug": "birthday",
-      "name": "Birthday"
+      "name": "Birthday",
+      "description": "Personalised pieces made for their day."
     },
     {
       "slug": "anniversary",
-      "name": "Anniversary"
+      "name": "Anniversary",
+      "description": "Keepsakes for the years you have shared."
     },
     {
       "slug": "wedding",
-      "name": "Wedding"
+      "name": "Wedding",
+      "description": "Gifts and keepsakes for the big day."
     },
     {
       "slug": "housewarming",
-      "name": "Housewarming"
+      "name": "Housewarming",
+      "description": "Trays, clocks and torans for a new home."
     },
     {
       "slug": "diwali",
-      "name": "Diwali"
+      "name": "Diwali",
+      "description": "Thalis, torans and décor for the festival of lights."
     },
     {
       "slug": "karwa-chauth",
-      "name": "Karwa Chauth"
+      "name": "Karwa Chauth",
+      "description": "Chalni and thali sets for the fast."
     },
     {
       "slug": "raksha-bandhan",
-      "name": "Raksha Bandhan"
+      "name": "Raksha Bandhan",
+      "description": "Rakhi thalis and small gifts for your brother or sister."
     },
     {
       "slug": "corporate-gifting",
-      "name": "Corporate gifting"
+      "name": "Corporate gifting",
+      "description": "Handmade gifts for teams, clients and farewells."
     }
   ],
   "categories": [
@@ -86,6 +95,7 @@
       "description": "IAF, Army and Navy shadow boxes with medals, badges, photo and name plate.",
       "image": "/products/iaf-retirement-tribute-frame/1.jpg",
       "status": "active",
+      "requestName": "retirement tribute frame",
       "startingPrice": 4999,
       "makingTimeDays": {
         "min": 10,
@@ -99,6 +109,7 @@
       "description": "Your colours, a name, initials or a monogram.",
       "image": "/products/blush-agate-resin-tray/1.jpg",
       "status": "active",
+      "requestName": "resin tray",
       "startingPrice": 1999,
       "makingTimeDays": {
         "min": 7,
@@ -112,6 +123,7 @@
       "description": "Photo magnets and clear resin photo blocks.",
       "image": "/products/resin-photo-blocks-magnets/1.jpg",
       "status": "active",
+      "requestName": "photo fridge magnet",
       "startingPrice": 599,
       "makingTimeDays": {
         "min": 5,
@@ -125,6 +137,7 @@
       "description": "Resin and pressed-flower covers for your phone model.",
       "image": null,
       "status": "coming-soon",
+      "requestName": "resin phone cover",
       "startingPrice": null,
       "makingTimeDays": null
     },
@@ -135,6 +148,7 @@
       "description": "Birthday, anniversary and wedding boxes, with optional LED lights.",
       "image": "/products/birthday-shadow-box-led/1.jpg",
       "status": "active",
+      "requestName": "personalised shadow box",
       "startingPrice": 2999,
       "makingTimeDays": {
         "min": 7,
@@ -148,6 +162,7 @@
       "description": "Your photo with flowers or butterflies, on a wooden easel.",
       "image": null,
       "status": "made-to-order",
+      "requestName": "resin photo frame",
       "startingPrice": 1499,
       "makingTimeDays": {
         "min": 5,
@@ -161,6 +176,7 @@
       "description": "For the home, the front door or the desk.",
       "image": null,
       "status": "made-to-order",
+      "requestName": "name plate",
       "startingPrice": null,
       "makingTimeDays": null
     },
@@ -171,6 +187,7 @@
       "description": "Wedding varmala, bouquets and single roses set in resin.",
       "image": null,
       "status": "made-to-order",
+      "requestName": "flower preservation piece",
       "startingPrice": null,
       "makingTimeDays": null
     },
@@ -181,6 +198,7 @@
       "description": "Any letter or name, with the flowers you choose.",
       "image": "/products/botanical-initial-keychain/1.jpg",
       "status": "active",
+      "requestName": "initial keychain",
       "startingPrice": 249,
       "makingTimeDays": {
         "min": 4,
@@ -194,6 +212,7 @@
       "description": "Custom colours with geode and marble effects.",
       "image": "/products/marble-noir-wall-clock/1.jpg",
       "status": "active",
+      "requestName": "resin wall clock",
       "startingPrice": 2999,
       "makingTimeDays": {
         "min": 8,
@@ -207,6 +226,7 @@
       "description": "Earrings, pendants and rings.",
       "image": null,
       "status": "made-to-order",
+      "requestName": "piece of resin jewellery",
       "startingPrice": null,
       "makingTimeDays": null
     },
@@ -217,6 +237,7 @@
       "description": "A photo, paw print or fur kept in resin.",
       "image": null,
       "status": "made-to-order",
+      "requestName": "pet memorial",
       "startingPrice": null,
       "makingTimeDays": null
     },
@@ -227,6 +248,7 @@
       "description": "Resin rakhis, name torans and custom pooja thalis.",
       "image": "/products/shubh-labh-toran/1.jpg",
       "status": "active",
+      "requestName": "rakhi or festive piece",
       "startingPrice": null,
       "makingTimeDays": null
     },
@@ -237,6 +259,7 @@
       "description": "Reusable rangoli for floors and tables.",
       "image": null,
       "status": "made-to-order",
+      "requestName": "resin rangoli",
       "startingPrice": null,
       "makingTimeDays": null
     },
@@ -247,6 +270,7 @@
       "description": "Small pieces for reading corners and work desks.",
       "image": null,
       "status": "made-to-order",
+      "requestName": "bookmark, coaster set or desk organiser",
       "startingPrice": null,
       "makingTimeDays": null
     }
@@ -287,6 +311,10 @@
       },
       "stock": 5,
       "variants": [],
+      "colours": [
+        "multicolour",
+        "green"
+      ],
       "tags": [
         "diwali",
         "toran",
@@ -306,7 +334,8 @@
         "dimensions",
         "weight",
         "makingTimeDays",
-        "images"
+        "images",
+        "colours"
       ]
     },
     {
@@ -346,12 +375,18 @@
       },
       "stock": 3,
       "variants": [],
+      "colours": [
+        "pink",
+        "green",
+        "gold"
+      ],
       "tags": [
         "tray",
         "agate",
         "serving tray",
         "pink",
-        "green"
+        "green",
+        "gift"
       ],
       "isNew": true,
       "isBestseller": false,
@@ -367,7 +402,8 @@
         "weight",
         "makingTimeDays",
         "images",
-        "productType"
+        "productType",
+        "colours"
       ]
     },
     {
@@ -403,6 +439,10 @@
       },
       "stock": 1,
       "variants": [],
+      "colours": [
+        "pink",
+        "gold"
+      ],
       "tags": [
         "tray",
         "marble",
@@ -422,7 +462,8 @@
         "weight",
         "makingTimeDays",
         "images",
-        "confirmListing"
+        "confirmListing",
+        "colours"
       ]
     },
     {
@@ -460,6 +501,7 @@
       },
       "stock": null,
       "variants": [],
+      "colours": [],
       "tags": [
         "iaf",
         "air force",
@@ -468,7 +510,8 @@
         "retirement",
         "shadow box",
         "medals",
-        "farewell"
+        "farewell",
+        "gift"
       ],
       "isNew": false,
       "isBestseller": true,
@@ -519,6 +562,10 @@
       },
       "stock": 4,
       "variants": [],
+      "colours": [
+        "teal",
+        "gold"
+      ],
       "tags": [
         "karwa chauth",
         "chalni",
@@ -538,7 +585,8 @@
         "dimensions",
         "weight",
         "makingTimeDays",
-        "images"
+        "images",
+        "colours"
       ]
     },
     {
@@ -577,6 +625,10 @@
       },
       "stock": 6,
       "variants": [],
+      "colours": [
+        "red",
+        "gold"
+      ],
       "tags": [
         "pooja thali",
         "diwali",
@@ -597,7 +649,8 @@
         "weight",
         "makingTimeDays",
         "images",
-        "material"
+        "material",
+        "colours"
       ]
     },
     {
@@ -636,12 +689,14 @@
       },
       "stock": null,
       "variants": [],
+      "colours": [],
       "tags": [
         "shadow box",
         "birthday",
         "wife",
         "led",
-        "personalised"
+        "personalised",
+        "gift"
       ],
       "isNew": false,
       "isBestseller": false,
@@ -690,11 +745,13 @@
       },
       "stock": null,
       "variants": [],
+      "colours": [],
       "tags": [
         "photo frame",
         "birthday",
         "resin frame",
-        "easel"
+        "easel",
+        "gift"
       ],
       "isNew": false,
       "isBestseller": false,
@@ -754,11 +811,13 @@
           ]
         }
       ],
+      "colours": [],
       "tags": [
         "fridge magnet",
         "photo block",
         "photo gift",
-        "magnets"
+        "magnets",
+        "gift"
       ],
       "isNew": false,
       "isBestseller": false,
@@ -839,11 +898,15 @@
           ]
         }
       ],
+      "colours": [
+        "multicolour"
+      ],
       "tags": [
         "alphabet",
         "letters",
         "name",
-        "kids"
+        "kids",
+        "gift"
       ],
       "isNew": false,
       "isBestseller": false,
@@ -857,7 +920,8 @@
         "dimensions",
         "weight",
         "makingTimeDays",
-        "images"
+        "images",
+        "colours"
       ]
     },
     {
@@ -927,12 +991,17 @@
           ]
         }
       ],
+      "colours": [
+        "clear",
+        "green"
+      ],
       "tags": [
         "keychain",
         "initial",
         "letter",
         "pressed flowers",
-        "rakhi gift"
+        "rakhi gift",
+        "gift"
       ],
       "isNew": false,
       "isBestseller": true,
@@ -946,7 +1015,8 @@
         "dimensions",
         "weight",
         "makingTimeDays",
-        "images"
+        "images",
+        "colours"
       ]
     },
     {
@@ -984,12 +1054,18 @@
       },
       "stock": 2,
       "variants": [],
+      "colours": [
+        "white",
+        "black",
+        "gold"
+      ],
       "tags": [
         "wall clock",
         "marble",
         "geode",
         "black and gold",
-        "housewarming"
+        "housewarming",
+        "gift"
       ],
       "isNew": false,
       "isBestseller": true,
@@ -1004,7 +1080,8 @@
         "weight",
         "makingTimeDays",
         "images",
-        "care"
+        "care",
+        "colours"
       ]
     }
   ]

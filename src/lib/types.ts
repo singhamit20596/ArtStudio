@@ -33,6 +33,9 @@ export interface Product {
   makingTimeDays: DayRange;
   stock: number | null;
   variants: Variant[];
+  /** Colour families for the listing filter (see COLOURS in listing.ts). Empty for custom pieces. */
+  colours: string[];
+  /** Search keywords. The "gift" tag puts a product in the /gifts collection. */
   tags: string[];
   isNew: boolean;
   isBestseller: boolean;
@@ -55,6 +58,8 @@ export interface Category {
   description: string;
   image: string | null;
   status: CategoryStatus;
+  /** Custom categories: completes "Hi! I'd like a custom …" in the WhatsApp request. */
+  requestName?: string;
   startingPrice?: number | null;
   makingTimeDays?: DayRange | null;
 }
@@ -62,6 +67,7 @@ export interface Category {
 export interface Occasion {
   slug: string;
   name: string;
+  description: string;
 }
 
 export interface Seed {
@@ -80,4 +86,12 @@ export interface SearchItem {
   startingPrice: number | null;
   image: string | null;
   tags: string[];
+}
+
+/** A category or occasion suggested by the search overlay. */
+export interface SearchLink {
+  label: string;
+  /** "Category", "Custom" or "Occasion" */
+  kind: string;
+  href: string;
 }

@@ -9,14 +9,14 @@ const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), selec
 interface DrawerProps {
   open: boolean;
   onClose: () => void;
-  side: "left" | "right" | "top";
+  side: "left" | "right" | "top" | "bottom";
   /** Accessible name of the dialog. */
   label: string;
   children: ReactNode;
   className?: string;
 }
 
-/** Modal panel (side drawer or top sheet) with focus trap, Escape and backdrop close. */
+/** Modal panel (side drawer, top sheet or bottom sheet) with focus trap, Escape and backdrop close. */
 export function Drawer({ open, onClose, side, label, children, className }: DrawerProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef(onClose);
@@ -87,6 +87,7 @@ export function Drawer({ open, onClose, side, label, children, className }: Draw
           side === "right" && "anim-right inset-y-0 right-0 w-[min(420px,100%)]",
           side === "left" && "anim-left inset-y-0 left-0 w-[min(380px,88%)]",
           side === "top" && "anim-drop inset-x-0 top-0 max-h-[100dvh]",
+          side === "bottom" && "anim-up inset-x-0 bottom-0 max-h-[88dvh]",
           className,
         )}
         style={{

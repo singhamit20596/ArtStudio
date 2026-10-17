@@ -1,0 +1,1011 @@
+{
+  "_about": "Seed catalogue for Art Studio. This file is the source of truth until the Supabase database is connected (Phase 4), when it will be imported as-is. Fields listed in each product's `placeholders` array still need real values; see TODO.md.",
+  "occasions": [
+    {
+      "slug": "retirement",
+      "name": "Retirement"
+    },
+    {
+      "slug": "birthday",
+      "name": "Birthday"
+    },
+    {
+      "slug": "anniversary",
+      "name": "Anniversary"
+    },
+    {
+      "slug": "wedding",
+      "name": "Wedding"
+    },
+    {
+      "slug": "housewarming",
+      "name": "Housewarming"
+    },
+    {
+      "slug": "diwali",
+      "name": "Diwali"
+    },
+    {
+      "slug": "karwa-chauth",
+      "name": "Karwa Chauth"
+    },
+    {
+      "slug": "raksha-bandhan",
+      "name": "Raksha Bandhan"
+    },
+    {
+      "slug": "corporate-gifting",
+      "name": "Corporate gifting"
+    }
+  ],
+  "categories": [
+    {
+      "slug": "trays-coasters",
+      "type": "ready",
+      "name": "Trays & Coasters",
+      "description": "Agate-edge trays and coasters poured in soft, layered colour.",
+      "image": "/products/blush-agate-resin-tray/1.jpg",
+      "status": "active"
+    },
+    {
+      "slug": "pooja-festive",
+      "type": "ready",
+      "name": "Pooja & Festive",
+      "description": "Thalis, torans, Karwa Chauth sets and Diwali décor.",
+      "image": "/products/lal-pooja-thali/1.jpg",
+      "status": "active"
+    },
+    {
+      "slug": "wall-decor",
+      "type": "ready",
+      "name": "Wall Décor",
+      "description": "Resin wall clocks and wall panels.",
+      "image": "/products/marble-noir-wall-clock/1.jpg",
+      "status": "active"
+    },
+    {
+      "slug": "keychains-accessories",
+      "type": "ready",
+      "name": "Keychains & Accessories",
+      "description": "Initial keychains and resin letters with pressed flowers.",
+      "image": "/products/botanical-initial-keychain/1.jpg",
+      "status": "active"
+    },
+    {
+      "slug": "gifts",
+      "type": "ready",
+      "name": "Gifts",
+      "description": "A curated edit of pieces that make easy, thoughtful gifts.",
+      "image": "/products/resin-alphabet-letters/1.jpg",
+      "status": "active"
+    },
+    {
+      "slug": "retirement-tribute-frames",
+      "type": "custom",
+      "name": "Retirement & Tribute Frames",
+      "description": "IAF, Army and Navy shadow boxes with medals, badges, photo and name plate.",
+      "image": "/products/iaf-retirement-tribute-frame/1.jpg",
+      "status": "active",
+      "startingPrice": 4999,
+      "makingTimeDays": {
+        "min": 10,
+        "max": 14
+      }
+    },
+    {
+      "slug": "resin-trays",
+      "type": "custom",
+      "name": "Resin Trays",
+      "description": "Your colours, a name, initials or a monogram.",
+      "image": "/products/blush-agate-resin-tray/1.jpg",
+      "status": "active",
+      "startingPrice": 1999,
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      }
+    },
+    {
+      "slug": "fridge-magnets",
+      "type": "custom",
+      "name": "Fridge Magnets",
+      "description": "Photo magnets and clear resin photo blocks.",
+      "image": "/products/resin-photo-blocks-magnets/1.jpg",
+      "status": "active",
+      "startingPrice": 599,
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      }
+    },
+    {
+      "slug": "phone-covers",
+      "type": "custom",
+      "name": "Phone Covers",
+      "description": "Resin and pressed-flower covers for your phone model.",
+      "image": null,
+      "status": "coming-soon",
+      "startingPrice": null,
+      "makingTimeDays": null
+    },
+    {
+      "slug": "shadow-boxes",
+      "type": "custom",
+      "name": "Personalised Shadow Boxes",
+      "description": "Birthday, anniversary and wedding boxes, with optional LED lights.",
+      "image": "/products/birthday-shadow-box-led/1.jpg",
+      "status": "active",
+      "startingPrice": 2999,
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      }
+    },
+    {
+      "slug": "resin-photo-frames",
+      "type": "custom",
+      "name": "Resin Photo Frames",
+      "description": "Your photo with flowers or butterflies, on a wooden easel.",
+      "image": null,
+      "status": "made-to-order",
+      "startingPrice": 1499,
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      }
+    },
+    {
+      "slug": "name-plates",
+      "type": "custom",
+      "name": "Name Plates",
+      "description": "For the home, the front door or the desk.",
+      "image": null,
+      "status": "made-to-order",
+      "startingPrice": null,
+      "makingTimeDays": null
+    },
+    {
+      "slug": "flower-preservation",
+      "type": "custom",
+      "name": "Flower Preservation",
+      "description": "Wedding varmala, bouquets and single roses set in resin.",
+      "image": null,
+      "status": "made-to-order",
+      "startingPrice": null,
+      "makingTimeDays": null
+    },
+    {
+      "slug": "initial-keychains",
+      "type": "custom",
+      "name": "Initial & Name Keychains",
+      "description": "Any letter or name, with the flowers you choose.",
+      "image": "/products/botanical-initial-keychain/1.jpg",
+      "status": "active",
+      "startingPrice": 249,
+      "makingTimeDays": {
+        "min": 4,
+        "max": 6
+      }
+    },
+    {
+      "slug": "wall-clocks",
+      "type": "custom",
+      "name": "Wall Clocks",
+      "description": "Custom colours with geode and marble effects.",
+      "image": "/products/marble-noir-wall-clock/1.jpg",
+      "status": "active",
+      "startingPrice": 2999,
+      "makingTimeDays": {
+        "min": 8,
+        "max": 12
+      }
+    },
+    {
+      "slug": "resin-jewellery",
+      "type": "custom",
+      "name": "Resin Jewellery",
+      "description": "Earrings, pendants and rings.",
+      "image": null,
+      "status": "made-to-order",
+      "startingPrice": null,
+      "makingTimeDays": null
+    },
+    {
+      "slug": "pet-memorials",
+      "type": "custom",
+      "name": "Pet Memorials",
+      "description": "A photo, paw print or fur kept in resin.",
+      "image": null,
+      "status": "made-to-order",
+      "startingPrice": null,
+      "makingTimeDays": null
+    },
+    {
+      "slug": "rakhi-festive-customs",
+      "type": "custom",
+      "name": "Rakhi & Festive Customs",
+      "description": "Resin rakhis, name torans and custom pooja thalis.",
+      "image": "/products/shubh-labh-toran/1.jpg",
+      "status": "active",
+      "startingPrice": null,
+      "makingTimeDays": null
+    },
+    {
+      "slug": "resin-rangoli",
+      "type": "custom",
+      "name": "Resin Rangoli",
+      "description": "Reusable rangoli for floors and tables.",
+      "image": null,
+      "status": "made-to-order",
+      "startingPrice": null,
+      "makingTimeDays": null
+    },
+    {
+      "slug": "bookmarks-coasters-desk",
+      "type": "custom",
+      "name": "Bookmarks, Coaster Sets & Desk Organisers",
+      "description": "Small pieces for reading corners and work desks.",
+      "image": null,
+      "status": "made-to-order",
+      "startingPrice": null,
+      "makingTimeDays": null
+    }
+  ],
+  "products": [
+    {
+      "id": "p_001",
+      "slug": "shubh-labh-toran",
+      "name": "Shubh Labh Toran | Resin Door Hanging | Pair",
+      "type": "ready",
+      "category": "pooja-festive",
+      "subcategory": "Torans & door hangings",
+      "occasions": [
+        "diwali",
+        "housewarming"
+      ],
+      "price": 1299,
+      "mrp": null,
+      "startingPrice": null,
+      "images": [
+        "/products/shubh-labh-toran/1.jpg"
+      ],
+      "video": null,
+      "description": "A pair of hand-poured resin door hangings for the festive season. Kalash, swastik, elephant and diya motifs are strung on beaded threads and finished with शुभ and लाभ lettering.",
+      "highlights": [
+        "Pair of two hangings: one शुभ, one लाभ",
+        "Kalash, swastik, elephant and diya motifs in resin",
+        "Beaded strings with a loop for hanging",
+        "Handmade, so colours vary slightly from piece to piece"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, beads",
+      "weight": null,
+      "care": "Wipe gently with a soft, dry cloth. Keep away from direct sunlight and heat.",
+      "makingTimeDays": {
+        "min": 2,
+        "max": 4
+      },
+      "stock": 5,
+      "variants": [],
+      "tags": [
+        "diwali",
+        "toran",
+        "door hanging",
+        "shubh labh",
+        "bandarwal"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": "https://www.instagram.com/reel/DehcHR6TtL2/",
+      "createdAt": "2026-10-15",
+      "published": true,
+      "placeholders": [
+        "price",
+        "stock",
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "images"
+      ]
+    },
+    {
+      "id": "p_002",
+      "slug": "blush-agate-resin-tray",
+      "name": "Blush Agate | Resin Serving Tray",
+      "type": "ready",
+      "category": "trays-coasters",
+      "subcategory": "Trays",
+      "occasions": [
+        "housewarming",
+        "wedding",
+        "birthday",
+        "diwali"
+      ],
+      "price": 1899,
+      "mrp": null,
+      "startingPrice": null,
+      "images": [
+        "/products/blush-agate-resin-tray/1.jpg"
+      ],
+      "video": null,
+      "description": "An agate-edge serving tray poured in blush pink and sage green, finished with a gold-edged rim. Every pour settles into its own pattern, so no two trays match.",
+      "highlights": [
+        "Blush pink, sage green and lilac layers",
+        "Wavy agate edge finished in gold",
+        "Glossy, wipe-clean surface",
+        "One of a kind: the pattern is never repeated"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, pigments, gold edging",
+      "weight": null,
+      "care": "Wipe with a soft damp cloth. Not for hot pans or the dishwasher. Keep away from direct sunlight.",
+      "makingTimeDays": {
+        "min": 2,
+        "max": 4
+      },
+      "stock": 3,
+      "variants": [],
+      "tags": [
+        "tray",
+        "agate",
+        "serving tray",
+        "pink",
+        "green"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": "https://www.instagram.com/reel/DeXJ1XwTw6f/",
+      "createdAt": "2026-10-11",
+      "published": true,
+      "notes": "The brief called this a coaster; the photo shows a tray-sized piece. Confirm the product type.",
+      "placeholders": [
+        "price",
+        "stock",
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "images",
+        "productType"
+      ]
+    },
+    {
+      "id": "p_003",
+      "slug": "rose-marble-resin-tray",
+      "name": "Rose Marble | Resin Serving Tray",
+      "type": "ready",
+      "category": "trays-coasters",
+      "subcategory": "Trays",
+      "occasions": [
+        "housewarming",
+        "wedding",
+        "birthday"
+      ],
+      "price": 2199,
+      "mrp": null,
+      "startingPrice": null,
+      "images": [],
+      "video": null,
+      "description": "A rectangular wavy-edge tray with a pink and mauve marble swirl and a gold ring accent.",
+      "highlights": [
+        "Pink and mauve marble swirl",
+        "Wavy edge",
+        "Gold ring accent"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, pigments",
+      "weight": null,
+      "care": "Wipe with a soft damp cloth. Not for hot pans or the dishwasher.",
+      "makingTimeDays": {
+        "min": 2,
+        "max": 4
+      },
+      "stock": 1,
+      "variants": [],
+      "tags": [
+        "tray",
+        "marble",
+        "pink"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": "https://www.instagram.com/sabbcreations65/reel/DeUHa18TxqS/",
+      "createdAt": "2026-10-10",
+      "published": false,
+      "notes": "Hidden until confirmed: this is a collab post on @sabbcreations65's profile. Confirm it is your piece and send a photo.",
+      "placeholders": [
+        "price",
+        "stock",
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "images",
+        "confirmListing"
+      ]
+    },
+    {
+      "id": "p_004",
+      "slug": "iaf-retirement-tribute-frame",
+      "name": "IAF Retirement Tribute Frame | Shadow Box",
+      "type": "custom",
+      "category": "retirement-tribute-frames",
+      "subcategory": "Indian Air Force",
+      "occasions": [
+        "retirement",
+        "corporate-gifting"
+      ],
+      "price": null,
+      "mrp": null,
+      "startingPrice": 4999,
+      "images": [
+        "/products/iaf-retirement-tribute-frame/1.jpg"
+      ],
+      "video": null,
+      "description": "A shadow-box tribute for an Indian Air Force retirement. Medals, wings, squadron patches, rank stripes and a photograph are arranged by hand on a blue mount and finished with an engraved name plate.",
+      "highlights": [
+        "Built around the officer's own medals, wings and patches",
+        "Photograph and engraved name plate included",
+        "Also made for Army and Navy retirements",
+        "Wooden shadow-box frame"
+      ],
+      "dimensions": null,
+      "material": "Wooden shadow-box frame, mount board, metal name plate",
+      "weight": null,
+      "care": "Dust the glass and frame with a soft dry cloth.",
+      "makingTimeDays": {
+        "min": 10,
+        "max": 14
+      },
+      "stock": null,
+      "variants": [],
+      "tags": [
+        "iaf",
+        "air force",
+        "army",
+        "navy",
+        "retirement",
+        "shadow box",
+        "medals",
+        "farewell"
+      ],
+      "isNew": false,
+      "isBestseller": true,
+      "isCustomisable": true,
+      "instagramUrl": "https://www.instagram.com/reel/DeRz5G_CBu0/",
+      "createdAt": "2026-10-09",
+      "published": true,
+      "placeholders": [
+        "startingPrice",
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "images"
+      ]
+    },
+    {
+      "id": "p_005",
+      "slug": "karwa-chauth-chalni-thali-set",
+      "name": "Karwa Chauth Chalni & Thali Set | Resin",
+      "type": "ready",
+      "category": "pooja-festive",
+      "subcategory": "Karwa Chauth",
+      "occasions": [
+        "karwa-chauth",
+        "wedding"
+      ],
+      "price": 2499,
+      "mrp": null,
+      "startingPrice": null,
+      "images": [
+        "/products/karwa-chauth-chalni-thali-set/1.jpg"
+      ],
+      "video": null,
+      "description": "A Karwa Chauth set in deep teal resin: a chalni edged with pearls and a matching thali with gold leaf and bells.",
+      "highlights": [
+        "Chalni and thali in matching teal resin",
+        "Pearl-edged chalni with a shimmer centre",
+        "Gold leaf sprigs and bells on the thali",
+        "A keepsake for a first Karwa Chauth"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, pearls, metal bells",
+      "weight": null,
+      "care": "Wipe gently with a soft, dry cloth. Keep away from direct heat and flame.",
+      "makingTimeDays": {
+        "min": 2,
+        "max": 4
+      },
+      "stock": 4,
+      "variants": [],
+      "tags": [
+        "karwa chauth",
+        "chalni",
+        "thali",
+        "sargi",
+        "bridal"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": "https://www.instagram.com/reel/DeMlAapzv6X/",
+      "createdAt": "2026-10-07",
+      "published": true,
+      "placeholders": [
+        "price",
+        "stock",
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "images"
+      ]
+    },
+    {
+      "id": "p_006",
+      "slug": "lal-pooja-thali",
+      "name": "Lal Pooja Thali | Resin with Gold Leaf",
+      "type": "ready",
+      "category": "pooja-festive",
+      "subcategory": "Pooja thalis",
+      "occasions": [
+        "diwali",
+        "raksha-bandhan",
+        "housewarming"
+      ],
+      "price": 1499,
+      "mrp": null,
+      "startingPrice": null,
+      "images": [
+        "/products/lal-pooja-thali/1.jpg"
+      ],
+      "video": null,
+      "description": "A red resin pooja thali with a scalloped edge and fine gold shimmer, finished with gold leaf sprigs, a small Ganesha motif and two gold katoris for roli and rice.",
+      "highlights": [
+        "Scalloped red resin with gold shimmer",
+        "Two gold katoris for roli and rice",
+        "Gold leaf sprigs and a small Ganesha motif",
+        "Made for Diwali, Raksha Bandhan and everyday pooja"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, metal katoris",
+      "weight": null,
+      "care": "Wipe with a soft damp cloth. Keep diyas in the katoris, not directly on the resin.",
+      "makingTimeDays": {
+        "min": 2,
+        "max": 4
+      },
+      "stock": 6,
+      "variants": [],
+      "tags": [
+        "pooja thali",
+        "diwali",
+        "rakhi thali",
+        "ganesha",
+        "red"
+      ],
+      "isNew": true,
+      "isBestseller": true,
+      "isCustomisable": false,
+      "instagramUrl": "https://www.instagram.com/reel/DeHf5SUM9gw/",
+      "createdAt": "2026-10-05",
+      "published": true,
+      "placeholders": [
+        "price",
+        "stock",
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "images",
+        "material"
+      ]
+    },
+    {
+      "id": "p_007",
+      "slug": "birthday-shadow-box-led",
+      "name": "Birthday Shadow Box | LED Lit",
+      "type": "custom",
+      "category": "shadow-boxes",
+      "subcategory": "Birthday",
+      "occasions": [
+        "birthday",
+        "anniversary",
+        "wedding"
+      ],
+      "price": null,
+      "mrp": null,
+      "startingPrice": 2999,
+      "images": [
+        "/products/birthday-shadow-box-led/1.jpg"
+      ],
+      "video": null,
+      "description": "A personalised shadow box with warm LED lights, built around your photos, a message card, flowers and small keepsakes.",
+      "highlights": [
+        "Your photos, message card and keepsakes",
+        "Warm LED fairy lights",
+        "Miniatures and flowers chosen to match the story",
+        "Made for birthdays, anniversaries and weddings"
+      ],
+      "dimensions": null,
+      "material": "Wooden shadow box, paper, foam flowers, LED lights",
+      "weight": null,
+      "care": "Dust with a soft dry cloth. Switch the lights off when not on display.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "tags": [
+        "shadow box",
+        "birthday",
+        "wife",
+        "led",
+        "personalised"
+      ],
+      "isNew": false,
+      "isBestseller": false,
+      "isCustomisable": true,
+      "instagramUrl": "https://www.instagram.com/reel/Dd6vjLGzJ1e/",
+      "createdAt": "2026-09-30",
+      "published": true,
+      "placeholders": [
+        "startingPrice",
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "images",
+        "material"
+      ]
+    },
+    {
+      "id": "p_008",
+      "slug": "memory-photo-frame-easel",
+      "name": "Memory Photo Frame | Resin with Easel",
+      "type": "custom",
+      "category": "resin-photo-frames",
+      "subcategory": null,
+      "occasions": [
+        "birthday",
+        "anniversary"
+      ],
+      "price": null,
+      "mrp": null,
+      "startingPrice": 1499,
+      "images": [],
+      "video": null,
+      "description": "A wavy-edged resin frame with your photo set inside, framed by butterflies and dried flowers, on a small wooden easel.",
+      "highlights": [
+        "Your photo sealed in resin",
+        "Butterflies, dried flowers and a short message",
+        "Wooden easel included"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, dried flowers, wooden easel",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "tags": [
+        "photo frame",
+        "birthday",
+        "resin frame",
+        "easel"
+      ],
+      "isNew": false,
+      "isBestseller": false,
+      "isCustomisable": true,
+      "instagramUrl": "https://www.instagram.com/reel/DdwcvFoTszR/",
+      "createdAt": "2026-09-26",
+      "published": true,
+      "notes": "The Instagram cover has heavy text on it, so no product photo is used yet.",
+      "placeholders": [
+        "startingPrice",
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "images"
+      ]
+    },
+    {
+      "id": "p_009",
+      "slug": "resin-photo-blocks-magnets",
+      "name": "Photo Blocks & Fridge Magnets | Resin",
+      "type": "custom",
+      "category": "fridge-magnets",
+      "subcategory": null,
+      "occasions": [
+        "birthday",
+        "anniversary",
+        "corporate-gifting"
+      ],
+      "price": null,
+      "mrp": null,
+      "startingPrice": 599,
+      "images": [
+        "/products/resin-photo-blocks-magnets/1.jpg"
+      ],
+      "video": null,
+      "description": "Clear resin photo blocks and fridge magnets with your photo set inside, edged with dried flowers.",
+      "highlights": [
+        "Your photo sealed in clear resin",
+        "Choose a standing block or a fridge magnet",
+        "Dried flower edging in the colours you like"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, dried flowers, magnet",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [
+        {
+          "name": "Style",
+          "options": [
+            "Photo block",
+            "Fridge magnet"
+          ]
+        }
+      ],
+      "tags": [
+        "fridge magnet",
+        "photo block",
+        "photo gift",
+        "magnets"
+      ],
+      "isNew": false,
+      "isBestseller": false,
+      "isCustomisable": true,
+      "instagramUrl": "https://www.instagram.com/reel/DdmBXunsmMI/",
+      "createdAt": "2026-09-22",
+      "published": true,
+      "placeholders": [
+        "startingPrice",
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "images"
+      ]
+    },
+    {
+      "id": "p_010",
+      "slug": "resin-alphabet-letters",
+      "name": "Alphabet Letters | Resin | Single or Set",
+      "type": "ready",
+      "category": "keychains-accessories",
+      "subcategory": "Letters",
+      "occasions": [
+        "birthday"
+      ],
+      "price": 149,
+      "mrp": null,
+      "startingPrice": null,
+      "images": [
+        "/products/resin-alphabet-letters/1.jpg"
+      ],
+      "video": null,
+      "description": "Colourful resin letters with glitter, flakes and tiny flowers. Pick a single letter or spell out a name.",
+      "highlights": [
+        "Priced per letter",
+        "Glitter, flakes and flower inclusions",
+        "Spell a name for a desk, shelf or gift box"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, glitter, dried flowers",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth.",
+      "makingTimeDays": {
+        "min": 2,
+        "max": 3
+      },
+      "stock": 26,
+      "variants": [
+        {
+          "name": "Letter",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z"
+          ]
+        }
+      ],
+      "tags": [
+        "alphabet",
+        "letters",
+        "name",
+        "kids"
+      ],
+      "isNew": false,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": "https://www.instagram.com/reel/DdZBZhHzUOS/",
+      "createdAt": "2026-09-17",
+      "published": true,
+      "placeholders": [
+        "price",
+        "stock",
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "images"
+      ]
+    },
+    {
+      "id": "p_011",
+      "slug": "botanical-initial-keychain",
+      "name": "Botanical Initial Keychain | Resin",
+      "type": "ready",
+      "category": "keychains-accessories",
+      "subcategory": "Keychains",
+      "occasions": [
+        "birthday",
+        "raksha-bandhan",
+        "corporate-gifting"
+      ],
+      "price": 249,
+      "mrp": null,
+      "startingPrice": null,
+      "images": [
+        "/products/botanical-initial-keychain/1.jpg"
+      ],
+      "video": null,
+      "description": "A clear resin initial keychain with pressed leaves and flowers set inside, on a lobster clasp and key ring.",
+      "highlights": [
+        "Choose any letter, A to Z",
+        "Real pressed leaves and flowers",
+        "Lobster clasp and split key ring"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, pressed flowers, metal clasp",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Avoid long exposure to direct sunlight.",
+      "makingTimeDays": {
+        "min": 2,
+        "max": 3
+      },
+      "stock": 20,
+      "variants": [
+        {
+          "name": "Letter",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z"
+          ]
+        }
+      ],
+      "tags": [
+        "keychain",
+        "initial",
+        "letter",
+        "pressed flowers",
+        "rakhi gift"
+      ],
+      "isNew": false,
+      "isBestseller": true,
+      "isCustomisable": false,
+      "instagramUrl": "https://www.instagram.com/p/DdWs89mzasa/",
+      "createdAt": "2026-09-16",
+      "published": true,
+      "placeholders": [
+        "price",
+        "stock",
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "images"
+      ]
+    },
+    {
+      "id": "p_012",
+      "slug": "marble-noir-wall-clock",
+      "name": "Marble Noir | Resin Wall Clock",
+      "type": "ready",
+      "category": "wall-decor",
+      "subcategory": "Wall clocks",
+      "occasions": [
+        "housewarming",
+        "diwali",
+        "wedding"
+      ],
+      "price": 3499,
+      "mrp": null,
+      "startingPrice": null,
+      "images": [
+        "/products/marble-noir-wall-clock/1.jpg"
+      ],
+      "video": null,
+      "description": "A white marble-effect resin wall clock with a black geode edge of crushed glass and gold flakes, and raised gold Roman numerals.",
+      "highlights": [
+        "White marble effect with a black geode edge",
+        "Crushed glass and gold flake detailing",
+        "Raised gold Roman numerals"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, crushed glass, gold flakes, clock movement",
+      "weight": null,
+      "care": "Dust with a soft dry cloth.",
+      "makingTimeDays": {
+        "min": 2,
+        "max": 4
+      },
+      "stock": 2,
+      "variants": [],
+      "tags": [
+        "wall clock",
+        "marble",
+        "geode",
+        "black and gold",
+        "housewarming"
+      ],
+      "isNew": false,
+      "isBestseller": true,
+      "isCustomisable": false,
+      "instagramUrl": "https://www.instagram.com/p/DdUKr2BzVeg/",
+      "createdAt": "2026-09-15",
+      "published": true,
+      "placeholders": [
+        "price",
+        "stock",
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "images",
+        "care"
+      ]
+    }
+  ]
+}

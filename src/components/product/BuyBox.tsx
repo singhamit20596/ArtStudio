@@ -1,20 +1,22 @@
 "use client";
 
 import clsx from "clsx";
-import { Minus, Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { Product } from "@/lib/types";
 import { formatINR } from "@/lib/format";
+import { MAX_QTY } from "@/lib/pricing";
 import { shortName } from "@/lib/product";
 import { useOrigin } from "@/lib/use-origin";
 import { messages, whatsappLink } from "@/lib/whatsapp";
+import { useShop } from "@/components/providers/ShopProvider";
 import { WhatsAppIcon } from "@/components/ui/Icons";
+import { QuantityStepper } from "@/components/ui/QuantityStepper";
 import { toast } from "@/components/ui/Toaster";
 import { DeliveryCheck } from "./DeliveryCheck";
 import { StickyBar } from "./StickyBar";
 import { WishlistButton } from "./WishlistButton";
 
-const MAX_QTY = 10;
 const ACTIONS_ID = "buy-actions";
 
 /** Ready-made pieces: variants, stock note, quantity, cart buttons, WhatsApp order and delivery check. */
@@ -23,6 +25,8 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
   const [qty, setQty] = useState(1);
   const [missing, setMissing] = useState<string | null>(null);
   const origin = useOrigin();
+  const router = useRouter();
+  const { addToCart: add, setCartOpen } = useShop();
 
   const name = shortName(product);
   const stock = product.stock ?? 0;
@@ -41,8 +45,17 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
     document.getElementById(`variant-${unmet.name}`)?.scrollIntoView({ block: "center", behavior: "smooth" });
     return false;
   };
+  /** Puts the chosen piece in the cart (never beyond stock); false if none could be added. */
+  const putInCart = () => add({ slug: product.slug, quantity: qty, variant: variantText || undefined }, maxQty) > 0;
   const addToCart = () => {
-    if (ready()) toast("Cart and checkout arrive in Phase 3. For now, tap “Order on WhatsApp”.");
+    if (!ready()) return;
+    putInCart();
+    setCartOpen(true);
+  };
+  const buyNow = () => {
+    if (!ready()) return;
+    if (putInCart()) router.push("/checkout");
+    else toast("This piece is no longer available.");
   };
   const orderOnWhatsApp = (e: React.MouseEvent) => {
     if (!ready()) e.preventDefault();
@@ -92,17 +105,7 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
       <div id={ACTIONS_ID} className="space-y-3">
         <div className="flex gap-3">
           {!soldOut && (
-            <div className="flex h-12 items-center border border-ink/20" role="group" aria-label="Quantity">
-              <button type="button" onClick={() => setQty((q) => Math.max(1, q - 1))} disabled={qty <= 1} aria-label="One fewer" className="grid h-full w-10 place-items-center disabled:opacity-30">
-                <Minus size={15} />
-              </button>
-              <output aria-live="polite" className="w-7 text-center tabular-nums">
-                {qty}
-              </output>
-              <button type="button" onClick={() => setQty((q) => Math.min(maxQty, q + 1))} disabled={qty >= maxQty} aria-label="One more" className="grid h-full w-10 place-items-center disabled:opacity-30">
-                <Plus size={15} />
-              </button>
-            </div>
+            <QuantityStepper value={qty} max={maxQty} onChange={(q) => setQty(Math.max(1, Math.min(maxQty, q)))} />
           )}
           <button type="button" onClick={addToCart} disabled={soldOut} className="btn btn-dark flex-1 px-4 disabled:cursor-not-allowed disabled:bg-ink/40">
             {soldOut ? "Sold out" : "Add to cart"}
@@ -110,7 +113,7 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
           <WishlistButton slug={product.slug} name={name} className="!h-12 !w-12 shrink-0 !rounded-none border border-ink/20 !shadow-none" />
         </div>
         {!soldOut && (
-          <button type="button" onClick={addToCart} className="btn btn-outline w-full">
+          <button type="button" onClick={buyNow} className="btn btn-outline w-full">
             Buy now
           </button>
         )}

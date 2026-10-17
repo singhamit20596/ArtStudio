@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
   cacheComponents: !previewExport,
   partialPrefetching: !previewExport,
   ...(previewExport ? { output: "export" as const } : {}),
+  // The static preview has no server, so it leaves out the API routes (route.ts files).
+  ...(previewExport ? { pageExtensions: ["tsx"] } : {}),
   images: previewExport ? { unoptimized: true } : { qualities: [75, 85], formats: ["image/avif", "image/webp"] },
   turbopack: {
     rules: {

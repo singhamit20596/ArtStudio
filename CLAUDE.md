@@ -10,12 +10,13 @@ Online store for **Art Studio · Art with Soul**, a small handmade resin-art bus
 - `README.md`: commands and where things live.
 
 ## Status (17 Oct 2026)
-- Phase 1 (design system + homepage): approved by the owner ("looks alright").
-- Phase 2 (catalogue) is built: `/shop`, `/shop/[category]`, `/gifts`, `/occasion/[slug]`, `/custom`, `/custom/[slug]`, `/search`, `/product/[slug]`, filters and sort, pincode checker, recently viewed. Waiting for the owner's feedback: ask for it, or for the go-ahead, before starting Phase 3.
-- Phase 3 (next): cart drawer with lines, save for later, coupons, checkout (COD + "Order on WhatsApp", Razorpay wired but off), gift wrap, order emails. "Add to cart" and "Buy now" currently show a "Phase 3" toast (`src/components/product/BuyBox.tsx`).
+- Phase 1 (design system + homepage): approved by the owner.
+- Phase 2 (catalogue) and Phase 3 (commerce) are built. The owner asked to review Phases 2 and 3 together: ask for that feedback, or for the go-ahead, before starting Phase 4.
+- Phase 3 built: cart drawer and `/cart` (quantities, save for later, coupon, free-shipping bar), Offers drawer, `/wishlist`, guest `/checkout` (pincode lookup, gift wrap, COD / WhatsApp / Razorpay switched off), `/checkout/confirmation`, order emails via Resend, order API with server-side pricing.
+- Phase 4 (next): Supabase (orders table replacing `src/lib/orders/store.ts`, products replacing seed.json), phone OTP/email login, saved addresses, My Orders with status timeline, public track-order page, reviews and Q&A, admin panel. Turn Razorpay on only after orders are in the database.
 
 ## Run and check
-- `npm run preview` serves http://localhost:3000 with the "Phase 2 preview" ribbon and the link guard (`NEXT_PUBLIC_PREVIEW=1`). If port 3000 is busy, the owner may have it running in Terminal already.
+- `npm run preview` serves http://localhost:3000 with the "Phase 3 preview" ribbon and the link guard (`NEXT_PUBLIC_PREVIEW=1`). If port 3000 is busy, the owner may have it running in Terminal already.
 - In the Claude desktop app, the Browser pane can run the site: if `.claude/launch.json` is missing, create it with one configuration named `art-studio` that runs `npm run preview` (`runtimeExecutable` "npm", `runtimeArgs` ["run", "preview"], `port` 3000).
 - Before calling a phase done: `npm run lint`, `npx tsc --noEmit`, `npm run build`, and look at the pages at desktop width and at about 390px.
 
@@ -39,7 +40,10 @@ Online store for **Art Studio · Art with Soul**, a small handmade resin-art bus
 - Client components must import pure helpers from `src/lib/product.ts`, not `catalog.ts`, so `seed.json` stays out of the browser bundle.
 - The gift shop is every product tagged `gift`. Product `colours` feed the colour filter (custom pieces have none). Delivery estimates use `site.shipping.courierDays` (placeholder).
 - Custom orders: `src/components/custom/CustomRequestButton.tsx` opens WhatsApp with "Hi! I'd like a custom [product name]. Link: [page URL]". Keep it self-contained; a full custom-order flow replaces it later.
-- Wishlist and cart state: `src/components/providers/ShopProvider.tsx` (useSyncExternalStore over localStorage). Cart lines and checkout arrive in Phase 3.
+- Wishlist, cart, saved-for-later and coupon state: `src/components/providers/ShopProvider.tsx` (useSyncExternalStore over localStorage via `src/lib/local-store.ts`).
+- Cart maths: `src/lib/pricing.ts` (`priceCart`), shared by the browser and the order API. Coupons: `src/config/coupons.ts` + `src/lib/coupons.ts` (sample codes only work when `isPreview`). Checkout validation and the `Order` type: `src/lib/checkout.ts`.
+- Orders: `POST /api/orders` → `src/lib/orders/build.ts` (re-prices from the catalogue, checks stock, variants, coupon), `store.ts` (`.data/orders.jsonl` locally, log-only in production), `emails.ts` (Resend, or HTML files in `.data/emails/` locally), `razorpay.ts` (create order, verify signature, webhook). Production refuses non-WhatsApp orders unless `RESEND_API_KEY` is set. `/api/pincode/[pin]` proxies India Post with `"use cache"`.
+- The static preview export (`npm run build:preview`) sets `pageExtensions: ["tsx"]` so `route.ts` API files are left out; checkout cannot place orders there.
 - `npm run build:preview` and `scripts/relativize-export.mjs` only exist to publish a static preview inside the Claude app's artifact viewer. Local work and Vercel don't need them.
 
 ## Design system

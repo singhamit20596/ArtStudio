@@ -38,10 +38,22 @@ export const site = {
 
   payments: {
     cashOnDelivery: true,
+    /** TODO (owner): extra charge for Cash on Delivery, in ₹. 0 means no fee. */
+    codFee: 0,
     orderOnWhatsApp: true,
-    /** Razorpay is wired in Phase 3 but stays off until the account is ready. */
+    /**
+     * Razorpay is wired (src/lib/orders/razorpay.ts) but stays off until the account is ready
+     * and the order database (Phase 4) is in place. Turning it on also needs the RAZORPAY_* env vars.
+     */
     razorpayEnabled: false,
     onlineComingSoonLabel: "Online payments coming soon",
+  },
+
+  giftWrap: {
+    enabled: true,
+    /** TODO (placeholder): gift-wrap charge per order, in ₹. */
+    price: 49,
+    messageMaxLength: 200,
   },
 
   /** Rotating messages in the black announcement bar (keep exactly four). */

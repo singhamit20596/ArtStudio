@@ -1,7 +1,23 @@
 # Art Studio website: what I still need from you
 
-Everything below is a placeholder in the Phase 2 build. Reply with whatever you have; nothing here blocks Phase 3.
-Product data lives in `src/data/seed.json`, business settings in `src/config/site.ts`.
+Everything below is a placeholder in the Phase 3 build. Reply with whatever you have; nothing here blocks Phase 4.
+Product data lives in `src/data/seed.json`, business settings in `src/config/site.ts`, coupon codes in `src/config/coupons.ts`.
+
+## New in Phase 3: please check
+
+- [ ] **Offer codes.** The Offers drawer shows two *sample* codes, WELCOME10 (10% off above ₹999, up to ₹300) and FESTIVE200 (₹200 off above ₹2,499). They only work in the preview, never on the live site. Send your real offers (code, discount, minimum order, last date).
+- [ ] **Cash on Delivery fee**: none for now (`payments.codFee` in `site.ts`). Tell us if you charge one.
+- [ ] **Gift wrap**: placeholder charge **₹49** per order, with an optional gift message (`giftWrap` in `site.ts`). Confirm the price, or say if it should be free.
+- [ ] **Free shipping** is judged on the cart value *before* a coupon (₹3,000 or more ships free even if a coupon brings the total under). Is that how you want it?
+- [ ] **Order emails** (set up when you are ready, about 15 minutes):
+  1. Create a free account at resend.com and an API key. Add it as `RESEND_API_KEY` in Vercel.
+  2. Once you have a domain, verify it in Resend and set `ORDER_EMAIL_FROM`, e.g. `Art Studio <orders@yourdomain.in>`. Until then Resend can only email your own account address, so customers would not get their copy.
+  3. New-order alerts go to **sandeep698146@gmail.com**. Is that the right inbox?
+
+  Until email is set up, the live site only takes "Order on WhatsApp" orders (Cash on Delivery orders need the email as their record until the Phase 4 database).
+- [ ] **Read the order emails**: on your computer, each test order saves the customer and owner emails as files in `.data/emails/`. Open one in a browser and tell us what to change.
+- [ ] **Razorpay**: online payment is built but switched off, and should stay off until the Phase 4 database. When your account is ready we also need a **webhook secret** (Razorpay dashboard → Webhooks, events `payment.captured` and `order.paid`).
+- [ ] **WhatsApp orders**: checkout can send the whole order (number, items, total, address) to your WhatsApp. Are you happy to confirm these and share payment details in the chat?
 
 ## New in Phase 2: please check
 

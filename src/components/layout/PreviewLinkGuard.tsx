@@ -6,8 +6,7 @@ import { isPreview } from "@/lib/preview";
 
 /** Routes that do not exist yet. Remove a pattern when its pages are built. */
 const PHASE_BY_PATH: [RegExp, string][] = [
-  [/^\/(cart|checkout)(\/|$)/, "Cart and checkout arrive in Phase 3."],
-  [/^\/(account|track-order|admin)(\/|$)/, "Accounts, wishlists and order tracking arrive in Phase 4."],
+  [/^\/(account|track-order|admin)(\/|$)/, "Accounts and order tracking arrive in Phase 4."],
   [/^\/(about|contact|faq|bulk-gifting|shipping-returns|privacy|terms)(\/|$)/, "About, FAQ and policy pages arrive in a later phase."],
 ];
 

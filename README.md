@@ -9,9 +9,9 @@ Built with Next.js 16 (App Router) · TypeScript · Tailwind CSS 4. Supabase, Ra
 | Phase | What | State |
 |---|---|---|
 | 1 | Design system + homepage | Done |
-| 2 | Catalogue: listing pages, filters, search, product and custom pages | **Done (this build)** |
-| 3 | Cart, wishlist, coupons, checkout (COD + WhatsApp; Razorpay wired but off), order emails | Next |
-| 4 | Accounts, order tracking, reviews & Q&A, admin panel (Supabase) | |
+| 2 | Catalogue: listing pages, filters, search, product and custom pages | Done |
+| 3 | Cart, wishlist, coupons, checkout (COD + WhatsApp; Razorpay wired but off), order emails | **Done (this build)** |
+| 4 | Accounts, order tracking, reviews & Q&A, admin panel (Supabase) | Next |
 | 5 | SEO, performance, accessibility, policy pages, final README | |
 
 `TODO.md` lists every placeholder (prices, photos, sizes) still to be supplied.
@@ -22,7 +22,7 @@ Needs [Node.js 20.9 or newer](https://nodejs.org/) (check with `node -v`).
 
 ```bash
 npm install
-npm run preview      # http://localhost:3000, with the "Phase 2 preview" banner
+npm run preview      # http://localhost:3000, with the "Phase 3 preview" banner
 npm run dev          # same site without the banner
 ```
 
@@ -40,7 +40,8 @@ npm run lint
 
 | To change… | Edit |
 |---|---|
-| Business name, WhatsApp, email, shipping rules, courier days, announcement bar, hero images/video | `src/config/site.ts` |
+| Business name, WhatsApp, email, shipping rules, courier days, COD fee, gift wrap, announcement bar, hero images/video | `src/config/site.ts` |
+| Offer (coupon) codes | `src/config/coupons.ts` |
 | Menu and footer links | `src/config/nav.ts` |
 | Products, categories, occasions (until the database arrives) | `src/data/seed.json` |
 | "Featured" order on shop pages | the order of products in `src/data/seed.json` |
@@ -68,8 +69,29 @@ From Phase 4 this moves to the admin panel at `/admin`; `seed.json` is imported 
 | `/custom`, `/custom/<category>` | Custom-made hub and each custom category, with the WhatsApp request button |
 | `/product/<slug>` | Product page. Ready pieces: variants, quantity, Order on WhatsApp, pincode checker. Custom pieces: past work, "From" price, making time, request button |
 | `/search?q=…` | Search results, with the same filters |
+| `/cart`, `/wishlist` | Cart (quantities, save for later, coupon, free-shipping progress) and saved pieces |
+| `/checkout`, `/checkout/confirmation` | Guest checkout and the thank-you page |
 
 Filters live in the address (for example `/shop?category=pooja-festive&max=1500&sort=newest`), so a filtered page can be shared or bookmarked.
+
+## Orders, emails and payments
+
+- **Checkout** is guest-only for now (accounts arrive in Phase 4). Typing a pincode fills in the city and state from India Post's free public lookup; customers can still edit them.
+- **Payment methods**: Cash on Delivery, "Order on WhatsApp" (the order is sent to your WhatsApp to confirm in the chat), and online payment through Razorpay, which is built but switched off (`payments.razorpayEnabled` in `site.ts`).
+- **Prices are checked on the server** (`src/app/api/orders/route.ts`): the browser's totals are only a preview, so a changed price, an expired coupon or too many items is refused.
+- **Where orders go until Phase 4**: on your computer, every order is added to `.data/orders.jsonl` and its two emails (yours and the customer's) are saved in `.data/emails/` so you can open them. On the live site, orders are emailed to you; without `RESEND_API_KEY` set, the live checkout only accepts WhatsApp orders so nothing gets lost.
+
+### Settings (environment variables)
+
+Copy `.env.example` to `.env.local` on your computer, or add them in Vercel → Settings → Environment Variables.
+
+| Variable | What it is |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | The live address, once the domain is bought |
+| `RESEND_API_KEY` | Sends order emails (resend.com) |
+| `ORDER_EMAIL_FROM` | Sender, e.g. `Art Studio <orders@yourdomain.in>` (needs the domain verified in Resend) |
+| `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` | Razorpay keys, when online payment is switched on |
+| `RAZORPAY_WEBHOOK_SECRET` | From Razorpay's webhook settings; the webhook URL is `/api/razorpay/webhook` |
 
 ## Design notes
 

@@ -50,7 +50,7 @@ export function MobileMenu({ open, onClose, menus }: { open: boolean; onClose: (
 
         <ul className="grid gap-1 py-5 text-[14px]">
           <li>
-            <AppLink href="/account/wishlist" onClick={onClose} className="flex items-center gap-3 py-2">
+            <AppLink href="/wishlist" onClick={onClose} className="flex items-center gap-3 py-2">
               <Heart size={18} strokeWidth={1.6} /> Wishlist
             </AppLink>
           </li>

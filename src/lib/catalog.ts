@@ -1,5 +1,6 @@
 import seed from "@/data/seed.json";
 import { categoryHref, occasionHref, slugify } from "./product";
+import type { CartProduct } from "./pricing";
 import type { Category, Occasion, Product, SearchItem, SearchLink, Seed } from "./types";
 
 export { categoryHref, effectivePrice, occasionHref, productHref, shortName, slugify } from "./product";
@@ -98,4 +99,11 @@ export function listingLabels(): Record<string, string> {
   for (const o of occasions) labels[o.slug] = o.name;
   for (const p of products) if (p.subcategory) labels[slugify(p.subcategory)] = p.subcategory;
   return labels;
+}
+
+/** Ready-made products with a price: everything the cart and checkout need to know. */
+export function cartCatalog(): CartProduct[] {
+  return products
+    .filter((p): p is Product & { price: number } => p.type === "ready" && p.price != null)
+    .map((p) => ({ slug: p.slug, name: p.name, price: p.price, image: p.images[0] ?? null, stock: p.stock ?? 0, makingTimeDays: p.makingTimeDays }));
 }

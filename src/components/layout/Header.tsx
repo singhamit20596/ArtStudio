@@ -5,6 +5,7 @@ import { ChevronDown, Heart, Menu, Search, ShoppingBag, User } from "lucide-reac
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { NavMenu } from "@/config/nav";
 import { site } from "@/config/site";
+import type { CartProduct } from "@/lib/pricing";
 import type { SearchItem, SearchLink } from "@/lib/types";
 import { useShop } from "@/components/providers/ShopProvider";
 import { AppLink } from "@/components/ui/AppLink";
@@ -13,6 +14,7 @@ import { MegaMenu } from "./MegaMenu";
 import { MobileMenu } from "./MobileMenu";
 import { SearchOverlay } from "./SearchOverlay";
 import { CartDrawer } from "./CartDrawer";
+import { OffersDrawer } from "@/components/cart/OffersDrawer";
 
 interface HeaderProps {
   /** Transparent over the hero until the visitor scrolls (homepage). */
@@ -20,9 +22,10 @@ interface HeaderProps {
   menus: NavMenu[];
   searchItems: SearchItem[];
   searchLinks: SearchLink[];
+  cartCatalogue: CartProduct[];
 }
 
-export function Header({ overlay = false, menus, searchItems, searchLinks }: HeaderProps) {
+export function Header({ overlay = false, menus, searchItems, searchLinks, cartCatalogue }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -154,7 +157,7 @@ export function Header({ overlay = false, menus, searchItems, searchLinks }: Hea
             <AppLink href="/account" aria-label="Account" className={clsx(iconButton, "hidden sm:grid")}>
               <User size={20} strokeWidth={1.6} />
             </AppLink>
-            <AppLink href="/account/wishlist" aria-label={`Wishlist, ${wishlist.length} items`} className={clsx(iconButton, "hidden sm:grid")}>
+            <AppLink href="/wishlist" aria-label={`Wishlist, ${wishlist.length} items`} className={clsx(iconButton, "hidden sm:grid")}>
               <Heart size={20} strokeWidth={1.6} />
               {wishlist.length > 0 && <Count n={wishlist.length} inverted={!solid} />}
             </AppLink>
@@ -170,7 +173,8 @@ export function Header({ overlay = false, menus, searchItems, searchLinks }: Hea
 
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} menus={menus} />
       <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} items={searchItems} links={searchLinks} />
-      <CartDrawer />
+      <CartDrawer catalogue={cartCatalogue} />
+      <OffersDrawer />
     </>
   );
 }

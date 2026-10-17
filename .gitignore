@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local orders and email previews (until the Phase 4 database)
+/.data/
+
+# env example is safe to share
+!.env.example

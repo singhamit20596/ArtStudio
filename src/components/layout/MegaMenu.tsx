@@ -6,8 +6,9 @@ import { AppLink } from "@/components/ui/AppLink";
 export function MegaMenu({ menu, onNavigate }: { menu: NavMenu; onNavigate: () => void }) {
   return (
     <div id={`menu-${menu.id}`} role="region" aria-label={`${menu.label} menu`} className="anim-drop absolute inset-x-0 top-full surface-sage border-t border-line shadow-[0_24px_40px_-24px_rgb(90_62_43/0.4)]">
-      <div className="container-x flex gap-12 py-10">
-        <div className="grid flex-1 grid-cols-[repeat(auto-fill,minmax(190px,230px))] content-start gap-x-12 gap-y-8">
+      <div className="container-x flex gap-10 py-7">
+        {menu.columns.length > 0 && (
+        <div className="grid flex-1 grid-cols-[repeat(auto-fill,minmax(180px,220px))] content-start gap-x-10 gap-y-7">
           {menu.columns.map((col) => (
             <div key={col.title}>
               <p className="eyebrow mb-4">{col.title}</p>
@@ -24,12 +25,13 @@ export function MegaMenu({ menu, onNavigate }: { menu: NavMenu; onNavigate: () =
             </div>
           ))}
         </div>
+        )}
         {menu.features.length > 0 && (
-          <div className="flex shrink-0 gap-5">
+          <div className="flex shrink-0 gap-4">
             {menu.features.map((f) => (
-              <AppLink key={f.href} href={f.href} onClick={onNavigate} className="group block w-[190px]">
+              <AppLink key={f.href} href={f.href} onClick={onNavigate} className="group block w-[160px]">
                 <span className="relative block aspect-[4/5] overflow-hidden bg-brown">
-                  <Image src={f.image} alt={f.alt} fill sizes="190px" className="object-cover transition-transform duration-700 ease-soft group-hover:scale-[1.04]" />
+                  <Image src={f.image} alt={f.alt} fill sizes="160px" className="object-cover transition-transform duration-700 ease-soft group-hover:scale-[1.04]" />
                 </span>
                 <span className="eyebrow mt-3 block">{f.eyebrow}</span>
                 <span className="mt-1 block text-[13px] font-medium uppercase tracking-[0.12em]">{f.title}</span>

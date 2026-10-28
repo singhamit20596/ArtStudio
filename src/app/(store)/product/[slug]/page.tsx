@@ -13,6 +13,8 @@ import { CustomRequestButton } from "@/components/custom/CustomRequestButton";
 import { launch } from "@/config/launch";
 import { ProcessTimeline } from "@/components/tribute/ProcessTimeline";
 import { RequestFrameButton } from "@/components/tribute/RequestFrameButton";
+import { TributeBuyPanel } from "@/components/tribute/TributeBuyPanel";
+import { tributeTaglines } from "@/config/tribute";
 import { HowCustomWorks } from "@/components/custom/HowCustomWorks";
 import { BuyBox } from "@/components/product/BuyBox";
 import { Gallery } from "@/components/product/Gallery";
@@ -61,6 +63,8 @@ async function ProductView({ params }: { params: PageProps<"/product/[slug]">["p
   if (category) crumbs.push({ label: category.name, href: categoryHref(category) });
   crumbs.push({ label: shortName(product) });
   const similar = similarProducts(product);
+
+  if (product.sizes?.length) return <TributeProductView product={product} crumbs={crumbs} path={path} />;
 
   return (
     <>
@@ -163,6 +167,23 @@ function CustomActions({ product, path }: { product: Product; path: string }) {
         </div>
         {focus ? <RequestFrameButton label="Request" className="min-h-11 px-5" /> : <CustomRequestButton productName={name} path={path} label="Request" className="min-h-11 px-5" />}
       </StickyBar>
+    </div>
+  );
+}
+
+/** Tributes with sizes and lights: just the three photos and the buy panel. */
+function TributeProductView({ product, crumbs, path }: { product: Product; crumbs: Crumb[]; path: string }) {
+  return (
+    <div className="container-x pt-4 pb-12 md:pt-5 md:pb-16">
+      <div className="mx-auto max-w-[1080px]">
+        <Breadcrumbs items={crumbs} />
+      </div>
+      <div className="mt-4">
+        <TributeBuyPanel product={product} path={path}>
+          <h1 className="text-[24px] font-semibold leading-[1.15] md:text-[30px]">{shortName(product)}</h1>
+          <p className="mt-1 text-[14px] text-muted">{tributeTaglines[product.slug] ?? product.name.split(" | ").slice(1).join(" · ")}</p>
+        </TributeBuyPanel>
+      </div>
     </div>
   );
 }

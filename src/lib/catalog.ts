@@ -1,7 +1,7 @@
 import seed from "@/data/seed.json";
 import { launch } from "@/config/launch";
 import { categoryHref, occasionHref, slugify } from "./product";
-import type { CartProduct } from "./pricing";
+import { MAX_QTY, type CartProduct } from "./pricing";
 import type { Category, Occasion, Product, SearchItem, SearchLink, Seed } from "./types";
 
 export { categoryHref, effectivePrice, occasionHref, productHref, shortName, slugify } from "./product";
@@ -14,13 +14,16 @@ export const allProducts: Product[] = data.products;
 /** Every category, including ones not on sale yet (see launch.categories). */
 export const allCategories: Category[] = data.categories;
 
-const onSale = (category: string) => launch.categories.includes(category);
+const onSale = (category: string) => launch.categories == null || launch.categories.includes(category);
 
 /**
  * Products visible on the storefront, in "Featured" order (their order in seed.json).
  * Only published products in the categories on sale right now (src/config/launch.ts).
  */
-export const products: Product[] = data.products.filter((p) => p.published && onSale(p.category));
+export const products: Product[] = data.products
+  .filter((p) => p.published && onSale(p.category))
+  // With the lights option switched off (launch.lights), no product offers lights.
+  .map((p) => (launch.lights || p.lightPrice == null ? p : { ...p, lightPrice: null }));
 
 export const categories: Category[] = data.categories.filter((c) => onSale(c.slug));
 export const readyCategories = categories.filter((c) => c.type === "ready");
@@ -114,5 +117,15 @@ export function listingLabels(): Record<string, string> {
 export function cartCatalog(): CartProduct[] {
   return products
     .filter((p): p is Product & { price: number } => p.type === "ready" && p.price != null)
-    .map((p) => ({ slug: p.slug, name: p.name, price: p.price, image: p.images[0] ?? null, stock: p.stock ?? 0, makingTimeDays: p.makingTimeDays }));
+    .map((p) => ({
+      slug: p.slug,
+      name: p.name,
+      price: p.price,
+      image: p.images[0] ?? null,
+      // Made-to-order pieces (no stock count) are limited only by MAX_QTY.
+      stock: p.stock ?? (p.sizes?.length ? MAX_QTY : 0),
+      makingTimeDays: p.makingTimeDays,
+      sizes: p.sizes,
+      lightPrice: p.lightPrice ?? null,
+    }));
 }

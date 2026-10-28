@@ -91,11 +91,11 @@
     {
       "slug": "retirement-tribute-frames",
       "type": "custom",
-      "name": "Defence Retirement Tribute Frames",
-      "description": "Shadow-box tribute frames for Army, Navy and Air Force retirements, built around their medals, badges, photograph and an engraved name plate.",
-      "image": "/products/iaf-retirement-tribute-frame/1.jpg",
+      "name": "Retirement Tributes",
+      "description": "Newspaper tributes, box frames and resin frames for Army, Navy and Air Force retirements, made by hand.",
+      "image": "/products/box-frame/frame.jpg",
       "status": "active",
-      "requestName": "retirement tribute frame",
+      "requestName": "retirement tribute",
       "startingPrice": 4999,
       "makingTimeDays": {
         "min": 10,
@@ -467,29 +467,143 @@
       ]
     },
     {
-      "id": "p_004",
-      "slug": "retirement-tribute-frame",
-      "name": "Retirement Tribute Frame | Shadow Box",
-      "type": "custom",
+      "id": "p_013",
+      "slug": "newspaper-tribute",
+      "name": "Newspaper Tribute | Framed Front Page",
+      "type": "ready",
       "category": "retirement-tribute-frames",
-      "subcategory": "Army · Navy · Air Force",
+      "subcategory": "Newspaper frames",
       "occasions": [
         "retirement",
         "corporate-gifting"
       ],
-      "price": null,
+      "price": 2999,
       "mrp": null,
-      "startingPrice": 4999,
+      "startingPrice": null,
       "images": [
-        "/products/iaf-retirement-tribute-frame/1.jpg"
+        "/products/newspaper-tribute/frame.jpg"
       ],
       "video": null,
-      "description": "A shadow-box tribute for a defence retirement: Indian Army, Navy or Air Force. Medals, wings or badges, unit crests, rank insignia and a photograph are arranged by hand on a mount and finished with an engraved name plate.",
+      "description": "A front page designed around their career: a headline with their name and rank, their photographs and the story of their service, printed and framed.",
+      "highlights": [
+        "A front page written around their service",
+        "Up to six of your photographs",
+        "Choose the layout and colours after you order",
+        "Optional warm LED lights"
+      ],
+      "dimensions": null,
+      "material": "Printed front page, wooden frame, glass",
+      "weight": null,
+      "care": "Dust the glass and frame with a soft dry cloth. Keep out of direct sunlight.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [],
+      "tags": [
+        "retirement",
+        "tribute",
+        "newspaper",
+        "front page",
+        "army",
+        "navy",
+        "air force",
+        "farewell",
+        "gift"
+      ],
+      "isNew": false,
+      "isBestseller": false,
+      "isCustomisable": true,
+      "instagramUrl": null,
+      "createdAt": "2026-10-28",
+      "sizes": [
+        {
+          "id": "12x16",
+          "label": "12 × 16 in",
+          "widthIn": 12,
+          "heightIn": 16,
+          "price": 2999
+        },
+        {
+          "id": "16x20",
+          "label": "16 × 20 in",
+          "widthIn": 16,
+          "heightIn": 20,
+          "price": 3999
+        },
+        {
+          "id": "18x24",
+          "label": "18 × 24 in",
+          "widthIn": 18,
+          "heightIn": 24,
+          "price": 4999
+        },
+        {
+          "id": "20x30",
+          "label": "20 × 30 in",
+          "widthIn": 20,
+          "heightIn": 30,
+          "price": 6499
+        }
+      ],
+      "lightPrice": 799,
+      "gallery": {
+        "ratio": "1 / 1",
+        "frame": "/products/newspaper-tribute/frame.jpg",
+        "frameLit": "/products/newspaper-tribute/frame-lit.jpg",
+        "tile": "/products/newspaper-tribute/tile.jpg",
+        "tileLit": "/products/newspaper-tribute/tile-lit.jpg",
+        "samples": [
+          {
+            "src": "/products/newspaper-tribute/sample-3.jpg",
+            "alt": "Sample newspaper tribute: a black-and-white \"Retirement Tribune\" front page with a portrait, career highlights and a film strip of photos, framed on a study wall"
+          },
+          {
+            "src": "/products/newspaper-tribute/sample-1.jpg",
+            "alt": "Sample newspaper tribute: a large portrait in Army uniform surrounded by black-and-white photographs from their career, with their name in bold, on a study wall"
+          },
+          {
+            "src": "/products/newspaper-tribute/sample-2.jpg",
+            "alt": "Sample newspaper tribute: a \"Retirement Celebration\" page with a central portrait in dress uniform and photographs with comrades and family"
+          }
+        ]
+      },
+      "published": true,
+      "placeholders": [
+        "sizes",
+        "prices",
+        "lightPrice",
+        "makingTimeDays",
+        "description",
+        "photos are mockups"
+      ]
+    },
+    {
+      "id": "p_004",
+      "slug": "box-frame",
+      "name": "Box Frame | Medals, Photo & Name Plate",
+      "type": "ready",
+      "category": "retirement-tribute-frames",
+      "subcategory": "Box frames",
+      "occasions": [
+        "retirement",
+        "corporate-gifting"
+      ],
+      "price": 4999,
+      "mrp": null,
+      "startingPrice": null,
+      "images": [
+        "/products/box-frame/frame.jpg"
+      ],
+      "video": null,
+      "description": "A shadow box built around their service: medals, wings or badges, unit crests, rank insignia and a photograph, arranged by hand on a coloured mount and finished with an engraved name plate.",
       "highlights": [
         "Built around the officer’s own medals, badges and patches",
         "Photograph and engraved name plate included",
-        "For Army, Navy and Air Force retirements",
-        "Wooden shadow-box frame"
+        "Choose the template and background colour after you order",
+        "Optional warm LED lights around the mount"
       ],
       "dimensions": null,
       "material": "Wooden shadow-box frame, mount board, metal name plate",
@@ -505,14 +619,12 @@
       "tags": [
         "retirement",
         "tribute",
-        "shadow box",
+        "box frame",
+        "medals",
         "army",
         "navy",
         "air force",
-        "iaf",
-        "medals",
         "farewell",
-        "defence",
         "gift"
       ],
       "isNew": false,
@@ -520,15 +632,204 @@
       "isCustomisable": true,
       "instagramUrl": "https://www.instagram.com/reel/DeRz5G_CBu0/",
       "createdAt": "2026-10-09",
+      "sizes": [
+        {
+          "id": "12x16",
+          "label": "12 × 16 in",
+          "widthIn": 12,
+          "heightIn": 16,
+          "price": 4999
+        },
+        {
+          "id": "16x20",
+          "label": "16 × 20 in",
+          "widthIn": 16,
+          "heightIn": 20,
+          "price": 6499
+        },
+        {
+          "id": "18x24",
+          "label": "18 × 24 in",
+          "widthIn": 18,
+          "heightIn": 24,
+          "price": 7999
+        },
+        {
+          "id": "20x24",
+          "label": "20 × 24 in",
+          "widthIn": 20,
+          "heightIn": 24,
+          "price": 8999
+        },
+        {
+          "id": "24x30",
+          "label": "24 × 30 in",
+          "widthIn": 24,
+          "heightIn": 30,
+          "price": 10999
+        }
+      ],
+      "lightPrice": 799,
+      "gallery": {
+        "ratio": "4 / 3",
+        "frame": "/products/box-frame/frame.jpg",
+        "frameLit": "/products/box-frame/frame-lit.jpg",
+        "tile": "/products/box-frame/tile.jpg",
+        "tileLit": "/products/box-frame/tile-lit.jpg",
+        "samples": [
+          {
+            "src": "/products/box-frame/sample-1.jpg",
+            "alt": "Sample box frame for the Indian Navy: cream mount with patches, shoulder boards, a photograph and a name plate"
+          },
+          {
+            "src": "/products/box-frame/sample-2.jpg",
+            "alt": "Sample box frame for the Indian Air Force: red mount with a folded uniform shirt, ribbons, name tapes, patches and a belt"
+          },
+          {
+            "src": "/products/box-frame/sample-3.jpg",
+            "alt": "Sample box frame for the Indian Army: red mount with rank slides, medals, a tie, a belt buckle and a photograph"
+          },
+          {
+            "src": "/products/box-frame/sample-4.jpg",
+            "alt": "Sample box frame for the Indian Air Force: red mount with a cap, medals, chevrons, patches and photographs"
+          },
+          {
+            "src": "/products/box-frame/sample-5.jpg",
+            "alt": "Sample embroidered tribute: \"41 years of service to the nation\" with a portrait, crests and a row of medals"
+          },
+          {
+            "src": "/products/box-frame/sample-6.jpg",
+            "alt": "Sample box frame for the Indian Air Force: green mount with a cap, medals, patches and a belt"
+          },
+          {
+            "src": "/products/box-frame/sample-7.jpg",
+            "alt": "Sample box frame for the Indian Air Force: red mount with a cap, medals, epaulettes and patches"
+          }
+        ]
+      },
       "published": true,
       "placeholders": [
-        "startingPrice",
-        "dimensions",
-        "weight",
+        "sizes",
+        "prices",
+        "lightPrice",
         "makingTimeDays",
-        "images"
+        "description",
+        "photos are mockups"
+      ]
+    },
+    {
+      "id": "p_014",
+      "slug": "resin-frame",
+      "name": "Resin Frame | Photo & Crest in Resin",
+      "type": "ready",
+      "category": "retirement-tribute-frames",
+      "subcategory": "Resin frames",
+      "occasions": [
+        "retirement",
+        "corporate-gifting"
       ],
-      "notes": "The only photo so far is an Indian Air Force frame. Army and Navy examples are needed (TODO.md)."
+      "price": 3499,
+      "mrp": null,
+      "startingPrice": null,
+      "images": [
+        "/products/resin-frame/frame.jpg"
+      ],
+      "video": null,
+      "description": "Their photograph with a badge, ribbon or flowers set in clear resin, finished by hand with a name plaque.",
+      "highlights": [
+        "Their photograph sealed in clear resin",
+        "Room for a badge, ribbon or dried flowers",
+        "Choose the shape and colours after you order",
+        "Optional warm LED base"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, photograph, keepsakes, name plaque",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from direct sunlight.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [],
+      "tags": [
+        "retirement",
+        "tribute",
+        "resin",
+        "photo",
+        "army",
+        "navy",
+        "air force",
+        "farewell",
+        "gift"
+      ],
+      "isNew": false,
+      "isBestseller": false,
+      "isCustomisable": true,
+      "instagramUrl": null,
+      "createdAt": "2026-10-28",
+      "sizes": [
+        {
+          "id": "8x10",
+          "label": "8 × 10 in",
+          "widthIn": 8,
+          "heightIn": 10,
+          "price": 3499
+        },
+        {
+          "id": "10x12",
+          "label": "10 × 12 in",
+          "widthIn": 10,
+          "heightIn": 12,
+          "price": 4499
+        },
+        {
+          "id": "12x16",
+          "label": "12 × 16 in",
+          "widthIn": 12,
+          "heightIn": 16,
+          "price": 5999
+        },
+        {
+          "id": "16x20",
+          "label": "16 × 20 in",
+          "widthIn": 16,
+          "heightIn": 20,
+          "price": 7999
+        }
+      ],
+      "lightPrice": 699,
+      "gallery": {
+        "ratio": "1 / 1",
+        "frame": "/products/resin-frame/frame.jpg",
+        "frameLit": "/products/resin-frame/frame-lit.jpg",
+        "tile": "/products/resin-frame/tile.jpg",
+        "tileLit": "/products/resin-frame/tile-lit.jpg",
+        "samples": [
+          {
+            "src": "/products/resin-frame/sample-1.jpg",
+            "alt": "Sample resin frame: emerald green with copper flakes, a round photograph, a service plaque, a crest and a name plate, on a gold stand"
+          },
+          {
+            "src": "/products/resin-frame/sample-2.jpg",
+            "alt": "Sample resin frame: deep red with silver and gold flakes and shells, a round photograph, miniature medals, a crest and a name plate, on a gold stand"
+          },
+          {
+            "src": "/products/resin-frame/sample-3.jpg",
+            "alt": "Sample resin frame: blue with copper flakes, a round photograph, miniature medals, a crest and a name plate, on a gold stand"
+          }
+        ]
+      },
+      "published": true,
+      "placeholders": [
+        "sizes",
+        "prices",
+        "lightPrice",
+        "makingTimeDays",
+        "description",
+        "photos are mockups"
+      ]
     },
     {
       "id": "p_005",

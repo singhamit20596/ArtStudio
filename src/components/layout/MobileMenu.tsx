@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, Heart, Package, User, X } from "lucide-react";
+import { ChevronDown, ChevronRight, Heart, Package, User, X } from "lucide-react";
 import type { NavLink, NavMenu } from "@/config/nav";
 import { site } from "@/config/site";
 import { Drawer } from "@/components/ui/Drawer";
@@ -48,7 +48,13 @@ export function MobileMenu({ open, onClose, menus, links = [], cta, shop }: Mobi
             {cta.label}
           </AppLink>
         )}
-        {menus.map((menu) => (
+        {menus.map((menu) =>
+          menu.href ? (
+            <AppLink key={menu.id} href={menu.href} onClick={onClose} className="nav-label flex items-center justify-between border-b border-line py-4">
+              {menu.label}
+              <ChevronRight size={16} aria-hidden="true" />
+            </AppLink>
+          ) : (
           <details key={menu.id} className="group border-b border-line">
             <summary className="nav-label flex cursor-pointer list-none items-center justify-between py-4 [&::-webkit-details-marker]:hidden">
               {menu.label}
@@ -72,7 +78,8 @@ export function MobileMenu({ open, onClose, menus, links = [], cta, shop }: Mobi
               ))}
             </div>
           </details>
-        ))}
+          ),
+        )}
 
         {shop && (
         <ul className="grid gap-1 py-5 text-[14px]">

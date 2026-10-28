@@ -8,7 +8,6 @@ import { isPreview } from "@/lib/preview";
 const PHASE_BY_PATH: [RegExp, string][] = [
   [/^\/(account|track-order|admin)(\/|$)/, "Accounts and order tracking arrive in Phase 4."],
   [/^\/(about|contact|faq|bulk-gifting|shipping-returns|privacy|terms)(\/|$)/, "About, FAQ and policy pages arrive in a later phase."],
-  [/^\/(shop|gifts|occasion|search|cart|checkout|wishlist|custom)(\/|$)/, "This section opens later. For now the studio is taking requests for tribute frames."],
 ];
 
 /**

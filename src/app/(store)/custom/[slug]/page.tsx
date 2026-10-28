@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { launch } from "@/config/launch";
 import { categoryHref, customCategories, getCategory, productsInCategory } from "@/lib/catalog";
 import { formatDays, formatINR } from "@/lib/format";
 import { Breadcrumbs } from "@/components/listing/Breadcrumbs";
@@ -14,7 +15,8 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ProductSkeleton } from "@/components/ui/Skeletons";
 
 export function generateStaticParams() {
-  return customCategories.map((c) => ({ slug: c.slug }));
+  // The featured tributes redirect to the homepage (next.config.ts), so they get no page here.
+  return customCategories.filter((c) => c.slug !== launch.focus).map((c) => ({ slug: c.slug }));
 }
 
 function findCategory(slug: string) {

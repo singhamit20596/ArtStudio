@@ -1,75 +1,119 @@
 import { notFound } from "next/navigation";
 import { launch } from "@/config/launch";
-import { site } from "@/config/site";
-import { exampleFrame, hotspots } from "@/config/tribute";
-import { getCategory } from "@/lib/catalog";
-import { formatDays, formatINR } from "@/lib/format";
+import { forOccasions, getCategory, newArrivals, products } from "@/lib/catalog";
+import { AppLink } from "@/components/ui/AppLink";
+import { ProductCard } from "@/components/product/ProductCard";
+import { CategoryStrip } from "@/components/home/CategoryStrip";
+import { ProductCarousel } from "@/components/home/ProductCarousel";
+import { EditorialBanners } from "@/components/home/EditorialBanners";
+import { CustomMadeGrid } from "@/components/home/CustomMadeGrid";
+import { StoryBlock } from "@/components/home/StoryBlock";
+import { CustomerLove } from "@/components/home/CustomerLove";
+import { InstagramStrip } from "@/components/home/InstagramStrip";
+import { GiftingBanner } from "@/components/home/GiftingBanner";
+import { Newsletter } from "@/components/home/Newsletter";
+import { TrustRow } from "@/components/home/TrustRow";
 import { Marquee } from "@/components/home/Marquee";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { Faq } from "@/components/tribute/Faq";
-import { HotspotExplorer } from "@/components/tribute/HotspotExplorer";
-import { PreviewSection } from "@/components/tribute/PreviewSection";
-import { PriceBand } from "@/components/tribute/PriceBand";
-import { ProcessTimeline } from "@/components/tribute/ProcessTimeline";
 import { TributeHero } from "@/components/tribute/TributeHero";
 
-/** Homepage for the launch product line: defence retirement tribute frames. */
+const CARD_SIZES = "(min-width: 1024px) 25vw, (min-width: 640px) 31vw, 46vw";
+
+/**
+ * Homepage. Retirement Tributes come first and fill the opening screen (owner, 28 Oct 2026):
+ * one heartfelt line and the three tributes. The rest of the studio follows below.
+ * The old shop hero (`components/home/Hero.tsx`) is kept for later but not shown.
+ */
 export default function HomePage() {
-  const category = getCategory(launch.focus);
-  if (!category) notFound();
-  const making = category.makingTimeDays ? formatDays(category.makingTimeDays) : "two weeks";
-  const price = category.startingPrice ? formatINR(category.startingPrice) : "a price we confirm with you";
+  const focus = getCategory(launch.focus);
+  if (!focus) notFound();
+  const tributes = products.filter((p) => p.category === launch.focus);
+  const arrivals = newArrivals(8).filter((p) => p.category !== launch.focus);
+  const festive = forOccasions(["diwali", "karwa-chauth"], 8);
 
   return (
     <>
-      <TributeHero category={category} />
+      {/* 1. The featured line */}
+      <TributeHero products={tributes} />
+      {/* 2. The rest of the studio */}
+      <section aria-labelledby="studio-title" className="container-x pt-16 text-center md:pt-24">
+        <p className="eyebrow">Art Studio · Art with Soul</p>
+        <h2 id="studio-title" className="section-title mt-3">
+          More from the studio
+        </h2>
+        <p className="mx-auto mt-3 max-w-xl text-[15px] leading-relaxed text-muted">Handmade resin décor, pooja pieces and personalised gifts, made in small batches.</p>
+      </section>
+      <CategoryStrip />
 
-      <Marquee phrases={["Indian Army", "Indian Navy", "Indian Air Force", "Made by hand", "Engraved name plate", "Pan India delivery"]} />
-
-      <section id="inside" aria-labelledby="inside-title" className="container-x py-20 md:py-28">
-        <SectionHeader
-          id="inside-title"
-          eyebrow="What goes inside"
-          title="Their service, in one frame"
-          subtitle="Every frame is built around what they earned and wore. Explore an Indian Air Force frame we made."
-          className="reveal"
-        />
-        <div className="mt-12">
-          <HotspotExplorer frame={exampleFrame} spots={hotspots} />
-        </div>
+      {/* 3 */}
+      <section aria-labelledby="new-title" className="container-x py-14 md:py-20">
+        <ProductCarousel
+          label="New arrivals"
+          header={
+            <>
+              <p className="eyebrow mb-3">Just in</p>
+              <h2 id="new-title" className="section-title">
+                New Arrivals
+              </h2>
+            </>
+          }
+          action={
+            <AppLink href="/shop?sort=newest" className="nav-label link-line">
+              View all
+            </AppLink>
+          }
+        >
+          {arrivals.map((p) => (
+            <ProductCard key={p.slug} product={p} sizes={CARD_SIZES} />
+          ))}
+        </ProductCarousel>
       </section>
 
-      <section id="preview" aria-labelledby="preview-title" className="surface-amber">
-        <div className="container-x py-20 md:py-28">
-          <PreviewSection />
-        </div>
+      {/* 5 */}
+      <EditorialBanners />
+
+      {/* 6 */}
+      <section aria-labelledby="festive-title" className="container-x pb-16 md:pb-24">
+        <ProductCarousel
+          label="Festive edit"
+          header={
+            <>
+              <p className="eyebrow mb-3">Diwali · Karwa Chauth</p>
+              <h2 id="festive-title" className="section-title">
+                The Festive Edit
+              </h2>
+              <p lang="hi" className="mt-3 text-[17px] text-eyebrow">
+                त्योहार की रौनक, आपके घर के लिए
+              </p>
+            </>
+          }
+          action={
+            <AppLink href="/occasion/diwali" className="nav-label link-line">
+              Shop festive
+            </AppLink>
+          }
+        >
+          {festive.map((p) => (
+            <ProductCard key={p.slug} product={p} sizes={CARD_SIZES} />
+          ))}
+        </ProductCarousel>
       </section>
 
-      <section id="process" aria-labelledby="process-title" className="surface-brown">
-        <div className="container-x grid gap-6 py-20 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:gap-16 md:py-28">
-          <div className="reveal-left md:sticky md:top-28 md:self-start">
-            <p className="eyebrow">How it works</p>
-            <h2 id="process-title" className="section-title mt-3">
-              From your request to their wall
-            </h2>
-            <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-muted">No payment online. We agree every detail with you before we start.</p>
-          </div>
-          <ProcessTimeline making={making} />
-        </div>
-      </section>
-
-      <section id="faq" aria-labelledby="faq-title" className="container-x grid gap-10 py-20 md:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] md:gap-16 md:py-28">
-        <div className="reveal-left">
-          <p className="eyebrow">Questions</p>
-          <h2 id="faq-title" className="section-title mt-3">
-            Good to know
-          </h2>
-          <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-muted">Something else on your mind? Ask us on WhatsApp at {site.contact.whatsappDisplay}.</p>
-        </div>
-        <Faq values={{ price, making, freeShipping: formatINR(site.shipping.freeShippingThreshold) }} />
-      </section>
-
-      <PriceBand startingPrice={category.startingPrice ?? null} making={making} />
+      {/* 7 */}
+      <CustomMadeGrid />
+      {/* 8 */}
+      <StoryBlock />
+      {/* 9 */}
+      <CustomerLove />
+      {/* 10 */}
+      <InstagramStrip />
+      {/* 11 */}
+      <GiftingBanner />
+      {/* 12 */}
+      <Newsletter />
+      {/* 13 */}
+      <TrustRow />
+      {/* 14 */}
+      <Marquee />
     </>
   );
 }

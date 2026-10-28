@@ -7,7 +7,7 @@ import { AppLink } from "@/components/ui/AppLink";
 import { QuantityStepper } from "@/components/ui/QuantityStepper";
 import { toast } from "@/components/ui/Toaster";
 import { formatINR } from "@/lib/format";
-import { lineKey, maxQuantity, type CartLine, type CartProduct, type PricedLine } from "@/lib/pricing";
+import { lineKey, maxQuantity, unitPrice, type CartLine, type CartProduct, type PricedLine } from "@/lib/pricing";
 import { productHref, shortName } from "@/lib/product";
 
 const linkBtn = "text-[12px] text-muted underline underline-offset-4 transition-colors hover:text-ink";
@@ -26,7 +26,7 @@ export function CartLines({ lines, unavailable, className }: { lines: PricedLine
 
   return (
     <ul className={clsx("divide-y divide-line", className)}>
-      {lines.map(({ key, line, product, quantity, lineTotal }) => (
+      {lines.map(({ key, line, product, quantity, unitPrice: each, lineTotal }) => (
         <li key={key} className="flex gap-4 py-5">
           <Thumb product={product} slug={line.slug} />
           <div className="min-w-0 flex-1">
@@ -37,7 +37,7 @@ export function CartLines({ lines, unavailable, className }: { lines: PricedLine
               <p className="shrink-0 text-[13.5px] font-medium tabular-nums">{formatINR(lineTotal)}</p>
             </div>
             {line.variant && <p className="mt-0.5 text-[12.5px] text-muted">{line.variant}</p>}
-            {quantity > 1 && <p className="text-[12px] text-muted tabular-nums">{formatINR(product.price)} each</p>}
+            {quantity > 1 && <p className="text-[12px] text-muted tabular-nums">{formatINR(each)} each</p>}
             {product.stock <= 3 && <p className="mt-0.5 text-[12px] font-medium text-ink">Only {product.stock} left</p>}
             <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
               <QuantityStepper size="sm" value={quantity} max={maxQuantity(product)} onChange={(q) => setQuantity(key, q)} itemName={shortName(product)} />
@@ -95,7 +95,7 @@ export function SavedForLater({ catalogue }: { catalogue: CartProduct[] }) {
               <div className="min-w-0 flex-1">
                 <p className="line-clamp-2 text-[13px] leading-snug">{product?.name ?? "No longer available"}</p>
                 {line.variant && <p className="text-[12px] text-muted">{line.variant}</p>}
-                {product && <p className="mt-0.5 text-[13px] tabular-nums">{available ? formatINR(product.price) : "Sold out"}</p>}
+                {product && <p className="mt-0.5 text-[13px] tabular-nums">{available ? formatINR(unitPrice(product, line.options)) : "Sold out"}</p>}
                 <div className="mt-2 flex gap-4">
                   {available && (
                     <button type="button" className={linkBtn} onClick={() => moveToCart(key)}>

@@ -1,7 +1,9 @@
 import { buildOrder, readInput } from "@/lib/orders/build";
-import { emailConfigured, sendOrderEmails } from "@/lib/orders/emails";
+import { site } from "@/config/site";
+import { needsPersonalising } from "@/lib/checkout";
+import { emailConfigured, personaliseUrl, sendOrderEmails } from "@/lib/orders/emails";
 import { createRazorpayOrder } from "@/lib/orders/razorpay";
-import { hasOrderStore, saveOrder } from "@/lib/orders/store";
+import { saveOrder } from "@/lib/orders/store";
 import { isPreview } from "@/lib/preview";
 import { orderMessage, whatsappLink } from "@/lib/whatsapp";
 
@@ -22,9 +24,9 @@ export async function POST(request: Request) {
   if (!result.ok) return Response.json(result, { status: result.status });
   const order = result.order;
 
-  // Until the database arrives (Phase 4), the order emails are the only record on the live site.
-  // The hosted preview accepts test orders anyway; its checkout says they go nowhere.
-  if (!hasOrderStore && !emailConfigured() && order.payment.method !== "whatsapp" && !isPreview) {
+  // Orders are stored, but until there is an admin page the studio only hears about them by email.
+  // The hosted preview accepts test orders anyway; its checkout says so.
+  if (process.env.NODE_ENV === "production" && !emailConfigured() && order.payment.method !== "whatsapp" && !isPreview) {
     return Response.json(
       { ok: false, message: "Online ordering isn't switched on yet. Please choose “Order on WhatsApp” instead." },
       { status: 503 },
@@ -43,11 +45,14 @@ export async function POST(request: Request) {
     }
   }
 
+  const origin = site.url || new URL(request.url).origin;
   await saveOrder(order);
-  order.emailsSent = await sendOrderEmails(order);
+  order.emailsSent = await sendOrderEmails(order, origin);
+  await saveOrder(order);
   return Response.json({
     ok: true,
     order,
+    personaliseUrl: order.items.some(needsPersonalising) ? personaliseUrl(order, origin) : undefined,
     whatsappUrl: order.payment.method === "whatsapp" ? whatsappLink(orderMessage(order)) : undefined,
   });
 }

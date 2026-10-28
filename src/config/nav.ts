@@ -20,30 +20,23 @@ export interface NavFeature {
 export interface NavMenu {
   id: string;
   label: string;
+  /** When set, the label itself is a link (hover still opens the panel; on phones it is a plain link). */
+  href?: string;
   columns: NavColumn[];
   features: NavFeature[];
 }
 
-/** Header links for the tribute-frame launch (the shop menus below are kept for later). */
+/** The three Retirement Tributes, the featured line. Used in the header menu, footer and mobile menu. */
 export const launchNav: NavLink[] = [
-  { label: "What's inside", href: "/#inside" },
-  { label: "Preview", href: "/#preview" },
-  { label: "How it works", href: "/#process" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "Newspaper Tribute", href: "/product/newspaper-tribute" },
+  { label: "Box Frame", href: "/product/box-frame" },
+  { label: "Resin Frame", href: "/product/resin-frame" },
 ];
-
-export const launchCta: NavLink = { label: "Request a frame", href: "/request" };
 
 export const launchFooterNav: NavColumn[] = [
   {
-    title: "Tribute frames",
-    links: [
-      { label: "What goes inside", href: "/#inside" },
-      { label: "Preview your frame", href: "/#preview" },
-      { label: "How it works", href: "/#process" },
-      { label: "FAQs", href: "/#faq" },
-      { label: "Request a frame", href: "/request" },
-    ],
+    title: "Retirement tributes",
+    links: launchNav,
   },
   {
     title: "Help",
@@ -56,8 +49,19 @@ export const launchFooterNav: NavColumn[] = [
   },
 ];
 
-/** Shop menus, used again when the shop relaunches (launch.shop). */
+/** Header menus. Retirement Tributes come first (the featured line), then the shop. */
 export const mainNav: NavMenu[] = [
+  {
+    id: "tributes",
+    label: "Retirement Tributes",
+    href: "/retirement-tributes",
+    columns: [],
+    features: [
+      { eyebrow: "Front page", title: "Newspaper Tribute", href: "/product/newspaper-tribute", image: "/products/newspaper-tribute/tile.jpg", alt: "Newspaper tribute frame" },
+      { eyebrow: "Medals and photo", title: "Box Frame", href: "/product/box-frame", image: "/products/box-frame/tile.jpg", alt: "Box frame with medals and badges" },
+      { eyebrow: "Set in resin", title: "Resin Frame", href: "/product/resin-frame", image: "/products/resin-frame/tile.jpg", alt: "Round resin frame with a photograph and crest" },
+    ],
+  },
   {
     id: "shop",
     label: "Shop",
@@ -94,7 +98,6 @@ export const mainNav: NavMenu[] = [
       {
         title: "Keepsakes",
         links: [
-          { label: "Retirement & Tribute Frames", href: "/custom/retirement-tribute-frames" },
           { label: "Personalised Shadow Boxes", href: "/custom/shadow-boxes" },
           { label: "Resin Photo Frames", href: "/custom/resin-photo-frames" },
           { label: "Flower Preservation", href: "/custom/flower-preservation" },
@@ -123,7 +126,7 @@ export const mainNav: NavMenu[] = [
       },
     ],
     features: [
-      { eyebrow: "IAF · Army · Navy", title: "Retirement tribute frames", href: "/custom/retirement-tribute-frames", image: "/products/iaf-retirement-tribute-frame/1.jpg", alt: "IAF retirement shadow-box frame with medals and patches" },
+      { eyebrow: "Your photos", title: "Photo blocks & magnets", href: "/custom/fridge-magnets", image: "/products/resin-photo-blocks-magnets/1.jpg", alt: "Resin photo blocks and fridge magnets" },
     ],
   },
   {
@@ -208,22 +211,8 @@ export const mainNav: NavMenu[] = [
 
 export const footerNav: NavColumn[] = [
   {
-    title: "About",
-    links: [
-      { label: "Our story", href: "/about" },
-      { label: "Bulk & corporate gifting", href: "/bulk-gifting" },
-      { label: "Contact", href: "/contact" },
-    ],
-  },
-  {
-    title: "Help",
-    links: [
-      { label: "Track order", href: "/track-order" },
-      { label: "FAQs", href: "/faq" },
-      { label: "Shipping & returns", href: "/shipping-returns" },
-      { label: "Privacy policy", href: "/privacy" },
-      { label: "Terms", href: "/terms" },
-    ],
+    title: "Retirement tributes",
+    links: launchNav,
   },
   {
     title: "Shop",
@@ -238,11 +227,23 @@ export const footerNav: NavColumn[] = [
   {
     title: "Custom",
     links: [
-      { label: "Retirement & Tribute Frames", href: "/custom/retirement-tribute-frames" },
       { label: "Shadow Boxes", href: "/custom/shadow-boxes" },
       { label: "Fridge Magnets", href: "/custom/fridge-magnets" },
       { label: "Phone Covers", href: "/custom/phone-covers" },
       { label: "All custom pieces", href: "/custom" },
+    ],
+  },
+  {
+    title: "Help",
+    links: [
+      { label: "Our story", href: "/about" },
+      { label: "Contact", href: "/contact" },
+      { label: "Track order", href: "/track-order" },
+      { label: "FAQs", href: "/faq" },
+      { label: "Shipping & returns", href: "/shipping-returns" },
+      { label: "Bulk gifting", href: "/bulk-gifting" },
+      { label: "Privacy policy", href: "/privacy" },
+      { label: "Terms", href: "/terms" },
     ],
   },
 ];

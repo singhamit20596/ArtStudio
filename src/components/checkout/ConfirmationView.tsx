@@ -13,14 +13,14 @@ import { formatINR } from "@/lib/format";
 import { isLocalPreview, isPreview } from "@/lib/preview";
 import type { Totals } from "@/lib/pricing";
 import { messages, whatsappLink } from "@/lib/whatsapp";
-import { readConfirmationRaw, type Confirmation } from "./confirmation-store";
+import { readConfirmationRaw, saveConfirmation, subscribeConfirmation, type Confirmation } from "./confirmation-store";
+import { UpiPayPanel } from "./UpiPayPanel";
 
-const noop = () => () => {};
 
 /** "Thank you" page after checkout, built from the order the checkout just placed. */
 export function ConfirmationView() {
   const id = useSearchParams().get("order") ?? "";
-  const raw = useSyncExternalStore(noop, () => readConfirmationRaw(id), () => null);
+  const raw = useSyncExternalStore(subscribeConfirmation, () => readConfirmationRaw(id), () => null);
   const saved = useMemo(() => (raw ? (JSON.parse(raw) as Confirmation) : null), [raw]);
 
   const help = whatsappLink(id ? `Hi! I have a question about my order ${id}.` : messages.general);
@@ -47,7 +47,8 @@ export function ConfirmationView() {
     );
   }
 
-  const { order, whatsappUrl } = saved;
+  const { order, whatsappUrl, personaliseUrl } = saved;
+  const payNow = order.payment.method === "upi" && order.status === "awaiting_payment";
   const viaWhatsApp = order.payment.method === "whatsapp";
   const firstName = order.customer.name.split(" ")[0];
   const delivery = order.delivery ? formatDateRange(new Date(order.delivery.from), new Date(order.delivery.to)) : null;
@@ -75,7 +76,11 @@ export function ConfirmationView() {
         <p className="mx-auto mt-4 max-w-lg text-[15px] leading-relaxed text-muted">
           {viaWhatsApp
             ? "Tap the button to send your order to us. We confirm it with you in the chat and share how to pay."
-            : "Your order is in. Every piece is handmade, so we start making or packing yours now and let you know when it ships."}
+            : order.payment.method === "upi" && order.status === "awaiting_payment"
+              ? "Your order is in. Pay by UPI below, then tell us how to personalise it. We start making your tribute once the payment arrives."
+              : order.status === "payment_claimed"
+                ? "Your order is in. We are checking your payment and confirm it on WhatsApp, then we start making your tribute."
+                : "Your order is in. Every piece is handmade, so we start making yours now and let you know when it ships."}
         </p>
         {viaWhatsApp && whatsappUrl && (
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp mt-7">
@@ -87,14 +92,40 @@ export function ConfirmationView() {
           <p className="mx-auto mt-5 max-w-lg surface-amber px-4 py-2.5 text-[12.5px]">
             {isLocalPreview ? (
               <>
-                Preview: the order was saved in <code>.data/orders.jsonl</code> and its emails in <code>.data/emails/</code> instead of being sent.
+                Preview: the order was saved in <code>.data/store/orders/</code> and its emails in <code>.data/emails/</code> instead of being sent.
               </>
             ) : (
-              "Preview: this was a test order. It was not saved or sent to the studio."
+              "Preview: this test order was saved, but no emails went out because email is not set up yet."
             )}
           </p>
         )}
       </div>
+
+      {payNow && (
+        <div className="mt-10">
+          <UpiPayPanel order={order} onClaimed={(o) => saveConfirmation(o, whatsappUrl, personaliseUrl)} />
+        </div>
+      )}
+      {order.status === "payment_claimed" && (
+        <p className="surface-amber mt-10 px-5 py-4 text-[14px]">Thank you. We are checking your UPI payment{order.payment.upiRef ? ` (reference ${order.payment.upiRef})` : ""} and will confirm it on WhatsApp.</p>
+      )}
+      {personaliseUrl && (
+        <section aria-labelledby="personalise-title" className="surface-brown mt-10 p-6 md:p-8">
+          <p className="eyebrow">{payNow ? "Step 2 of 2" : "Next step"}</p>
+          <h2 id="personalise-title" className="mt-2 text-[22px] font-semibold md:text-[26px]">
+            Personalise your tribute
+          </h2>
+          <p className="mt-2 max-w-xl text-[14px] leading-relaxed text-muted">Choose the layout, add the name and rank, upload photos of the officer and the medals, and pick the background colour. You can do it now or later from this link.</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a href={personaliseUrl} className="btn btn-light btn-press">
+              Personalise now
+            </a>
+            <a href={`https://wa.me/91${order.customer.phone}?text=${encodeURIComponent(`My Art Studio order ${order.id}: personalise it here ${personaliseUrl}`)}`} target="_blank" rel="noopener noreferrer" className="btn btn-outline-light btn-press">
+              <WhatsAppIcon size={17} /> Save link to my WhatsApp
+            </a>
+          </div>
+        </section>
+      )}
 
       <div className="mt-12 grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <section aria-labelledby="items-title" className="border border-line p-6">

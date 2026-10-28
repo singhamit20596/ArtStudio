@@ -18,7 +18,7 @@ export function QuantityStepper({ value, max, onChange, itemName, size = "md", c
   const of = itemName ? ` of ${itemName}` : "";
   const button = clsx("grid h-full place-items-center disabled:opacity-30", size === "sm" ? "w-8" : "w-10");
   return (
-    <div className={clsx("flex items-center border border-ink/20", size === "sm" ? "h-9" : "h-12", className)} role="group" aria-label={`Quantity${of}`}>
+    <div className={clsx("flex items-center border border-ink/20", size === "sm" ? "h-9" : "h-11", className)} role="group" aria-label={`Quantity${of}`}>
       <button type="button" onClick={() => onChange(value - 1)} disabled={value <= 1} aria-label={`One fewer${of}`} className={button}>
         <Minus size={size === "sm" ? 13 : 15} />
       </button>

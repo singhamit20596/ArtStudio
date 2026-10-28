@@ -19,18 +19,19 @@ import { INDIAN_STATES, isPincode } from "@/lib/india";
 import { isLocalPreview, isPreview } from "@/lib/preview";
 import type { CartProduct, PaymentMethod } from "@/lib/pricing";
 import { saveConfirmation } from "./confirmation-store";
+import { isPreviewUpi, upiAvailable } from "@/lib/upi";
 import { payWithRazorpay } from "./razorpay-client";
 
 type Fields = Pick<CheckoutInput, "name" | "phone" | "email" | "pincode" | "line1" | "line2" | "landmark" | "city" | "state" | "giftMessage">;
 const EMPTY: Fields = { name: "", phone: "", email: "", pincode: "", line1: "", line2: "", landmark: "", city: "", state: "", giftMessage: "" };
 const FIELD_ORDER: CheckoutField[] = ["name", "phone", "email", "pincode", "line1", "line2", "landmark", "city", "state", "giftMessage", "payment"];
 
-const defaultPayment: PaymentMethod = site.payments.cashOnDelivery ? "cod" : "whatsapp";
+const defaultPayment: PaymentMethod = upiAvailable() ? "upi" : site.payments.cashOnDelivery ? "cod" : "whatsapp";
 
 /** Guest checkout: contact, address (pincode fills city and state), gift options, payment, summary. */
 export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
   const router = useRouter();
-  const { cart, couponCode, clearCart } = useShop();
+  const { couponCode, clearCart } = useShop();
   const [fields, setFields] = useState<Fields>(EMPTY);
   const [giftWrap, setGiftWrap] = useState(false);
   const [payment, setPayment] = useState<PaymentMethod>(defaultPayment);
@@ -92,8 +93,8 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
     }
   };
 
-  const finish = (order: Order, whatsappUrl?: string) => {
-    saveConfirmation(order, whatsappUrl);
+  const finish = (order: Order, whatsappUrl?: string, personaliseUrl?: string) => {
+    saveConfirmation(order, whatsappUrl, personaliseUrl);
     setPlaced(true);
     clearCart();
     router.push(`/checkout/confirmation?order=${encodeURIComponent(order.id)}`);
@@ -101,7 +102,10 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const input: CheckoutInput = { ...fields, giftWrap, payment, couponCode, lines: cart, website: honeypot.current?.value ?? "" };
+    // Send only the pieces shown in the summary: a saved cart can still hold a piece that has
+    // since been renamed or removed, and the server would refuse the whole order for it.
+    const lines = totals.lines.map((l) => ({ ...l.line, quantity: l.quantity }));
+    const input: CheckoutInput = { ...fields, giftWrap, payment, couponCode, lines, website: honeypot.current?.value ?? "" };
     const found = validateCheckout(input);
     setErrors(found);
     setMessage(null);
@@ -134,7 +138,7 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
         }
         return;
       }
-      finish(data.order, data.whatsappUrl);
+      finish(data.order, data.whatsappUrl, data.personaliseUrl);
     } catch {
       setMessage("We couldn't place your order. Please check your connection and try again, or order on WhatsApp.");
       setBusy(false);
@@ -161,7 +165,14 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
     );
   }
 
-  const submitLabel = payment === "whatsapp" ? "Continue to WhatsApp" : payment === "online" ? `Pay ${formatINR(totals.total)}` : `Place order · ${formatINR(totals.total)}`;
+  const submitLabel =
+    payment === "whatsapp"
+      ? "Continue to WhatsApp"
+      : payment === "online"
+        ? `Pay ${formatINR(totals.total)}`
+        : payment === "upi"
+          ? `Continue to pay · ${formatINR(totals.total)}`
+          : `Place order · ${formatINR(totals.total)}`;
 
   return (
     <div className="grid gap-10 pb-20 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-16 md:pb-28">
@@ -266,6 +277,11 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
         <Section n={site.giftWrap.enabled ? 4 : 3} title="Payment">
           <fieldset className="space-y-3">
             <legend className="sr-only">Payment method</legend>
+            {upiAvailable() && (
+              <PayOption value="upi" current={payment} onChange={setPayment} title="Pay by UPI" badge={isPreviewUpi() ? "Preview" : undefined}>
+                GPay, PhonePe, Paytm or any UPI app. You pay on the next screen; scan the QR code on a computer.
+              </PayOption>
+            )}
             {site.payments.cashOnDelivery && (
               <PayOption value="cod" current={payment} onChange={setPayment} title="Cash on Delivery">
                 Pay when your order arrives{site.payments.codFee ? ` (+${formatINR(site.payments.codFee)} fee)` : ""}.
@@ -293,6 +309,12 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
       <aside aria-label="Order summary" className="lg:sticky lg:top-24 lg:self-start">
         <div className="border border-line p-6">
           <h2 className="nav-label">Order summary</h2>
+          {totals.unavailable.length > 0 && (
+            <p className="mt-4 surface-amber px-3 py-2 text-[12.5px]" role="status">
+              {totals.unavailable.length === 1 ? "One piece in your cart is" : `${totals.unavailable.length} pieces in your cart are`} no longer available, so{" "}
+              {totals.unavailable.length === 1 ? "it is" : "they are"} left out of this order.
+            </p>
+          )}
           <ul className="mt-5 space-y-4">
             {totals.lines.map((l) => (
               <li key={l.key} className="flex gap-3">

@@ -9,6 +9,8 @@ interface FramePreviewProps {
   detail?: string;
   /** Which elements to draw; all of them when left out. */
   items?: readonly FrameItemId[];
+  /** Mount (background) colour; the brand sage when left out. */
+  mount?: string;
   className?: string;
 }
 
@@ -24,7 +26,7 @@ const EMBLEM = { army: Swords, navy: Anchor, "air-force": Plane, other: Shield }
  * medals, rank insignia and the engraved name plate, which updates as the visitor types.
  * Not a photo of the finished piece; the real layout is agreed on WhatsApp.
  */
-export function FramePreview({ service, rank, name, detail, items, className }: FramePreviewProps) {
+export function FramePreview({ service, rank, name, detail, items, mount = SAGE, className }: FramePreviewProps) {
   const has = (id: FrameItemId) => !items || items.includes(id);
   const Emblem = EMBLEM[service];
   const line1 = [rank.trim(), name.trim()].filter(Boolean).join(" ").toUpperCase() || "RANK AND NAME";
@@ -35,7 +37,7 @@ export function FramePreview({ service, rank, name, detail, items, className }: 
       {/* Frame, bevel and mount */}
       <rect width="480" height="360" fill={BROWN} />
       <rect x="13" y="13" width="454" height="334" fill="none" stroke={AMBER} strokeWidth="2" />
-      <rect x="22" y="22" width="436" height="316" fill={SAGE} />
+      <rect x="22" y="22" width="436" height="316" fill={mount} style={{ transition: "fill 0.5s" }} />
 
       {/* Service emblem: replays its entrance when the service changes */}
       <g key={service} className="pop-in" style={{ transformBox: "fill-box", transformOrigin: "center" }}>

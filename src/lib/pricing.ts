@@ -1,30 +1,54 @@
 import { site } from "@/config/site";
 import { evaluateCoupon, type CouponResult } from "./coupons";
-import type { DayRange } from "./types";
+import type { DayRange, SizeOption } from "./types";
 
 /*
  * Cart maths shared by the cart drawer, the checkout page and the order API.
  * The server always recomputes from its own catalogue; browser totals are a preview.
  */
 
+export interface LineOptions {
+  /** SizeOption id, e.g. "16x20". */
+  size?: string;
+  /** LED lights added. */
+  light?: boolean;
+}
+
 export interface CartLine {
   slug: string;
   quantity: number;
-  /** Chosen options, e.g. "Letter: M". */
+  /** Chosen options as shown to people, e.g. "Letter: M" or "16 × 20 in · With LED lights". */
   variant?: string;
+  /** Options that change the price (made-to-order pieces). */
+  options?: LineOptions;
 }
 
 /** What the cart needs to know about a ready-made product. */
 export interface CartProduct {
   slug: string;
   name: string;
+  /** Base price (the smallest size for sized pieces). */
   price: number;
   image: string | null;
   stock: number;
   makingTimeDays: DayRange;
+  sizes?: SizeOption[];
+  lightPrice?: number | null;
 }
 
-export type PaymentMethod = "cod" | "online" | "whatsapp";
+/** Price of one piece with its chosen size and lights. */
+export function unitPrice(p: { price: number | null; sizes?: SizeOption[]; lightPrice?: number | null }, options?: LineOptions) {
+  const size = p.sizes?.find((s) => s.id === options?.size);
+  return (size?.price ?? p.price ?? 0) + (options?.light && p.lightPrice ? p.lightPrice : 0);
+}
+
+/** "16 × 20 in · With LED lights", or just "16 × 20 in" when lights are not offered. */
+export function describeOptions(p: Pick<CartProduct, "sizes" | "lightPrice">, options?: LineOptions) {
+  const size = p.sizes?.find((s) => s.id === options?.size);
+  return [size?.label, p.lightPrice != null ? (options?.light ? "With LED lights" : "Without lights") : null].filter(Boolean).join(" · ");
+}
+
+export type PaymentMethod = "cod" | "online" | "whatsapp" | "upi";
 
 export const MAX_QTY = 10;
 
@@ -38,6 +62,7 @@ export interface PricedLine {
   line: CartLine;
   product: CartProduct;
   quantity: number;
+  unitPrice: number;
   lineTotal: number;
 }
 
@@ -79,7 +104,8 @@ export function priceCart(cart: CartLine[], catalogue: CartProduct[], opts: Pric
       continue;
     }
     const quantity = Math.max(1, Math.min(Math.floor(line.quantity), max));
-    lines.push({ key: lineKey(line), line, product, quantity, lineTotal: product.price * quantity });
+    const unit = unitPrice(product, line.options);
+    lines.push({ key: lineKey(line), line, product, quantity, unitPrice: unit, lineTotal: unit * quantity });
   }
 
   const subtotal = lines.reduce((n, l) => n + l.lineTotal, 0);

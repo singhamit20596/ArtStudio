@@ -24,14 +24,16 @@ interface HeaderProps {
   links?: NavLink[];
   /** Button on the right, e.g. "Request a frame". */
   cta?: NavLink;
-  /** Search, account, wishlist and cart (only while the shop is open). */
+  /** Search, account and wishlist (only while the full shop is open). */
   shop: boolean;
+  /** Cart icon, cart drawer and offers. */
+  cart: boolean;
   searchItems: SearchItem[];
   searchLinks: SearchLink[];
   cartCatalogue: CartProduct[];
 }
 
-export function Header({ overlay = false, menus, links = [], cta, shop, searchItems, searchLinks, cartCatalogue }: HeaderProps) {
+export function Header({ overlay = false, menus, links = [], cta, shop, cart, searchItems, searchLinks, cartCatalogue }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -143,6 +145,13 @@ export function Header({ overlay = false, menus, links = [], cta, shop, searchIt
                 ))}
                 {menus.map((menu) => (
                   <li key={menu.id} onMouseEnter={(e) => hoverOpen(menu.id, e.timeStamp)}>
+                    {menu.href ? (
+                      // A menu with its own page: the label is a link; hovering still shows the panel.
+                      <AppLink href={menu.href} onClick={closeMenu} className="nav-label flex h-[76px] items-center gap-1.5 px-3">
+                        <span className={clsx("link-grow", openMenu === menu.id && "bg-[length:100%_1px]")}>{menu.label}</span>
+                        <ChevronDown size={13} strokeWidth={2} aria-hidden="true" className={clsx("transition-transform", openMenu === menu.id && "rotate-180")} />
+                      </AppLink>
+                    ) : (
                     <button
                       ref={(el) => {
                         triggerRefs.current[menu.id] = el;
@@ -156,6 +165,7 @@ export function Header({ overlay = false, menus, links = [], cta, shop, searchIt
                       <span className={clsx("link-grow", openMenu === menu.id && "bg-[length:100%_1px]")}>{menu.label}</span>
                       <ChevronDown size={13} strokeWidth={2} aria-hidden="true" className={clsx("transition-transform", openMenu === menu.id && "rotate-180")} />
                     </button>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -166,7 +176,7 @@ export function Header({ overlay = false, menus, links = [], cta, shop, searchIt
           <div className="-mr-2 flex items-center justify-end">
             {cta && (
               <AppLink href={cta.href} className="btn btn-light btn-press mr-2 min-h-10 px-4 text-[11px] sm:px-5">
-                <span className="sm:hidden">Request</span>
+                <span className="sm:hidden">Tributes</span>
                 <span className="hidden sm:inline">{cta.label}</span>
               </AppLink>
             )}
@@ -182,11 +192,13 @@ export function Header({ overlay = false, menus, links = [], cta, shop, searchIt
               <Heart size={20} strokeWidth={1.6} />
               {wishlist.length > 0 && <Count n={wishlist.length} />}
             </AppLink>
-            <button type="button" onClick={() => setCartOpen(true)} aria-label={`Cart, ${cartCount} items`} className={iconButton}>
-              <ShoppingBag size={20} strokeWidth={1.6} />
-              {cartCount > 0 && <Count n={cartCount} />}
-            </button>
               </>
+            )}
+            {cart && (
+              <button type="button" onClick={() => setCartOpen(true)} aria-label={`Cart, ${cartCount} items`} className={iconButton}>
+                <ShoppingBag size={20} strokeWidth={1.6} />
+                {cartCount > 0 && <Count n={cartCount} />}
+              </button>
             )}
           </div>
         </div>
@@ -195,9 +207,9 @@ export function Header({ overlay = false, menus, links = [], cta, shop, searchIt
       </header>
 
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} menus={menus} links={links} cta={cta} shop={shop} />
-      {shop && (
+      {shop && <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} items={searchItems} links={searchLinks} />}
+      {cart && (
         <>
-          <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} items={searchItems} links={searchLinks} />
           <CartDrawer catalogue={cartCatalogue} />
           <OffersDrawer />
         </>

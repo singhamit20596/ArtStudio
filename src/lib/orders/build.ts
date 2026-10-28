@@ -1,10 +1,11 @@
-import { randomInt } from "node:crypto";
+import { randomBytes, randomInt } from "node:crypto";
 import { site } from "@/config/site";
 import { cartCatalog, getProduct } from "@/lib/catalog";
 import { validateCheckout, type CheckoutErrors, type CheckoutInput, type Order } from "@/lib/checkout";
 import { checkPincode } from "@/lib/delivery";
 import { normaliseMobile } from "@/lib/india";
-import { priceCart, type CartLine } from "@/lib/pricing";
+import { describeOptions, priceCart, type CartLine } from "@/lib/pricing";
+import { upiAvailable } from "@/lib/upi";
 import { razorpayKeys } from "./razorpay";
 
 export type BuildResult = { ok: true; order: Order } | { ok: false; status: number; message: string; errors?: CheckoutErrors };
@@ -27,12 +28,16 @@ export function readInput(raw: unknown): CheckoutInput {
     state: clip(r.state, 60),
     giftWrap: r.giftWrap === true,
     giftMessage: typeof r.giftMessage === "string" ? r.giftMessage.trim().slice(0, 400) : "",
-    payment: r.payment === "cod" || r.payment === "online" || r.payment === "whatsapp" ? r.payment : ("" as never),
+    payment: r.payment === "cod" || r.payment === "online" || r.payment === "whatsapp" || r.payment === "upi" ? r.payment : ("" as never),
     couponCode: clip(r.couponCode, 30).toUpperCase(),
     lines: lines.map((l: Record<string, unknown>) => ({
       slug: clip(l?.slug, 80),
       quantity: Number.isInteger(l?.quantity) ? (l.quantity as number) : 0,
       variant: clip(l?.variant, 120) || undefined,
+      options:
+        l?.options && typeof l.options === "object"
+          ? { size: clip((l.options as Record<string, unknown>).size, 20) || undefined, light: (l.options as Record<string, unknown>).light === true }
+          : undefined,
     })),
     website: clip(r.website, 200),
   };
@@ -67,15 +72,28 @@ export function buildOrder(input: CheckoutInput, now: number): BuildResult {
   if (input.payment === "cod" && !payments.cashOnDelivery) return { ok: false, status: 400, message: "Cash on Delivery is not available." };
   if (input.payment === "whatsapp" && !payments.orderOnWhatsApp) return { ok: false, status: 400, message: "Ordering on WhatsApp is not available." };
   if (input.payment === "online" && !(payments.razorpayEnabled && razorpayKeys())) return { ok: false, status: 400, message: `${payments.onlineComingSoonLabel}.` };
+  if (input.payment === "upi" && !upiAvailable()) return { ok: false, status: 400, message: "UPI payment is not available yet. Please choose another way to pay." };
 
   const catalogue = cartCatalog();
   const merged = new Map<string, CartLine>();
   for (const line of input.lines) {
     const product = catalogue.find((p) => p.slug === line.slug);
     if (!product || line.quantity < 1) return { ok: false, status: 409, message: "A piece in your cart is no longer available. Please check your cart." };
-    if (!variantOk(line.slug, line.variant)) return { ok: false, status: 409, message: `Please choose the options for ${product.name.split(" | ")[0]} again.` };
-    const key = `${line.slug}|${line.variant ?? ""}`;
-    merged.set(key, { ...line, quantity: (merged.get(key)?.quantity ?? 0) + line.quantity });
+    let clean: CartLine;
+    if (product.sizes?.length) {
+      // Sized pieces: the size must exist and lights must be offered. The label is rebuilt here.
+      // Lights only count while they are on offer; a cart saved earlier with lights just drops them.
+      const size = product.sizes.find((s) => s.id === line.options?.size);
+      const light = Boolean(line.options?.light) && product.lightPrice != null;
+      if (!size) return { ok: false, status: 409, message: `Please choose the size for ${product.name.split(" | ")[0]} again.` };
+      const options = { size: size.id, light };
+      clean = { slug: line.slug, quantity: line.quantity, options, variant: describeOptions(product, options) };
+    } else {
+      if (!variantOk(line.slug, line.variant)) return { ok: false, status: 409, message: `Please choose the options for ${product.name.split(" | ")[0]} again.` };
+      clean = { slug: line.slug, quantity: line.quantity, variant: line.variant };
+    }
+    const key = `${clean.slug}|${clean.variant ?? ""}`;
+    merged.set(key, { ...clean, quantity: (merged.get(key)?.quantity ?? 0) + clean.quantity });
   }
   // Stock is per product, across all its variants.
   const perProduct = new Map<string, number>();
@@ -99,8 +117,9 @@ export function buildOrder(input: CheckoutInput, now: number): BuildResult {
     order: {
       id: makeOrderId(now),
       createdAt: new Date(now).toISOString(),
-      status: input.payment === "online" ? "awaiting_payment" : input.payment === "whatsapp" ? "awaiting_whatsapp" : "placed",
+      status: input.payment === "online" || input.payment === "upi" ? "awaiting_payment" : input.payment === "whatsapp" ? "awaiting_whatsapp" : "placed",
       payment: { method: input.payment },
+      token: randomBytes(18).toString("base64url"),
       customer: { name: input.name, phone: normaliseMobile(input.phone)!, email },
       address: {
         line1: input.line1,
@@ -115,8 +134,9 @@ export function buildOrder(input: CheckoutInput, now: number): BuildResult {
         slug: l.product.slug,
         name: l.product.name,
         variant: l.line.variant,
+        options: l.line.options,
         image: l.product.image,
-        unitPrice: l.product.price,
+        unitPrice: l.unitPrice,
         quantity: l.quantity,
         lineTotal: l.lineTotal,
       })),

@@ -47,6 +47,14 @@ export const site = {
      */
     razorpayEnabled: false,
     onlineComingSoonLabel: "Online payments coming soon",
+    /**
+     * Pay by UPI link / QR straight to the studio's UPI ID (no gateway; the studio checks the
+     * money arrived). TODO (owner): set your UPI ID, e.g. "artstudio@okhdfcbank".
+     */
+    upi: {
+      id: "",
+      payeeName: "Art Studio",
+    },
   },
 
   giftWrap: {

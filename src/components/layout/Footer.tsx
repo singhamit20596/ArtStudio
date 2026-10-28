@@ -8,7 +8,7 @@ import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="surface-brown">
+    <footer className="surface-brown border-t border-line">
       <div className="container-x grid gap-12 py-16 md:py-20 lg:grid-cols-[1.1fr_2fr]">
         <div className="max-w-sm">
           <Logo inverted />
@@ -66,8 +66,8 @@ export function Footer() {
             © 2026 {site.name} · {site.tagline}. Handmade in India.
           </p>
           <p>
-            {launch.shop
-              ? `Cash on Delivery · ${site.payments.razorpayEnabled ? "UPI, cards & netbanking" : site.payments.onlineComingSoonLabel} · Prices include taxes`
+            {launch.shop || launch.cart
+              ? `UPI · Cash on Delivery · ${site.payments.razorpayEnabled ? "Cards & netbanking" : site.payments.onlineComingSoonLabel} · Prices include taxes`
               : "Made to order · Pan India delivery · Prices include taxes"}
           </p>
         </div>

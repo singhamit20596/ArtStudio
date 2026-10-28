@@ -11,8 +11,8 @@ export function productHref(p: Pick<Product, "slug">) {
 }
 
 export function categoryHref(c: Pick<Category, "slug" | "type">) {
-  // The launch product line lives on the homepage.
-  if (c.slug === launch.focus) return "/";
+  // The featured line (Retirement Tributes) has its own page.
+  if (c.slug === launch.focus) return "/retirement-tributes";
   if (c.type === "ready") return c.slug === "gifts" ? "/gifts" : `/shop/${c.slug}`;
   return `/custom/${c.slug}`;
 }

@@ -1,6 +1,6 @@
 import { site } from "@/config/site";
 import { INDIAN_STATES, isPincode, normaliseMobile } from "./india";
-import type { CartLine, PaymentMethod } from "./pricing";
+import type { CartLine, LineOptions, PaymentMethod } from "./pricing";
 
 /** What the checkout form sends to POST /api/orders. */
 export interface CheckoutInput {
@@ -41,22 +41,42 @@ export function validateCheckout(input: CheckoutInput): CheckoutErrors {
   if (text(input.city).length < 2) e.city = "Please enter your city or town.";
   if (!INDIAN_STATES.includes(text(input.state))) e.state = "Please choose your state.";
   if (text(input.giftMessage).length > site.giftWrap.messageMaxLength) e.giftMessage = `Please keep the message under ${site.giftWrap.messageMaxLength} characters.`;
-  if (!["cod", "online", "whatsapp"].includes(input.payment)) e.payment = "Please choose how to pay.";
+  if (!["cod", "online", "whatsapp", "upi"].includes(input.payment)) e.payment = "Please choose how to pay.";
   if (!Array.isArray(input.lines) || input.lines.length === 0) e.lines = "Your cart is empty.";
   return e;
+}
+
+/** Details the customer adds after ordering (template, name plate, photos, colours). */
+export interface Personalisation {
+  template: string;
+  rank: string;
+  name: string;
+  unit: string | null;
+  years: string | null;
+  background: string;
+  notes: string | null;
+  /** Date the piece is needed by (YYYY-MM-DD), if any. */
+  neededBy: string | null;
+  /** Storage keys of the uploaded photos (bucket "uploads"). */
+  files: string[];
+  submittedAt: string;
 }
 
 export interface OrderItem {
   slug: string;
   name: string;
   variant?: string;
+  options?: LineOptions;
   image: string | null;
   unitPrice: number;
   quantity: number;
   lineTotal: number;
+  /** Filled in after checkout on /personalise for made-to-order pieces. */
+  personalisation?: Personalisation | null;
 }
 
-export type OrderStatus = "placed" | "awaiting_payment" | "paid" | "awaiting_whatsapp";
+/** awaiting_payment: UPI or Razorpay not paid yet. payment_claimed: customer says they paid by UPI. */
+export type OrderStatus = "placed" | "awaiting_payment" | "payment_claimed" | "paid" | "awaiting_whatsapp";
 
 export interface Order {
   id: string;
@@ -66,7 +86,12 @@ export interface Order {
     method: PaymentMethod;
     razorpayOrderId?: string;
     razorpayPaymentId?: string;
+    /** UPI transaction reference the customer entered after paying. */
+    upiRef?: string;
+    claimedAt?: string;
   };
+  /** Secret part of the personalisation and photo links. Never shown to anyone but the buyer and the studio. */
+  token?: string;
   customer: { name: string; phone: string; email: string | null };
   address: { line1: string; line2: string; landmark: string | null; city: string; state: string; pincode: string };
   gift: { wrap: boolean; message: string | null };
@@ -82,4 +107,8 @@ export const PAYMENT_LABELS: Record<PaymentMethod, string> = {
   cod: "Cash on Delivery",
   online: "Paid online (Razorpay)",
   whatsapp: "Order on WhatsApp",
+  upi: "UPI",
 };
+
+/** Items that need personalising after checkout (made-to-order pieces with sizes). */
+export const needsPersonalising = (item: Pick<OrderItem, "options">) => Boolean(item.options?.size);

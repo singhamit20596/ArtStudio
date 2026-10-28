@@ -43,9 +43,9 @@ export function HotspotExplorer({ frame, spots }: HotspotExplorerProps) {
 
   return (
     <div ref={root} className="grid items-start gap-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-14">
-      <div className="reveal-scale relative mx-auto w-full max-w-[520px]">
-        <div className="relative aspect-[4/5] overflow-hidden bg-brown">
-          <Image src={frame.image} alt={frame.alt} fill sizes="(min-width: 768px) 45vw, 100vw" quality={85} className="object-cover" />
+      <div className="reveal-scale relative mx-auto w-full max-w-[640px]">
+        <div className="relative overflow-hidden bg-brown" style={{ aspectRatio: frame.detail?.ratio ?? "4 / 5" }}>
+          <Image src={frame.detail?.image ?? frame.image} alt={frame.alt} fill sizes="(min-width: 768px) 45vw, 100vw" quality={85} className="object-cover" />
           {/* Dim everything except the chosen point */}
           <span
             aria-hidden="true"

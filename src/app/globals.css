@@ -185,13 +185,13 @@ body {
   }
 
   .section-title {
-    font-size: 28px;
+    font-size: 24px;
     line-height: 1.15;
     font-weight: 600;
   }
   @media (min-width: 768px) {
     .section-title {
-      font-size: 34px;
+      font-size: 30px;
     }
   }
 
@@ -201,11 +201,11 @@ body {
     align-items: center;
     justify-content: center;
     gap: 0.75em;
-    min-height: 48px;
-    padding-inline: 28px;
-    font-size: 13px;
+    min-height: 44px;
+    padding-inline: 22px;
+    font-size: 12px;
     font-weight: 500;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     white-space: nowrap;
     transition:
@@ -733,6 +733,47 @@ svg .pop-in {
     background-clip: text;
     color: transparent;
     animation: shimmer-text 5s linear infinite;
+  }
+}
+
+/* LED lights on the product gallery */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .twinkle {
+    animation: twinkle 1.6s ease-in-out infinite;
+  }
+  /* Draws the eye to the WhatsApp help button */
+  .attention {
+    position: relative;
+  }
+  .attention::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border: 2px solid var(--color-amber);
+    animation: ping-box 2.2s ease-out infinite;
+    pointer-events: none;
+  }
+}
+@keyframes ping-box {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  80%,
+  100% {
+    opacity: 0;
+    transform: scale(1.08, 1.25);
   }
 }
 

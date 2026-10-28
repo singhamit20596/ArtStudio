@@ -22,7 +22,7 @@ export function PreviewSection() {
           Make it theirs
         </h2>
         <p className="mt-4 max-w-md text-[15px] leading-relaxed text-muted">
-          Choose the service and type the rank and name. This sketch shows the idea; the real layout is planned with you around their own medals and photograph.
+          Choose the service and type the rank and name. After you order, you pick the design, upload their photos and choose the background colour.
         </p>
 
         <fieldset className="mt-8">
@@ -56,7 +56,7 @@ export function PreviewSection() {
           </label>
         </div>
 
-        <RequestFrameButton label="Continue with these details" className="mt-8" query={{ service, rank, name }} />
+        <RequestFrameButton label="Start with a box frame" href="/product/box-frame" className="mt-8" />
       </div>
 
       <div className="reveal-right">

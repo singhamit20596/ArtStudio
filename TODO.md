@@ -1,19 +1,64 @@
 # Art Studio website: what I still need from you
 
-Everything below is a placeholder in the Phase 3 build. Reply with whatever you have; nothing here blocks Phase 4.
+Everything below is a placeholder. Reply with whatever you have. The top section matters most for the Retirement Tributes launch.
 Product data lives in `src/data/seed.json`, business settings in `src/config/site.ts`, coupon codes in `src/config/coupons.ts`.
 
-## Tribute-frame launch: please check
+## Retirement Tributes launch: please check
 
-- [ ] **Photos of Army and Navy frames.** The site offers frames for all three services, but the only photo is an Indian Air Force frame. Send at least one clear photo of each (plain background, 1600 px or more).
-- [ ] **Starting price (₹4,999) and making time (10–14 days)** are placeholders from earlier. Confirm or correct them.
-- [ ] **Sizes and prices.** Do you have set sizes (e.g. A4, A3) with prices? The site says "final price depends on size and what goes inside".
-- [ ] **How customers get their medals to you.** Do they courier the originals, hand them over, or do you source replicas? The site avoids saying either way until you tell us.
-- [ ] **Payment for frames.** Advance, full payment, or Cash on Delivery? The site currently says "no payment online; we agree every detail with you".
-- [ ] **Other services.** The form has "Another service" (e.g. Coast Guard, paramilitary). Keep it or remove it?
-- [ ] **Copy to check** in `src/config/tribute.ts`: the six "What goes inside" notes, the four "How it works" steps and the six FAQs.
-- [ ] **Hotspot positions** on the frame photo: if you send a new photo, the numbered points need moving to match it.
-- [ ] **Request emails** go to sandeep698146@gmail.com once Resend is set up (see Phase 3 below). Until then, requests reach you only through the customer's WhatsApp message.
+Retirement Tributes (Newspaper Tribute, Box Frame and Resin Frame) are the featured line: they open the homepage with one heartfelt line and lead every menu. The rest of the shop is back below them, still with the placeholders listed further down.
+
+### Before the first real order
+
+- [ ] **Your UPI ID** (e.g. `artstudio@okicici`). Goes in `payments.upi.id` in `src/config/site.ts`. Without it the live site cannot offer "Pay by UPI"; the preview uses a dummy ID that cannot receive money.
+- [ ] **Order emails (Resend).** Order alerts, "I've paid" alerts and the customer's personalisation details (with photo links) all reach you by email. Until Resend is set up (steps under Phase 3 below), you only hear about an order if the customer messages you on WhatsApp.
+- [ ] **Cash on Delivery for tributes.** Checkout still offers COD. For made-to-order pieces of ₹3,000–₹11,000, do you want COD, or UPI and WhatsApp only?
+
+### The three tributes (prices and copy are placeholders; change freely)
+
+| Tribute | Sizes and prices (placeholders) | LED lights | Making time |
+|---|---|---|---|
+| Box Frame (medals, photo, name plate) | 12 × 16 in ₹4,999 · 16 × 20 in ₹6,499 · 18 × 24 in ₹7,999 · 20 × 24 in ₹8,999 · 24 × 30 in ₹10,999 | + ₹799 | 10–14 days |
+| Newspaper Tribute (framed front page) | 12 × 16 in ₹2,999 · 16 × 20 in ₹3,999 · 18 × 24 in ₹4,999 · 20 × 30 in ₹6,499 | + ₹799 | 7–10 days |
+| Resin Frame (photo and crest in resin) | 8 × 10 in ₹3,499 · 10 × 12 in ₹4,499 · 12 × 16 in ₹5,999 · 16 × 20 in ₹7,999 | + ₹699 | 7–10 days |
+
+- [ ] **Sizes, prices, light prices and making times** in the table above (all in `src/data/seed.json`). Send your real ones.
+- [ ] **The homepage line**: "They served the nation. They deserve the best." with a short paragraph about years far from home and festivals on duty (`src/components/tribute/TributeHero.tsx`). Change any words.
+- [x] **Faces pixelated** in every Retirement Tribute photo (28 Oct 2026): main photos, lit versions, homepage tiles, design photos, all samples (including the small photos in the newspaper collages and film strip), the source mockups in `exports/iaf-frames/`, the old Instagram frame photo and the homepage Instagram tile of the frame. Please look through them once; send word if any face was missed.
+- [ ] **LED lights are hidden for now** (`lights: false` in `src/config/launch.ts`). The light prices above stay saved; set it to `true` to offer lights again (the "with light" photos come back with it).
+- [ ] **Main photos are mockups.** Each tribute shows one main photo, then its samples (in `public/products/<slug>/`, made by `scripts/make-tribute-photos.py`):
+  - Box Frame and Resin Frame come from the mockups in `exports/iaf-frames/` (your blue shadow box and round resin plaque recreated cleanly, with stock models in painted-on uniforms and stock rooms from Pexels; see `PHOTO-CREDITS.md`). Please confirm they show pieces you make.
+  - **Newspaper Tribute is a sample I designed** (masthead "The Nation's Pride", placeholder caption "Rank and Name", a stock model's portrait). Send a photo of a real newspaper tribute to replace it.
+  - The "with light" photos (hidden while lights are off) are edited: the room is darkened and warm LEDs are drawn inside the frame. Real lit photos would be better.
+  - The name plates on the mockups still carry names from the original frames (e.g. "Prashant", "Saurabh Kumar"). Are those customers happy to be shown, or should we blur the names?
+  - When you send real photos: the frame alone with very little background, and (for later) the same with lights on, lights only inside the frame.
+- [ ] **Newspaper Tribute sample photos** (all 3 you sent, in `public/products/newspaper-tribute/`, shown in this order: `sample-3.jpg`, `sample-1.jpg`, `sample-2.jpg`):
+  - "Manish is retired" (shown first) was added on your word that you have permission to use it. It shows a real person's face and full name, and the slideshow arrows of the website it came from.
+  - The Army collage is also a screenshot: the website's slideshow arrows show at its left and right edges.
+  - The "Retirement Celebration" one shows US forces (American flag and uniforms), not Indian ones.
+- [ ] **Box Frame sample photos** (the 7 you sent, now after the main photo, in `public/products/box-frame/sample-1.jpg` to `sample-7.jpg`). Please check before launch:
+  - They look AI-generated and still carry the generator's sparkle mark in a corner. I kept them whole rather than cropping the mark out.
+  - Several have garbled text that customers will notice: "Indian army curto Service Before cell." (Army frame), "SERCEANT" and "SENIOR FIELE OFFICEN" (embroidered frame), "OPEDATION VIJBO-COR" and other misspelt patches.
+  - Some show names ("Satpal Singh", "RK Singh", "Rik Singh"). Fine to show?
+  - Real photos of frames you have made would be better; send them and we swap them in.
+- [ ] **Resin Frame sample photos** (3 of the 4 you sent, after the main photo, in `public/products/resin-frame/sample-1.jpg` to `sample-3.jpg`: green, red, blue with medals). The plain blue one was left out: it is the same plaque and shot as the blue one with medals. Like the Box Frame samples they look AI-generated (sparkle mark in a corner), and:
+  - The green one says "Indian Navy" on its plaque but carries the Air Force crest.
+  - The small top plaque on the blue one has garbled text.
+
+### Personalising after payment
+
+After paying, the customer gets a private link (on the order page and in their email; they can also save it to their own WhatsApp) to: pick a design, enter rank, name, unit and years, upload up to 12 photos, pick a background colour and add notes.
+
+- [ ] **Designs** offered for each type (in `templates`, `src/config/tribute.ts`). Box Frame: Sky blue, Happy Retirement, Velvet and gold (with photos). Newspaper: Front page (photo), Photo story, Broadsheet (sketches). Resin: Rectangle, Arch (sketches) and Round (photo). Rename, add or remove; a photo for each design helps customers choose.
+- [ ] **Background colours**: Army green, Navy blue, Air Force blue, Maroon, Black, Ivory. Change the list or the shades.
+- [ ] **Sending the link on WhatsApp automatically** needs the paid WhatsApp Business API (through a provider such as Interakt, AiSensy or Gupshup). For now the owner email has a "Send link on WhatsApp" button that opens a chat with the customer from your phone. Is that enough to start?
+- [ ] **Where uploaded photos live**: Netlify Blobs storage on your Netlify site. Photos count toward your Netlify usage, so check it after the first few orders.
+- [ ] **A page to see orders and photos** without opening emails: planned for Phase 4 (admin panel).
+
+### Still open from before
+
+- [ ] **How customers get their medals to you.** Do they courier the originals, hand them over, or do you source replicas? The site avoids saying either way.
+- [ ] **Copy to check** in `src/config/tribute.ts`: "What goes inside" notes, the five "How it works" steps and the FAQs.
+- [ ] **Hotspot positions** sit on the blue shadow box mockup (`frame-detail.jpg`). If that photo changes, the numbered points need moving to match it.
 
 ## New in Phase 3: please check
 

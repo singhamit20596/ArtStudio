@@ -7,7 +7,6 @@ const tiles: { label: string; href: string; image: string | null }[] = [
   { label: "Trays & Coasters", href: "/shop/trays-coasters", image: "/products/blush-agate-resin-tray/1.jpg" },
   { label: "Wall Décor", href: "/shop/wall-decor", image: "/products/marble-noir-wall-clock/1.jpg" },
   { label: "Keychains", href: "/shop/keychains-accessories", image: "/products/botanical-initial-keychain/1.jpg" },
-  { label: "Tribute Frames", href: "/custom/retirement-tribute-frames", image: "/products/iaf-retirement-tribute-frame/1.jpg" },
   { label: "Shadow Boxes", href: "/custom/shadow-boxes", image: "/products/birthday-shadow-box-led/1.jpg" },
   { label: "Photo Magnets", href: "/custom/fridge-magnets", image: "/products/resin-photo-blocks-magnets/1.jpg" },
   { label: "Made to Order", href: "/custom", image: null },

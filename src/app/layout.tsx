@@ -6,7 +6,7 @@ import { ShopProvider } from "@/components/providers/ShopProvider";
 import { Toaster } from "@/components/ui/Toaster";
 import { PreviewLinkGuard } from "@/components/layout/PreviewLinkGuard";
 
-const title = `${site.name} · Defence retirement tribute frames | Army, Navy & Air Force`;
+const title = `${site.name} · Retirement tributes for the Army, Navy & Air Force`;
 
 export const metadata: Metadata = {
   ...(site.url ? { metadataBase: new URL(site.url) } : {}),
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     locale: "en_IN",
     title,
     description: site.description,
-    images: [{ url: "/products/iaf-retirement-tribute-frame/1.jpg", width: 720, height: 900, alt: "Retirement tribute shadow box with medals, badges and a name plate" }],
+    images: [{ url: "/products/box-frame/tile.jpg", width: 900, height: 1125, alt: "Retirement tribute box frame with medals, badges and a name plate" }],
   },
   twitter: { card: "summary_large_image", title, description: site.description },
 };

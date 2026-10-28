@@ -1,6 +1,6 @@
 # Art Studio · Art with Soul
 
-Online store for Art Studio (Instagram [@theartstudioo2026](https://www.instagram.com/theartstudioo2026/)): handmade resin décor, pooja & festive pieces, personalised gifts and IAF / Army / Navy retirement frames.
+Online store for Art Studio (Instagram [@theartstudioo2026](https://www.instagram.com/theartstudioo2026/)): handmade resin décor, pooja & festive pieces, personalised gifts and Army / Navy / Air Force retirement tributes. The first line to go live is Retirement Tributes.
 
 Built with Next.js 16 (App Router) · TypeScript · Tailwind CSS 4. Supabase, Razorpay and Resend are added in later phases.
 
@@ -10,7 +10,8 @@ Built with Next.js 16 (App Router) · TypeScript · Tailwind CSS 4. Supabase, Ra
 |---|---|---|
 | 1 | Design system + homepage | Done |
 | 2 | Catalogue: listing pages, filters, search, product and custom pages | Done |
-| 3 | Cart, wishlist, coupons, checkout (COD + WhatsApp; Razorpay wired but off), order emails | **Done (this build)** |
+| 3 | Cart, wishlist, coupons, checkout (UPI, COD, WhatsApp; Razorpay wired but off), order emails | Done |
+| 3b | Retirement Tributes launch: three tribute types with sizes and lights, UPI, personalisation after payment | **Done (this build)** |
 | 4 | Accounts, order tracking, reviews & Q&A, admin panel (Supabase) | Next |
 | 5 | SEO, performance, accessibility, policy pages, final README | |
 
@@ -60,28 +61,33 @@ npm run lint
 
 From Phase 4 this moves to the admin panel at `/admin`; `seed.json` is imported into the database once.
 
-## Pages (tribute-frame launch)
+## Pages (Retirement Tributes launch)
 
-The studio is launching one product line at a time. Right now the site sells **defence retirement tribute frames** (Army, Navy, Air Force); everything else is parked for later (see below).
+The featured line is **Retirement Tributes** for Army, Navy and Air Force retirements, in three types: Newspaper Tribute, Box Frame and Resin Frame. Their pages are deliberately minimal. The rest of the shop follows below them (see further down).
 
 | URL | What it is |
 |---|---|
-| `/` | The tribute frame: animated hero, "What goes inside" photo explorer, live name-plate preview, how it works, FAQs, price |
-| `/request` | Four-step request form with a live frame sketch. Ends with "Send on WhatsApp" |
-| `/product/retirement-tribute-frame` | Product page for the frame |
+| `/` | Opens with one heartfelt line about their service and the three tributes (hovering a card turns its lights on), then the rest of the studio |
+| `/retirement-tributes` | All three tributes on one page (the "Retirement Tributes" menu label opens it) |
+| `/product/newspaper-tribute`, `/product/box-frame`, `/product/resin-frame` | One main photo plus sample photos on the left; size, "Ask on WhatsApp", add to cart and buy now on the right. The LED lights option is switched off for now (`lights` in `src/config/launch.ts`) |
+| `/cart`, `/checkout`, `/checkout/confirmation` | Cart and guest checkout. Pay by UPI (QR code or "Open UPI app"), Cash on Delivery or Order on WhatsApp |
+| `/personalise/<order>?t=<token>` | Private link sent after the order: choose the layout, name plate (rank, name, unit, years), upload photos, background colour, notes. Can be changed until making starts |
 
-Copy for these pages (services, what goes inside, steps, FAQs) is in `src/config/tribute.ts`.
+- Sizes, prices and light prices: `sizes` and `lightPrice` on each product in `src/data/seed.json`. Photos: `gallery` on the same product, files in `public/products/<slug>/`, built by `python3 scripts/make-tribute-photos.py` from the mockups in `exports/iaf-frames/` (see `PHOTO-CREDITS.md` there); the newspaper photos are a drawn sample. When you replace a photo, give it a new filename so browsers and the image cache pick it up.
+- Copy (services, what goes inside, steps, FAQs, layouts, background colours): `src/config/tribute.ts`.
+- Which line is live: `src/config/launch.ts`.
 
-### Parked for later
+### The rest of the shop
 
-The shop pages (categories, gifts, occasions, search, cart, checkout, wishlist, custom-made hub) are kept in `src/app/(store)/_parked/` and simply not built. To bring one back, follow `src/app/(store)/_parked/README.md` and add its categories to `categories` in `src/config/launch.ts`.
+All the shop pages are live again (categories, gifts, occasions, search, wishlist, custom-made hub, `/request`), with Retirement Tributes kept first: at the top of the homepage, first in the header menu, the category strip and the footer. `src/config/launch.ts` decides which categories are on sale (`null` = all) and which line is featured (`focus`).
 
 ## Orders, emails and payments
 
 - **Checkout** is guest-only for now (accounts arrive in Phase 4). Typing a pincode fills in the city and state from India Post's free public lookup; customers can still edit them.
-- **Payment methods**: Cash on Delivery, "Order on WhatsApp" (the order is sent to your WhatsApp to confirm in the chat), and online payment through Razorpay, which is built but switched off (`payments.razorpayEnabled` in `site.ts`).
-- **Prices are checked on the server** (`src/app/api/orders/route.ts`): the browser's totals are only a preview, so a changed price, an expired coupon or too many items is refused.
-- **Where orders go until Phase 4**: on your computer, every order is added to `.data/orders.jsonl` and its two emails (yours and the customer's) are saved in `.data/emails/` so you can open them. On the live site, orders are emailed to you; without `RESEND_API_KEY` set, the live checkout only accepts WhatsApp orders so nothing gets lost.
+- **Payment methods**: **UPI** (the order page shows a QR code and an "Open UPI app" button with the amount filled in; the customer taps "I've paid" with the 12-digit UTR and you check it in your bank app), Cash on Delivery, and "Order on WhatsApp". Razorpay is built but switched off (`payments.razorpayEnabled` in `site.ts`). UPI needs your UPI ID in `payments.upi.id`.
+- **Prices are checked on the server** (`src/app/api/orders/route.ts`): the browser's totals are only a preview, so a changed price, a size that doesn't exist, an expired coupon or too many items is refused.
+- **Personalisation**: every order gets a private token. The confirmation page, the customer's email and the "Save link to my WhatsApp" button all carry the `/personalise` link. Uploaded photos are shrunk in the browser (2000 px JPEG) and can only be opened with the order's token.
+- **Where orders and photos are stored until Phase 4**: Netlify Blobs on the live site (`src/lib/storage.ts`, nothing to set up), and `.data/store/` on your computer. Emails (new order, "I've paid", personalisation details with photo links) go out through Resend; on your computer they are saved in `.data/emails/` instead. Without `RESEND_API_KEY` the live checkout only accepts WhatsApp orders, because email is how you hear about the others.
 
 ### Settings (environment variables)
 
@@ -107,7 +113,7 @@ Copy `.env.example` to `.env.local` on your computer, or add them in Vercel → 
 The site runs on Netlify's free plan at **https://memorylaneart.netlify.app** and deploys itself from the `main` branch on GitHub. Build settings live in `netlify.toml`; Netlify adds its Next.js adapter automatically.
 
 - **Credits:** the free plan has 300 credits a month. Each push to `main` (a production deploy) uses 15, and visitor traffic uses about 20 per GB. Deploy previews and branch deploys are free. If the credits run out, Netlify pauses the site until the next month, so changes are pushed in batches. Check usage in Netlify → Usage & billing.
-- **Preview mode:** `NEXT_PUBLIC_PREVIEW = "1"` in `netlify.toml` keeps the notes on unbuilt pages and lets the checkout take test orders that go nowhere. Delete that line at launch.
+- **Preview mode:** `NEXT_PUBLIC_PREVIEW = "1"` in `netlify.toml` keeps the notes on unbuilt pages, a dummy UPI ID, and lets the checkout take test orders without email set up. Delete that line at launch.
 - **Secrets** (Resend, Razorpay) go in Netlify → Project configuration → Environment variables, never in `netlify.toml`.
 - **Before launch:** move to a paid plan (Personal or Pro) so a busy festival week can't pause the shop, and connect the domain.
 - **Check a Netlify build on your computer** (needs Node 22, which this command downloads):

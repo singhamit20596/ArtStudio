@@ -1,12 +1,19 @@
 /**
- * What the site sells right now. The studio launches one product line at a time;
- * everything else stays in seed.json and in src/app/(store)/_parked for when it relaunches.
+ * What the site sells right now, and what it puts first.
+ * The full shop is open again (owner, 28 Oct 2026), with Retirement Tributes on top.
  */
 export const launch = {
-  /** Category slugs on sale. Products in other categories are hidden everywhere. */
-  categories: ["retirement-tribute-frames"] as string[],
-  /** The category the homepage, menus and request form are built around. */
+  /** Category slugs on sale, or null for every category. Products in other categories are hidden everywhere. */
+  categories: null as string[] | null,
+  /** The featured line: first on the homepage and first in the menus. */
   focus: "retirement-tribute-frames",
-  /** Cart, checkout, wishlist, offers and product search (their routes are parked). */
-  shop: false,
+  /** The full shop: category menus, product search, wishlist and the announcement bar. */
+  shop: true,
+  /** Cart, checkout and the order flow. */
+  cart: true,
+  /**
+   * The "With LED lights" option on tributes. Off for now (owner, 28 Oct 2026): light prices stay
+   * in seed.json, but the catalogue clears them, so pages, cart and order API all leave lights out.
+   */
+  lights: false,
 };

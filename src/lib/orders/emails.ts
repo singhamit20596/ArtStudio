@@ -1,9 +1,11 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { site } from "@/config/site";
-import { PAYMENT_LABELS, type Order } from "@/lib/checkout";
+import { backgrounds, templates } from "@/config/tribute";
+import { needsPersonalising, PAYMENT_LABELS, type Order } from "@/lib/checkout";
+import { fileUrl } from "@/lib/personalise";
 import { formatDateRange } from "@/lib/delivery";
-import { formatINR } from "@/lib/format";
+import { formatDate, formatINR } from "@/lib/format";
 import { EMAIL_PREVIEW_DIR } from "./store";
 
 /*
@@ -27,11 +29,15 @@ export interface Email {
 
 function headline(order: Order) {
   if (order.status === "paid") return "Payment received. Thank you!";
+  if (order.status === "payment_claimed") return "Thank you, we are checking your payment";
+  if (order.status === "awaiting_payment" && order.payment.method === "upi") return "Thank you for your order";
   if (order.status === "awaiting_whatsapp") return "We have your order request";
   return "Thank you for your order";
 }
 
 function intro(order: Order) {
+  if (order.status === "awaiting_payment" && order.payment.method === "upi")
+    return "Please finish paying by UPI from the order page if you haven't already. We start making your piece once the payment arrives.";
   if (order.status === "awaiting_whatsapp")
     return "To confirm it, send the order to us on WhatsApp if you haven't already. We will reply with the payment details and timing.";
   return "Every piece is handmade, so we start making or packing yours now. We will let you know when it ships.";
@@ -42,7 +48,7 @@ function addressLines(o: Order) {
   return [a.line1, a.line2, a.landmark ? `Near ${a.landmark}` : null, `${a.city}, ${a.state} ${a.pincode}`].filter(Boolean) as string[];
 }
 
-function render(order: Order, forOwner: boolean) {
+function render(order: Order, forOwner: boolean, origin: string) {
   const rows = order.items
     .map(
       (i) => `<tr>
@@ -85,10 +91,23 @@ function render(order: Order, forOwner: boolean) {
   <p style="margin:0;font-size:14px;line-height:1.6">${esc(order.customer.name)}<br>${addressLines(order).map(esc).join("<br>")}</p>
   ${delivery ? `<p style="margin:16px 0 0;font-size:14px">Estimated arrival: <strong>${delivery}</strong></p>` : ""}
   ${order.gift.wrap || order.gift.message ? `<p style="margin:16px 0 0;font-size:14px">${order.gift.wrap ? "Gift wrapped. " : ""}${order.gift.message ? `Gift message: “${esc(order.gift.message)}”` : ""}</p>` : ""}
+  ${personaliseBlock(order, forOwner, origin)}
   ${forOwner ? "" : `<p style="margin:28px 0 0;font-size:14px;line-height:1.6">Questions? Message us on WhatsApp at <a href="https://wa.me/${site.contact.whatsappNumber}" style="color:#33241a">${site.contact.whatsappDisplay}</a> with your order number.</p>`}
 </td></tr></table>
 <p style="margin:16px 0 0;font-size:12px;color:#76655a">${site.name} · ${site.tagline} · Handmade in India</p>
 </td></tr></table></body></html>`;
+}
+
+/** The link where the customer adds the name, rank, photos, template and colours. */
+export const personaliseUrl = (order: Order, origin: string) => `${origin}/personalise/${order.id}?t=${order.token}`;
+
+function personaliseBlock(order: Order, forOwner: boolean, origin: string) {
+  if (!order.token || !order.items.some(needsPersonalising)) return "";
+  const url = personaliseUrl(order, origin);
+  if (!forOwner)
+    return `<p style="margin:24px 0 0;font-size:14px;line-height:1.6"><strong>Next: personalise your frame.</strong> Add the name, rank, photos, template and background colour here:<br><a href="${url}" style="color:#33241a">${url}</a></p>`;
+  const toCustomer = `https://wa.me/91${order.customer.phone}?text=${encodeURIComponent(`Hi ${order.customer.name.split(" ")[0]}! Thank you for your order ${order.id}. Please add the name, rank, photos and colours for your frame here: ${url}`)}`;
+  return `<p style="margin:24px 0 0;font-size:14px;line-height:1.6">Personalisation link: <a href="${url}" style="color:#33241a">${url}</a><br><a href="${toCustomer}" style="color:#33241a;font-weight:600">Send it to the customer on WhatsApp</a></p>`;
 }
 
 function plain(order: Order, forOwner: boolean) {
@@ -108,12 +127,12 @@ function plain(order: Order, forOwner: boolean) {
   ].join("\n");
 }
 
-export function orderEmails(order: Order): Email[] {
+export function orderEmails(order: Order, origin: string): Email[] {
   const emails: Email[] = [
     {
       to: site.contact.email,
       subject: `New order ${order.id} · ${formatINR(order.totals.total)} · ${PAYMENT_LABELS[order.payment.method]}`,
-      html: render(order, true),
+      html: render(order, true, origin),
       text: plain(order, true),
       replyTo: order.customer.email ?? undefined,
     },
@@ -122,7 +141,7 @@ export function orderEmails(order: Order): Email[] {
     emails.push({
       to: order.customer.email,
       subject: order.status === "paid" ? `Payment received for order ${order.id}` : `Your ${site.name} order ${order.id}`,
-      html: render(order, false),
+      html: render(order, false, origin),
       text: plain(order, false),
       replyTo: site.contact.email,
     });
@@ -167,4 +186,46 @@ export async function deliverEmails(id: string, emails: Email[]) {
   return results.every((r) => r.status === "fulfilled");
 }
 
-export const sendOrderEmails = (order: Order) => deliverEmails(order.id, orderEmails(order));
+export const sendOrderEmails = (order: Order, origin: string) => deliverEmails(order.id, orderEmails(order, origin));
+
+/** Tells the studio a customer says they paid by UPI, so it can check the bank app. */
+export function paymentClaimEmail(order: Order): Email {
+  const ref = order.payment.upiRef ?? "(not given)";
+  return {
+    to: site.contact.email,
+    subject: `UPI payment to check: ${order.id} · ${formatINR(order.totals.total)}`,
+    html: `<p style="font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;color:#1e140d">${esc(order.customer.name)} says they paid <strong>${formatINR(order.totals.total)}</strong> by UPI for order <strong>${order.id}</strong>.<br>UPI reference: <strong>${esc(ref)}</strong><br>Phone: +91 ${order.customer.phone}<br><br>Please check your bank or UPI app and confirm the payment with the customer.</p>`,
+    text: `${order.customer.name} says they paid ${formatINR(order.totals.total)} by UPI for order ${order.id}. UPI reference: ${ref}. Phone: +91 ${order.customer.phone}.`,
+    replyTo: order.customer.email ?? undefined,
+  };
+}
+
+/** Tells the studio a customer has personalised a tribute: details plus links to every photo. */
+export function personalisationEmail(order: Order, itemIndex: number, origin: string): Email {
+  const item = order.items[itemIndex];
+  const p = item.personalisation!;
+  const template = templates[item.slug]?.find((t) => t.id === p.template)?.name ?? p.template;
+  const colour = backgrounds.find((b) => b.id === p.background)?.label ?? p.background;
+  const rows: [string, string | null][] = [
+    ["Tribute", `${item.name}${item.variant ? ` (${item.variant})` : ""}`],
+    ["Design", template],
+    ["Name plate", `${p.rank} ${p.name}`],
+    ["Unit", p.unit],
+    ["Years of service", p.years],
+    ["Background", colour],
+    ["Needed by", p.neededBy ? formatDate(p.neededBy) : null],
+    ["Notes", p.notes],
+  ];
+  const links = p.files.map((key, i) => `<a href="${origin}${fileUrl(key, order.token ?? "")}" style="color:#33241a">Photo ${i + 1}</a>`).join(" · ");
+  const table = rows
+    .filter((r): r is [string, string] => Boolean(r[1]))
+    .map(([k, v]) => `<tr><td style="padding:5px 12px 5px 0;color:#76655a;font-size:13px;vertical-align:top">${k}</td><td style="padding:5px 0;font-size:14px">${esc(v)}</td></tr>`)
+    .join("");
+  return {
+    to: site.contact.email,
+    subject: `Personalised: ${order.id} · ${p.rank} ${p.name}`,
+    html: `<div style="font-family:Helvetica,Arial,sans-serif;color:#1e140d"><p style="font-size:16px;font-weight:600">${esc(order.customer.name)} has personalised order ${order.id}</p><table role="presentation">${table}</table><p style="font-size:14px;margin-top:16px">${p.files.length} photo${p.files.length === 1 ? "" : "s"}: ${links}</p><p style="font-size:13px;color:#76655a">Phone +91 ${order.customer.phone} · <a href="https://wa.me/91${order.customer.phone}" style="color:#33241a">WhatsApp</a></p></div>`,
+    text: [`${order.customer.name} has personalised order ${order.id}`, ...rows.filter((r) => r[1]).map(([k, v]) => `${k}: ${v}`), ...p.files.map((key, i) => `Photo ${i + 1}: ${origin}${fileUrl(key, order.token ?? "")}`)].join("\n"),
+    replyTo: order.customer.email ?? undefined,
+  };
+}

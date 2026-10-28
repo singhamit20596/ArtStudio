@@ -1,3 +1,4 @@
+import { site } from "@/config/site";
 import type { Order } from "@/lib/checkout";
 import { sendOrderEmails } from "@/lib/orders/emails";
 import { verifyWebhookSignature } from "@/lib/orders/razorpay";
@@ -24,7 +25,7 @@ export async function POST(request: Request) {
   const order = orderId ? await getOrder(orderId) : null;
   if (payment && order && order.status !== "paid" && order.payment.razorpayOrderId === payment.order_id) {
     const paid: Order = { ...order, status: "paid", payment: { ...order.payment, razorpayPaymentId: payment.id } };
-    paid.emailsSent = await sendOrderEmails(paid);
+    paid.emailsSent = await sendOrderEmails(paid, site.url || new URL(request.url).origin);
     await saveOrder(paid);
   } else if (!order) {
     console.info("[razorpay webhook]", event.event, payment?.id, orderId ?? "(no order id)");

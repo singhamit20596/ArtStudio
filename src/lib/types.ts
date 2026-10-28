@@ -10,6 +10,31 @@ export interface DayRange {
   max: number;
 }
 
+/** A size a made-to-order piece can be built in, with its price. */
+export interface SizeOption {
+  id: string;
+  /** "16 × 20 in" */
+  label: string;
+  widthIn: number;
+  heightIn: number;
+  price: number;
+}
+
+/** A tribute's photos: one main photo (plus its lit version), then samples (null = photo still to come). */
+export interface ProductGallery {
+  /** Shape of the photo box, as CSS aspect-ratio, e.g. "4 / 3". Photos are shown whole inside it. */
+  ratio: string;
+  /** The frame on its own, lights off, with very little background. */
+  frame: string | null;
+  /** The same shot with the LED lights on (the light stays inside the frame). */
+  frameLit: string | null;
+  /** The frame photo, lights off and on, on a 4:5 canvas for the homepage cards. */
+  tile: string | null;
+  tileLit: string | null;
+  /** Extra sample photos shown after the three main ones, whole (any shape). */
+  samples?: { src: string; alt: string }[];
+}
+
 /** Mirrors the product data model in the brief; stored in Supabase from Phase 4. */
 export interface Product {
   id: string;
@@ -42,6 +67,11 @@ export interface Product {
   isCustomisable: boolean;
   instagramUrl: string | null;
   createdAt: string;
+  /** Sizes with their own prices (price above is then the smallest). */
+  sizes?: SizeOption[];
+  /** Extra charge for LED lights; null or missing = no light option. */
+  lightPrice?: number | null;
+  gallery?: ProductGallery;
   /** Hidden from the storefront when false (e.g. awaiting confirmation). */
   published: boolean;
   /** Fields that still hold placeholder values. Listed in TODO.md. */

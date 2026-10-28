@@ -96,6 +96,11 @@ Starting price and making time for each (shown as "From ₹…" and on the Whats
 
 - [ ] Screenshots or text from your Instagram "Order+review" highlight: customer first name, city, product, review text and photo. Only use reviews the customer is happy to have shown. The homepage has three clearly marked empty slots until then.
 
+## Hosting (Netlify)
+
+- [ ] **Before launch, move to a paid Netlify plan** (Personal $9 or Pro $20 a month). The free plan's 300 credits pause the site when they run out.
+- [ ] **Domain**: once bought, connect it in Netlify → Domain management and set `NEXT_PUBLIC_SITE_URL`.
+
 ## 5. Business details
 
 - [ ] **Domain** (e.g. artstudio.in). Set it as `NEXT_PUBLIC_SITE_URL`; it is used in WhatsApp request links, sharing previews and SEO.

@@ -15,6 +15,12 @@ Online store for **Art Studio · Art with Soul**, a small handmade resin-art bus
 - Phase 3 built: cart drawer and `/cart` (quantities, save for later, coupon, free-shipping bar), Offers drawer, `/wishlist`, guest `/checkout` (pincode lookup, gift wrap, COD / WhatsApp / Razorpay switched off), `/checkout/confirmation`, order emails via Resend, order API with server-side pricing.
 - Phase 4 (next): Supabase (orders table replacing `src/lib/orders/store.ts`, products replacing seed.json), phone OTP/email login, saved addresses, My Orders with status timeline, public track-order page, reviews and Q&A, admin panel. Turn Razorpay on only after orders are in the database.
 
+## Hosting
+- Netlify free plan, deployed from GitHub `main` (repo `singhamit20596/ArtStudio`). Settings in `netlify.toml` (Node 22, `NEXT_PUBLIC_PREVIEW=1` for the hosted preview).
+- Free plan: 300 credits/month; each production deploy (push to `main`) costs 15, and running out pauses the site until next month. Batch pushes; never push after every small change.
+- `isLocalPreview` (`src/lib/preview.ts`) tells `npm run preview` apart from the hosted preview. The hosted preview accepts test orders without email (they are only logged).
+- To check a Netlify build locally: `npx -y -p node@22 -p netlify-cli@latest -- netlify build --offline` (the CLI needs Node 22; this machine has Node 20).
+
 ## Run and check
 - `npm run preview` serves http://localhost:3000 with the "Phase 3 preview" ribbon and the link guard (`NEXT_PUBLIC_PREVIEW=1`). If port 3000 is busy, the owner may have it running in Terminal already.
 - In the Claude desktop app, the Browser pane can run the site: if `.claude/launch.json` is missing, create it with one configuration named `art-studio` that runs `npm run preview` (`runtimeExecutable` "npm", `runtimeArgs` ["run", "preview"], `port` 3000).

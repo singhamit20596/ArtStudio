@@ -10,7 +10,7 @@ import { WhatsAppIcon } from "@/components/ui/Icons";
 import { PAYMENT_LABELS } from "@/lib/checkout";
 import { formatDateRange } from "@/lib/delivery";
 import { formatINR } from "@/lib/format";
-import { isPreview } from "@/lib/preview";
+import { isLocalPreview, isPreview } from "@/lib/preview";
 import type { Totals } from "@/lib/pricing";
 import { messages, whatsappLink } from "@/lib/whatsapp";
 import { readConfirmationRaw, type Confirmation } from "./confirmation-store";
@@ -85,7 +85,13 @@ export function ConfirmationView() {
         {order.customer.email && order.emailsSent && <p className="mt-4 text-[13px] text-muted">We have emailed a copy to {order.customer.email}.</p>}
         {isPreview && !order.emailsSent && (
           <p className="mx-auto mt-5 max-w-lg bg-preview px-4 py-2.5 text-[12.5px]">
-            Preview: the order was saved in <code>.data/orders.jsonl</code> and its emails in <code>.data/emails/</code> instead of being sent.
+            {isLocalPreview ? (
+              <>
+                Preview: the order was saved in <code>.data/orders.jsonl</code> and its emails in <code>.data/emails/</code> instead of being sent.
+              </>
+            ) : (
+              "Preview: this was a test order. It was not saved or sent to the studio."
+            )}
           </p>
         )}
       </div>

@@ -16,7 +16,7 @@ import { validateCheckout, type CheckoutErrors, type CheckoutField, type Checkou
 import { checkPincode, formatDateRange } from "@/lib/delivery";
 import { formatINR } from "@/lib/format";
 import { INDIAN_STATES, isPincode } from "@/lib/india";
-import { isPreview } from "@/lib/preview";
+import { isLocalPreview, isPreview } from "@/lib/preview";
 import type { CartProduct, PaymentMethod } from "@/lib/pricing";
 import { saveConfirmation } from "./confirmation-store";
 import { payWithRazorpay } from "./razorpay-client";
@@ -168,8 +168,10 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
       <form id="checkout" onSubmit={submit} noValidate className="min-w-0 space-y-10">
         {isPreview && (
           <p className="bg-preview px-4 py-3 text-[12.5px] leading-relaxed">
-            <strong className="font-semibold">Preview checkout.</strong> Orders are saved on this computer only (in <code>.data/</code>), emails are saved as files, and no money is
-            taken.
+            <strong className="font-semibold">Preview checkout.</strong>{" "}
+            {isLocalPreview
+              ? "Orders are saved on this computer only (in .data/), emails are saved as files, and no money is taken."
+              : "Orders placed here are tests: they are not saved or sent to the studio, and no money is taken. “Order on WhatsApp” does open a real chat with the studio."}
           </p>
         )}
 

@@ -2,6 +2,7 @@ import { buildOrder, readInput } from "@/lib/orders/build";
 import { emailConfigured, sendOrderEmails } from "@/lib/orders/emails";
 import { createRazorpayOrder } from "@/lib/orders/razorpay";
 import { hasOrderStore, saveOrder } from "@/lib/orders/store";
+import { isPreview } from "@/lib/preview";
 import { orderMessage, whatsappLink } from "@/lib/whatsapp";
 
 /** Places an order from the checkout form. Prices, stock and coupons are checked here, not in the browser. */
@@ -22,7 +23,8 @@ export async function POST(request: Request) {
   const order = result.order;
 
   // Until the database arrives (Phase 4), the order emails are the only record on the live site.
-  if (!hasOrderStore && !emailConfigured() && order.payment.method !== "whatsapp") {
+  // The hosted preview accepts test orders anyway; its checkout says they go nowhere.
+  if (!hasOrderStore && !emailConfigured() && order.payment.method !== "whatsapp" && !isPreview) {
     return Response.json(
       { ok: false, message: "Online ordering isn't switched on yet. Please choose “Order on WhatsApp” instead." },
       { status: 503 },

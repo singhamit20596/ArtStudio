@@ -1,0 +1,12 @@
+# Netlify build settings. Netlify adds its Next.js adapter automatically; nothing else to install.
+# Free plan: every production deploy (each push to main) uses 15 of the 300 monthly credits.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # Hosted preview: keeps the "preview" ribbon, the notes on unbuilt pages and the sample offer
+  # codes, and lets the checkout take test orders. Delete this line at launch.
+  NEXT_PUBLIC_PREVIEW = "1"

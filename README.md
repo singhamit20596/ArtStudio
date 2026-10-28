@@ -100,6 +100,16 @@ Copy `.env.example` to `.env.local` on your computer, or add them in Vercel → 
 - Fade-up on scroll uses CSS scroll-driven animations, so content is never hidden waiting for JavaScript; it is switched off for visitors who prefer reduced motion.
 - The custom-order button (`src/components/custom/CustomRequestButton.tsx`) is self-contained so the full custom flow can replace it later.
 
-## Deploying (Phase 5 has the full guide)
+## Hosting (Netlify)
 
-Push to GitHub, import the repo in [Vercel](https://vercel.com/new), and add `NEXT_PUBLIC_SITE_URL` once you have a domain. No other settings are needed for Phase 1.
+The site runs on Netlify's free plan and deploys itself from the `main` branch on GitHub. Build settings live in `netlify.toml`; Netlify adds its Next.js adapter automatically.
+
+- **Credits:** the free plan has 300 credits a month. Each push to `main` (a production deploy) uses 15, and visitor traffic uses about 20 per GB. Deploy previews and branch deploys are free. If the credits run out, Netlify pauses the site until the next month, so changes are pushed in batches. Check usage in Netlify → Usage & billing.
+- **Preview mode:** `NEXT_PUBLIC_PREVIEW = "1"` in `netlify.toml` keeps the preview ribbon and the sample offer codes, and lets the checkout take test orders that go nowhere. Delete that line at launch.
+- **Secrets** (Resend, Razorpay) go in Netlify → Project configuration → Environment variables, never in `netlify.toml`.
+- **Before launch:** move to a paid plan (Personal or Pro) so a busy festival week can't pause the shop, and connect the domain.
+- **Check a Netlify build on your computer** (needs Node 22, which this command downloads):
+
+  ```bash
+  npx -y -p node@22 -p netlify-cli@latest -- netlify build --offline
+  ```

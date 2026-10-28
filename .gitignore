@@ -45,3 +45,6 @@ next-env.d.ts
 
 # env example is safe to share
 !.env.example
+
+# Netlify local build output
+/.netlify/

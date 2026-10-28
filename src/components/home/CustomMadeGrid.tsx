@@ -19,7 +19,7 @@ export function CustomMadeGrid() {
   const more = customCategories.filter((c) => !FEATURED.includes(c.slug));
 
   return (
-    <section aria-labelledby="custom-title" className="bg-cream">
+    <section aria-labelledby="custom-title" className="surface-amber">
       <div className="container-x py-16 md:py-24">
         <SectionHeader
           id="custom-title"
@@ -46,7 +46,7 @@ export function CustomMadeGrid() {
           <ul className="flex flex-wrap gap-2">
             {more.map((c) => (
               <li key={c.slug}>
-                <AppLink href={categoryHref(c)} className="inline-block border border-ink/15 bg-paper px-4 py-2 text-[13px] transition-colors hover:border-ink">
+                <AppLink href={categoryHref(c)} className="inline-block border border-line px-4 py-2 text-[13px] transition-colors hover:border-ink">
                   {c.name}
                 </AppLink>
               </li>

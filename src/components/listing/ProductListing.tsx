@@ -198,7 +198,7 @@ function ActiveChips({
           type="button"
           onClick={c.remove}
           aria-label={`Remove filter: ${c.label}`}
-          className={clsx("flex items-center gap-1.5 bg-cream px-3 py-1.5 text-[12.5px] transition-colors hover:bg-sand")}
+          className={clsx("flex items-center gap-1.5 bg-amber px-3 py-1.5 text-[12.5px] text-[#1e140d] transition hover:brightness-95")}
         >
           {c.label}
           <X size={13} aria-hidden="true" />

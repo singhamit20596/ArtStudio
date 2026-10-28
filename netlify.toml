@@ -7,6 +7,6 @@
 
 [build.environment]
   NODE_VERSION = "22"
-  # Hosted preview: keeps the "preview" ribbon, the notes on unbuilt pages and the sample offer
-  # codes, and lets the checkout take test orders. Delete this line at launch.
+  # Hosted preview: keeps the notes on unbuilt pages and lets the checkout take test orders
+  # (it says they go nowhere). Delete this line at launch.
   NEXT_PUBLIC_PREVIEW = "1"

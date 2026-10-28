@@ -20,7 +20,7 @@ export function DeliveryCheck({ making }: { making: DayRange }) {
   return (
     <div className="border border-line p-4">
       <form onSubmit={submit} className="flex items-center gap-2">
-        <MapPin size={18} strokeWidth={1.6} aria-hidden="true" className="shrink-0 text-gold-ink" />
+        <MapPin size={18} strokeWidth={1.6} aria-hidden="true" className="shrink-0 text-brown" />
         <label htmlFor="pincode" className="sr-only">
           Delivery pincode
         </label>

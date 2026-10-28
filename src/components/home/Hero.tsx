@@ -12,7 +12,7 @@ export function Hero() {
   const mobilePanel = 0; // phones show one panel: the darker thali reads best under the headline
 
   return (
-    <section aria-labelledby="hero-title" className="relative -mt-16 overflow-hidden bg-ink text-paper lg:-mt-[76px]">
+    <section aria-labelledby="hero-title" className="relative -mt-16 overflow-hidden bg-brown text-paper lg:-mt-[76px]">
       <div className="relative h-[min(80svh,700px)] min-h-[520px] lg:h-[min(80svh,760px)]">
         {video ? (
           <div className="hero-panel absolute inset-0">
@@ -33,11 +33,11 @@ export function Hero() {
         )}
 
         {/* Legibility: darker at the foot for the copy, a little at the top for the header */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgb(17_17_17/0.92)_0%,rgb(17_17_17/0.62)_42%,rgb(17_17_17/0.2)_68%,rgb(17_17_17/0.5)_100%)] md:bg-[linear-gradient(to_top,rgb(17_17_17/0.86)_0%,rgb(17_17_17/0.35)_45%,rgb(17_17_17/0.15)_70%,rgb(17_17_17/0.5)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgb(51_36_26/0.92)_0%,rgb(51_36_26/0.62)_42%,rgb(51_36_26/0.2)_68%,rgb(51_36_26/0.5)_100%)] md:bg-[linear-gradient(to_top,rgb(51_36_26/0.86)_0%,rgb(51_36_26/0.35)_45%,rgb(51_36_26/0.15)_70%,rgb(51_36_26/0.5)_100%)]" />
 
         <div className="container-x relative flex h-full flex-col justify-end pb-14 md:pb-20">
           <div className="hero-copy max-w-xl">
-            <p className="eyebrow !text-gold" style={{ "--i": 0 } as React.CSSProperties}>
+            <p className="eyebrow !text-[#efae55]" style={{ "--i": 0 } as React.CSSProperties}>
               {site.tagline} · Handmade in India
             </p>
             <h1 id="hero-title" className="mt-4 text-[38px] font-semibold leading-[1.06] md:text-[58px]" style={{ "--i": 1 } as React.CSSProperties}>

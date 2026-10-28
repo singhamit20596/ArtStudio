@@ -16,8 +16,8 @@ export function FreeShippingBar({ subtotal, remaining }: { subtotal: number; rem
           <strong className="font-semibold">You have free shipping</strong>
         )}
       </p>
-      <div className="mt-2 h-1 bg-sand" role="progressbar" aria-label="Progress to free shipping" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct}>
-        <div className="h-full bg-gold transition-[width] duration-500" style={{ width: `${pct}%` }} />
+      <div className="mt-2 h-1 bg-brown/20" role="progressbar" aria-label="Progress to free shipping" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct}>
+        <div className="h-full bg-brown transition-[width] duration-500" style={{ width: `${pct}%` }} />
       </div>
     </div>
   );

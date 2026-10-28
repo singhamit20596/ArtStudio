@@ -50,12 +50,12 @@ function variantOk(slug: string, variant: string | undefined) {
 
 const ID_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
-/** "AS-261017-K7QF": India date plus four random characters. */
-export function makeOrderId(now: number) {
+/** "AS-261017-K7QF": prefix, India date and four random characters. */
+export function makeOrderId(now: number, prefix = "AS") {
   const ist = new Date(now + 5.5 * 60 * 60 * 1000).toISOString();
   const date = ist.slice(2, 10).replace(/-/g, "");
   const tail = Array.from({ length: 4 }, () => ID_CHARS[randomInt(ID_CHARS.length)]).join("");
-  return `AS-${date}-${tail}`;
+  return `${prefix}-${date}-${tail}`;
 }
 
 /** Validates the checkout and prices it from the server's own catalogue. Never trusts browser totals. */

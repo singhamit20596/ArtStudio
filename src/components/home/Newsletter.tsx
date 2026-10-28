@@ -19,7 +19,7 @@ export function Newsletter() {
   };
 
   return (
-    <section aria-labelledby="newsletter-title" className="bg-cream">
+    <section aria-labelledby="newsletter-title" className="surface-brown">
       <div className="container-x grid items-center gap-8 py-16 md:grid-cols-2 md:gap-16 md:py-20">
         <div>
           <p className="eyebrow">Join the inner circle</p>
@@ -31,7 +31,7 @@ export function Newsletter() {
 
         <div>
           {state === "done" ? (
-            <p role="status" className="border-l-2 border-gold py-2 pl-5 text-[15px]">
+            <p role="status" className="border-l-2 border-amber py-2 pl-5 text-[15px]">
               {isPreview
                 ? "This is the preview, so nothing was saved. Sign-ups will be stored once the database is connected in Phase 4."
                 : "You are on the list. We will write when something new is ready."}
@@ -54,15 +54,15 @@ export function Newsletter() {
                 }}
                 aria-invalid={state === "error"}
                 aria-describedby={state === "error" ? "newsletter-error" : undefined}
-                className="h-12 min-w-0 flex-1 border border-ink/20 bg-paper px-4 text-[14px] outline-none transition-colors placeholder:text-muted focus:border-ink"
+                className="h-12 min-w-0 flex-1 border border-line bg-transparent px-4 text-[14px] outline-none transition-colors placeholder:text-muted focus:border-amber"
               />
-              <button type="submit" className="btn btn-dark">
+              <button type="submit" className="btn btn-light">
                 Subscribe
               </button>
             </form>
           )}
           {state === "error" && (
-            <p id="newsletter-error" className="mt-2 text-[13px] text-[#a1372b]">
+            <p id="newsletter-error" className="mt-2 text-[13px] text-eyebrow">
               Enter an email address like name@example.com.
             </p>
           )}

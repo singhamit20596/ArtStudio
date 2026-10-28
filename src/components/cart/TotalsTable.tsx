@@ -13,7 +13,7 @@ export function TotalsTable({ totals, final = false }: { totals: Totals; final?:
       {totals.discount > 0 && totals.coupon && (
         <div className={row}>
           <dt className="text-muted">Coupon {totals.coupon.code}</dt>
-          <dd className="text-gold-ink">−{formatINR(totals.discount)}</dd>
+          <dd className="font-medium text-ink">−{formatINR(totals.discount)}</dd>
         </div>
       )}
       <div className={row}>

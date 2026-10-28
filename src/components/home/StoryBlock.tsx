@@ -26,7 +26,7 @@ export function StoryBlock() {
 
       <ul className="mx-auto mt-14 grid max-w-4xl gap-px border border-line bg-line sm:grid-cols-3">
         {POINTS.map((p) => (
-          <li key={p.title} className="bg-paper px-6 py-7 text-center">
+          <li key={p.title} className="bg-sage px-6 py-7 text-center">
             <p className="nav-label">{p.title}</p>
             <p className="mt-2 text-[13px] text-muted">{p.text}</p>
           </li>

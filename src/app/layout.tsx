@@ -6,7 +6,7 @@ import { ShopProvider } from "@/components/providers/ShopProvider";
 import { Toaster } from "@/components/ui/Toaster";
 import { PreviewLinkGuard } from "@/components/layout/PreviewLinkGuard";
 
-const title = `${site.name} · ${site.tagline} | Handmade resin art, pooja thalis & tribute frames`;
+const title = `${site.name} · Defence retirement tribute frames | Army, Navy & Air Force`;
 
 export const metadata: Metadata = {
   ...(site.url ? { metadataBase: new URL(site.url) } : {}),
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     locale: "en_IN",
     title,
     description: site.description,
-    images: [{ url: "/products/marble-noir-wall-clock/1.jpg", width: 720, height: 900, alt: "Marble Noir resin wall clock" }],
+    images: [{ url: "/products/iaf-retirement-tribute-frame/1.jpg", width: 720, height: 900, alt: "Retirement tribute shadow box with medals, badges and a name plate" }],
   },
   twitter: { card: "summary_large_image", title, description: site.description },
 };
@@ -28,7 +28,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#111111",
+  themeColor: "#5a3e2b",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

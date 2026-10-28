@@ -2,32 +2,28 @@
 
 /*
   Art Studio design system
-  Layout concept: an editorial gallery storefront — white rooms, near-black type,
-  products hung with generous margins, and the logo's cream, blush, slate and gold
-  used as wall colours for a few feature sections.
+  Layout concept: an editorial gallery storefront with products hung on coloured walls.
+
+  Brand palette (owner, 28 Oct 2026). Every background, button, badge and line uses
+  only these three colours:
+    sage  #87A96B  page background, drawers, menus
+    brown #5A3E2B  header, footer, primary buttons, dark sections
+    amber #D5851F  highlights: announcement bar, badges, secondary buttons, feature sections
+  Text may use any colour that reads well (owner's rule), so each surface sets its own
+  text colours below: near-black on sage and amber, white on brown.
 */
 @theme {
-  /* Monochrome base (from the reference brief) */
-  --color-ink: #111111;
-  --color-ink-2: #0f0f0f;
-  --color-ink-soft: #2b2926;
-  --color-paper: #ffffff;
-  --color-muted: #6b6660;
-  --color-line: #e8e2d9;
+  --color-sage: #87a96b;
+  --color-brown: #5a3e2b;
+  --color-amber: #d5851f;
 
-  /* Brand accents sampled from the Art with Soul logo */
-  --color-cream: #f8f4ed;
-  --color-sand: #efe6d8;
-  --color-gold: #c7a879;
-  --color-gold-ink: #8b6b3e;
-  --color-blush: #eabead;
-  --color-blush-soft: #f7e7e0;
-  --color-slate: #687686;
-  --color-slate-soft: #e5e9ee;
-  --color-slate-deep: #4e5a68;
-
-  --color-whatsapp: #25d366;
-  --color-preview: #fdf0c8;
+  /* Text colours for the default (sage) surface; .surface-* classes override them. */
+  --color-ink: #1e140d; /* 7.1:1 on sage */
+  --color-muted: #3f2d20; /* 4.9:1 on sage */
+  --color-eyebrow: #46301f; /* 4.7:1 on sage */
+  --color-paper: #ffffff; /* text on brown only, 9.7:1 */
+  --color-error: #5c140e; /* 5.1:1 on sage, 4.6:1 on amber */
+  --color-line: rgb(90 62 43 / 0.35); /* brown, for dividers and field borders */
 
   --ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
@@ -54,7 +50,7 @@
     inset: 0 0 auto;
     height: env(safe-area-inset-top, 0px);
     z-index: 60;
-    background: var(--color-paper);
+    background: var(--color-brown);
   }
 
   h1,
@@ -69,24 +65,55 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-gold-ink);
+    outline: 2px solid var(--color-ink);
     outline-offset: 3px;
   }
 
   ::selection {
-    background: var(--color-blush);
-    color: var(--color-ink);
+    background: var(--color-amber);
+    color: #1e140d;
   }
 
   img {
     max-width: 100%;
+  }
+
+  /* Checkboxes and radios in brand colours (the browser's own are white boxes). */
+  input[type="checkbox"],
+  input[type="radio"] {
+    appearance: none;
+    display: inline-grid;
+    place-content: center;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    border: 1.5px solid var(--color-brown);
+    background: transparent;
+    cursor: pointer;
+  }
+  input[type="radio"] {
+    border-radius: 9999px;
+  }
+  input[type="checkbox"]:checked {
+    background: var(--color-brown)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='%23d5851f' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+      center / 12px no-repeat;
+  }
+  input[type="radio"]:checked {
+    background: radial-gradient(circle, var(--color-brown) 0 45%, transparent 50%);
+  }
+  input[type="checkbox"]:disabled,
+  input[type="radio"]:disabled {
+    cursor: not-allowed;
+    border-style: dashed;
   }
 }
 
 /* Unlayered on purpose: it must win over any host page reset (e.g. an embed's
    "body { font: 14px system-ui }"), which would otherwise beat a layered rule. */
 body {
-  background: var(--color-paper);
+  background: var(--color-sage);
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 14px;
@@ -98,6 +125,36 @@ body {
 }
 
 @layer components {
+  /*
+    Surfaces: a background from the palette plus the text colours that read on it.
+    Utilities such as text-ink, text-muted, border-line and .eyebrow inside a surface
+    pick these up automatically.
+  */
+  .surface-sage {
+    --color-ink: #1e140d;
+    --color-muted: #3f2d20;
+    --color-eyebrow: #46301f;
+    --color-line: rgb(90 62 43 / 0.35);
+    background-color: var(--color-sage);
+    color: var(--color-ink);
+  }
+  .surface-amber {
+    --color-ink: #1e140d; /* 6.4:1 on amber */
+    --color-muted: #2e2016; /* 5.4:1 */
+    --color-eyebrow: #2e2016;
+    --color-line: rgb(30 20 13 / 0.3);
+    background-color: var(--color-amber);
+    color: var(--color-ink);
+  }
+  .surface-brown {
+    --color-ink: #ffffff; /* 9.7:1 on brown */
+    --color-muted: #ecdfd2; /* 7.9:1 */
+    --color-eyebrow: #efae55; /* amber-toned text, 5.0:1 */
+    --color-line: rgb(213 133 31 / 0.45); /* amber lines */
+    background-color: var(--color-brown);
+    color: var(--color-ink);
+  }
+
   .container-x {
     width: 100%;
     max-width: 1320px;
@@ -124,7 +181,7 @@ body {
     font-weight: 600;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--color-gold-ink);
+    color: var(--color-eyebrow);
   }
 
   .section-title {
@@ -138,7 +195,7 @@ body {
     }
   }
 
-  /* Buttons: uppercase, letter-spaced, square corners */
+  /* Buttons: uppercase, letter-spaced, square corners. Only the three brand colours. */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -154,44 +211,45 @@ body {
     transition:
       background-color 0.25s var(--ease-soft),
       color 0.25s var(--ease-soft),
-      border-color 0.25s var(--ease-soft);
+      border-color 0.25s var(--ease-soft),
+      filter 0.25s var(--ease-soft);
   }
+  .btn:hover {
+    filter: brightness(0.92);
+  }
+  /* Primary: brown with white text (on sage and amber surfaces). */
   .btn-dark {
-    background: var(--color-ink);
-    color: var(--color-paper);
+    background: var(--color-brown);
+    color: #ffffff;
   }
-  .btn-dark:hover {
-    background: var(--color-ink-soft);
-  }
+  /* Secondary / on brown: amber with near-black text. */
   .btn-light {
-    background: var(--color-paper);
-    color: var(--color-ink);
-  }
-  .btn-light:hover {
-    background: var(--color-cream);
+    background: var(--color-amber);
+    color: #1e140d;
   }
   .btn-outline {
     border: 1px solid currentColor;
   }
   .btn-outline:hover {
-    background: var(--color-ink);
-    border-color: var(--color-ink);
-    color: var(--color-paper);
+    background: var(--color-brown);
+    border-color: var(--color-brown);
+    color: #ffffff;
+    filter: none;
   }
+  /* Outline on brown: amber border, white text. */
   .btn-outline-light {
-    border: 1px solid rgb(255 255 255 / 0.7);
-    color: var(--color-paper);
+    border: 1px solid var(--color-amber);
+    color: #ffffff;
   }
   .btn-outline-light:hover {
-    background: var(--color-paper);
-    color: var(--color-ink);
+    background: var(--color-amber);
+    color: #1e140d;
+    filter: none;
   }
+  /* WhatsApp actions: amber, with the WhatsApp icon carrying the recognition. */
   .btn-whatsapp {
-    background: var(--color-whatsapp);
-    color: #0b3d1f;
-  }
-  .btn-whatsapp:hover {
-    background: #3fe07b;
+    background: var(--color-amber);
+    color: #1e140d;
   }
 
   /* Text link with a drawn underline */
@@ -231,14 +289,18 @@ body {
     scroll-snap-align: start;
   }
 
-  /* "Mount board" frame used for made-to-order cards and missing photos */
+  /* "Mount board" frame for made-to-order cards and missing photos: amber with brown rules. */
   .mount {
-    background: var(--color-sand);
+    --color-ink: #1e140d;
+    --color-muted: #2e2016;
+    --color-eyebrow: #2e2016;
+    background: var(--color-amber);
+    color: var(--color-ink);
     box-shadow:
-      inset 0 0 0 12px var(--color-sand),
-      inset 0 0 0 13px rgb(139 107 62 / 0.45),
-      inset 0 0 0 18px var(--color-cream),
-      inset 0 0 0 19px rgb(139 107 62 / 0.25);
+      inset 0 0 0 12px var(--color-amber),
+      inset 0 0 0 13px var(--color-brown),
+      inset 0 0 0 18px var(--color-amber),
+      inset 0 0 0 19px rgb(90 62 43 / 0.5);
   }
 }
 
@@ -428,3 +490,249 @@ body {
     animation: none;
   }
 }
+
+/* ---------- Interaction and animation (tribute launch) ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Section anchors land below the sticky header. */
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+/* Animate <details> open/close where the browser supports it. */
+:root {
+  interpolate-size: allow-keywords;
+}
+details.smooth::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size 0.4s var(--ease-soft),
+    content-visibility 0.4s allow-discrete;
+}
+details.smooth[open]::details-content {
+  block-size: auto;
+}
+
+/* Animated SVG parts scale around their own centre. */
+svg .drop-in,
+svg .pop-in {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.btn-press {
+  transition:
+    transform 0.15s var(--ease-soft),
+    filter 0.25s var(--ease-soft),
+    background-color 0.25s var(--ease-soft);
+}
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+@keyframes reveal-left {
+  from {
+    opacity: 0.4;
+    transform: translateX(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes reveal-right {
+  from {
+    opacity: 0.4;
+    transform: translateX(32px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes reveal-scale {
+  from {
+    opacity: 0.4;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes grow-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes slow-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+@keyframes sheen {
+  0%,
+  60% {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-18deg);
+  }
+}
+@keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  80%,
+  100% {
+    transform: scale(2.3);
+    opacity: 0;
+  }
+}
+@keyframes drop-bounce {
+  0% {
+    opacity: 0;
+    transform: translateY(-14px) scale(0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(2px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes scroll-cue {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+@keyframes shimmer-text {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* Phones: rise up (a sideways slide would push the page wider than the screen). */
+    .reveal-left,
+    .reveal-right {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+    @media (min-width: 768px) {
+      .reveal-left {
+        animation-name: reveal-left;
+      }
+      .reveal-right {
+        animation-name: reveal-right;
+      }
+    }
+    .reveal-scale {
+      animation: reveal-scale linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+    /* The "How it works" line fills as the section scrolls past. */
+    .timeline {
+      view-timeline: --timeline block;
+    }
+    .timeline-fill {
+      transform-origin: top;
+      animation: grow-y linear both;
+      animation-timeline: --timeline;
+      animation-range: entry 40% exit 60%;
+    }
+  }
+  .slow-zoom {
+    animation: slow-zoom 16s ease-in-out infinite alternate;
+  }
+  .sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, rgb(213 133 31 / 0.28), transparent);
+    animation: sheen 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .ping::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: currentColor;
+    animation: ping 2.4s ease-out infinite;
+  }
+  .drop-in {
+    animation: drop-bounce 0.6s var(--ease-soft) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+  .pop-in {
+    animation: pop-in 0.35s var(--ease-soft) both;
+  }
+  .step-in {
+    animation: step-in 0.45s var(--ease-soft) both;
+  }
+  .scroll-cue {
+    animation: scroll-cue 1.8s ease-in-out infinite;
+  }
+  .menu-item {
+    animation: step-in 0.4s var(--ease-soft) both;
+    animation-delay: calc(80ms + var(--i, 0) * 50ms);
+  }
+  .shimmer {
+    background-image: linear-gradient(100deg, var(--color-ink) 40%, #efae55 50%, var(--color-ink) 60%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer-text 5s linear infinite;
+  }
+}
+

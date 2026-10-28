@@ -167,7 +167,7 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
     <div className="grid gap-10 pb-20 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-16 md:pb-28">
       <form id="checkout" onSubmit={submit} noValidate className="min-w-0 space-y-10">
         {isPreview && (
-          <p className="bg-preview px-4 py-3 text-[12.5px] leading-relaxed">
+          <p className="surface-amber px-4 py-3 text-[12.5px] leading-relaxed">
             <strong className="font-semibold">Preview checkout.</strong>{" "}
             {isLocalPreview
               ? "Orders are saved on this computer only (in .data/), emails are saved as files, and no money is taken."
@@ -244,7 +244,7 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
         {site.giftWrap.enabled && (
           <Section n={3} title="Gift options">
             <label className="flex cursor-pointer items-start gap-3 text-[14px]">
-              <input type="checkbox" checked={giftWrap} onChange={(e) => setGiftWrap(e.target.checked)} className="mt-1 h-4 w-4 accent-ink" />
+              <input type="checkbox" checked={giftWrap} onChange={(e) => setGiftWrap(e.target.checked)} className="mt-1 h-4 w-4 accent-brown" />
               <span>
                 Gift wrap this order <span className="text-muted">(+{formatINR(site.giftWrap.price)})</span>
               </span>
@@ -291,14 +291,14 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
       </form>
 
       <aside aria-label="Order summary" className="lg:sticky lg:top-24 lg:self-start">
-        <div className="bg-cream p-6">
+        <div className="border border-line p-6">
           <h2 className="nav-label">Order summary</h2>
           <ul className="mt-5 space-y-4">
             {totals.lines.map((l) => (
               <li key={l.key} className="flex gap-3">
-                <span className="relative h-[75px] w-[60px] shrink-0 overflow-hidden bg-sand">
+                <span className="relative h-[75px] w-[60px] shrink-0 overflow-hidden bg-brown">
                   {l.product.image && <Image src={l.product.image} alt="" fill sizes="60px" className="object-cover" />}
-                  <span className="absolute -right-0 -top-0 grid h-5 min-w-5 place-items-center bg-ink px-1 text-[10.5px] font-semibold text-paper tabular-nums">{l.quantity}</span>
+                  <span className="absolute -right-0 -top-0 grid h-5 min-w-5 place-items-center bg-brown px-1 text-[10.5px] font-semibold text-paper tabular-nums">{l.quantity}</span>
                 </span>
                 <span className="min-w-0 flex-1 text-[13px] leading-snug">
                   <span className="line-clamp-2">{l.product.name}</span>
@@ -317,7 +317,7 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
           {estimate && <p className="mt-3 text-[12.5px]">Estimated arrival {estimate}, including making time.</p>}
 
           {message && (
-            <p role="alert" className="mt-5 border border-[#a12a1f]/40 bg-paper px-3 py-2.5 text-[13px] text-[#a12a1f]">
+            <p role="alert" className="mt-5 border border-error px-3 py-2.5 text-[13px] text-error">
               {message}
             </p>
           )}
@@ -352,8 +352,8 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
 
 const input = (error?: string) =>
   clsx(
-    "h-12 w-full border bg-paper px-3 text-[14px] outline-none transition-colors focus-within:border-ink focus:border-ink",
-    error ? "border-[#a12a1f]" : "border-ink/20",
+    "h-12 w-full border bg-transparent px-3 text-[14px] outline-none transition-colors focus-within:border-ink focus:border-ink",
+    error ? "border-error" : "border-ink/30",
   );
 
 const aria = (key: CheckoutField, errors: CheckoutErrors) => ({
@@ -365,7 +365,7 @@ function Section({ n, title, children }: { n: number; title: string; children: R
   return (
     <section aria-labelledby={`step-${n}`}>
       <h2 id={`step-${n}`} className="mb-5 flex items-center gap-3 text-[13px] font-semibold uppercase tracking-[0.16em]">
-        <span aria-hidden="true" className="grid h-7 w-7 place-items-center rounded-full bg-ink text-[12px] text-paper">
+        <span aria-hidden="true" className="grid h-7 w-7 place-items-center rounded-full bg-brown text-[12px] text-paper">
           {n}
         </span>
         {title}
@@ -382,7 +382,7 @@ function Field({ id, label, error, hint, className, children }: { id: string; la
         {label}
       </label>
       {children}
-      <p id={`co-${id}-note`} className={clsx("mt-1.5 min-h-[1em] text-[12px]", error ? "text-[#a12a1f]" : "text-muted")} role={error ? "alert" : undefined}>
+      <p id={`co-${id}-note`} className={clsx("mt-1.5 min-h-[1em] text-[12px]", error ? "text-error" : "text-muted")} role={error ? "alert" : undefined}>
         {error ?? hint}
       </p>
     </div>
@@ -408,12 +408,12 @@ function PayOption({
 }) {
   const selected = current === value;
   return (
-    <label className={clsx("flex items-start gap-3 border p-4 transition-colors", selected ? "border-ink bg-cream/50" : "border-ink/15", disabled ? "cursor-not-allowed bg-cream/40 text-muted" : "cursor-pointer hover:border-ink/50")}>
-      <input type="radio" name="payment" value={value} checked={selected} disabled={disabled} onChange={() => onChange(value)} className="mt-1 h-4 w-4 accent-ink" />
+    <label className={clsx("flex items-start gap-3 border p-4 transition-colors", selected ? "border-brown ring-1 ring-brown" : "border-ink/30", disabled ? "cursor-not-allowed border-dashed text-muted" : "cursor-pointer hover:border-ink/50")}>
+      <input type="radio" name="payment" value={value} checked={selected} disabled={disabled} onChange={() => onChange(value)} className="mt-1 h-4 w-4 accent-brown" />
       <span className="min-w-0 flex-1">
         <span className="flex flex-wrap items-center gap-2 text-[14px] font-medium">
           {title}
-          {badge && <span className="bg-sand px-2 py-0.5 text-[10.5px] font-semibold uppercase tracking-[0.12em] text-gold-ink">{badge}</span>}
+          {badge && <span className="bg-amber px-2 py-0.5 text-[10.5px] font-semibold uppercase tracking-[0.12em] text-[#1e140d]">{badge}</span>}
         </span>
         <span className="mt-0.5 block text-[12.5px] leading-relaxed text-muted">{children}</span>
       </span>

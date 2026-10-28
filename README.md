@@ -22,8 +22,8 @@ Needs [Node.js 20.9 or newer](https://nodejs.org/) (check with `node -v`).
 
 ```bash
 npm install
-npm run preview      # http://localhost:3000, with the "Phase 3 preview" banner
-npm run dev          # same site without the banner
+npm run preview      # http://localhost:3000, with test checkout and notes on unbuilt pages
+npm run dev          # same site, as it will run live
 ```
 
 Leave it running while we work: changes to the files show up in the browser automatically.
@@ -60,19 +60,21 @@ npm run lint
 
 From Phase 4 this moves to the admin panel at `/admin`; `seed.json` is imported into the database once.
 
-## Pages
+## Pages (tribute-frame launch)
+
+The studio is launching one product line at a time. Right now the site sells **defence retirement tribute frames** (Army, Navy, Air Force); everything else is parked for later (see below).
 
 | URL | What it is |
 |---|---|
-| `/shop`, `/shop/<category>` | All products, and each ready-made category. Filters: category, ready or custom, occasion, price, colour, in stock. Sort: featured, newest, price, bestselling. |
-| `/gifts`, `/occasion/<occasion>` | The gift shop and each occasion (Diwali, Retirement, Birthday…) |
-| `/custom`, `/custom/<category>` | Custom-made hub and each custom category, with the WhatsApp request button |
-| `/product/<slug>` | Product page. Ready pieces: variants, quantity, Order on WhatsApp, pincode checker. Custom pieces: past work, "From" price, making time, request button |
-| `/search?q=…` | Search results, with the same filters |
-| `/cart`, `/wishlist` | Cart (quantities, save for later, coupon, free-shipping progress) and saved pieces |
-| `/checkout`, `/checkout/confirmation` | Guest checkout and the thank-you page |
+| `/` | The tribute frame: animated hero, "What goes inside" photo explorer, live name-plate preview, how it works, FAQs, price |
+| `/request` | Four-step request form with a live frame sketch. Ends with "Send on WhatsApp" |
+| `/product/retirement-tribute-frame` | Product page for the frame |
 
-Filters live in the address (for example `/shop?category=pooja-festive&max=1500&sort=newest`), so a filtered page can be shared or bookmarked.
+Copy for these pages (services, what goes inside, steps, FAQs) is in `src/config/tribute.ts`.
+
+### Parked for later
+
+The shop pages (categories, gifts, occasions, search, cart, checkout, wishlist, custom-made hub) are kept in `src/app/(store)/_parked/` and simply not built. To bring one back, follow `src/app/(store)/_parked/README.md` and add its categories to `categories` in `src/config/launch.ts`.
 
 ## Orders, emails and payments
 
@@ -96,16 +98,16 @@ Copy `.env.example` to `.env.local` on your computer, or add them in Vercel → 
 ## Design notes
 
 - Layout and type follow the brief's reference (theplatedproject.com) as a style guide only: Poppins throughout, uppercase letter-spaced navigation and buttons, borderless 4:5 product cards, editorial banners.
-- Brand accents are sampled from the logo: cream `#f8f4ed`, blush `#eabead`, slate `#687686`, gold `#c7a879` (text gold `#8b6b3e` for contrast).
+- Colour theme: only sage `#87A96B` (page background), brown `#5A3E2B` (header, footer, main buttons) and amber `#D5851F` (highlights) for every background, button and line. Text uses whichever colour reads best on each: near-black on sage and amber, white on brown. Change them in `src/app/globals.css`.
 - Fade-up on scroll uses CSS scroll-driven animations, so content is never hidden waiting for JavaScript; it is switched off for visitors who prefer reduced motion.
 - The custom-order button (`src/components/custom/CustomRequestButton.tsx`) is self-contained so the full custom flow can replace it later.
 
 ## Hosting (Netlify)
 
-The site runs on Netlify's free plan and deploys itself from the `main` branch on GitHub. Build settings live in `netlify.toml`; Netlify adds its Next.js adapter automatically.
+The site runs on Netlify's free plan at **https://memorylaneart.netlify.app** and deploys itself from the `main` branch on GitHub. Build settings live in `netlify.toml`; Netlify adds its Next.js adapter automatically.
 
 - **Credits:** the free plan has 300 credits a month. Each push to `main` (a production deploy) uses 15, and visitor traffic uses about 20 per GB. Deploy previews and branch deploys are free. If the credits run out, Netlify pauses the site until the next month, so changes are pushed in batches. Check usage in Netlify → Usage & billing.
-- **Preview mode:** `NEXT_PUBLIC_PREVIEW = "1"` in `netlify.toml` keeps the preview ribbon and the sample offer codes, and lets the checkout take test orders that go nowhere. Delete that line at launch.
+- **Preview mode:** `NEXT_PUBLIC_PREVIEW = "1"` in `netlify.toml` keeps the notes on unbuilt pages and lets the checkout take test orders that go nowhere. Delete that line at launch.
 - **Secrets** (Resend, Razorpay) go in Netlify → Project configuration → Environment variables, never in `netlify.toml`.
 - **Before launch:** move to a paid plan (Personal or Pro) so a busy festival week can't pause the shop, and connect the domain.
 - **Check a Netlify build on your computer** (needs Node 22, which this command downloads):

@@ -5,7 +5,7 @@ import { AppLink } from "@/components/ui/AppLink";
 /** Dropdown panel shown under the header for one top-level menu. */
 export function MegaMenu({ menu, onNavigate }: { menu: NavMenu; onNavigate: () => void }) {
   return (
-    <div id={`menu-${menu.id}`} role="region" aria-label={`${menu.label} menu`} className="anim-drop absolute inset-x-0 top-full border-t border-line bg-paper text-ink shadow-[0_24px_40px_-24px_rgb(0_0_0/0.22)]">
+    <div id={`menu-${menu.id}`} role="region" aria-label={`${menu.label} menu`} className="anim-drop absolute inset-x-0 top-full surface-sage border-t border-line shadow-[0_24px_40px_-24px_rgb(90_62_43/0.4)]">
       <div className="container-x flex gap-12 py-10">
         <div className="grid flex-1 grid-cols-[repeat(auto-fill,minmax(190px,230px))] content-start gap-x-12 gap-y-8">
           {menu.columns.map((col) => (
@@ -28,7 +28,7 @@ export function MegaMenu({ menu, onNavigate }: { menu: NavMenu; onNavigate: () =
           <div className="flex shrink-0 gap-5">
             {menu.features.map((f) => (
               <AppLink key={f.href} href={f.href} onClick={onNavigate} className="group block w-[190px]">
-                <span className="relative block aspect-[4/5] overflow-hidden bg-sand">
+                <span className="relative block aspect-[4/5] overflow-hidden bg-brown">
                   <Image src={f.image} alt={f.alt} fill sizes="190px" className="object-cover transition-transform duration-700 ease-soft group-hover:scale-[1.04]" />
                 </span>
                 <span className="eyebrow mt-3 block">{f.eyebrow}</span>

@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown, Heart, Package, User, X } from "lucide-react";
-import type { NavMenu } from "@/config/nav";
+import type { NavLink, NavMenu } from "@/config/nav";
 import { site } from "@/config/site";
 import { Drawer } from "@/components/ui/Drawer";
 import { AppLink } from "@/components/ui/AppLink";
@@ -9,7 +9,16 @@ import { InstagramIcon, WhatsAppIcon } from "@/components/ui/Icons";
 import { whatsappLink, messages } from "@/lib/whatsapp";
 import { Logo } from "./Logo";
 
-export function MobileMenu({ open, onClose, menus }: { open: boolean; onClose: () => void; menus: NavMenu[] }) {
+interface MobileMenuProps {
+  open: boolean;
+  onClose: () => void;
+  menus: NavMenu[];
+  links?: NavLink[];
+  cta?: NavLink;
+  shop: boolean;
+}
+
+export function MobileMenu({ open, onClose, menus, links = [], cta, shop }: MobileMenuProps) {
   return (
     <Drawer open={open} onClose={onClose} side="left" label="Menu">
       <div className="flex items-center justify-between border-b border-line px-5 py-4">
@@ -22,6 +31,23 @@ export function MobileMenu({ open, onClose, menus }: { open: boolean; onClose: (
       </div>
 
       <nav aria-label="Mobile" className="flex-1 px-5">
+        {links.length > 0 && (
+          <ul className="border-b border-line py-2">
+            {links.map((link, i) => (
+              <li key={link.href} className="menu-item" style={{ "--i": i } as React.CSSProperties}>
+                <AppLink href={link.href} onClick={onClose} className="nav-label flex items-center justify-between py-4">
+                  {link.label}
+                  <span aria-hidden="true">→</span>
+                </AppLink>
+              </li>
+            ))}
+          </ul>
+        )}
+        {cta && (
+          <AppLink href={cta.href} onClick={onClose} className="btn btn-dark mt-6 w-full">
+            {cta.label}
+          </AppLink>
+        )}
         {menus.map((menu) => (
           <details key={menu.id} className="group border-b border-line">
             <summary className="nav-label flex cursor-pointer list-none items-center justify-between py-4 [&::-webkit-details-marker]:hidden">
@@ -48,6 +74,7 @@ export function MobileMenu({ open, onClose, menus }: { open: boolean; onClose: (
           </details>
         ))}
 
+        {shop && (
         <ul className="grid gap-1 py-5 text-[14px]">
           <li>
             <AppLink href="/wishlist" onClick={onClose} className="flex items-center gap-3 py-2">
@@ -65,9 +92,10 @@ export function MobileMenu({ open, onClose, menus }: { open: boolean; onClose: (
             </AppLink>
           </li>
         </ul>
+        )}
       </nav>
 
-      <div className="grid gap-3 border-t border-line bg-cream px-5 py-5">
+      <div className="grid gap-3 surface-brown px-5 py-5">
         <a href={whatsappLink(messages.general)} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp w-full">
           <WhatsAppIcon size={18} /> Chat on WhatsApp
         </a>

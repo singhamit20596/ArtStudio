@@ -10,6 +10,9 @@ import { AppLink } from "@/components/ui/AppLink";
 import { Breadcrumbs, type Crumb } from "@/components/listing/Breadcrumbs";
 import { ProductCarousel } from "@/components/home/ProductCarousel";
 import { CustomRequestButton } from "@/components/custom/CustomRequestButton";
+import { launch } from "@/config/launch";
+import { ProcessTimeline } from "@/components/tribute/ProcessTimeline";
+import { RequestFrameButton } from "@/components/tribute/RequestFrameButton";
 import { HowCustomWorks } from "@/components/custom/HowCustomWorks";
 import { BuyBox } from "@/components/product/BuyBox";
 import { Gallery } from "@/components/product/Gallery";
@@ -53,7 +56,8 @@ async function ProductView({ params }: { params: PageProps<"/product/[slug]">["p
   const category = getCategory(product.category);
   const custom = product.type === "custom";
   const path = productHref(product);
-  const crumbs: Crumb[] = custom ? [{ label: "Custom", href: "/custom" }] : [{ label: "Shop", href: "/shop" }];
+  const focus = product.category === launch.focus;
+  const crumbs: Crumb[] = focus ? [] : custom ? [{ label: "Custom", href: "/custom" }] : [{ label: "Shop", href: "/shop" }];
   if (category) crumbs.push({ label: category.name, href: categoryHref(category) });
   crumbs.push({ label: shortName(product) });
   const similar = similarProducts(product);
@@ -131,6 +135,7 @@ async function ProductView({ params }: { params: PageProps<"/product/[slug]">["p
 /** Custom pieces: one WhatsApp request button instead of the cart (the full custom flow replaces it later). */
 function CustomActions({ product, path }: { product: Product; path: string }) {
   const name = shortName(product);
+  const focus = product.category === launch.focus;
   return (
     <div className="space-y-7">
       {product.variants.map((v) => (
@@ -139,17 +144,24 @@ function CustomActions({ product, path }: { product: Product; path: string }) {
           <span className="ml-2 text-muted">{v.options.join(" or ")}</span>
         </p>
       ))}
-      <div id="request-cta" className="flex gap-3">
-        <CustomRequestButton productName={name} path={path} className="flex-1 px-4" />
-        <WishlistButton slug={product.slug} name={name} className="!h-12 !w-12 shrink-0 !rounded-none border border-ink/20 !shadow-none" />
+      <div id="request-cta" className="flex flex-wrap gap-3">
+        {focus ? (
+          <>
+            <RequestFrameButton className="flex-1 px-4" />
+            <CustomRequestButton productName={name} path={path} label="Ask on WhatsApp" variant="whatsapp" className="flex-1 px-4" />
+          </>
+        ) : (
+          <CustomRequestButton productName={name} path={path} className="flex-1 px-4" />
+        )}
+        {launch.shop && <WishlistButton slug={product.slug} name={name} className="!h-12 !w-12 shrink-0 !rounded-none border border-ink/20 !shadow-none" />}
       </div>
-      <HowCustomWorks />
+      {focus ? <ProcessTimeline making={formatDays(product.makingTimeDays)} /> : <HowCustomWorks />}
       <StickyBar watchId="request-cta">
         <div className="min-w-0 flex-1">
           <p className="truncate text-[13px] font-medium">{name}</p>
           <Price product={product} className="text-[13px]" />
         </div>
-        <CustomRequestButton productName={name} path={path} label="Request" className="min-h-11 px-5" />
+        {focus ? <RequestFrameButton label="Request" className="min-h-11 px-5" /> : <CustomRequestButton productName={name} path={path} label="Request" className="min-h-11 px-5" />}
       </StickyBar>
     </div>
   );

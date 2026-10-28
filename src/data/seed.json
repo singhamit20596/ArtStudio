@@ -91,8 +91,8 @@
     {
       "slug": "retirement-tribute-frames",
       "type": "custom",
-      "name": "Retirement & Tribute Frames",
-      "description": "IAF, Army and Navy shadow boxes with medals, badges, photo and name plate.",
+      "name": "Defence Retirement Tribute Frames",
+      "description": "Shadow-box tribute frames for Army, Navy and Air Force retirements, built around their medals, badges, photograph and an engraved name plate.",
       "image": "/products/iaf-retirement-tribute-frame/1.jpg",
       "status": "active",
       "requestName": "retirement tribute frame",
@@ -468,11 +468,11 @@
     },
     {
       "id": "p_004",
-      "slug": "iaf-retirement-tribute-frame",
-      "name": "IAF Retirement Tribute Frame | Shadow Box",
+      "slug": "retirement-tribute-frame",
+      "name": "Retirement Tribute Frame | Shadow Box",
       "type": "custom",
       "category": "retirement-tribute-frames",
-      "subcategory": "Indian Air Force",
+      "subcategory": "Army · Navy · Air Force",
       "occasions": [
         "retirement",
         "corporate-gifting"
@@ -484,11 +484,11 @@
         "/products/iaf-retirement-tribute-frame/1.jpg"
       ],
       "video": null,
-      "description": "A shadow-box tribute for an Indian Air Force retirement. Medals, wings, squadron patches, rank stripes and a photograph are arranged by hand on a blue mount and finished with an engraved name plate.",
+      "description": "A shadow-box tribute for a defence retirement: Indian Army, Navy or Air Force. Medals, wings or badges, unit crests, rank insignia and a photograph are arranged by hand on a mount and finished with an engraved name plate.",
       "highlights": [
-        "Built around the officer's own medals, wings and patches",
+        "Built around the officer’s own medals, badges and patches",
         "Photograph and engraved name plate included",
-        "Also made for Army and Navy retirements",
+        "For Army, Navy and Air Force retirements",
         "Wooden shadow-box frame"
       ],
       "dimensions": null,
@@ -503,14 +503,16 @@
       "variants": [],
       "colours": [],
       "tags": [
-        "iaf",
-        "air force",
+        "retirement",
+        "tribute",
+        "shadow box",
         "army",
         "navy",
-        "retirement",
-        "shadow box",
+        "air force",
+        "iaf",
         "medals",
         "farewell",
+        "defence",
         "gift"
       ],
       "isNew": false,
@@ -525,7 +527,8 @@
         "weight",
         "makingTimeDays",
         "images"
-      ]
+      ],
+      "notes": "The only photo so far is an Indian Air Force frame. Army and Navy examples are needed (TODO.md)."
     },
     {
       "id": "p_005",

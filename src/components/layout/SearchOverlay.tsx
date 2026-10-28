@@ -105,7 +105,7 @@ export function SearchOverlay({ open, onClose, items, links }: SearchOverlayProp
               <ul className="mb-4 flex flex-wrap gap-2" aria-label="Categories">
                 {linkResults.map((l) => (
                   <li key={l.href}>
-                    <AppLink href={l.href} onClick={onClose} className="inline-flex items-baseline gap-2 bg-cream px-4 py-2 text-[13px] transition-colors hover:bg-sand">
+                    <AppLink href={l.href} onClick={onClose} className="inline-flex items-baseline gap-2 bg-amber px-4 py-2 text-[13px] text-[#1e140d] transition hover:brightness-95">
                       {l.label}
                       <span className="text-[10.5px] uppercase tracking-[0.12em] text-muted">{l.kind}</span>
                     </AppLink>
@@ -117,8 +117,8 @@ export function SearchOverlay({ open, onClose, items, links }: SearchOverlayProp
               <ul className="grid gap-x-8 gap-y-1 md:grid-cols-2" aria-label="Products">
                 {results.map((r) => (
                   <li key={r.slug}>
-                    <AppLink href={`/product/${r.slug}`} onClick={() => { rememberSearch(query); onClose(); }} className="flex items-center gap-4 py-2.5 hover:bg-cream">
-                      <span className="relative h-16 w-[52px] shrink-0 overflow-hidden bg-sand">
+                    <AppLink href={`/product/${r.slug}`} onClick={() => { rememberSearch(query); onClose(); }} className="flex items-center gap-4 py-2.5 hover:bg-brown/10">
+                      <span className="relative h-16 w-[52px] shrink-0 overflow-hidden bg-brown">
                         {r.image && <Image src={r.image} alt="" fill sizes="52px" className="object-cover" />}
                       </span>
                       <span className="min-w-0">

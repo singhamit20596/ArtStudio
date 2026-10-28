@@ -44,7 +44,7 @@ export function Pill({ href, active = false, children }: { href: string; active?
         aria-current={active ? "page" : undefined}
         className={clsx(
           "inline-block whitespace-nowrap border px-4 py-2 text-[13px] transition-colors",
-          active ? "border-ink bg-ink text-paper" : "border-ink/15 hover:border-ink",
+          active ? "border-brown bg-brown text-paper" : "border-ink/15 hover:border-ink",
         )}
       >
         {children}

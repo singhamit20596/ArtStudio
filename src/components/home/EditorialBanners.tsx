@@ -11,7 +11,7 @@ const banners = [
     href: "/shop/pooja-festive",
     image: "/products/shubh-labh-toran/1.jpg",
     alt: "Shubh Labh resin door hangings on a wall",
-    tone: "bg-blush-soft",
+    tone: "surface-amber",
   },
   {
     eyebrow: "Gifts",
@@ -21,7 +21,7 @@ const banners = [
     href: "/gifts",
     image: "/products/botanical-initial-keychain/1.jpg",
     alt: "Resin initial keychains with pressed flowers",
-    tone: "bg-slate-soft",
+    tone: "surface-brown",
   },
 ];
 
@@ -33,7 +33,7 @@ export function EditorialBanners() {
           <div className="flex min-w-0 flex-col justify-center gap-3 p-6 sm:p-8 lg:p-10">
             <p className="eyebrow">{b.eyebrow}</p>
             <h3 className="text-[22px] font-semibold leading-[1.15] sm:text-[26px] lg:text-[30px]">{b.title}</h3>
-            <p className="text-[13.5px] leading-relaxed text-ink/70">{b.body}</p>
+            <p className="text-[13.5px] leading-relaxed text-muted">{b.body}</p>
             <span className="nav-label link-line mt-3 self-start">{b.cta}</span>
           </div>
           <div className="relative aspect-[4/5] overflow-hidden">

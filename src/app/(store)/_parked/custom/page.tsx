@@ -34,18 +34,18 @@ export default function CustomHubPage() {
       </div>
 
       {signature && (
-        <section aria-labelledby="signature-title" className="bg-slate-deep text-paper">
+        <section aria-labelledby="signature-title" className="surface-brown">
           <div className="container-x grid items-center gap-10 py-14 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:py-20">
             <div className="relative aspect-[4/5] overflow-hidden md:order-2 md:aspect-[5/4]">
               {signature.image && <Image src={signature.image} alt="IAF retirement shadow box with medals, wings and a name plate" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />}
             </div>
             <div className="max-w-lg">
-              <p className="eyebrow !text-blush">Our signature · IAF · Army · Navy</p>
+              <p className="eyebrow">Our signature · IAF · Army · Navy</p>
               <h2 id="signature-title" className="mt-4 text-[30px] font-semibold leading-[1.12] md:text-[38px]">
                 {signature.name}
               </h2>
-              <p className="mt-4 text-[15px] leading-relaxed text-white/80">{signature.description}</p>
-              <p className="mt-4 text-[13.5px] text-white/80">
+              <p className="mt-4 text-[15px] leading-relaxed text-muted">{signature.description}</p>
+              <p className="mt-4 text-[13.5px] text-muted">
                 {signature.startingPrice ? <>From {formatINR(signature.startingPrice)}</> : "Price on request"}
                 {signature.makingTimeDays ? <> · Made in {formatDays(signature.makingTimeDays)}</> : null}
               </p>
@@ -71,7 +71,7 @@ export default function CustomHubPage() {
         </ul>
       </section>
 
-      <section aria-labelledby="how-title" className="bg-cream">
+      <section aria-labelledby="how-title" className="surface-amber">
         <div className="container-x grid gap-10 py-16 md:grid-cols-2 md:items-center md:py-20">
           <div className="max-w-md">
             <p className="eyebrow">Simple and personal</p>

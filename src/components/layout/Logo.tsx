@@ -18,7 +18,7 @@ export function Logo({ inverted = false, compact = false }: { inverted?: boolean
         <span className={clsx("font-semibold uppercase", compact ? "text-[13px] tracking-[0.2em]" : "text-[15px] tracking-[0.24em]")}>
           {site.name}
         </span>
-        <span className={clsx("mt-[5px] text-[9.5px] font-medium uppercase tracking-[0.34em]", inverted ? "text-white/75" : "text-gold-ink")}>
+        <span className={clsx("mt-[5px] text-[9.5px] font-medium uppercase tracking-[0.34em]", inverted ? "text-white/80" : "text-eyebrow")}>
           {site.tagline}
         </span>
       </span>

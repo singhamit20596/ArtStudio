@@ -40,7 +40,7 @@ export function Gallery({ images, video, name, fallbackNote }: GalleryProps) {
 
   if (media.length === 0) {
     return (
-      <div className="relative aspect-[4/5] bg-sand">
+      <div className="relative aspect-[4/5] bg-brown">
         <ProductImage src={null} alt={name} sizes={SIZES} fallbackTitle={name} fallbackNote={fallbackNote} />
       </div>
     );
@@ -57,12 +57,12 @@ export function Gallery({ images, video, name, fallbackNote }: GalleryProps) {
                 onClick={() => goTo(i)}
                 aria-label={m.kind === "video" ? "Play the video" : `Photo ${i + 1} of ${media.length}`}
                 aria-current={active === i}
-                className={clsx("relative block aspect-[4/5] w-full overflow-hidden bg-sand ring-offset-2 transition", active === i ? "ring-1 ring-ink" : "opacity-70 hover:opacity-100")}
+                className={clsx("relative block aspect-[4/5] w-full overflow-hidden bg-brown ring-offset-2 ring-offset-sage transition", active === i ? "ring-1 ring-ink" : "opacity-70 hover:opacity-100")}
               >
                 {m.kind === "image" ? (
                   <Image src={m.src} alt="" fill sizes="72px" className="object-cover" />
                 ) : (
-                  <span className="absolute inset-0 grid place-items-center bg-ink text-paper">
+                  <span className="absolute inset-0 grid place-items-center bg-brown text-paper">
                     <Play size={18} fill="currentColor" />
                   </span>
                 )}
@@ -94,7 +94,7 @@ export function Gallery({ images, video, name, fallbackNote }: GalleryProps) {
         {media.length > 1 && (
           <div className="mt-3 flex justify-center gap-2 md:hidden" aria-hidden="true">
             {media.map((m, i) => (
-              <span key={m.src} className={clsx("h-1.5 rounded-full transition-all", active === i ? "w-5 bg-ink" : "w-1.5 bg-ink/25")} />
+              <span key={m.src} className={clsx("h-1.5 rounded-full transition-all", active === i ? "w-5 bg-brown" : "w-1.5 bg-brown/25")} />
             ))}
           </div>
         )}
@@ -113,7 +113,7 @@ function ZoomImage({ src, alt, priority }: { src: string; alt: string; priority:
     box.current.style.setProperty("--zy", `${((e.clientY - r.top) / r.height) * 100}%`);
   };
   return (
-    <div ref={box} onPointerMove={move} className="zoom-box relative aspect-[4/5] overflow-hidden bg-sand">
+    <div ref={box} onPointerMove={move} className="zoom-box relative aspect-[4/5] overflow-hidden bg-brown">
       <Image src={src} alt={alt} fill sizes={SIZES} priority={priority} quality={85} className="object-cover" />
     </div>
   );
@@ -121,7 +121,7 @@ function ZoomImage({ src, alt, priority }: { src: string; alt: string; priority:
 
 function Video({ src }: { src: string }) {
   return (
-    <div className="relative aspect-[4/5] overflow-hidden bg-ink">
+    <div className="relative aspect-[4/5] overflow-hidden bg-brown">
       <video src={src} className="absolute inset-0 h-full w-full object-cover" muted loop playsInline controls preload="metadata" />
     </div>
   );

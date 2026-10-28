@@ -8,7 +8,7 @@ import { ProductImage } from "@/components/product/ProductImage";
 export function CustomCategoryCard({ category, sizes }: { category: Category; sizes: string }) {
   return (
     <AppLink href={categoryHref(category)} className="group block">
-      <span className="relative block aspect-[4/5] overflow-hidden bg-sand">
+      <span className="relative block aspect-[4/5] overflow-hidden bg-brown">
         <ProductImage
           src={category.image}
           alt={category.name}

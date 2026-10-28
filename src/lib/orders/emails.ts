@@ -15,9 +15,9 @@ import { EMAIL_PREVIEW_DIR } from "./store";
 
 export const emailConfigured = () => Boolean(process.env.RESEND_API_KEY);
 
-const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+export const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
-interface Email {
+export interface Email {
   to: string;
   subject: string;
   html: string;
@@ -46,14 +46,14 @@ function render(order: Order, forOwner: boolean) {
   const rows = order.items
     .map(
       (i) => `<tr>
-  <td style="padding:10px 0;border-bottom:1px solid #e8e2d9;font-size:14px;line-height:1.5">${esc(i.name)}${i.variant ? `<br><span style="color:#6b6660;font-size:13px">${esc(i.variant)}</span>` : ""}<br><span style="color:#6b6660;font-size:13px">Qty ${i.quantity} × ${formatINR(i.unitPrice)}</span></td>
-  <td style="padding:10px 0;border-bottom:1px solid #e8e2d9;font-size:14px;text-align:right;white-space:nowrap;vertical-align:top">${formatINR(i.lineTotal)}</td>
+  <td style="padding:10px 0;border-bottom:1px solid #e7ddd1;font-size:14px;line-height:1.5">${esc(i.name)}${i.variant ? `<br><span style="color:#76655a;font-size:13px">${esc(i.variant)}</span>` : ""}<br><span style="color:#76655a;font-size:13px">Qty ${i.quantity} × ${formatINR(i.unitPrice)}</span></td>
+  <td style="padding:10px 0;border-bottom:1px solid #e7ddd1;font-size:14px;text-align:right;white-space:nowrap;vertical-align:top">${formatINR(i.lineTotal)}</td>
 </tr>`,
     )
     .join("");
   const t = order.totals;
   const money = (label: string, value: string, bold = false) =>
-    `<tr><td style="padding:3px 0;font-size:14px;${bold ? "font-weight:600" : "color:#6b6660"}">${label}</td><td style="padding:3px 0;font-size:14px;text-align:right;${bold ? "font-weight:600" : ""}">${value}</td></tr>`;
+    `<tr><td style="padding:3px 0;font-size:14px;${bold ? "font-weight:600" : "color:#76655a"}">${label}</td><td style="padding:3px 0;font-size:14px;text-align:right;${bold ? "font-weight:600" : ""}">${value}</td></tr>`;
   const totals = [
     money("Subtotal", formatINR(t.subtotal)),
     t.discount ? money(`Coupon ${esc(order.coupon?.code ?? "")}`, `−${formatINR(t.discount)}`) : "",
@@ -69,15 +69,15 @@ function render(order: Order, forOwner: boolean) {
        ${order.customer.email ? `<p style="margin:0 0 4px;font-size:14px">Email: ${esc(order.customer.email)}</p>` : ""}`
     : "";
 
-  return `<!doctype html><html><body style="margin:0;background:#f8f4ed;font-family:Poppins,Helvetica,Arial,sans-serif;color:#111">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f8f4ed;padding:24px 12px"><tr><td align="center">
+  return `<!doctype html><html><body style="margin:0;background:#faf6ef;font-family:Poppins,Helvetica,Arial,sans-serif;color:#33241a">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf6ef;padding:24px 12px"><tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;padding:32px 28px">
 <tr><td>
-  <p style="margin:0;font-size:13px;letter-spacing:4px;font-weight:600">ART STUDIO</p>
-  <p style="margin:2px 0 24px;font-size:10px;letter-spacing:3px;color:#8b6b3e">ART WITH SOUL</p>
+  <p style="margin:0;font-size:13px;letter-spacing:4px;font-weight:600;color:#5a3e2b">ART STUDIO</p>
+  <p style="margin:2px 0 24px;font-size:10px;letter-spacing:3px;color:#9a5b0e">ART WITH SOUL</p>
   <h1 style="margin:0 0 8px;font-size:22px;line-height:1.3">${forOwner ? `New order ${order.id}` : headline(order)}</h1>
-  <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#2b2926">${forOwner ? `${PAYMENT_LABELS[order.payment.method]} · ${formatINR(t.total)}` : intro(order)}</p>
-  <p style="margin:0 0 16px;font-size:13px;color:#6b6660">Order <strong style="color:#111">${order.id}</strong> · ${PAYMENT_LABELS[order.payment.method]}</p>
+  <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#33241a">${forOwner ? `${PAYMENT_LABELS[order.payment.method]} · ${formatINR(t.total)}` : intro(order)}</p>
+  <p style="margin:0 0 16px;font-size:13px;color:#76655a">Order <strong style="color:#33241a">${order.id}</strong> · ${PAYMENT_LABELS[order.payment.method]}</p>
   ${contact}
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:8px">${rows}</table>
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:12px">${totals}</table>
@@ -85,9 +85,9 @@ function render(order: Order, forOwner: boolean) {
   <p style="margin:0;font-size:14px;line-height:1.6">${esc(order.customer.name)}<br>${addressLines(order).map(esc).join("<br>")}</p>
   ${delivery ? `<p style="margin:16px 0 0;font-size:14px">Estimated arrival: <strong>${delivery}</strong></p>` : ""}
   ${order.gift.wrap || order.gift.message ? `<p style="margin:16px 0 0;font-size:14px">${order.gift.wrap ? "Gift wrapped. " : ""}${order.gift.message ? `Gift message: “${esc(order.gift.message)}”` : ""}</p>` : ""}
-  ${forOwner ? "" : `<p style="margin:28px 0 0;font-size:14px;line-height:1.6">Questions? Message us on WhatsApp at <a href="https://wa.me/${site.contact.whatsappNumber}" style="color:#111">${site.contact.whatsappDisplay}</a> with your order number.</p>`}
+  ${forOwner ? "" : `<p style="margin:28px 0 0;font-size:14px;line-height:1.6">Questions? Message us on WhatsApp at <a href="https://wa.me/${site.contact.whatsappNumber}" style="color:#33241a">${site.contact.whatsappDisplay}</a> with your order number.</p>`}
 </td></tr></table>
-<p style="margin:16px 0 0;font-size:12px;color:#6b6660">${site.name} · ${site.tagline} · Handmade in India</p>
+<p style="margin:16px 0 0;font-size:12px;color:#76655a">${site.name} · ${site.tagline} · Handmade in India</p>
 </td></tr></table></body></html>`;
 }
 
@@ -147,22 +147,24 @@ async function send(email: Email) {
   if (!res.ok) throw new Error(`Resend ${res.status}: ${await res.text()}`);
 }
 
-/** Sends the owner and customer emails. Never throws: a failed email must not fail the order. */
-export async function sendOrderEmails(order: Order) {
-  const emails = orderEmails(order);
+/**
+ * Sends a set of emails (owner first, then customer). Never throws: a failed email must not
+ * fail the order or request. Without RESEND_API_KEY, on your computer, saves them as HTML files.
+ */
+export async function deliverEmails(id: string, emails: Email[]) {
   if (!emailConfigured()) {
     if (process.env.NODE_ENV === "production") {
-      console.warn(`[order ${order.id}] RESEND_API_KEY is not set, so no emails were sent.`);
+      console.warn(`[${id}] RESEND_API_KEY is not set, so no emails were sent.`);
       return false;
     }
     await fs.mkdir(EMAIL_PREVIEW_DIR, { recursive: true });
-    await Promise.all(
-      emails.map((e, i) => fs.writeFile(path.join(EMAIL_PREVIEW_DIR, `${order.id}-${i === 0 ? "owner" : "customer"}.html`), e.html, "utf8")),
-    );
-    console.info(`[order ${order.id}] Email previews saved in .data/emails/ (set RESEND_API_KEY to send them).`);
+    await Promise.all(emails.map((e, i) => fs.writeFile(path.join(EMAIL_PREVIEW_DIR, `${id}-${i === 0 ? "owner" : "customer"}.html`), e.html, "utf8")));
+    console.info(`[${id}] Email previews saved in .data/emails/ (set RESEND_API_KEY to send them).`);
     return false;
   }
   const results = await Promise.allSettled(emails.map(send));
-  results.forEach((r) => r.status === "rejected" && console.error(`[order ${order.id}] email failed:`, r.reason));
+  results.forEach((r) => r.status === "rejected" && console.error(`[${id}] email failed:`, r.reason));
   return results.every((r) => r.status === "fulfilled");
 }
+
+export const sendOrderEmails = (order: Order) => deliverEmails(order.id, orderEmails(order));

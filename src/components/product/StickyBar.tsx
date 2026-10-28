@@ -22,7 +22,7 @@ export function StickyBar({ watchId, children }: { watchId: string; children: Re
       data-sticky-bar={shown ? "shown" : "hidden"}
       aria-hidden={!shown}
       inert={!shown}
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper/95 backdrop-blur transition-transform duration-300 md:hidden ${shown ? "translate-y-0" : "translate-y-full"}`}
+      className={`fixed inset-x-0 bottom-0 z-40 surface-sage border-t border-line transition-transform duration-300 md:hidden ${shown ? "translate-y-0" : "translate-y-full"}`}
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
       <div className="container-x flex items-center gap-3 py-3">{children}</div>

@@ -3,9 +3,21 @@
 Everything below is a placeholder in the Phase 3 build. Reply with whatever you have; nothing here blocks Phase 4.
 Product data lives in `src/data/seed.json`, business settings in `src/config/site.ts`, coupon codes in `src/config/coupons.ts`.
 
+## Tribute-frame launch: please check
+
+- [ ] **Photos of Army and Navy frames.** The site offers frames for all three services, but the only photo is an Indian Air Force frame. Send at least one clear photo of each (plain background, 1600 px or more).
+- [ ] **Starting price (₹4,999) and making time (10–14 days)** are placeholders from earlier. Confirm or correct them.
+- [ ] **Sizes and prices.** Do you have set sizes (e.g. A4, A3) with prices? The site says "final price depends on size and what goes inside".
+- [ ] **How customers get their medals to you.** Do they courier the originals, hand them over, or do you source replicas? The site avoids saying either way until you tell us.
+- [ ] **Payment for frames.** Advance, full payment, or Cash on Delivery? The site currently says "no payment online; we agree every detail with you".
+- [ ] **Other services.** The form has "Another service" (e.g. Coast Guard, paramilitary). Keep it or remove it?
+- [ ] **Copy to check** in `src/config/tribute.ts`: the six "What goes inside" notes, the four "How it works" steps and the six FAQs.
+- [ ] **Hotspot positions** on the frame photo: if you send a new photo, the numbered points need moving to match it.
+- [ ] **Request emails** go to sandeep698146@gmail.com once Resend is set up (see Phase 3 below). Until then, requests reach you only through the customer's WhatsApp message.
+
 ## New in Phase 3: please check
 
-- [ ] **Offer codes.** The Offers drawer shows two *sample* codes, WELCOME10 (10% off above ₹999, up to ₹300) and FESTIVE200 (₹200 off above ₹2,499). They only work in the preview, never on the live site. Send your real offers (code, discount, minimum order, last date).
+- [ ] **Offer codes.** None are set up (the sample codes were removed). Send your real offers: code, discount, minimum order and last date. Until then the coupon box stays, but "View offers" links are hidden.
 - [ ] **Cash on Delivery fee**: none for now (`payments.codFee` in `site.ts`). Tell us if you charge one.
 - [ ] **Gift wrap**: placeholder charge **₹49** per order, with an optional gift message (`giftWrap` in `site.ts`). Confirm the price, or say if it should be free.
 - [ ] **Free shipping** is judged on the cart value *before* a coupon (₹3,000 or more ships free even if a coupon brings the total under). Is that how you want it?

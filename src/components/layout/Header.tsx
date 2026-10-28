@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { ChevronDown, Heart, Menu, Search, ShoppingBag, User } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import type { NavMenu } from "@/config/nav";
+import type { NavLink, NavMenu } from "@/config/nav";
 import { site } from "@/config/site";
 import type { CartProduct } from "@/lib/pricing";
 import type { SearchItem, SearchLink } from "@/lib/types";
@@ -19,13 +19,19 @@ import { OffersDrawer } from "@/components/cart/OffersDrawer";
 interface HeaderProps {
   /** Transparent over the hero until the visitor scrolls (homepage). */
   overlay?: boolean;
+  /** Mega-menus (shop) or plain links (single product line). */
   menus: NavMenu[];
+  links?: NavLink[];
+  /** Button on the right, e.g. "Request a frame". */
+  cta?: NavLink;
+  /** Search, account, wishlist and cart (only while the shop is open). */
+  shop: boolean;
   searchItems: SearchItem[];
   searchLinks: SearchLink[];
   cartCatalogue: CartProduct[];
 }
 
-export function Header({ overlay = false, menus, searchItems, searchLinks, cartCatalogue }: HeaderProps) {
+export function Header({ overlay = false, menus, links = [], cta, shop, searchItems, searchLinks, cartCatalogue }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -106,7 +112,7 @@ export function Header({ overlay = false, menus, searchItems, searchLinks, cartC
         onMouseLeave={hoverClose}
         className={clsx(
           "sticky z-40 transition-[background-color,color,box-shadow] duration-300",
-          solid ? "bg-paper text-ink shadow-[0_1px_0_var(--color-line)]" : "bg-transparent text-paper",
+          solid ? "surface-brown shadow-[0_1px_0_var(--color-line)]" : "bg-transparent text-paper",
         )}
         style={{ top: "env(safe-area-inset-top, 0px)" }}
       >
@@ -117,17 +123,24 @@ export function Header({ overlay = false, menus, searchItems, searchLinks, cartC
               <Menu size={22} strokeWidth={1.6} />
             </button>
             <AppLink href="/" aria-label={`${site.name} home`} className="hidden lg:block">
-              <Logo inverted={!solid} />
+              <Logo inverted />
             </AppLink>
           </div>
 
           {/* Centre: logo (mobile) / main navigation (desktop) */}
           <div className="flex justify-center">
             <AppLink href="/" aria-label={`${site.name} home`} className="lg:hidden">
-              <Logo inverted={!solid} compact />
+              <Logo inverted compact />
             </AppLink>
             <nav aria-label="Main" className="hidden lg:block">
               <ul className="flex items-center gap-1 xl:gap-3">
+                {links.map((link) => (
+                  <li key={link.href}>
+                    <AppLink href={link.href} className="nav-label flex h-[76px] items-center px-3">
+                      <span className="link-grow">{link.label}</span>
+                    </AppLink>
+                  </li>
+                ))}
                 {menus.map((menu) => (
                   <li key={menu.id} onMouseEnter={(e) => hoverOpen(menu.id, e.timeStamp)}>
                     <button
@@ -151,6 +164,14 @@ export function Header({ overlay = false, menus, searchItems, searchLinks, cartC
 
           {/* Right: actions */}
           <div className="-mr-2 flex items-center justify-end">
+            {cta && (
+              <AppLink href={cta.href} className="btn btn-light btn-press mr-2 min-h-10 px-4 text-[11px] sm:px-5">
+                <span className="sm:hidden">Request</span>
+                <span className="hidden sm:inline">{cta.label}</span>
+              </AppLink>
+            )}
+            {shop && (
+              <>
             <button type="button" onClick={() => setSearchOpen(true)} aria-label="Search" className={iconButton}>
               <Search size={20} strokeWidth={1.6} />
             </button>
@@ -159,34 +180,38 @@ export function Header({ overlay = false, menus, searchItems, searchLinks, cartC
             </AppLink>
             <AppLink href="/wishlist" aria-label={`Wishlist, ${wishlist.length} items`} className={clsx(iconButton, "hidden sm:grid")}>
               <Heart size={20} strokeWidth={1.6} />
-              {wishlist.length > 0 && <Count n={wishlist.length} inverted={!solid} />}
+              {wishlist.length > 0 && <Count n={wishlist.length} />}
             </AppLink>
             <button type="button" onClick={() => setCartOpen(true)} aria-label={`Cart, ${cartCount} items`} className={iconButton}>
               <ShoppingBag size={20} strokeWidth={1.6} />
-              {cartCount > 0 && <Count n={cartCount} inverted={!solid} />}
+              {cartCount > 0 && <Count n={cartCount} />}
             </button>
+              </>
+            )}
           </div>
         </div>
 
         {active && <MegaMenu menu={active} onNavigate={closeMenu} />}
       </header>
 
-      <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} menus={menus} />
-      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} items={searchItems} links={searchLinks} />
-      <CartDrawer catalogue={cartCatalogue} />
-      <OffersDrawer />
+      <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} menus={menus} links={links} cta={cta} shop={shop} />
+      {shop && (
+        <>
+          <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} items={searchItems} links={searchLinks} />
+          <CartDrawer catalogue={cartCatalogue} />
+          <OffersDrawer />
+        </>
+      )}
     </>
   );
 }
 
-function Count({ n, inverted }: { n: number; inverted: boolean }) {
+/** Amber count bubble on the wishlist and cart icons. */
+function Count({ n }: { n: number }) {
   return (
     <span
       aria-hidden="true"
-      className={clsx(
-        "absolute right-0.5 top-0.5 grid h-[17px] min-w-[17px] place-items-center rounded-full px-1 text-[10px] font-semibold leading-none tabular-nums",
-        inverted ? "bg-paper text-ink" : "bg-ink text-paper",
-      )}
+      className="absolute right-0.5 top-0.5 grid h-[17px] min-w-[17px] place-items-center rounded-full bg-amber px-1 text-[10px] font-semibold leading-none text-[#1e140d] tabular-nums"
     >
       {n}
     </span>

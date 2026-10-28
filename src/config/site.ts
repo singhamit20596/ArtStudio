@@ -7,7 +7,7 @@ export const site = {
   tagline: "Art with Soul",
   bio: "Art that tells a story. Handcrafted with love.",
   description:
-    "Handmade resin décor, pooja thalis, personalised gifts and IAF, Army & Navy retirement frames. Made by hand, shipped across India.",
+    "Handmade shadow-box tribute frames for Army, Navy and Air Force retirements, built around their own medals, badges and photograph. Delivered across India.",
   /** TODO: set NEXT_PUBLIC_SITE_URL once the domain is bought. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "",
   locale: "en-IN",
@@ -56,12 +56,12 @@ export const site = {
     messageMaxLength: 200,
   },
 
-  /** Rotating messages in the black announcement bar (keep exactly four). */
+  /** Rotating messages in the announcement bar (keep exactly four). */
   announcements: [
-    "Free shipping on orders above ₹3,000",
-    "Cash on Delivery across India",
-    "Handcrafted with love ✨",
-    "🚚 Pan India shipping",
+    "Tribute frames for Army, Navy and Air Force retirements",
+    "Made by hand, around their own medals",
+    "Request online, plan it with us on WhatsApp",
+    "Pan India delivery",
   ],
 
   hero: {

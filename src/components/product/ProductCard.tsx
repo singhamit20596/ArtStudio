@@ -6,6 +6,13 @@ import { ProductImage } from "./ProductImage";
 import { Price } from "./Price";
 import { WishlistButton } from "./WishlistButton";
 
+/** New in amber, Bestseller and Sold out in brown, the rest in sage. */
+const BADGE_STYLES: Record<string, string> = {
+  New: "bg-amber text-[#1e140d]",
+  Bestseller: "bg-brown text-white",
+  "Sold out": "bg-brown text-white",
+};
+
 function badgeFor(p: Product): string | null {
   if (p.type === "ready" && p.stock != null && p.stock <= 0) return "Sold out";
   if (p.isNew) return "New";
@@ -23,13 +30,13 @@ export function ProductCard({ product, sizes, className }: { product: Product; s
   return (
     <article className={clsx("group relative", className)}>
       <AppLink href={href} className="block">
-        <span className="relative block aspect-[4/5] overflow-hidden bg-sand">
+        <span className="relative block aspect-[4/5] overflow-hidden bg-brown">
           <ProductImage src={first} alt={shortName(product)} sizes={sizes} fallbackTitle={shortName(product)} />
           {rest[0] && (
             <ProductImage src={rest[0]} alt="" sizes={sizes} zoom={false} className="opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
           )}
           {badge && (
-            <span className="absolute left-3 top-3 bg-paper px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink">{badge}</span>
+            <span className={clsx("absolute left-3 top-3 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]", BADGE_STYLES[badge] ?? "bg-sage text-[#1e140d]")}>{badge}</span>
           )}
         </span>
         <h3 className="mt-3.5 line-clamp-2 text-[13px] leading-snug text-ink">{product.name}</h3>

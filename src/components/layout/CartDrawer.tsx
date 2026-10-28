@@ -8,6 +8,7 @@ import { useCartTotals } from "@/components/cart/useCartTotals";
 import { AppLink } from "@/components/ui/AppLink";
 import { Drawer } from "@/components/ui/Drawer";
 import { site } from "@/config/site";
+import { availableCoupons } from "@/lib/coupons";
 import { formatINR } from "@/lib/format";
 import type { CartProduct } from "@/lib/pricing";
 
@@ -30,7 +31,7 @@ export function CartDrawer({ catalogue }: { catalogue: CartProduct[] }) {
       {empty ? (
         <div className="flex flex-1 flex-col">
           <div className="flex flex-1 flex-col items-center justify-center gap-4 px-8 py-12 text-center">
-            <span className="grid h-16 w-16 place-items-center rounded-full bg-cream text-gold-ink">
+            <span className="grid h-16 w-16 place-items-center rounded-full bg-amber text-[#1e140d]">
               <ShoppingBag size={26} strokeWidth={1.5} />
             </span>
             <p className="text-[16px] font-medium">Your cart is empty</p>
@@ -54,23 +55,28 @@ export function CartDrawer({ catalogue }: { catalogue: CartProduct[] }) {
               <SavedForLater catalogue={catalogue} />
             </div>
           </div>
-          <div className="sticky bottom-0 border-t border-line bg-paper px-6 py-5">
+          <div className="surface-sage sticky bottom-0 border-t border-line px-6 py-5">
             <div className="flex items-baseline justify-between text-[15px] font-semibold tabular-nums">
               <span>Subtotal</span>
               <span>{formatINR(totals.subtotal)}</span>
             </div>
             <p className="mt-1 text-[12px] text-muted">
               {totals.shipping === 0 && totals.subtotal > 0 ? "Free shipping. " : `${formatINR(site.shipping.flatFee)} shipping below ${formatINR(site.shipping.freeShippingThreshold)}. `}
-              Coupons and gift wrap at checkout.{" "}
-              <button type="button" onClick={() => setOffersOpen(true)} className="underline underline-offset-4">
-                See offers
-              </button>
+              Coupons and gift wrap at checkout.
+              {availableCoupons().length > 0 && (
+                <>
+                  {" "}
+                  <button type="button" onClick={() => setOffersOpen(true)} className="underline underline-offset-4">
+                    See offers
+                  </button>
+                </>
+              )}
             </p>
             <div className="mt-4 grid grid-cols-[auto_1fr] gap-3">
               <AppLink href="/cart" onClick={close} className="btn btn-outline px-5">
                 View cart
               </AppLink>
-              <AppLink href="/checkout" onClick={close} className="btn btn-dark aria-disabled:pointer-events-none aria-disabled:bg-ink/40" aria-disabled={totals.lines.length === 0}>
+              <AppLink href="/checkout" onClick={close} className="btn btn-dark aria-disabled:pointer-events-none aria-disabled:bg-brown/40" aria-disabled={totals.lines.length === 0}>
                 Checkout
               </AppLink>
             </div>

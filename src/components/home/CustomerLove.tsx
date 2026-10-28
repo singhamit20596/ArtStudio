@@ -12,7 +12,7 @@ const PLACEHOLDER_SLOTS = 3;
 
 export function CustomerLove() {
   return (
-    <section aria-labelledby="love-title" className="bg-blush-soft">
+    <section aria-labelledby="love-title" className="surface-brown">
       <div className="container-x py-16 md:py-24">
         <SectionHeader
           id="love-title"
@@ -29,7 +29,7 @@ export function CustomerLove() {
         <ul className="mt-10 grid gap-4 md:grid-cols-3 md:gap-6">
           {reviews.length > 0
             ? reviews.map((r) => (
-                <li key={r.name} className="reveal bg-paper p-7">
+                <li key={r.name} className="reveal surface-sage p-7">
                   <p className="text-[15px] leading-relaxed">“{r.text}”</p>
                   <p className="mt-5 text-[13px] font-medium">
                     {r.name}, {r.city}
@@ -38,7 +38,7 @@ export function CustomerLove() {
                 </li>
               ))
             : Array.from({ length: PLACEHOLDER_SLOTS }, (_, i) => (
-                <li key={i} className="reveal flex flex-col border border-dashed border-gold-ink/40 bg-paper/70 p-7">
+                <li key={i} className="reveal flex flex-col border border-dashed border-line p-7">
                   <div className="flex items-center gap-4">
                     <span className="mount block h-[72px] w-[60px] shrink-0" aria-hidden="true" />
                     <div className="min-w-0">
@@ -49,7 +49,7 @@ export function CustomerLove() {
                   <p className="mt-6 flex-1 text-[14px] leading-relaxed text-muted">
                     A real review and customer photo from the Order+review highlight on Instagram goes here.
                   </p>
-                  <p className="mt-6 text-[10px] font-semibold uppercase tracking-[0.22em] text-gold-ink">Review slot {i + 1} · to be added</p>
+                  <p className="mt-6 text-[10px] font-semibold uppercase tracking-[0.22em] text-eyebrow">Review slot {i + 1} · to be added</p>
                 </li>
               ))}
         </ul>

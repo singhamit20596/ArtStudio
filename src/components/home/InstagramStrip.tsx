@@ -32,9 +32,9 @@ export function InstagramStrip() {
       <ul className="container-x mt-10 grid grid-cols-3 gap-1.5 md:grid-cols-6 md:gap-2">
         {posts.map((p) => (
           <li key={p.href}>
-            <a href={p.href} target="_blank" rel="noopener noreferrer" className="group relative block aspect-[3/4] overflow-hidden bg-sand">
+            <a href={p.href} target="_blank" rel="noopener noreferrer" className="group relative block aspect-[3/4] overflow-hidden bg-brown">
               <Image src={p.image} alt={p.alt} fill sizes="(min-width: 768px) 16vw, 33vw" className="object-cover transition-transform duration-700 ease-soft group-hover:scale-105" />
-              <span className="absolute inset-0 grid place-items-center bg-ink/0 text-paper transition-colors duration-300 group-hover:bg-ink/35">
+              <span className="absolute inset-0 grid place-items-center bg-brown/0 text-paper transition-colors duration-300 group-hover:bg-brown/50">
                 <InstagramIcon size={26} className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </span>
             </a>

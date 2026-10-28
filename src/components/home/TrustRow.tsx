@@ -21,7 +21,7 @@ export function TrustRow() {
       <ul className="container-x grid grid-cols-2 gap-y-8 py-12 md:grid-cols-4 md:py-14">
         {items.map(({ icon: Icon, title, text }) => (
           <li key={title} className="flex flex-col items-center gap-3 px-3 text-center">
-            <Icon size={28} strokeWidth={1.3} className="text-gold-ink" aria-hidden="true" />
+            <Icon size={28} strokeWidth={1.3} className="text-brown" aria-hidden="true" />
             <p className="nav-label leading-snug">{title}</p>
             <p className="text-[12.5px] text-muted">{text}</p>
           </li>

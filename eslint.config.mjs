@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Netlify's local build output (netlify build / netlify serve)
+    ".netlify/**",
+    // Routes parked until their categories relaunch (see src/app/(store)/_parked/README.md)
+    "src/app/**/_parked/**",
   ]),
 ]);
 

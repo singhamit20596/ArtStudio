@@ -25,7 +25,7 @@ export function ProductDetails({ product }: { product: Product }) {
             <ul className="mt-3 space-y-2">
               {product.highlights.map((h) => (
                 <li key={h} className="flex gap-3 text-[14px] leading-relaxed">
-                  <span aria-hidden="true" className="mt-[0.7em] h-1 w-1 shrink-0 rounded-full bg-gold-ink" />
+                  <span aria-hidden="true" className="mt-[0.7em] h-1 w-1 shrink-0 rounded-full bg-brown" />
                   {h}
                 </li>
               ))}

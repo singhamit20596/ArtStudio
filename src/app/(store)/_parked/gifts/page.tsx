@@ -34,16 +34,16 @@ export default function GiftsPage() {
         <Listing products={giftProducts()} facets={["category", "type", "occasion", "price", "colour", "stock"]} labels={listingLabels()} />
       </div>
 
-      <section aria-labelledby="bulk-title" className="bg-slate-deep text-paper">
+      <section aria-labelledby="bulk-title" className="surface-amber">
         <div className="container-x flex flex-col items-start gap-6 py-12 md:flex-row md:items-center md:justify-between md:py-14">
           <div className="max-w-xl">
-            <p className="eyebrow !text-blush">Bulk & corporate gifting</p>
+            <p className="eyebrow">Bulk & corporate gifting</p>
             <h2 id="bulk-title" className="mt-3 text-[24px] font-semibold leading-tight md:text-[28px]">
               Gifting for a team, a farewell or a wedding?
             </h2>
-            <p className="mt-3 text-white/80">We make matching sets with names or logos. Tell us the numbers and the date.</p>
+            <p className="mt-3 text-ink">We make matching sets with names or logos. Tell us the numbers and the date.</p>
           </div>
-          <a href={whatsappLink(messages.bulk)} target="_blank" rel="noopener noreferrer" className="btn btn-light shrink-0">
+          <a href={whatsappLink(messages.bulk)} target="_blank" rel="noopener noreferrer" className="btn btn-dark shrink-0">
             <WhatsAppIcon size={17} /> Enquire on WhatsApp
           </a>
         </div>

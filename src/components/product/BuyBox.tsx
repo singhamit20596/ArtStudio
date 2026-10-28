@@ -84,7 +84,7 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
                   className={clsx(
                     "h-10 border text-[13px] transition-colors",
                     o.length <= 2 ? "w-10" : "px-4",
-                    selected ? "border-ink bg-ink text-paper" : "border-ink/20 hover:border-ink",
+                    selected ? "border-brown bg-brown text-paper" : "border-ink/20 hover:border-ink",
                   )}
                 >
                   {o}
@@ -93,7 +93,7 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
             })}
           </div>
           {missing === v.name && (
-            <p role="alert" className="mt-2 text-[12.5px] font-medium text-[#a12a1f]">
+            <p role="alert" className="mt-2 text-[12.5px] font-medium text-error">
               Please choose a {v.name.toLowerCase()}.
             </p>
           )}
@@ -107,7 +107,7 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
           {!soldOut && (
             <QuantityStepper value={qty} max={maxQty} onChange={(q) => setQty(Math.max(1, Math.min(maxQty, q)))} />
           )}
-          <button type="button" onClick={addToCart} disabled={soldOut} className="btn btn-dark flex-1 px-4 disabled:cursor-not-allowed disabled:bg-ink/40">
+          <button type="button" onClick={addToCart} disabled={soldOut} className="btn btn-dark flex-1 px-4 disabled:cursor-not-allowed disabled:bg-brown/40">
             {soldOut ? "Sold out" : "Add to cart"}
           </button>
           <WishlistButton slug={product.slug} name={name} className="!h-12 !w-12 shrink-0 !rounded-none border border-ink/20 !shadow-none" />
@@ -141,11 +141,11 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
 }
 
 function StockNote({ stock }: { stock: number }) {
-  if (stock <= 0) return <p className="text-[13px] font-medium text-[#a12a1f]">Sold out. Message us and we can make another.</p>;
+  if (stock <= 0) return <p className="text-[13px] font-medium text-error">Sold out. Message us and we can make another.</p>;
   if (stock <= 3)
     return (
       <p className="text-[13px]">
-        <span className="font-medium text-gold-ink">Only {stock} left.</span> Each piece is handmade.
+        <span className="font-semibold text-ink">Only {stock} left.</span> Each piece is handmade.
       </p>
     );
   return <p className="text-[13px] text-muted">In stock, ready to ship</p>;

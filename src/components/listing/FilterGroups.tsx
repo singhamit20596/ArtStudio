@@ -113,7 +113,7 @@ function Option({
   const dim = count === 0 && !checked;
   return (
     <label className={clsx("flex min-h-9 cursor-pointer items-center gap-3 py-1 text-[13.5px]", dim && "text-muted")}>
-      <input type="checkbox" checked={checked} onChange={onToggle} className="h-4 w-4 shrink-0 cursor-pointer accent-ink" />
+      <input type="checkbox" checked={checked} onChange={onToggle} className="h-4 w-4 shrink-0 cursor-pointer accent-brown" />
       {swatch && <span aria-hidden="true" className="h-4 w-4 shrink-0 rounded-full ring-1 ring-ink/15" style={{ background: swatch }} />}
       <span className="flex-1 leading-snug">
         {label}
@@ -156,7 +156,7 @@ function PriceFacet({ products, filters, onChange }: Pick<FilterGroupsProps, "pr
           –
         </span>
         <PriceInput name="max" label="Maximum price" placeholder="Max" defaultValue={filters.max} />
-        <button type="submit" className="h-9 shrink-0 border border-ink px-3 text-[12px] font-semibold uppercase tracking-[0.14em] transition-colors hover:bg-ink hover:text-paper">
+        <button type="submit" className="h-9 shrink-0 border border-ink px-3 text-[12px] font-semibold uppercase tracking-[0.14em] transition-colors hover:bg-brown hover:border-brown hover:text-paper">
           Go
         </button>
       </form>

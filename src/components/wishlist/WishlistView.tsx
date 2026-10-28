@@ -14,7 +14,7 @@ export function WishlistView({ products }: { products: Product[] }) {
   if (items.length === 0) {
     return (
       <div className="mount mb-20 flex flex-col items-center px-8 py-16 text-center">
-        <Heart size={28} strokeWidth={1.5} className="text-gold-ink" aria-hidden="true" />
+        <Heart size={28} strokeWidth={1.5} className="text-brown" aria-hidden="true" />
         <p className="mt-4 text-[18px] font-medium">Nothing saved yet</p>
         <p className="mt-2 max-w-sm text-muted">Tap the heart on any piece to keep it here for later.</p>
         <AppLink href="/shop" className="btn btn-dark mt-7">

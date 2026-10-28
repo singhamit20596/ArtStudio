@@ -26,7 +26,7 @@ export function Price({ product, className }: { product: Pick<Product, "type" | 
       {off && product.mrp && (
         <>
           <s className="text-[12px] text-muted">{formatINR(product.mrp)}</s>
-          <span className="text-[12px] font-medium text-gold-ink">{off}% off</span>
+          <span className="text-[12px] font-semibold text-ink">{off}% off</span>
         </>
       )}
     </p>

@@ -48,7 +48,7 @@ export async function payWithRazorpay(order: Order, rzp: RazorpayCheckout): Prom
       description: `Order ${order.id}`,
       prefill: { name: order.customer.name, email: order.customer.email ?? undefined, contact: `+91${order.customer.phone}` },
       notes: { orderId: order.id },
-      theme: { color: "#111111" },
+      theme: { color: "#5a3e2b" },
       handler: async (response: RazorpaySuccess) => {
         try {
           const res = await fetch("/api/orders/verify", {

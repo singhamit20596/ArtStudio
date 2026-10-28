@@ -16,11 +16,11 @@ export function WishlistButton({ slug, name, className }: { slug: string; name: 
       aria-label={active ? `Remove ${name} from wishlist` : `Save ${name} to wishlist`}
       onClick={() => toast(toggleWishlist(slug) ? "Saved to your wishlist" : "Removed from your wishlist")}
       className={clsx(
-        "grid h-9 w-9 place-items-center rounded-full bg-paper/90 text-ink shadow-[0_2px_10px_rgb(0_0_0/0.08)] backdrop-blur transition hover:scale-105",
+        "grid h-9 w-9 place-items-center rounded-full bg-sage text-[#1e140d] shadow-[0_2px_10px_rgb(90_62_43/0.25)] transition hover:scale-105",
         className,
       )}
     >
-      <Heart size={17} strokeWidth={1.7} className={clsx(active && "fill-ink")} />
+      <Heart size={17} strokeWidth={1.7} className={clsx(active && "fill-amber")} />
     </button>
   );
 }

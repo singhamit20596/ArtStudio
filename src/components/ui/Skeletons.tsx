@@ -1,6 +1,6 @@
 /** Placeholders shown for a moment while a product or listing page streams in. */
 
-const bar = "block bg-sand/70 animate-pulse motion-reduce:animate-none";
+const bar = "block bg-brown/20 animate-pulse motion-reduce:animate-none";
 
 export function ListingSkeleton() {
   return (

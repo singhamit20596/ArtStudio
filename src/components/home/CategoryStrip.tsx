@@ -23,11 +23,11 @@ export function CategoryStrip() {
         {tiles.map((t) => (
           <li key={t.href} className="w-[88px] shrink-0 sm:w-[104px] lg:w-[124px]">
             <AppLink href={t.href} className="group flex flex-col items-center gap-3 text-center">
-              <span className="relative block aspect-square w-full overflow-hidden rounded-full bg-sand ring-1 ring-line ring-offset-[3px] ring-offset-paper transition-[box-shadow] duration-300 group-hover:ring-gold">
+              <span className="relative block aspect-square w-full overflow-hidden rounded-full bg-brown ring-1 ring-brown ring-offset-[3px] ring-offset-sage transition-[box-shadow] duration-300 group-hover:ring-amber">
                 {t.image ? (
                   <Image src={t.image} alt="" fill sizes="124px" className="object-cover transition-transform duration-700 ease-soft group-hover:scale-110" />
                 ) : (
-                  <span className="absolute inset-0 grid place-items-center bg-ink text-gold">
+                  <span className="absolute inset-0 grid place-items-center bg-amber text-[#1e140d]">
                     <Sparkle size={26} />
                   </span>
                 )}

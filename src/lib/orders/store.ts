@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import type { Order } from "@/lib/checkout";
+import type { FrameRequest } from "@/lib/requests";
 
 /*
  * Where orders are kept until the Supabase database arrives in Phase 4.
@@ -37,6 +38,16 @@ export async function getOrder(id: string): Promise<Order | null> {
     /* no orders yet */
   }
   return null;
+}
+
+/** Tribute-frame requests, kept the same way as orders. */
+export async function saveRequest(request: FrameRequest) {
+  if (!LOCAL) {
+    console.info("[request]", JSON.stringify(request));
+    return;
+  }
+  await fs.mkdir(DIR, { recursive: true });
+  await fs.appendFile(path.join(DIR, "requests.jsonl"), `${JSON.stringify(request)}\n`, "utf8");
 }
 
 /** Local folder for email previews when no email service is configured. */

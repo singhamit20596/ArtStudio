@@ -1,6 +1,5 @@
 import { coupons, type Coupon } from "@/config/coupons";
 import { formatINR } from "./format";
-import { isPreview } from "./preview";
 
 export interface CouponResult {
   code: string;
@@ -9,9 +8,9 @@ export interface CouponResult {
   message: string;
 }
 
-/** Codes a shopper can use right now (sample codes only in the preview). */
+/** Codes a shopper can use (expiry is checked when a code is applied). */
 export function availableCoupons(): Coupon[] {
-  return coupons.filter((c) => !c.sample || isPreview);
+  return coupons;
 }
 
 /** "2026-10-31" → true once that day is over in India. */

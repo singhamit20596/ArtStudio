@@ -47,9 +47,8 @@ export function OffersDrawer() {
             const applied = couponCode === c.code;
             return (
               <li key={c.code} className="border border-line p-4">
-                {c.sample && <p className="mb-2 inline-block bg-preview px-2 py-0.5 text-[10.5px] font-semibold uppercase tracking-[0.12em]">Sample offer · preview only</p>}
                 <div className="flex items-center justify-between gap-3">
-                  <p className="border border-dashed border-gold-ink px-3 py-1.5 text-[14px] font-semibold tracking-[0.12em] text-gold-ink">{c.code}</p>
+                  <p className="border border-dashed border-brown px-3 py-1.5 text-[14px] font-semibold tracking-[0.12em] text-ink">{c.code}</p>
                   <button type="button" onClick={() => copy(c.code)} className="flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.14em]">
                     <Copy size={14} aria-hidden="true" /> Copy
                   </button>
@@ -64,7 +63,7 @@ export function OffersDrawer() {
                     toast(`${c.code} added to your cart`);
                     close();
                   }}
-                  className="btn btn-dark mt-4 w-full min-h-10 disabled:bg-ink/40"
+                  className="btn btn-dark mt-4 w-full min-h-10 disabled:bg-brown/40"
                 >
                   {applied ? "Applied" : "Apply to cart"}
                 </button>

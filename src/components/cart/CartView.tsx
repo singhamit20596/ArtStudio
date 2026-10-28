@@ -24,7 +24,7 @@ export function CartView({ catalogue }: { catalogue: CartProduct[] }) {
     return (
       <div className="pb-20">
         <div className="mount flex flex-col items-center px-8 py-16 text-center">
-          <ShoppingBag size={28} strokeWidth={1.5} className="text-gold-ink" aria-hidden="true" />
+          <ShoppingBag size={28} strokeWidth={1.5} className="text-brown" aria-hidden="true" />
           <p className="mt-4 text-[18px] font-medium">Your cart is empty</p>
           <p className="mt-2 max-w-sm text-muted">Find something handmade for your home, or a gift that tells a story.</p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
@@ -63,7 +63,7 @@ export function CartView({ catalogue }: { catalogue: CartProduct[] }) {
       </div>
 
       <aside aria-label="Order summary" className="lg:sticky lg:top-24 lg:self-start">
-        <div className="bg-cream p-6">
+        <div className="border border-line p-6">
           <h2 className="nav-label">Order summary</h2>
           <div className="mt-5">
             <CouponField totals={totals} />
@@ -71,7 +71,7 @@ export function CartView({ catalogue }: { catalogue: CartProduct[] }) {
           <div className="mt-6">
             <TotalsTable totals={totals} />
           </div>
-          <AppLink href="/checkout" className="btn btn-dark mt-6 w-full aria-disabled:pointer-events-none aria-disabled:bg-ink/40" aria-disabled={totals.lines.length === 0}>
+          <AppLink href="/checkout" className="btn btn-dark mt-6 w-full aria-disabled:pointer-events-none aria-disabled:bg-brown/40" aria-disabled={totals.lines.length === 0}>
             Checkout
           </AppLink>
           <a href={whatsappLink(waText)} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp mt-3 w-full">

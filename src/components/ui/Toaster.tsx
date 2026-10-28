@@ -36,7 +36,7 @@ export function Toaster() {
       style={{ bottom: "calc(24px + env(safe-area-inset-bottom, 0px))" }}
     >
       {items.map((t) => (
-        <div key={t.id} role="status" className="anim-drop pointer-events-auto max-w-md bg-ink px-5 py-3 text-center text-[13px] leading-snug text-paper shadow-[0_10px_30px_rgb(0_0_0/0.18)]">
+        <div key={t.id} role="status" className="anim-drop pointer-events-auto max-w-md bg-brown px-5 py-3 text-center text-[13px] leading-snug text-paper shadow-[0_10px_30px_rgb(90_62_43/0.3)]">
           {t.message}
         </div>
       ))}

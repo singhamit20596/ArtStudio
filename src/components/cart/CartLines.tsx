@@ -14,7 +14,7 @@ const linkBtn = "text-[12px] text-muted underline underline-offset-4 transition-
 
 function Thumb({ product, slug }: { product?: CartProduct; slug: string }) {
   return (
-    <AppLink href={productHref({ slug })} tabIndex={-1} aria-hidden="true" className="relative block h-[100px] w-20 shrink-0 overflow-hidden bg-sand">
+    <AppLink href={productHref({ slug })} tabIndex={-1} aria-hidden="true" className="relative block h-[100px] w-20 shrink-0 overflow-hidden bg-brown">
       {product?.image && <Image src={product.image} alt="" fill sizes="80px" className="object-cover" />}
     </AppLink>
   );
@@ -38,7 +38,7 @@ export function CartLines({ lines, unavailable, className }: { lines: PricedLine
             </div>
             {line.variant && <p className="mt-0.5 text-[12.5px] text-muted">{line.variant}</p>}
             {quantity > 1 && <p className="text-[12px] text-muted tabular-nums">{formatINR(product.price)} each</p>}
-            {product.stock <= 3 && <p className="mt-0.5 text-[12px] text-gold-ink">Only {product.stock} left</p>}
+            {product.stock <= 3 && <p className="mt-0.5 text-[12px] font-medium text-ink">Only {product.stock} left</p>}
             <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
               <QuantityStepper size="sm" value={quantity} max={maxQuantity(product)} onChange={(q) => setQuantity(key, q)} itemName={shortName(product)} />
               <button

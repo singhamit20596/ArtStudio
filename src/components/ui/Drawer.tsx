@@ -76,14 +76,14 @@ export function Drawer({ open, onClose, side, label, children, className }: Draw
 
   return createPortal(
     <div className="fixed inset-0 z-[70]">
-      <div className="anim-fade absolute inset-0 bg-ink/45" onClick={onClose} aria-hidden="true" />
+      <div className="anim-fade absolute inset-0 bg-brown/70" onClick={onClose} aria-hidden="true" />
       <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label={label}
         className={clsx(
-          "absolute flex flex-col overflow-y-auto bg-paper text-ink shadow-[0_20px_60px_rgb(0_0_0/0.25)]",
+          "absolute flex flex-col overflow-y-auto surface-sage shadow-[0_20px_60px_rgb(90_62_43/0.35)]",
           side === "right" && "anim-right inset-y-0 right-0 w-[min(420px,100%)]",
           side === "left" && "anim-left inset-y-0 left-0 w-[min(380px,88%)]",
           side === "top" && "anim-drop inset-x-0 top-0 max-h-[100dvh]",

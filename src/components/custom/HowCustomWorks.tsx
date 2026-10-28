@@ -13,7 +13,7 @@ export function HowCustomWorks({ className }: { className?: string }) {
       <ol className="mt-4 space-y-3">
         {STEPS.map((s, i) => (
           <li key={s} className="flex gap-3 text-[13.5px] leading-relaxed">
-            <span aria-hidden="true" className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-cream text-[11px] font-semibold tabular-nums text-gold-ink">
+            <span aria-hidden="true" className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brown text-[11px] font-semibold tabular-nums text-white">
               {i + 1}
             </span>
             {s}

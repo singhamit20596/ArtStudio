@@ -57,7 +57,7 @@ async function CustomCategoryView({ params }: { params: PageProps<"/custom/[slug
         <Breadcrumbs items={[{ label: "Custom", href: "/custom" }, { label: category.name }]} />
 
         <div className="mt-5 grid gap-8 md:mt-8 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:gap-12 lg:gap-16">
-          <div className="relative -mx-4 aspect-[4/5] overflow-hidden bg-sand md:sticky md:top-24 md:mx-0 md:self-start">
+          <div className="relative -mx-4 aspect-[4/5] overflow-hidden bg-brown md:sticky md:top-24 md:mx-0 md:self-start">
             <ProductImage
               src={category.image}
               alt={category.name}

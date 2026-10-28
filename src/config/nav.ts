@@ -24,6 +24,39 @@ export interface NavMenu {
   features: NavFeature[];
 }
 
+/** Header links for the tribute-frame launch (the shop menus below are kept for later). */
+export const launchNav: NavLink[] = [
+  { label: "What's inside", href: "/#inside" },
+  { label: "Preview", href: "/#preview" },
+  { label: "How it works", href: "/#process" },
+  { label: "FAQ", href: "/#faq" },
+];
+
+export const launchCta: NavLink = { label: "Request a frame", href: "/request" };
+
+export const launchFooterNav: NavColumn[] = [
+  {
+    title: "Tribute frames",
+    links: [
+      { label: "What goes inside", href: "/#inside" },
+      { label: "Preview your frame", href: "/#preview" },
+      { label: "How it works", href: "/#process" },
+      { label: "FAQs", href: "/#faq" },
+      { label: "Request a frame", href: "/request" },
+    ],
+  },
+  {
+    title: "Help",
+    links: [
+      { label: "Shipping & returns", href: "/shipping-returns" },
+      { label: "Privacy policy", href: "/privacy" },
+      { label: "Terms", href: "/terms" },
+      { label: "Contact", href: "/contact" },
+    ],
+  },
+];
+
+/** Shop menus, used again when the shop relaunches (launch.shop). */
 export const mainNav: NavMenu[] = [
   {
     id: "shop",

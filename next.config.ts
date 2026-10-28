@@ -14,6 +14,12 @@ const nextConfig: NextConfig = {
   // The static preview has no server, so it leaves out the API routes (route.ts files).
   ...(previewExport ? { pageExtensions: ["tsx"] } : {}),
   images: previewExport ? { unoptimized: true } : { qualities: [75, 85], formats: ["image/avif", "image/webp"] },
+  experimental: {
+    // Turbopack's on-disk caches served a stale globals.css after edits (28 Oct 2026), and
+    // Netlify restores .next/cache between deploys. The site builds in ~15 s, so compile fresh.
+    turbopackFileSystemCacheForBuild: false,
+    turbopackFileSystemCacheForDev: false,
+  },
   turbopack: {
     rules: {
       "*.css": {

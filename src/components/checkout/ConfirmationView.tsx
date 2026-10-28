@@ -28,7 +28,7 @@ export function ConfirmationView() {
   if (!saved) {
     return (
       <div className="mx-auto max-w-xl text-center">
-        <CheckCircle2 size={40} strokeWidth={1.4} className="mx-auto text-gold-ink" aria-hidden="true" />
+        <CheckCircle2 size={40} strokeWidth={1.4} className="mx-auto text-brown" aria-hidden="true" />
         <h1 className="mt-5 text-[28px] font-semibold leading-tight md:text-[36px]">Thank you for your order</h1>
         {id && (
           <p className="mt-4 text-muted">
@@ -67,7 +67,7 @@ export function ConfirmationView() {
   return (
     <div className="mx-auto max-w-3xl">
       <div className="text-center">
-        {viaWhatsApp ? <WhatsAppIcon size={40} className="mx-auto text-whatsapp" /> : <CheckCircle2 size={40} strokeWidth={1.4} className="mx-auto text-gold-ink" aria-hidden="true" />}
+        {viaWhatsApp ? <WhatsAppIcon size={40} className="mx-auto text-brown" /> : <CheckCircle2 size={40} strokeWidth={1.4} className="mx-auto text-brown" aria-hidden="true" />}
         <p className="eyebrow mt-5">Order {order.id}</p>
         <h1 className="mt-3 text-[28px] font-semibold leading-tight md:text-[38px]">
           {viaWhatsApp ? "One last step: send it on WhatsApp" : order.status === "paid" ? `Payment received. Thank you, ${firstName}!` : `Thank you, ${firstName}!`}
@@ -84,7 +84,7 @@ export function ConfirmationView() {
         )}
         {order.customer.email && order.emailsSent && <p className="mt-4 text-[13px] text-muted">We have emailed a copy to {order.customer.email}.</p>}
         {isPreview && !order.emailsSent && (
-          <p className="mx-auto mt-5 max-w-lg bg-preview px-4 py-2.5 text-[12.5px]">
+          <p className="mx-auto mt-5 max-w-lg surface-amber px-4 py-2.5 text-[12.5px]">
             {isLocalPreview ? (
               <>
                 Preview: the order was saved in <code>.data/orders.jsonl</code> and its emails in <code>.data/emails/</code> instead of being sent.
@@ -97,14 +97,14 @@ export function ConfirmationView() {
       </div>
 
       <div className="mt-12 grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <section aria-labelledby="items-title" className="bg-cream p-6">
+        <section aria-labelledby="items-title" className="border border-line p-6">
           <h2 id="items-title" className="nav-label">
             Your order
           </h2>
           <ul className="mt-5 space-y-4">
             {order.items.map((i) => (
               <li key={`${i.slug}|${i.variant ?? ""}`} className="flex gap-3">
-                <span className="relative h-[75px] w-[60px] shrink-0 overflow-hidden bg-sand">
+                <span className="relative h-[75px] w-[60px] shrink-0 overflow-hidden bg-brown">
                   {i.image && <Image src={i.image} alt="" fill sizes="60px" className="object-cover" />}
                 </span>
                 <span className="min-w-0 flex-1 text-[13px] leading-snug">

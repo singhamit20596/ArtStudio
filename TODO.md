@@ -156,7 +156,7 @@ Starting price and making time for each (shown as "From ₹…" and on the Whats
 ## Hosting (Netlify)
 
 - [ ] **Before launch, move to a paid Netlify plan** (Personal $9 or Pro $20 a month). The free plan's 300 credits pause the site when they run out.
-- [ ] **Domain**: once bought, connect it in Netlify → Domain management and set `NEXT_PUBLIC_SITE_URL`.
+- [ ] **Domain**: once bought, connect it in Netlify → Domain management and change `NEXT_PUBLIC_SITE_URL` in `netlify.toml` (now `https://memorylaneart.netlify.app`).
 
 ## 5. Business details
 

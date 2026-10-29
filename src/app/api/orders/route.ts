@@ -1,11 +1,11 @@
 import { buildOrder, readInput } from "@/lib/orders/build";
-import { site } from "@/config/site";
 import { needsPersonalising } from "@/lib/checkout";
 import { emailConfigured, personaliseUrl, sendOrderEmails } from "@/lib/orders/emails";
 import { createRazorpayOrder } from "@/lib/orders/razorpay";
 import { saveOrder } from "@/lib/orders/store";
 import { isPreview } from "@/lib/preview";
 import { orderMessage, whatsappLink } from "@/lib/whatsapp";
+import { publicOrigin } from "@/lib/orders/origin";
 
 /** Places an order from the checkout form. Prices, stock and coupons are checked here, not in the browser. */
 export async function POST(request: Request) {
@@ -45,7 +45,7 @@ export async function POST(request: Request) {
     }
   }
 
-  const origin = site.url || new URL(request.url).origin;
+  const origin = publicOrigin(request);
   await saveOrder(order);
   order.emailsSent = await sendOrderEmails(order, origin);
   await saveOrder(order);

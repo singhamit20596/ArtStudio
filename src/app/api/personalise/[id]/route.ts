@@ -1,9 +1,9 @@
-import { site } from "@/config/site";
 import { needsPersonalising } from "@/lib/checkout";
 import { getProduct } from "@/lib/catalog";
 import { deliverEmails, personalisationEmail } from "@/lib/orders/emails";
 import { getOrderWithToken, saveOrder } from "@/lib/orders/store";
 import { fileUrl, validatePersonalise, type PersonaliseInput } from "@/lib/personalise";
+import { publicOrigin } from "@/lib/orders/origin";
 
 const clip = (v: unknown, max: number) => (typeof v === "string" ? v.trim().replace(/\s+/g, " ").slice(0, max) : "");
 
@@ -77,6 +77,6 @@ export async function POST(request: Request, ctx: RouteContext<"/api/personalise
     submittedAt: new Date().toISOString(),
   };
   await saveOrder(order);
-  await deliverEmails(`${order.id}-personalised-${index}`, [personalisationEmail(order, index, site.url || new URL(request.url).origin)]);
+  await deliverEmails(`${order.id}-personalised-${index}`, [personalisationEmail(order, index, publicOrigin(request))]);
   return Response.json({ ok: true, personalisation: item.personalisation });
 }

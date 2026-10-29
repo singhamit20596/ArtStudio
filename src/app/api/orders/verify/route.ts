@@ -1,8 +1,8 @@
-import { site } from "@/config/site";
 import type { Order } from "@/lib/checkout";
 import { sendOrderEmails } from "@/lib/orders/emails";
 import { verifyPaymentSignature } from "@/lib/orders/razorpay";
 import { getOrder, saveOrder } from "@/lib/orders/store";
+import { publicOrigin } from "@/lib/orders/origin";
 
 /** Called by the checkout after Razorpay reports success: checks the signature, marks the order paid. */
 export async function POST(request: Request) {
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   const order = await getOrder(orderId);
   if (order && order.payment.razorpayOrderId === rzpOrder && order.status !== "paid") {
     const paid: Order = { ...order, status: "paid", payment: { ...order.payment, razorpayPaymentId: rzpPayment } };
-    paid.emailsSent = await sendOrderEmails(paid, site.url || new URL(request.url).origin);
+    paid.emailsSent = await sendOrderEmails(paid, publicOrigin(request));
     await saveOrder(paid);
     return Response.json({ ok: true, order: paid });
   }

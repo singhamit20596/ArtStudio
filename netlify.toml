@@ -10,3 +10,6 @@
   # Hosted preview: keeps the notes on unbuilt pages and lets the checkout take test orders
   # (it says they go nowhere). Delete this line at launch.
   NEXT_PUBLIC_PREVIEW = "1"
+  # The public address, used in personalise links, emails and sharing previews. Without it,
+  # links would point at each deploy's frozen address. Change it when the domain is bought.
+  NEXT_PUBLIC_SITE_URL = "https://memorylaneart.netlify.app"

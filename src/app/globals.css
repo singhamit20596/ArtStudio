@@ -777,3 +777,388 @@ svg .pop-in {
   }
 }
 
+
+/*
+  Christmas (owner, 29 Oct 2026: "full Christmas palette" on the Christmas page and its pieces).
+  Inside .theme-christmas the three brand tokens are swapped for Christmas colours, so every
+  surface, button and utility below it follows: sage → snow white (page), brown → evergreen
+  (dark sections, primary buttons), amber → Christmas red (accents, secondary buttons), plus gold.
+*/
+@layer components {
+  .theme-christmas {
+    --color-sage: #fbf6ee; /* snow */
+    --color-brown: #133f2b; /* evergreen */
+    --color-amber: #b3182a; /* Christmas red */
+    --color-gold: #d9a93f;
+    --color-ink: #1b1611; /* 16.7:1 on snow */
+    --color-muted: #4d4038; /* 9.3:1 */
+    --color-eyebrow: #a3172a; /* red, 7.2:1 on snow */
+    --color-line: rgb(19 63 43 / 0.22);
+    background-color: var(--color-sage);
+    color: var(--color-ink);
+  }
+  .theme-christmas .surface-sage {
+    --color-ink: #1b1611;
+    --color-muted: #4d4038;
+    --color-eyebrow: #a3172a;
+    --color-line: rgb(19 63 43 / 0.22);
+  }
+  .theme-christmas .surface-amber,
+  .theme-christmas .mount {
+    --color-ink: #ffffff; /* 6.8:1 on red */
+    --color-muted: #ffe6e6;
+    --color-eyebrow: #ffe1a1;
+    --color-line: rgb(255 255 255 / 0.35);
+  }
+  .theme-christmas .surface-brown {
+    --color-ink: #ffffff; /* 11.8:1 on evergreen */
+    --color-muted: #dfece3;
+    --color-eyebrow: #ecc768; /* gold, 7.3:1 */
+    --color-line: rgb(217 169 63 / 0.45);
+  }
+  .theme-christmas .mount {
+    --mount-icon: #ecc768;
+  }
+  .theme-christmas .btn-light,
+  .theme-christmas .btn-whatsapp {
+    color: #ffffff;
+  }
+  .theme-christmas .btn-outline-light {
+    border-color: var(--color-gold);
+  }
+  .theme-christmas .btn-outline-light:hover {
+    color: #ffffff;
+  }
+  .theme-christmas .shimmer {
+    background-image: linear-gradient(100deg, #ecc768 40%, #fff3cf 50%, #ecc768 60%);
+  }
+
+  /* Falling snow: two layers of dots drifting down. Static dots when motion is reduced. */
+  .snowfall {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .snowfall::before,
+  .snowfall::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-repeat: repeat;
+  }
+  .snowfall::before {
+    background-image:
+      radial-gradient(circle at 20px 30px, rgb(255 255 255 / 0.9) 0 2px, transparent 2.6px),
+      radial-gradient(circle at 95px 115px, rgb(255 255 255 / 0.8) 0 1.6px, transparent 2.2px),
+      radial-gradient(circle at 150px 55px, rgb(255 255 255 / 0.85) 0 2.2px, transparent 2.8px),
+      radial-gradient(circle at 60px 160px, rgb(255 255 255 / 0.7) 0 1.3px, transparent 1.9px),
+      radial-gradient(circle at 135px 170px, rgb(255 255 255 / 0.8) 0 1.8px, transparent 2.4px);
+    background-size: 180px 180px;
+  }
+  .snowfall::after {
+    background-image:
+      radial-gradient(circle at 40px 80px, rgb(255 255 255 / 0.55) 0 1.2px, transparent 1.8px),
+      radial-gradient(circle at 180px 20px, rgb(255 255 255 / 0.6) 0 1.5px, transparent 2px),
+      radial-gradient(circle at 230px 200px, rgb(255 255 255 / 0.5) 0 1px, transparent 1.6px),
+      radial-gradient(circle at 120px 240px, rgb(255 255 255 / 0.55) 0 1.4px, transparent 2px);
+    background-size: 260px 260px;
+  }
+
+  /* A string of fairy lights along the top of a Christmas section: one bulb per wire sag. */
+  .fairy-lights {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .fairy-lights > span {
+    position: relative;
+    flex: 0 0 56px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='18'%3E%3Cpath d='M0 2 Q28 26 56 2' fill='none' stroke='%23d9a93f' stroke-opacity='.7' stroke-width='1.4'/%3E%3C/svg%3E") top / 56px 18px no-repeat;
+  }
+  .fairy-lights > span::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 13px;
+    width: 8px;
+    height: 12px;
+    margin-left: -4px;
+    border-radius: 50% 50% 45% 45% / 55% 55% 45% 45%;
+    background: var(--bulb);
+    box-shadow: 0 0 10px 2px color-mix(in srgb, var(--bulb) 65%, transparent);
+  }
+  .fairy-lights > span:nth-child(4n + 1) {
+    --bulb: #ff4d4d;
+    --d: 0s;
+  }
+  .fairy-lights > span:nth-child(4n + 2) {
+    --bulb: #ffd166;
+    --d: -0.7s;
+  }
+  .fairy-lights > span:nth-child(4n + 3) {
+    --bulb: #7ee08a;
+    --d: -1.3s;
+  }
+  .fairy-lights > span:nth-child(4n) {
+    --bulb: #fff6e0;
+    --d: -1.9s;
+  }
+}
+@keyframes snow-near {
+  to {
+    background-position: 0 180px;
+  }
+}
+@keyframes snow-far {
+  to {
+    background-position: 0 260px;
+  }
+}
+@keyframes bulb-glow {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .snowfall::before {
+    animation: snow-near 9s linear infinite;
+  }
+  .snowfall::after {
+    animation: snow-far 16s linear infinite;
+  }
+  .fairy-lights > span::after {
+    animation: bulb-glow 2.6s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+}
+
+/*
+  Diwali (owner, 29 Oct 2026: "Diwali palette" on the Diwali page and its pieces). Inside
+  .theme-diwali the brand tokens become: sage → warm cream (page), brown → deep maroon (dark
+  sections, primary buttons), amber → marigold (accents, secondary buttons), plus gold.
+*/
+@layer components {
+  .theme-diwali {
+    --color-sage: #fff4e2; /* warm cream */
+    --color-brown: #5e0f2a; /* deep maroon */
+    --color-amber: #e8861a; /* marigold */
+    --color-gold: #d9a53a;
+    --color-ink: #2b0a12; /* 16.7:1 on cream */
+    --color-muted: #5b3a40; /* 9.1:1 */
+    --color-eyebrow: #8c1c3a; /* maroon, 8.2:1 on cream */
+    --color-line: rgb(94 15 42 / 0.22);
+    background-color: var(--color-sage);
+    color: var(--color-ink);
+  }
+  .theme-diwali .surface-sage {
+    --color-ink: #2b0a12;
+    --color-muted: #5b3a40;
+    --color-eyebrow: #8c1c3a;
+    --color-line: rgb(94 15 42 / 0.22);
+  }
+  .theme-diwali .surface-amber,
+  .theme-diwali .mount {
+    --color-ink: #2b0a12; /* 6.8:1 on marigold */
+    --color-muted: #3d1408; /* 6:1 */
+    --color-eyebrow: #4a0f20;
+    --color-line: rgb(43 10 18 / 0.3);
+  }
+  .theme-diwali .surface-brown {
+    --color-ink: #ffffff; /* 13.3:1 on maroon */
+    --color-muted: #f6dfe5; /* 10.5:1 */
+    --color-eyebrow: #f4c35a; /* gold, 8.1:1 */
+    --color-line: rgb(217 165 58 / 0.45);
+  }
+  .theme-diwali .mount {
+    --mount-icon: #5e0f2a;
+  }
+  .theme-diwali .btn-outline-light {
+    border-color: var(--color-gold);
+  }
+  .theme-diwali .shimmer {
+    background-image: linear-gradient(100deg, #f4c35a 40%, #fff1c9 50%, #f4c35a 60%);
+  }
+
+  /* Gold sparkles drifting up through a Diwali section. Still dots when motion is reduced. */
+  .diwali-sparkles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .diwali-sparkles::before,
+  .diwali-sparkles::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-repeat: repeat;
+  }
+  .diwali-sparkles::before {
+    background-image:
+      radial-gradient(circle at 25px 40px, rgb(255 214 120 / 0.9) 0 1.8px, transparent 2.4px),
+      radial-gradient(circle at 110px 130px, rgb(255 236 180 / 0.8) 0 1.3px, transparent 1.9px),
+      radial-gradient(circle at 165px 70px, rgb(255 200 90 / 0.85) 0 2px, transparent 2.6px),
+      radial-gradient(circle at 70px 175px, rgb(255 226 150 / 0.7) 0 1.2px, transparent 1.8px);
+    background-size: 200px 200px;
+  }
+  .diwali-sparkles::after {
+    background-image:
+      radial-gradient(circle at 50px 90px, rgb(255 210 110 / 0.55) 0 1.1px, transparent 1.7px),
+      radial-gradient(circle at 200px 30px, rgb(255 240 200 / 0.6) 0 1.4px, transparent 2px),
+      radial-gradient(circle at 250px 210px, rgb(255 190 80 / 0.5) 0 1px, transparent 1.6px);
+    background-size: 280px 280px;
+  }
+
+  /* A marigold garland (toran) along the top: one flower per string sag, orange and yellow. */
+  .marigold-garland {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .marigold-garland > span {
+    position: relative;
+    flex: 0 0 44px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='16'%3E%3Cpath d='M0 2 Q22 22 44 2' fill='none' stroke='%237fb24a' stroke-opacity='.8' stroke-width='1.6'/%3E%3C/svg%3E") top / 44px 16px no-repeat;
+  }
+  .marigold-garland > span::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    width: 16px;
+    height: 16px;
+    margin-left: -8px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 45%, rgb(255 236 160 / 0.9) 0 16%, transparent 18%),
+      repeating-conic-gradient(var(--petal-a) 0 14deg, var(--petal-b) 14deg 28deg);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.25);
+    transform-origin: 50% -6px;
+  }
+  .marigold-garland > span:nth-child(odd) {
+    --petal-a: #f07c0a;
+    --petal-b: #ff9f2e;
+    --d: 0s;
+  }
+  .marigold-garland > span:nth-child(even) {
+    --petal-a: #ffc21a;
+    --petal-b: #ffd95a;
+    --d: -1.4s;
+  }
+  /* A small green leaf between every few flowers */
+  .marigold-garland > span:nth-child(3n)::before {
+    content: "";
+    position: absolute;
+    left: -5px;
+    top: 4px;
+    width: 9px;
+    height: 5px;
+    border-radius: 0 100% 0 100%;
+    background: #4f8a2b;
+    transform: rotate(25deg);
+  }
+
+  /* Diyas at the foot of the Diwali page opening */
+  .diya-row {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: clamp(14px, 4vw, 40px);
+    margin-top: 28px;
+  }
+  .diya {
+    width: clamp(34px, 7vw, 54px);
+    height: auto;
+    overflow: visible;
+  }
+  .diya-flame,
+  .diya-glow {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+  }
+  .diya-glow {
+    transform-origin: 50% 50%;
+  }
+}
+@keyframes sparkle-near {
+  to {
+    background-position: 0 -200px;
+  }
+}
+@keyframes sparkle-far {
+  to {
+    background-position: 0 -280px;
+  }
+}
+@keyframes garland-sway {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+@keyframes diya-flicker {
+  0%,
+  100% {
+    transform: scale(1, 1) skewX(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(0.94, 1.06) skewX(2deg);
+  }
+  50% {
+    transform: scale(1.03, 0.94) skewX(-2deg);
+    opacity: 0.9;
+  }
+  75% {
+    transform: scale(0.97, 1.04) skewX(1deg);
+  }
+}
+@keyframes diya-glow-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .diwali-sparkles::before {
+    animation: sparkle-near 14s linear infinite;
+  }
+  .diwali-sparkles::after {
+    animation: sparkle-far 22s linear infinite;
+  }
+  .marigold-garland > span::after {
+    animation: garland-sway 4s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+  .diya-flame {
+    animation: diya-flicker 1.6s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+  .diya-glow {
+    animation: diya-glow-pulse 2.4s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+}

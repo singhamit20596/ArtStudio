@@ -118,27 +118,28 @@ export function Header({ overlay = false, menus, links = [], cta, shop, cart, se
         )}
         style={{ top: "env(safe-area-inset-top, 0px)" }}
       >
-        <div className="container-x grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-3 lg:h-[76px]">
+        {/* Wide screens: the logo keeps its width and the menu takes the middle (seven menus since Christmas, 29 Oct 2026). */}
+        <div className="container-x grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-3 lg:h-[76px] xl:grid-cols-[auto_1fr_auto]">
           {/* Left: menu button (mobile) / logo (desktop) */}
           <div className="flex items-center">
-            <button type="button" onClick={() => setMobileOpen(true)} aria-label="Open menu" className={clsx(iconButton, "-ml-2 lg:hidden")}>
+            <button type="button" onClick={() => setMobileOpen(true)} aria-label="Open menu" className={clsx(iconButton, "-ml-2 xl:hidden")}>
               <Menu size={22} strokeWidth={1.6} />
             </button>
-            <AppLink href="/" aria-label={`${site.name} home`} className="hidden lg:block">
+            <AppLink href="/" aria-label={`${site.name} home`} className="hidden xl:block">
               <Logo inverted />
             </AppLink>
           </div>
 
           {/* Centre: logo (mobile) / main navigation (desktop) */}
           <div className="flex justify-center">
-            <AppLink href="/" aria-label={`${site.name} home`} className="lg:hidden">
+            <AppLink href="/" aria-label={`${site.name} home`} className="xl:hidden">
               <Logo inverted compact />
             </AppLink>
-            <nav aria-label="Main" className="hidden lg:block">
-              <ul className="flex items-center gap-1 xl:gap-3">
+            <nav aria-label="Main" className="hidden xl:block">
+              <ul className="flex items-center justify-center gap-0.5 2xl:gap-3">
                 {links.map((link) => (
                   <li key={link.href}>
-                    <AppLink href={link.href} className="nav-label flex h-[76px] items-center px-3">
+                    <AppLink href={link.href} className="nav-label flex h-[76px] items-center px-2.5 tracking-[0.22em] 2xl:px-3 2xl:tracking-[0.3em]">
                       <span className="link-grow">{link.label}</span>
                     </AppLink>
                   </li>
@@ -147,7 +148,7 @@ export function Header({ overlay = false, menus, links = [], cta, shop, cart, se
                   <li key={menu.id} onMouseEnter={(e) => hoverOpen(menu.id, e.timeStamp)}>
                     {menu.href ? (
                       // A menu with its own page: the label is a link; hovering still shows the panel.
-                      <AppLink href={menu.href} onClick={closeMenu} className="nav-label flex h-[76px] items-center gap-1.5 px-3">
+                      <AppLink href={menu.href} onClick={closeMenu} className="nav-label flex h-[76px] items-center gap-1.5 px-2.5 tracking-[0.22em] 2xl:px-3 2xl:tracking-[0.3em]">
                         <span className={clsx("link-grow", openMenu === menu.id && "bg-[length:100%_1px]")}>{menu.label}</span>
                         <ChevronDown size={13} strokeWidth={2} aria-hidden="true" className={clsx("transition-transform", openMenu === menu.id && "rotate-180")} />
                       </AppLink>
@@ -160,7 +161,7 @@ export function Header({ overlay = false, menus, links = [], cta, shop, cart, se
                       aria-expanded={openMenu === menu.id}
                       aria-controls={`menu-${menu.id}`}
                       onClick={(e) => clickToggle(menu.id, e.timeStamp)}
-                      className="nav-label flex h-[76px] items-center gap-1.5 px-3"
+                      className="nav-label flex h-[76px] items-center gap-1.5 px-2.5 tracking-[0.22em] 2xl:px-3 2xl:tracking-[0.3em]"
                     >
                       <span className={clsx("link-grow", openMenu === menu.id && "bg-[length:100%_1px]")}>{menu.label}</span>
                       <ChevronDown size={13} strokeWidth={2} aria-hidden="true" className={clsx("transition-transform", openMenu === menu.id && "rotate-180")} />

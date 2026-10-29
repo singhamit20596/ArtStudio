@@ -9,7 +9,7 @@ import { StickyBar } from "@/components/product/StickyBar";
 import { WhatsAppIcon } from "@/components/ui/Icons";
 import { QuantityStepper } from "@/components/ui/QuantityStepper";
 import { formatDays, formatINR } from "@/lib/format";
-import { describeOptions, MAX_QTY, unitPrice } from "@/lib/pricing";
+import { describeOptions, lineCode, MAX_QTY, unitPrice } from "@/lib/pricing";
 import { shortName } from "@/lib/product";
 import type { Product } from "@/lib/types";
 import { useOrigin } from "@/lib/use-origin";
@@ -38,7 +38,8 @@ export function TributeBuyPanel({ product, path, children }: { product: Product;
   const name = shortName(product);
   const lightOffered = product.lightPrice != null;
 
-  const askText = `Hi! I have a question about the ${name} (${describeOptions(product, options)}, ${formatINR(price)}).${origin ? ` Link: ${origin}${path}` : ""}`;
+  const code = lineCode(product, { options });
+  const askText = `Hi! I have a question about the ${name} (${describeOptions(product, options)}, ${formatINR(price)}${code ? `, code ${code}` : ""}).${origin ? ` Link: ${origin}${path}` : ""}`;
 
   const put = () => addToCart({ slug: product.slug, quantity: qty, options, variant: describeOptions(product, options) }, MAX_QTY) > 0;
   const add = () => {

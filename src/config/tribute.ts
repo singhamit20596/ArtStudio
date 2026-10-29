@@ -57,7 +57,7 @@ export const processSteps = [
 
 /** Frequently asked questions. {price}, {making} and {freeShipping} are filled in by the page. */
 export const faqs = [
-  { q: "Which services do you make tributes for?", a: "Retirements from the Indian Army, Navy and Air Force. For another service, ask us on WhatsApp." },
+  { q: "Which services do you make tributes for?", a: "Retirements of defence personnel from the Indian Army, Navy and Air Force. For any other service, ask us on WhatsApp." },
   { q: "How do I order?", a: "Choose the tribute, its size and lights, and pay. Then we send you a link to personalise it: the design, name and rank, photos and background colour." },
   { q: "What does a tribute cost?", a: "Tributes start at {price}. The price depends on the type, the size and whether you add LED lights, and is shown before you pay." },
   { q: "How long does it take?", a: "About {making} to make once you have personalised it, then it ships anywhere in India." },

@@ -63,32 +63,85 @@ export const mainNav: NavMenu[] = [
     ],
   },
   {
-    id: "shop",
-    label: "Shop",
+    id: "christmas",
+    label: "Christmas",
+    href: "/christmas",
     columns: [
       {
-        title: "Ready made",
+        title: "Ornaments",
         links: [
-          { label: "Trays & Coasters", href: "/shop/trays-coasters" },
-          { label: "Pooja & Festive", href: "/shop/pooja-festive" },
-          { label: "Wall Décor", href: "/shop/wall-decor" },
-          { label: "Keychains & Accessories", href: "/shop/keychains-accessories" },
-          { label: "Gifts", href: "/gifts" },
-          { label: "View all", href: "/shop" },
+          { label: "Holographic tree", href: "/product/holo-christmas-tree" },
+          { label: "Marble reindeer", href: "/product/marble-reindeer-ornament" },
+          { label: "Christmas disc", href: "/product/christmas-disc-ornament" },
+          { label: "Glitter tree", href: "/product/sea-glass-tree-ornament" },
         ],
       },
       {
-        title: "Browse by",
+        title: "Coasters",
         links: [
-          { label: "New arrivals", href: "/shop?sort=newest" },
-          { label: "Bestsellers", href: "/shop?sort=bestselling" },
-          { label: "Under ₹1,500", href: "/shop?max=1500" },
+          { label: "Candy cane", href: "/product/candy-cane-christmas-coaster" },
+          { label: "Snowflake", href: "/product/snowflake-coaster" },
+          { label: "Merry Christmas", href: "/product/merry-christmas-coaster" },
+          { label: "Melted snowman", href: "/product/melted-snowman-coaster" },
+          { label: "Candy cane hexagon", href: "/product/candy-cane-hexagon-coaster" },
+        ],
+      },
+      {
+        title: "Gifts & décor",
+        links: [
+          { label: "Stocking keychain", href: "/product/stocking-keychain" },
+          { label: "Santa & reindeer plaque", href: "/product/santa-reindeer-plaque" },
+          { label: "Christmas dome magnet", href: "/product/christmas-dome-magnet" },
+          { label: "Glitter tree canvas", href: "/product/glitter-tree-canvas" },
+          { label: "All Christmas", href: "/christmas" },
         ],
       },
     ],
     features: [
-      { eyebrow: "Wall Décor", title: "Marble Noir clock", href: "/product/marble-noir-wall-clock", image: "/products/marble-noir-wall-clock/1.jpg", alt: "Marble Noir resin wall clock" },
-      { eyebrow: "Pooja & Festive", title: "Thalis & torans", href: "/shop/pooja-festive", image: "/products/lal-pooja-thali/1.jpg", alt: "Red resin pooja thali" },
+      { eyebrow: "Ornament", title: "Holographic Tree", href: "/product/holo-christmas-tree", image: "/products/holo-christmas-tree/1.jpg", alt: "Resin Christmas tree with gold flakes and holographic sparkle" },
+      { eyebrow: "Ornament", title: "Marble Reindeer", href: "/product/marble-reindeer-ornament", image: "/products/marble-reindeer-ornament/1.jpg", alt: "Red marble resin reindeer with gold antlers" },
+    ],
+  },
+  {
+    // Diwali took the place of "Shop" in the header (owner, 29 Oct 2026). The shop pages are
+    // still linked from the homepage, the footer, search and the Festive and Gifts menus.
+    id: "diwali",
+    label: "Diwali",
+    href: "/diwali",
+    columns: [
+      {
+        title: "Gift boxes & sets",
+        links: [
+          { label: "Ganesh Lakshmi gift box", href: "/product/ganesh-lakshmi-gift-box" },
+          { label: "Pink pooja gift box", href: "/product/pink-pooja-gift-box" },
+          { label: "Pink Shubh Labh gift box", href: "/product/pink-shubh-labh-gift-box" },
+          { label: "Shubh Labh & candle box", href: "/product/shubh-labh-candle-gift-box" },
+          { label: "Pink lotus pooja set", href: "/product/pink-lotus-pooja-set" },
+        ],
+      },
+      {
+        title: "Thalis & Shubh Labh",
+        links: [
+          { label: "Lotus pearl thali", href: "/product/lotus-pearl-pooja-thali" },
+          { label: "Peacock feather thali", href: "/product/peacock-feather-pooja-thali" },
+          { label: "Namokar Mantra thali", href: "/product/namokar-mantra-thali" },
+          { label: "Shubh Labh, white & gold", href: "/product/shubh-labh-hangings" },
+          { label: "Ganesh Lakshmi Shubh Labh", href: "/product/ganesh-lakshmi-shubh-labh" },
+        ],
+      },
+      {
+        title: "Diyas & décor",
+        links: [
+          { label: "Lotus tealight holder", href: "/product/lotus-tealight-holder" },
+          { label: "Krishna mantra LED plaque", href: "/product/krishna-mantra-led-plaque" },
+          { label: "Ganesha rose petal plaque", href: "/product/ganesha-rose-petal-plaque" },
+          { label: "Radha Krishna frame", href: "/product/radha-krishna-frame" },
+          { label: "All Diwali", href: "/diwali" },
+        ],
+      },
+    ],
+    features: [
+      { eyebrow: "Diya", title: "Lotus Tealight", href: "/product/lotus-tealight-holder", image: "/products/lotus-tealight-holder/1.jpg", alt: "Gold resin lotus tealight holder with a lit tealight" },
     ],
   },
   {
@@ -136,7 +189,7 @@ export const mainNav: NavMenu[] = [
       {
         title: "Festivals",
         links: [
-          { label: "Diwali", href: "/occasion/diwali" },
+          { label: "Diwali", href: "/diwali" },
           { label: "Karwa Chauth", href: "/occasion/karwa-chauth" },
           { label: "Raksha Bandhan", href: "/occasion/raksha-bandhan" },
         ],

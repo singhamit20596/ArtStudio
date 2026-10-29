@@ -1,3 +1,4 @@
+import { extraPrices } from "./prices";
 /**
  * Business settings. Change values here; every page reads from this file.
  * Items still marked TODO are listed in TODO.md.
@@ -7,7 +8,7 @@ export const site = {
   tagline: "Art with Soul",
   bio: "Art that tells a story. Handcrafted with love.",
   description:
-    "Handmade shadow-box tribute frames for Army, Navy and Air Force retirements, built around their own medals, badges and photograph. Delivered across India.",
+    "Handmade tribute frames for retiring defence personnel, built around their own medals, badges and photograph. Delivered across India.",
   /** TODO: set NEXT_PUBLIC_SITE_URL once the domain is bought. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "",
   locale: "en-IN",
@@ -26,8 +27,9 @@ export const site = {
   },
 
   shipping: {
-    freeShippingThreshold: 3000,
-    flatFee: 100,
+    // Prices live in src/config/prices.ts.
+    freeShippingThreshold: extraPrices.freeShippingFrom.amount ?? 0,
+    flatFee: extraPrices.shippingFee.amount ?? 0,
     panIndia: true,
     /**
      * TODO (placeholder): courier days once a piece is ready, used by the pincode checker
@@ -38,8 +40,8 @@ export const site = {
 
   payments: {
     cashOnDelivery: true,
-    /** TODO (owner): extra charge for Cash on Delivery, in ₹. 0 means no fee. */
-    codFee: 0,
+    /** Extra charge for Cash on Delivery (src/config/prices.ts); 0 means no fee. */
+    codFee: extraPrices.codFee.amount ?? 0,
     orderOnWhatsApp: true,
     /**
      * Razorpay is wired (src/lib/orders/razorpay.ts) but stays off until the account is ready
@@ -59,14 +61,14 @@ export const site = {
 
   giftWrap: {
     enabled: true,
-    /** TODO (placeholder): gift-wrap charge per order, in ₹. */
-    price: 49,
+    /** Gift-wrap charge per order (src/config/prices.ts). */
+    price: extraPrices.giftWrap.amount ?? 0,
     messageMaxLength: 200,
   },
 
   /** Rotating messages in the announcement bar (keep exactly four). */
   announcements: [
-    "Tribute frames for Army, Navy and Air Force retirements",
+    "Tribute frames for retiring defence personnel",
     "Made by hand, around their own medals",
     "Request online, plan it with us on WhatsApp",
     "Pan India delivery",

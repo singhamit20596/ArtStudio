@@ -1,3 +1,4 @@
+import { LIGHTS_CODE_SUFFIX } from "@/config/prices";
 import { site } from "@/config/site";
 import { evaluateCoupon, type CouponResult } from "./coupons";
 import type { DayRange, SizeOption } from "./types";
@@ -8,7 +9,7 @@ import type { DayRange, SizeOption } from "./types";
  */
 
 export interface LineOptions {
-  /** SizeOption id, e.g. "16x20". */
+  /** SizeOption id, e.g. "24x24". */
   size?: string;
   /** LED lights added. */
   light?: boolean;
@@ -32,6 +33,9 @@ export interface CartProduct {
   image: string | null;
   stock: number;
   makingTimeDays: DayRange;
+  /** Product code (sized pieces: each size has its own). */
+  code: string | null;
+  variantCodes?: Record<string, string>;
   sizes?: SizeOption[];
   lightPrice?: number | null;
 }
@@ -46,6 +50,21 @@ export function unitPrice(p: { price: number | null; sizes?: SizeOption[]; light
 export function describeOptions(p: Pick<CartProduct, "sizes" | "lightPrice">, options?: LineOptions) {
   const size = p.sizes?.find((s) => s.id === options?.size);
   return [size?.label, p.lightPrice != null ? (options?.light ? "With LED lights" : "Without lights") : null].filter(Boolean).join(" · ");
+}
+
+/**
+ * Product code for a line (rules in src/config/prices.ts): the chosen size's code ("RTBF2424",
+ * plus "L" with lights), or the product's code plus its variant codes ("KAAL" + "M"), or just the product's.
+ */
+export function lineCode(
+  p: { code?: string | null; variantCodes?: Record<string, string>; sizes?: SizeOption[]; lightPrice?: number | null },
+  line?: Pick<CartLine, "options" | "variant">,
+) {
+  const size = p.sizes?.find((s) => s.id === line?.options?.size);
+  if (size) return size.code + (line?.options?.light && p.lightPrice != null ? LIGHTS_CODE_SUFFIX : "");
+  if (!p.code || !p.variantCodes || !line?.variant) return p.code ?? null;
+  // Variant text is "Letter: M" (or "Name: choice, Name: choice").
+  return p.code + line.variant.split(", ").map((part) => p.variantCodes?.[part.split(": ")[1]] ?? "").join("");
 }
 
 export type PaymentMethod = "cod" | "online" | "whatsapp" | "upi";
@@ -99,7 +118,9 @@ export function priceCart(cart: CartLine[], catalogue: CartProduct[], opts: Pric
   for (const line of cart) {
     const product = bySlug.get(line.slug);
     const max = product ? maxQuantity(product) : 0;
-    if (!product || max === 0) {
+    // A sized piece whose size has since been dropped from the price list is no longer available.
+    const sizeGone = Boolean(product?.sizes?.length) && !product?.sizes?.some((s) => s.id === line.options?.size);
+    if (!product || max === 0 || sizeGone) {
       unavailable.push(line);
       continue;
     }

@@ -1,5 +1,6 @@
 import seed from "@/data/seed.json";
 import { launch } from "@/config/launch";
+import { customCategoryPrices, productCodeProblems, productPrices } from "@/config/prices";
 import { categoryHref, occasionHref, slugify } from "./product";
 import { MAX_QTY, type CartProduct } from "./pricing";
 import type { Category, Occasion, Product, SearchItem, SearchLink, Seed } from "./types";
@@ -8,11 +9,47 @@ export { categoryHref, effectivePrice, occasionHref, productHref, shortName, slu
 
 const data = seed as unknown as Seed;
 
-/** Every product, including unpublished drafts. */
-export const allProducts: Product[] = data.products;
+// Product codes must follow the rules in src/config/prices.ts, or orders could name the wrong piece.
+// Stops the build.
+const codeProblems = productCodeProblems((slug) => {
+  const p = data.products.find((x) => x.slug === slug);
+  return p && { category: p.category, choices: p.variants.flatMap((v) => v.options) };
+});
+if (codeProblems.length) throw new Error(`Product codes in src/config/prices.ts:\n${codeProblems.join("\n")}`);
+
+/**
+ * Puts the price list (src/config/prices.ts) onto a product: its sizes, price, starting price and
+ * light price. seed.json holds no prices. With launch.lights off, no product offers lights.
+ */
+function withPrices(p: Product): Product {
+  const entry = productPrices[p.slug];
+  const base: Product = { ...p, code: entry?.code ?? null, variantCodes: entry?.variantCodes, price: null, mrp: null, startingPrice: null, sizes: undefined, lightPrice: null };
+  if (!entry) return base;
+  if (entry.kind === "sizes") {
+    const sizes = entry.sizes.flatMap(({ price, ...s }) => (price.amount == null ? [] : [{ ...s, price: price.amount }]));
+    return { ...base, sizes, price: sizes.length ? Math.min(...sizes.map((s) => s.price)) : null, lightPrice: launch.lights ? (entry.lights?.amount ?? null) : null };
+  }
+  if (entry.kind === "fixed") return { ...base, price: entry.price.amount, mrp: entry.mrp ?? null };
+  return { ...base, startingPrice: entry.startingPrice.amount };
+}
+
+/** Every product, including unpublished drafts, with prices applied. */
+export const allProducts: Product[] = data.products.map(withPrices);
+
+/** "From ₹…" for a made-to-order category: its price-list entry, or else its lowest product price. */
+function withStartingPrice(c: Category): Category {
+  if (c.type !== "custom") return { ...c, startingPrice: null };
+  const entry = customCategoryPrices[c.slug];
+  if (entry) return { ...c, startingPrice: entry.amount };
+  const amounts = allProducts
+    .filter((p) => p.published && p.category === c.slug)
+    .flatMap((p) => p.sizes?.map((s) => s.price) ?? [p.price ?? p.startingPrice])
+    .filter((n): n is number => n != null);
+  return { ...c, startingPrice: amounts.length ? Math.min(...amounts) : null };
+}
 
 /** Every category, including ones not on sale yet (see launch.categories). */
-export const allCategories: Category[] = data.categories;
+export const allCategories: Category[] = data.categories.map(withStartingPrice);
 
 const onSale = (category: string) => launch.categories == null || launch.categories.includes(category);
 
@@ -20,12 +57,9 @@ const onSale = (category: string) => launch.categories == null || launch.categor
  * Products visible on the storefront, in "Featured" order (their order in seed.json).
  * Only published products in the categories on sale right now (src/config/launch.ts).
  */
-export const products: Product[] = data.products
-  .filter((p) => p.published && onSale(p.category))
-  // With the lights option switched off (launch.lights), no product offers lights.
-  .map((p) => (launch.lights || p.lightPrice == null ? p : { ...p, lightPrice: null }));
+export const products: Product[] = allProducts.filter((p) => p.published && onSale(p.category));
 
-export const categories: Category[] = data.categories.filter((c) => onSale(c.slug));
+export const categories: Category[] = allCategories.filter((c) => onSale(c.slug));
 export const readyCategories = categories.filter((c) => c.type === "ready");
 /** Ready-made categories with their own /shop/[slug] page ("Gifts" lives at /gifts). */
 export const shopCategories = readyCategories.filter((c) => c.slug !== "gifts");
@@ -122,9 +156,11 @@ export function cartCatalog(): CartProduct[] {
       name: p.name,
       price: p.price,
       image: p.images[0] ?? null,
-      // Made-to-order pieces (no stock count) are limited only by MAX_QTY.
-      stock: p.stock ?? (p.sizes?.length ? MAX_QTY : 0),
+      // Made-to-order pieces (no stock count: tributes, Christmas) are limited only by MAX_QTY.
+      stock: p.stock ?? MAX_QTY,
       makingTimeDays: p.makingTimeDays,
+      code: p.code ?? null,
+      variantCodes: p.variantCodes,
       sizes: p.sizes,
       lightPrice: p.lightPrice ?? null,
     }));

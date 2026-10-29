@@ -41,10 +41,12 @@ npm run lint
 
 | To change… | Edit |
 |---|---|
-| Business name, WhatsApp, email, shipping rules, courier days, COD fee, gift wrap, announcement bar, hero images/video | `src/config/site.ts` |
+| **Festive pages** (Diwali, Christmas): copy, product taglines, homepage picks | `src/config/diwali.ts`, `src/config/christmas.ts` (pages `/diwali`, `/christmas`; shared parts in `src/components/festive/`) |
+| **Prices**: every product, size and option, "From" prices for made-to-order categories, gift wrap, COD fee, delivery fee, free-shipping threshold | `src/config/prices.ts` |
+| Business name, WhatsApp, email, courier days, announcement bar, hero images/video | `src/config/site.ts` |
 | Offer (coupon) codes | `src/config/coupons.ts` |
 | Menu and footer links | `src/config/nav.ts` |
-| Products, categories, occasions (until the database arrives) | `src/data/seed.json` |
+| Products, categories, occasions (until the database arrives; no prices) | `src/data/seed.json` |
 | "Featured" order on shop pages | the order of products in `src/data/seed.json` |
 | What appears in the gift shop (`/gifts`) | add or remove the `"gift"` tag on a product |
 | Colours, type, buttons, motion | `src/app/globals.css` |
@@ -56,7 +58,7 @@ npm run lint
 
 1. Copy one product block in `src/data/seed.json` and give it a new `id` and `slug`.
 2. Put its photos in `public/products/<slug>/` as `1.jpg`, `2.jpg`…, and list them in `images`.
-3. `type` is `"ready"` (Add to cart) or `"custom"` (made to order, WhatsApp request). Set `price` for ready items, `startingPrice` for custom ones.
+3. `type` is `"ready"` (Add to cart) or `"custom"` (made to order, WhatsApp request). Add its price and product code to `src/config/prices.ts`: `kind: "fixed"` for ready items, `"from"` for custom ones, or `sized(code("RT", "BF"), [[w, h, price], …])` for pieces sold in sizes. The code is the product line (2 letters, from `productLines`; add a line for a new category) + 2 letters for the product; sizes, variants (`variantCodes`) and lights are added to it automatically (e.g. `RTBF1815`). The build checks the rules.
 4. `colours` drive the colour filter (use the names in `COLOURS` in `src/lib/listing.ts`); add the `"gift"` tag to show it in the gift shop.
 
 From Phase 4 this moves to the admin panel at `/admin`; `seed.json` is imported into the database once.
@@ -73,7 +75,7 @@ The featured line is **Retirement Tributes** for Army, Navy and Air Force retire
 | `/cart`, `/checkout`, `/checkout/confirmation` | Cart and guest checkout. Pay by UPI (QR code or "Open UPI app"), Cash on Delivery or Order on WhatsApp |
 | `/personalise/<order>?t=<token>` | Private link sent after the order: choose the layout, name plate (rank, name, unit, years), upload photos, background colour, notes. Can be changed until making starts |
 
-- Sizes, prices and light prices: `sizes` and `lightPrice` on each product in `src/data/seed.json`. Photos: `gallery` on the same product, files in `public/products/<slug>/`, built by `python3 scripts/make-tribute-photos.py` from the mockups in `exports/iaf-frames/` (see `PHOTO-CREDITS.md` there); the newspaper photos are a drawn sample. When you replace a photo, give it a new filename so browsers and the image cache pick it up.
+- Sizes, prices and light prices: `src/config/prices.ts` (the only price list). Photos: `gallery` on the same product, files in `public/products/<slug>/`, built by `python3 scripts/make-tribute-photos.py` from the mockups in `exports/iaf-frames/` (see `PHOTO-CREDITS.md` there); the newspaper photos are a drawn sample. When you replace a photo, give it a new filename so browsers and the image cache pick it up.
 - Copy (services, what goes inside, steps, FAQs, layouts, background colours): `src/config/tribute.ts`.
 - Which line is live: `src/config/launch.ts`.
 

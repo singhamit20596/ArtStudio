@@ -13,6 +13,8 @@ export interface DayRange {
 /** A size a made-to-order piece can be built in, with its price. */
 export interface SizeOption {
   id: string;
+  /** Unique product code for this size, e.g. "RTBF2424" (src/config/prices.ts). */
+  code: string;
   /** "16 × 20 in" */
   label: string;
   widthIn: number;
@@ -67,11 +69,17 @@ export interface Product {
   isCustomisable: boolean;
   instagramUrl: string | null;
   createdAt: string;
+  /** Product code from the price list: line + product, e.g. "PFTR" (sized products: each size has its own). */
+  code?: string | null;
+  /** Code added for each customer choice, e.g. letter "M" → "M". */
+  variantCodes?: Record<string, string>;
   /** Sizes with their own prices (price above is then the smallest). */
   sizes?: SizeOption[];
   /** Extra charge for LED lights; null or missing = no light option. */
   lightPrice?: number | null;
   gallery?: ProductGallery;
+  /** The photo shows another maker's piece (used with permission), not the studio's own: shown with a note. */
+  samplePhoto?: boolean;
   /** Hidden from the storefront when false (e.g. awaiting confirmation). */
   published: boolean;
   /** Fields that still hold placeholder values. Listed in TODO.md. */

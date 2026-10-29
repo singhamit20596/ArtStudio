@@ -17,7 +17,13 @@ const nextConfig: NextConfig = {
   // The tributes used to have a made-to-order page; they now have their own page.
   ...(previewExport
     ? {}
-    : { redirects: async () => [{ source: "/custom/retirement-tribute-frames", destination: "/retirement-tributes", permanent: false }] }),
+    : {
+        redirects: async () => [
+          { source: "/custom/retirement-tribute-frames", destination: "/retirement-tributes", permanent: false },
+          { source: "/shop/christmas-decor-gifts", destination: "/christmas", permanent: false },
+          { source: "/shop/diwali-decor-gifts", destination: "/diwali", permanent: false },
+        ],
+      }),
   experimental: {
     // Turbopack's on-disk caches served a stale globals.css after edits (28 Oct 2026), and
     // Netlify restores .next/cache between deploys. The site builds in ~15 s, so compile fresh.

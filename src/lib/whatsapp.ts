@@ -16,10 +16,10 @@ export const messages = {
   order: (item: string, quantity: number, total: string | null, url?: string) =>
     `Hi! I'd like to order ${item} × ${quantity}${total ? `, ${total}` : ""}.${url ? ` Link: ${url}` : ""}`,
   /** A whole cart, one line per item. */
-  cart: (items: { name: string; variant?: string; quantity: number; total: string }[], subtotal: string) =>
+  cart: (items: { name: string; variant?: string; code?: string | null; quantity: number; total: string }[], subtotal: string) =>
     [
       "Hi! I'd like to order:",
-      ...items.map((i) => `• ${i.name}${i.variant ? ` (${i.variant})` : ""} × ${i.quantity}: ${i.total}`),
+      ...items.map((i) => `• ${i.name}${i.variant ? ` (${i.variant})` : ""}${i.code ? ` [${i.code}]` : ""} × ${i.quantity}: ${i.total}`),
       `Subtotal: ${subtotal}`,
     ].join("\n"),
   share: (productName: string, url: string) => `${productName}, handmade by ${site.name}: ${url}`,
@@ -30,7 +30,7 @@ export function orderMessage(order: Order) {
   const a = order.address;
   return [
     `Hi! I'd like to confirm my order ${order.id}:`,
-    ...order.items.map((i) => `• ${i.name.split(" | ")[0]}${i.variant ? ` (${i.variant})` : ""} × ${i.quantity}: ${formatINR(i.lineTotal)}`),
+    ...order.items.map((i) => `• ${i.name.split(" | ")[0]}${i.variant ? ` (${i.variant})` : ""}${i.code ? ` [${i.code}]` : ""} × ${i.quantity}: ${formatINR(i.lineTotal)}`),
     `Total: ${formatINR(order.totals.total)}${order.totals.shipping ? ` (incl. ${formatINR(order.totals.shipping)} shipping)` : " (free shipping)"}`,
     order.gift.wrap ? "Gift wrapped, please." : null,
     `Name: ${order.customer.name}`,

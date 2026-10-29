@@ -15,13 +15,20 @@ Retirement Tributes (Newspaper Tribute, Box Frame and Resin Frame) are the featu
 
 ### The three tributes (prices and copy are placeholders; change freely)
 
-| Tribute | Sizes and prices (placeholders) | LED lights | Making time |
-|---|---|---|---|
-| Box Frame (medals, photo, name plate) | 12 × 16 in ₹4,999 · 16 × 20 in ₹6,499 · 18 × 24 in ₹7,999 · 20 × 24 in ₹8,999 · 24 × 30 in ₹10,999 | + ₹799 | 10–14 days |
-| Newspaper Tribute (framed front page) | 12 × 16 in ₹2,999 · 16 × 20 in ₹3,999 · 18 × 24 in ₹4,999 · 20 × 30 in ₹6,499 | + ₹799 | 7–10 days |
-| Resin Frame (photo and crest in resin) | 8 × 10 in ₹3,499 · 10 × 12 in ₹4,499 · 12 × 16 in ₹5,999 · 16 × 20 in ₹7,999 | + ₹699 | 7–10 days |
+| Tribute | Making time |
+|---|---|
+| Box Frame (medals, photo, name plate) | 10–14 days |
+| Newspaper Tribute (framed front page) | 7–10 days |
+| Resin Frame (photo and crest in resin) | 7–10 days |
 
-- [ ] **Sizes, prices, light prices and making times** in the table above (all in `src/data/seed.json`). Send your real ones.
+- [ ] **Prices and sizes** for every product, size and extra now live in one price list, `src/config/prices.ts` (`placeholder(…)` = still to confirm, `confirmed(…)` = yours). We are going through them one by one. Making times are in `src/data/seed.json`.
+  - [x] Box Frame (29 Oct 2026): 18 × 15 in ₹2,500 (`RTBF1815`), 24 × 24 in ₹3,500 (`RTBF2424`).
+  - [x] Resin Frame (29 Oct 2026): 12 × 9 in ₹2,000 (`RTRF1209`), 10 × 10 in ₹2,000 (`RTRF1010`), 18 × 15 in ₹3,000 (`RTRF1815`), 24 × 24 in ₹5,000 (`RTRF2424`).
+  - [ ] Newspaper Tribute: sizes and prices still placeholders.
+  - [ ] LED light add-on prices (Box ₹799, Resin ₹699, Newspaper ₹799) are placeholders; needed before lights are switched back on.
+  - [ ] Sizes are written width × height as you gave them (18 × 15 = 18 in wide, 15 in tall). Say if any should be the other way round.
+- [ ] **Product codes.** Every product, size and choice has a unique code in `src/config/prices.ts`, capital letters and numbers only, built as product line (2 letters) + product (2 letters) + variant (a letter or style, if any) + size (4 digits, width then height) + `L` for LED lights. Examples: `RTBF1815` = Retirement Tributes › Box Frame › 18 × 15 in; `KAALM` = Alphabet Letter M. They are printed on order emails, WhatsApp order messages and the "Ask" message. Rename any you like before real orders arrive; after that, keep them fixed.
+  - [ ] Should tributes have a third part for the service (Army / Navy / Air Force)? That needs a service choice on the product page.
 - [ ] **The homepage line**: "They served the nation. They deserve the best." with a short paragraph about years far from home and festivals on duty (`src/components/tribute/TributeHero.tsx`). Change any words.
 - [x] **Faces pixelated** in every Retirement Tribute photo (28 Oct 2026): main photos, lit versions, homepage tiles, design photos, all samples (including the small photos in the newspaper collages and film strip), the source mockups in `exports/iaf-frames/`, the old Instagram frame photo and the homepage Instagram tile of the frame. Please look through them once; send word if any face was missed.
 - [ ] **LED lights are hidden for now** (`lights: false` in `src/config/launch.ts`). The light prices above stay saved; set it to `true` to offer lights again (the "with light" photos come back with it).
@@ -59,6 +66,63 @@ After paying, the customer gets a private link (on the order page and in their e
 - [ ] **How customers get their medals to you.** Do they courier the originals, hand them over, or do you source replicas? The site avoids saying either way.
 - [ ] **Copy to check** in `src/config/tribute.ts`: "What goes inside" notes, the five "How it works" steps and the FAQs.
 - [ ] **Hotspot positions** sit on the blue shadow box mockup (`frame-detail.jpg`). If that photo changes, the numbered points need moving to match it.
+
+## Diwali Décor & Gifts: please check (added 29 Oct 2026)
+
+Its own page at `/diwali` (Diwali colours: deep maroon, marigold, gold and warm cream, with a marigold garland, gold sparkles and flickering diyas), the **Diwali** menu item (in place of "Shop", as you asked), and a homepage section right below the retirement tributes, above Christmas. Diwali product pages use the same colours. Copy lives in `src/config/diwali.ts`, products in `src/data/seed.json`, prices in `src/config/prices.ts`.
+
+- [ ] **Diwali is on 8 November.** Making times are placeholders (3–10 days) and delivery takes a few more days, so orders placed now may not arrive in time. Can you make some pieces in advance, or shorten the making times? I can add an "order by" date to the page.
+- [ ] **Prices** are 20% below my estimate of the market price for each piece (you asked for 20% below market). I found few resin listings with prices in India, so the market figures are my estimates; each is written next to its price in `prices.ts` (`belowMarket(…)`). Please confirm or change:
+
+  | Code | Piece | Market (est.) | Our price |
+  |---|---|---|---|
+  | `DDPB` | Pink Pooja Gift Box (thali, Shubh Labh, Ganesh plate, tealight) | ₹2,999 | ₹2,399 |
+  | `DDGL` | Ganesh Lakshmi Gift Box (2 plaques, 2 lotus tealights) | ₹1,999 | ₹1,599 |
+  | `DDSC` | Shubh Labh & Candle Gift Box | ₹1,499 | ₹1,199 |
+  | `DDPS` | Pink Shubh Labh Gift Box (Shubh Labh, Ganesh plaque, 2 tealights) | ₹1,999 | ₹1,599 |
+  | `DDLS` | Pink Lotus Pooja Set (thali, 2 tealights, Shubh Labh, tray) | ₹3,499 | ₹2,799 |
+  | `DDLP` | Lotus Pearl Pooja Thali | ₹1,799 | ₹1,439 |
+  | `DDPF` | Peacock Feather Pooja Thali | ₹1,499 | ₹1,199 |
+  | `DDNM` | Namokar Mantra Pooja Thali | ₹1,999 | ₹1,599 |
+  | `DDSW` | Shubh Labh Hangings, white & gold (pair) | ₹999 | ₹799 |
+  | `DDGS` | Ganesh Lakshmi Shubh Labh (pair) | ₹1,099 | ₹879 |
+  | `DDLT` | Lotus Tealight Holder (gold, purple, pink or red) | ₹399 | ₹319 |
+  | `DDKM` | Krishna Mantra LED Plaque with easel | ₹1,499 | ₹1,199 |
+  | `DDGR` | Ganesha Rose Petal Plaque with stand | ₹1,249 | ₹999 |
+  | `DDRK` | Radha Krishna Frame with stand | ₹1,249 | ₹999 |
+
+- [x] **Photos** are the ones you sent, used with their makers' approval (you confirmed, 29 Oct 2026), fitted whole so the makers' marks stay visible (e.g. the ASTRID box). The **Pink Pooja Gift Box** photo was left out because it carries a wholesaler's name and phone number; that piece shows "Photo coming soon" until you send your own photo. Two of the photos were the same gift box, so there are 14 pieces.
+- [ ] **Details I guessed:** the tealight holder colours (gold, purple, pink, red), and that the candle box's laddoo candles are wax. Tell me what to change.
+- [ ] **"Shop" is no longer in the header menu** (Diwali took its place). The shop is still reachable from the homepage, footer, search and the Festive and Gifts menus.
+
+## Christmas Décor & Gifts: please check (added 29 Oct 2026)
+
+A new seasonal line: its own page at `/christmas` (full Christmas colours: evergreen, red, gold and snow white, with falling snow and fairy lights), a **Christmas** menu item, and a section on the homepage right below the retirement tributes. Christmas product pages use the same colours. Copy lives in `src/config/christmas.ts`, products in `src/data/seed.json`, prices in `src/config/prices.ts`.
+
+- [ ] **The pieces** are the 13 from the photos you sent (29 Oct 2026). Remove any you won't make.
+- [ ] **Prices** are placeholders between ₹300 and ₹500, as you asked. **Coasters are priced per coaster** (customers pick how many); say if you meant a set price instead.
+
+  | Code | Piece | Choices | Placeholder |
+  |---|---|---|---|
+  | `CDHT` | Holographic Christmas Tree | — | ₹449 |
+  | `CDRO` | Marble Reindeer Ornament | — | ₹399 |
+  | `CDCC` | Candy Cane Christmas Coaster (sky blue) | — | ₹399 each |
+  | `CDSK` | Christmas Stocking Keychain | — | ₹349 |
+  | `CDSP` | Santa & Reindeer Plaque with stand | — | ₹499 |
+  | `CDDM` | Christmas Dome Magnet | Santa / Snowman / Christmas tree / Red house | ₹349 |
+  | `CDSC` | Snowflake Coaster | — | ₹399 each |
+  | `CDDO` | Christmas Disc Ornament (name on request) | Red / Green / Blue / Gold / Silver | ₹349 |
+  | `CDMC` | Merry Christmas Coaster (white and gold) | — | ₹449 each |
+  | `CDTC` | Glitter Christmas Tree Canvas | — | ₹499 |
+  | `CDMS` | Melted Snowman Coaster | — | ₹349 each |
+  | `CDCH` | Candy Cane Hexagon Coaster (pink) | — | ₹399 each |
+  | `CDGT` | Glitter Tree Ornament (glass chips and shells) | — | ₹349 |
+
+- [x] **Photos** are the ones you sent, used with their makers' approval (you confirmed, 29 Oct 2026). Each is fitted whole into the 4:5 frame, so the makers' marks (e.g. the TikTok tag) stay visible, and each product page notes that pieces are handmade and may differ a little from the photo. Please keep the makers' approval in writing.
+- [ ] Replace them with photos of your own pieces when you can (`public/products/<slug>/1.jpg`; use a new filename so the image cache updates).
+- [ ] **Details I guessed:** the choices (dome designs, disc colours), that the domes are fridge magnets, and the canvas size. Tell me what to change.
+- [ ] **Making times** are placeholders (5–10 days). Is there a last date to order for delivery before Christmas? I can show it on the page.
+- [ ] Sizes, weights and materials are not set yet.
 
 ## New in Phase 3: please check
 
@@ -101,20 +165,20 @@ The current pictures were grabbed from your Instagram, so they are small (about 
 
 ## 2. Prices and product details
 
-| Product | Type | Status | Placeholder price | Stock | Making time | Photo folder |
-|---|---|---|---|---|---|---|
-| Shubh Labh Toran | ready | live | ₹1,299 | 5 | 2–4 days | `public/products/shubh-labh-toran/` |
-| Blush Agate | ready | live | ₹1,899 | 3 | 2–4 days | `public/products/blush-agate-resin-tray/` |
-| Rose Marble | ready | hidden | ₹2,199 | 1 | 2–4 days | `public/products/rose-marble-resin-tray/` |
-| IAF Retirement Tribute Frame | custom | live | from ₹4,999 | made to order | 10–14 days | `public/products/iaf-retirement-tribute-frame/` |
-| Karwa Chauth Chalni & Thali Set | ready | live | ₹2,499 | 4 | 2–4 days | `public/products/karwa-chauth-chalni-thali-set/` |
-| Lal Pooja Thali | ready | live | ₹1,499 | 6 | 2–4 days | `public/products/lal-pooja-thali/` |
-| Birthday Shadow Box | custom | live | from ₹2,999 | made to order | 7–10 days | `public/products/birthday-shadow-box-led/` |
-| Memory Photo Frame | custom | live | from ₹1,499 | made to order | 5–7 days | `public/products/memory-photo-frame-easel/` |
-| Photo Blocks & Fridge Magnets | custom | live | from ₹599 | made to order | 5–7 days | `public/products/resin-photo-blocks-magnets/` |
-| Alphabet Letters | ready | live | ₹149 per letter | 26 | 2–3 days | `public/products/resin-alphabet-letters/` |
-| Botanical Initial Keychain | ready | live | ₹249 | 20 | 2–3 days | `public/products/botanical-initial-keychain/` |
-| Marble Noir wall clock | ready | live | ₹3,499 | 2 | 2–4 days | `public/products/marble-noir-wall-clock/` |
+| Product | Type | Status | Stock | Making time | Photo folder |
+|---|---|---|---|---|---|
+| Shubh Labh Toran | ready | live | 5 | 2–4 days | `public/products/shubh-labh-toran/` |
+| Blush Agate | ready | live | 3 | 2–4 days | `public/products/blush-agate-resin-tray/` |
+| Rose Marble | ready | hidden | 1 | 2–4 days | `public/products/rose-marble-resin-tray/` |
+| IAF Retirement Tribute Frame | custom | live | made to order | 10–14 days | `public/products/iaf-retirement-tribute-frame/` |
+| Karwa Chauth Chalni & Thali Set | ready | live | 4 | 2–4 days | `public/products/karwa-chauth-chalni-thali-set/` |
+| Lal Pooja Thali | ready | live | 6 | 2–4 days | `public/products/lal-pooja-thali/` |
+| Birthday Shadow Box | custom | live | made to order | 7–10 days | `public/products/birthday-shadow-box-led/` |
+| Memory Photo Frame | custom | live | made to order | 5–7 days | `public/products/memory-photo-frame-easel/` |
+| Photo Blocks & Fridge Magnets | custom | live | made to order | 5–7 days | `public/products/resin-photo-blocks-magnets/` |
+| Alphabet Letters | ready | live | 26 | 2–3 days | `public/products/resin-alphabet-letters/` |
+| Botanical Initial Keychain | ready | live | 20 | 2–3 days | `public/products/botanical-initial-keychain/` |
+| Marble Noir wall clock | ready | live | 2 | 2–4 days | `public/products/marble-noir-wall-clock/` |
 
 For every product please also send: **size** (cm or inches), **weight** (for courier charges), and correct the **materials** and **care** lines in `seed.json` (they are drafts).
 
@@ -126,25 +190,25 @@ Questions:
 
 ## 3. Custom-made categories
 
-Starting price and making time for each (shown as "From ₹…" and on the WhatsApp request pages):
+Making time for each (the "From ₹…" prices are in `src/config/prices.ts`):
 
-| Category | Status now | Starting price | Making time |
-|---|---|---|---|
-| Retirement & Tribute Frames | active | ₹4,999 | 10–14 days |
-| Resin Trays | active | ₹1,999 | 7–10 days |
-| Fridge Magnets | active | ₹599 | 5–7 days |
-| Phone Covers | coming soon | — | — |
-| Personalised Shadow Boxes | active | ₹2,999 | 7–10 days |
-| Resin Photo Frames | made to order | ₹1,499 | 5–7 days |
-| Name Plates | made to order | — | — |
-| Flower Preservation | made to order | — | — |
-| Initial & Name Keychains | active | ₹249 | 4–6 days |
-| Wall Clocks | active | ₹2,999 | 8–12 days |
-| Resin Jewellery | made to order | — | — |
-| Pet Memorials | made to order | — | — |
-| Rakhi & Festive Customs | active | — | — |
-| Resin Rangoli | made to order | — | — |
-| Bookmarks, Coaster Sets & Desk Organisers | made to order | — | — |
+| Category | Status now | Making time |
+|---|---|---|
+| Retirement & Tribute Frames | active | 10–14 days |
+| Resin Trays | active | 7–10 days |
+| Fridge Magnets | active | 5–7 days |
+| Phone Covers | coming soon | — |
+| Personalised Shadow Boxes | active | 7–10 days |
+| Resin Photo Frames | made to order | 5–7 days |
+| Name Plates | made to order | — |
+| Flower Preservation | made to order | — |
+| Initial & Name Keychains | active | 4–6 days |
+| Wall Clocks | active | 8–12 days |
+| Resin Jewellery | made to order | — |
+| Pet Memorials | made to order | — |
+| Rakhi & Festive Customs | active | — |
+| Resin Rangoli | made to order | — |
+| Bookmarks, Coaster Sets & Desk Organisers | made to order | — |
 
 - [ ] Remove any of categories 5–15 you do not want to offer yet.
 - [ ] For tribute frames: do you also make Army and Navy versions today? (The copy says IAF, Army and Navy.)

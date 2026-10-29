@@ -52,7 +52,7 @@ function render(order: Order, forOwner: boolean, origin: string) {
   const rows = order.items
     .map(
       (i) => `<tr>
-  <td style="padding:10px 0;border-bottom:1px solid #e7ddd1;font-size:14px;line-height:1.5">${esc(i.name)}${i.variant ? `<br><span style="color:#76655a;font-size:13px">${esc(i.variant)}</span>` : ""}<br><span style="color:#76655a;font-size:13px">Qty ${i.quantity} × ${formatINR(i.unitPrice)}</span></td>
+  <td style="padding:10px 0;border-bottom:1px solid #e7ddd1;font-size:14px;line-height:1.5">${esc(i.name)}${i.variant ? `<br><span style="color:#76655a;font-size:13px">${esc(i.variant)}</span>` : ""}<br><span style="color:#76655a;font-size:13px">${i.code ? `Code ${esc(i.code)} · ` : ""}Qty ${i.quantity} × ${formatINR(i.unitPrice)}</span></td>
   <td style="padding:10px 0;border-bottom:1px solid #e7ddd1;font-size:14px;text-align:right;white-space:nowrap;vertical-align:top">${formatINR(i.lineTotal)}</td>
 </tr>`,
     )
@@ -116,7 +116,7 @@ function plain(order: Order, forOwner: boolean) {
     forOwner ? `New order ${order.id}` : `${headline(order)}`,
     `Order ${order.id} · ${PAYMENT_LABELS[order.payment.method]}`,
     "",
-    ...order.items.map((i) => `${i.name}${i.variant ? ` (${i.variant})` : ""} × ${i.quantity}: ${formatINR(i.lineTotal)}`),
+    ...order.items.map((i) => `${i.name}${i.variant ? ` (${i.variant})` : ""}${i.code ? ` [${i.code}]` : ""} × ${i.quantity}: ${formatINR(i.lineTotal)}`),
     "",
     `Total: ${formatINR(t.total)}`,
     "",
@@ -208,6 +208,7 @@ export function personalisationEmail(order: Order, itemIndex: number, origin: st
   const colour = backgrounds.find((b) => b.id === p.background)?.label ?? p.background;
   const rows: [string, string | null][] = [
     ["Tribute", `${item.name}${item.variant ? ` (${item.variant})` : ""}`],
+    ["Code", item.code ?? null],
     ["Design", template],
     ["Name plate", `${p.rank} ${p.name}`],
     ["Unit", p.unit],

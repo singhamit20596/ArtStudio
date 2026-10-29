@@ -81,6 +81,22 @@
       "status": "active"
     },
     {
+      "slug": "diwali-decor-gifts",
+      "type": "ready",
+      "name": "Diwali Décor & Gifts",
+      "description": "Resin pooja thalis, Shubh Labh hangings, tealight holders and Diwali gift boxes, made by hand.",
+      "image": "/products/lotus-tealight-holder/1.jpg",
+      "status": "active"
+    },
+    {
+      "slug": "christmas-decor-gifts",
+      "type": "ready",
+      "name": "Christmas Décor & Gifts",
+      "description": "Resin ornaments, table décor and Christmas gifts, made by hand.",
+      "image": "/products/holo-christmas-tree/1.jpg",
+      "status": "active"
+    },
+    {
       "slug": "gifts",
       "type": "ready",
       "name": "Gifts",
@@ -92,11 +108,10 @@
       "slug": "retirement-tribute-frames",
       "type": "custom",
       "name": "Retirement Tributes",
-      "description": "Newspaper tributes, box frames and resin frames for Army, Navy and Air Force retirements, made by hand.",
+      "description": "Newspaper tributes, box frames and resin frames for retiring defence personnel, made by hand.",
       "image": "/products/box-frame/frame.jpg",
       "status": "active",
       "requestName": "retirement tribute",
-      "startingPrice": 4999,
       "makingTimeDays": {
         "min": 10,
         "max": 14
@@ -110,7 +125,6 @@
       "image": "/products/blush-agate-resin-tray/1.jpg",
       "status": "active",
       "requestName": "resin tray",
-      "startingPrice": 1999,
       "makingTimeDays": {
         "min": 7,
         "max": 10
@@ -124,7 +138,6 @@
       "image": "/products/resin-photo-blocks-magnets/1.jpg",
       "status": "active",
       "requestName": "photo fridge magnet",
-      "startingPrice": 599,
       "makingTimeDays": {
         "min": 5,
         "max": 7
@@ -138,7 +151,6 @@
       "image": null,
       "status": "coming-soon",
       "requestName": "resin phone cover",
-      "startingPrice": null,
       "makingTimeDays": null
     },
     {
@@ -149,7 +161,6 @@
       "image": "/products/birthday-shadow-box-led/1.jpg",
       "status": "active",
       "requestName": "personalised shadow box",
-      "startingPrice": 2999,
       "makingTimeDays": {
         "min": 7,
         "max": 10
@@ -163,7 +174,6 @@
       "image": null,
       "status": "made-to-order",
       "requestName": "resin photo frame",
-      "startingPrice": 1499,
       "makingTimeDays": {
         "min": 5,
         "max": 7
@@ -177,7 +187,6 @@
       "image": null,
       "status": "made-to-order",
       "requestName": "name plate",
-      "startingPrice": null,
       "makingTimeDays": null
     },
     {
@@ -188,7 +197,6 @@
       "image": null,
       "status": "made-to-order",
       "requestName": "flower preservation piece",
-      "startingPrice": null,
       "makingTimeDays": null
     },
     {
@@ -199,7 +207,6 @@
       "image": "/products/botanical-initial-keychain/1.jpg",
       "status": "active",
       "requestName": "initial keychain",
-      "startingPrice": 249,
       "makingTimeDays": {
         "min": 4,
         "max": 6
@@ -213,7 +220,6 @@
       "image": "/products/marble-noir-wall-clock/1.jpg",
       "status": "active",
       "requestName": "resin wall clock",
-      "startingPrice": 2999,
       "makingTimeDays": {
         "min": 8,
         "max": 12
@@ -227,7 +233,6 @@
       "image": null,
       "status": "made-to-order",
       "requestName": "piece of resin jewellery",
-      "startingPrice": null,
       "makingTimeDays": null
     },
     {
@@ -238,7 +243,6 @@
       "image": null,
       "status": "made-to-order",
       "requestName": "pet memorial",
-      "startingPrice": null,
       "makingTimeDays": null
     },
     {
@@ -249,7 +253,6 @@
       "image": "/products/shubh-labh-toran/1.jpg",
       "status": "active",
       "requestName": "rakhi or festive piece",
-      "startingPrice": null,
       "makingTimeDays": null
     },
     {
@@ -260,7 +263,6 @@
       "image": null,
       "status": "made-to-order",
       "requestName": "resin rangoli",
-      "startingPrice": null,
       "makingTimeDays": null
     },
     {
@@ -271,7 +273,6 @@
       "image": null,
       "status": "made-to-order",
       "requestName": "bookmark, coaster set or desk organiser",
-      "startingPrice": null,
       "makingTimeDays": null
     }
   ],
@@ -287,9 +288,6 @@
         "diwali",
         "housewarming"
       ],
-      "price": 1299,
-      "mrp": null,
-      "startingPrice": null,
       "images": [
         "/products/shubh-labh-toran/1.jpg"
       ],
@@ -329,7 +327,6 @@
       "createdAt": "2026-10-15",
       "published": true,
       "placeholders": [
-        "price",
         "stock",
         "dimensions",
         "weight",
@@ -351,9 +348,6 @@
         "birthday",
         "diwali"
       ],
-      "price": 1899,
-      "mrp": null,
-      "startingPrice": null,
       "images": [
         "/products/blush-agate-resin-tray/1.jpg"
       ],
@@ -396,7 +390,6 @@
       "published": true,
       "notes": "The brief called this a coaster; the photo shows a tray-sized piece. Confirm the product type.",
       "placeholders": [
-        "price",
         "stock",
         "dimensions",
         "weight",
@@ -418,9 +411,6 @@
         "wedding",
         "birthday"
       ],
-      "price": 2199,
-      "mrp": null,
-      "startingPrice": null,
       "images": [],
       "video": null,
       "description": "A rectangular wavy-edge tray with a pink and mauve marble swirl and a gold ring accent.",
@@ -456,7 +446,6 @@
       "published": false,
       "notes": "Hidden until confirmed: this is a collab post on @sabbcreations65's profile. Confirm it is your piece and send a photo.",
       "placeholders": [
-        "price",
         "stock",
         "dimensions",
         "weight",
@@ -477,9 +466,6 @@
         "retirement",
         "corporate-gifting"
       ],
-      "price": 2999,
-      "mrp": null,
-      "startingPrice": null,
       "images": [
         "/products/newspaper-tribute/frame.jpg"
       ],
@@ -518,37 +504,6 @@
       "isCustomisable": true,
       "instagramUrl": null,
       "createdAt": "2026-10-28",
-      "sizes": [
-        {
-          "id": "12x16",
-          "label": "12 × 16 in",
-          "widthIn": 12,
-          "heightIn": 16,
-          "price": 2999
-        },
-        {
-          "id": "16x20",
-          "label": "16 × 20 in",
-          "widthIn": 16,
-          "heightIn": 20,
-          "price": 3999
-        },
-        {
-          "id": "18x24",
-          "label": "18 × 24 in",
-          "widthIn": 18,
-          "heightIn": 24,
-          "price": 4999
-        },
-        {
-          "id": "20x30",
-          "label": "20 × 30 in",
-          "widthIn": 20,
-          "heightIn": 30,
-          "price": 6499
-        }
-      ],
-      "lightPrice": 799,
       "gallery": {
         "ratio": "1 / 1",
         "frame": "/products/newspaper-tribute/frame.jpg",
@@ -572,9 +527,6 @@
       },
       "published": true,
       "placeholders": [
-        "sizes",
-        "prices",
-        "lightPrice",
         "makingTimeDays",
         "description",
         "photos are mockups"
@@ -591,9 +543,6 @@
         "retirement",
         "corporate-gifting"
       ],
-      "price": 4999,
-      "mrp": null,
-      "startingPrice": null,
       "images": [
         "/products/box-frame/frame.jpg"
       ],
@@ -632,44 +581,6 @@
       "isCustomisable": true,
       "instagramUrl": "https://www.instagram.com/reel/DeRz5G_CBu0/",
       "createdAt": "2026-10-09",
-      "sizes": [
-        {
-          "id": "12x16",
-          "label": "12 × 16 in",
-          "widthIn": 12,
-          "heightIn": 16,
-          "price": 4999
-        },
-        {
-          "id": "16x20",
-          "label": "16 × 20 in",
-          "widthIn": 16,
-          "heightIn": 20,
-          "price": 6499
-        },
-        {
-          "id": "18x24",
-          "label": "18 × 24 in",
-          "widthIn": 18,
-          "heightIn": 24,
-          "price": 7999
-        },
-        {
-          "id": "20x24",
-          "label": "20 × 24 in",
-          "widthIn": 20,
-          "heightIn": 24,
-          "price": 8999
-        },
-        {
-          "id": "24x30",
-          "label": "24 × 30 in",
-          "widthIn": 24,
-          "heightIn": 30,
-          "price": 10999
-        }
-      ],
-      "lightPrice": 799,
       "gallery": {
         "ratio": "4 / 3",
         "frame": "/products/box-frame/frame.jpg",
@@ -709,9 +620,6 @@
       },
       "published": true,
       "placeholders": [
-        "sizes",
-        "prices",
-        "lightPrice",
         "makingTimeDays",
         "description",
         "photos are mockups"
@@ -728,9 +636,6 @@
         "retirement",
         "corporate-gifting"
       ],
-      "price": 3499,
-      "mrp": null,
-      "startingPrice": null,
       "images": [
         "/products/resin-frame/frame.jpg"
       ],
@@ -769,37 +674,6 @@
       "isCustomisable": true,
       "instagramUrl": null,
       "createdAt": "2026-10-28",
-      "sizes": [
-        {
-          "id": "8x10",
-          "label": "8 × 10 in",
-          "widthIn": 8,
-          "heightIn": 10,
-          "price": 3499
-        },
-        {
-          "id": "10x12",
-          "label": "10 × 12 in",
-          "widthIn": 10,
-          "heightIn": 12,
-          "price": 4499
-        },
-        {
-          "id": "12x16",
-          "label": "12 × 16 in",
-          "widthIn": 12,
-          "heightIn": 16,
-          "price": 5999
-        },
-        {
-          "id": "16x20",
-          "label": "16 × 20 in",
-          "widthIn": 16,
-          "heightIn": 20,
-          "price": 7999
-        }
-      ],
-      "lightPrice": 699,
       "gallery": {
         "ratio": "1 / 1",
         "frame": "/products/resin-frame/frame.jpg",
@@ -823,9 +697,6 @@
       },
       "published": true,
       "placeholders": [
-        "sizes",
-        "prices",
-        "lightPrice",
         "makingTimeDays",
         "description",
         "photos are mockups"
@@ -842,9 +713,6 @@
         "karwa-chauth",
         "wedding"
       ],
-      "price": 2499,
-      "mrp": null,
-      "startingPrice": null,
       "images": [
         "/products/karwa-chauth-chalni-thali-set/1.jpg"
       ],
@@ -884,7 +752,6 @@
       "createdAt": "2026-10-07",
       "published": true,
       "placeholders": [
-        "price",
         "stock",
         "dimensions",
         "weight",
@@ -905,9 +772,6 @@
         "raksha-bandhan",
         "housewarming"
       ],
-      "price": 1499,
-      "mrp": null,
-      "startingPrice": null,
       "images": [
         "/products/lal-pooja-thali/1.jpg"
       ],
@@ -947,7 +811,6 @@
       "createdAt": "2026-10-05",
       "published": true,
       "placeholders": [
-        "price",
         "stock",
         "dimensions",
         "weight",
@@ -969,9 +832,6 @@
         "anniversary",
         "wedding"
       ],
-      "price": null,
-      "mrp": null,
-      "startingPrice": 2999,
       "images": [
         "/products/birthday-shadow-box-led/1.jpg"
       ],
@@ -1009,7 +869,6 @@
       "createdAt": "2026-09-30",
       "published": true,
       "placeholders": [
-        "startingPrice",
         "dimensions",
         "weight",
         "makingTimeDays",
@@ -1028,9 +887,6 @@
         "birthday",
         "anniversary"
       ],
-      "price": null,
-      "mrp": null,
-      "startingPrice": 1499,
       "images": [],
       "video": null,
       "description": "A wavy-edged resin frame with your photo set inside, framed by butterflies and dried flowers, on a small wooden easel.",
@@ -1065,7 +921,6 @@
       "published": true,
       "notes": "The Instagram cover has heavy text on it, so no product photo is used yet.",
       "placeholders": [
-        "startingPrice",
         "dimensions",
         "weight",
         "makingTimeDays",
@@ -1084,9 +939,6 @@
         "anniversary",
         "corporate-gifting"
       ],
-      "price": null,
-      "mrp": null,
-      "startingPrice": 599,
       "images": [
         "/products/resin-photo-blocks-magnets/1.jpg"
       ],
@@ -1130,7 +982,6 @@
       "createdAt": "2026-09-22",
       "published": true,
       "placeholders": [
-        "startingPrice",
         "dimensions",
         "weight",
         "makingTimeDays",
@@ -1147,9 +998,6 @@
       "occasions": [
         "birthday"
       ],
-      "price": 149,
-      "mrp": null,
-      "startingPrice": null,
       "images": [
         "/products/resin-alphabet-letters/1.jpg"
       ],
@@ -1219,7 +1067,6 @@
       "createdAt": "2026-09-17",
       "published": true,
       "placeholders": [
-        "price",
         "stock",
         "dimensions",
         "weight",
@@ -1240,9 +1087,6 @@
         "raksha-bandhan",
         "corporate-gifting"
       ],
-      "price": 249,
-      "mrp": null,
-      "startingPrice": null,
       "images": [
         "/products/botanical-initial-keychain/1.jpg"
       ],
@@ -1314,7 +1158,6 @@
       "createdAt": "2026-09-16",
       "published": true,
       "placeholders": [
-        "price",
         "stock",
         "dimensions",
         "weight",
@@ -1335,9 +1178,6 @@
         "diwali",
         "wedding"
       ],
-      "price": 3499,
-      "mrp": null,
-      "startingPrice": null,
       "images": [
         "/products/marble-noir-wall-clock/1.jpg"
       ],
@@ -1378,7 +1218,6 @@
       "createdAt": "2026-09-15",
       "published": true,
       "placeholders": [
-        "price",
         "stock",
         "dimensions",
         "weight",
@@ -1386,6 +1225,1556 @@
         "images",
         "care",
         "colours"
+      ]
+    },
+    {
+      "id": "p_014",
+      "slug": "holo-christmas-tree",
+      "name": "Holographic Christmas Tree | Resin",
+      "type": "ready",
+      "category": "christmas-decor-gifts",
+      "subcategory": "Ornaments",
+      "occasions": [],
+      "images": [
+        "/products/holo-christmas-tree/1.jpg"
+      ],
+      "video": null,
+      "description": "A resin Christmas tree full of gold flakes and holographic pieces that throw little rainbows when the light catches them.",
+      "highlights": [
+        "Gold flakes and holographic sparkle",
+        "Catches the light in rainbows",
+        "Lovely in a window or on a shelf"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, gold flakes, holographic film",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "gold",
+        "multicolour"
+      ],
+      "tags": [
+        "christmas",
+        "christmas tree",
+        "holographic",
+        "rainbow",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_015",
+      "slug": "marble-reindeer-ornament",
+      "name": "Marble Reindeer Ornament | Resin",
+      "type": "ready",
+      "category": "christmas-decor-gifts",
+      "subcategory": "Ornaments",
+      "occasions": [],
+      "images": [
+        "/products/marble-reindeer-ornament/1.jpg"
+      ],
+      "video": null,
+      "description": "A standing reindeer in swirled red and white resin, with glittering gold antlers and legs, on a red satin ribbon.",
+      "highlights": [
+        "Red and white marble swirl",
+        "Gold glitter antlers and legs",
+        "Ready to hang on a red ribbon"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, pigment, glitter, satin ribbon",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "red",
+        "white",
+        "gold"
+      ],
+      "tags": [
+        "christmas",
+        "reindeer",
+        "ornament",
+        "tree decoration",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_016",
+      "slug": "candy-cane-christmas-coaster",
+      "name": "Candy Cane Christmas Coaster | Resin",
+      "type": "ready",
+      "category": "christmas-decor-gifts",
+      "subcategory": "Coasters",
+      "occasions": [],
+      "images": [
+        "/products/candy-cane-christmas-coaster/1.jpg"
+      ],
+      "video": null,
+      "description": "A round sky-blue resin coaster with a candy cane, a peppermint sweet, little red and pearl beads and Merry Christmas in white. Priced per coaster: choose how many you need.",
+      "highlights": [
+        "Candy cane and peppermint",
+        "Red and pearl beads",
+        "Merry Christmas lettering"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, pigment, decorative embeds",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "blue",
+        "red",
+        "white"
+      ],
+      "tags": [
+        "christmas",
+        "coaster",
+        "candy cane",
+        "merry christmas",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_017",
+      "slug": "stocking-keychain",
+      "name": "Christmas Stocking Keychain | Resin",
+      "type": "ready",
+      "category": "christmas-decor-gifts",
+      "subcategory": "Gifts & décor",
+      "occasions": [],
+      "images": [
+        "/products/stocking-keychain/1.jpg"
+      ],
+      "video": null,
+      "description": "A little red resin stocking full of gold stars, with a white cuff, on a gold key ring with a star charm.",
+      "highlights": [
+        "Red stocking with gold stars",
+        "Gold key ring and star charm",
+        "A sweet Secret Santa gift"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, glitter, metal key ring",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 3,
+        "max": 5
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "red",
+        "gold",
+        "white"
+      ],
+      "tags": [
+        "christmas",
+        "keychain",
+        "stocking",
+        "secret santa",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_018",
+      "slug": "santa-reindeer-plaque",
+      "name": "Santa & Reindeer Plaque | Resin with Stand",
+      "type": "ready",
+      "category": "christmas-decor-gifts",
+      "subcategory": "Gifts & décor",
+      "occasions": [],
+      "images": [
+        "/products/santa-reindeer-plaque/1.jpg"
+      ],
+      "video": null,
+      "description": "A scalloped plaque of sparkling clear resin with Santa and his reindeer in the centre and red butterflies around them, on a clear stand.",
+      "highlights": [
+        "Santa and reindeer picture",
+        "Sparkling scalloped edge",
+        "Comes with a stand"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, printed picture, glitter, acrylic stand",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "red",
+        "clear",
+        "multicolour"
+      ],
+      "tags": [
+        "christmas",
+        "santa",
+        "reindeer",
+        "plaque",
+        "table decor",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_019",
+      "slug": "christmas-dome-magnet",
+      "name": "Christmas Dome Magnet | Resin",
+      "type": "ready",
+      "category": "christmas-decor-gifts",
+      "subcategory": "Gifts & décor",
+      "occasions": [],
+      "images": [
+        "/products/christmas-dome-magnet/1.jpg"
+      ],
+      "video": null,
+      "description": "A clear resin dome with a tiny Christmas scene inside and a magnet on the back. Choose Santa, a snowman, a Christmas tree or a little red house.",
+      "highlights": [
+        "A tiny Christmas scene inside",
+        "Santa, snowman, tree or red house",
+        "Magnet on the back"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, miniatures, magnet",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 3,
+        "max": 5
+      },
+      "stock": null,
+      "variants": [
+        {
+          "name": "Design",
+          "options": [
+            "Santa",
+            "Snowman",
+            "Christmas tree",
+            "Red house"
+          ]
+        }
+      ],
+      "colours": [
+        "clear",
+        "red",
+        "green"
+      ],
+      "tags": [
+        "christmas",
+        "magnet",
+        "fridge magnet",
+        "santa",
+        "snowman",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights",
+        "variants"
+      ]
+    },
+    {
+      "id": "p_020",
+      "slug": "snowflake-coaster",
+      "name": "Snowflake Coaster | Resin",
+      "type": "ready",
+      "category": "christmas-decor-gifts",
+      "subcategory": "Coasters",
+      "occasions": [],
+      "images": [
+        "/products/snowflake-coaster/1.jpg"
+      ],
+      "video": null,
+      "description": "An icy white and blue resin coaster with snowflakes and a little blue Christmas tree. Priced per coaster: choose how many you need.",
+      "highlights": [
+        "Icy white and blue",
+        "Snowflakes and a Christmas tree",
+        "Sets well with more"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, pigment",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "blue",
+        "white"
+      ],
+      "tags": [
+        "christmas",
+        "coaster",
+        "snowflake",
+        "winter",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_021",
+      "slug": "christmas-disc-ornament",
+      "name": "Christmas Disc Ornament | Resin",
+      "type": "ready",
+      "category": "christmas-decor-gifts",
+      "subcategory": "Ornaments",
+      "occasions": [],
+      "images": [
+        "/products/christmas-disc-ornament/1.jpg"
+      ],
+      "video": null,
+      "description": "A round glitter ornament with Christmas in white lettering and tiny Christmas charms, on a satin ribbon. A name instead of Christmas on request: send it on WhatsApp after you order.",
+      "highlights": [
+        "Christmas lettering and tiny charms",
+        "Red, green, blue, gold or silver glitter",
+        "Ready to hang on a ribbon"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, glitter, miniatures, ribbon",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [
+        {
+          "name": "Colour",
+          "options": [
+            "Red",
+            "Green",
+            "Blue",
+            "Gold",
+            "Silver"
+          ]
+        }
+      ],
+      "colours": [
+        "red",
+        "green",
+        "blue",
+        "gold",
+        "white"
+      ],
+      "tags": [
+        "christmas",
+        "ornament",
+        "christmas",
+        "personalised",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": true,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights",
+        "variants"
+      ]
+    },
+    {
+      "id": "p_022",
+      "slug": "merry-christmas-coaster",
+      "name": "Merry Christmas Coaster | Resin",
+      "type": "ready",
+      "category": "christmas-decor-gifts",
+      "subcategory": "Coasters",
+      "occasions": [],
+      "images": [
+        "/products/merry-christmas-coaster/1.jpg"
+      ],
+      "video": null,
+      "description": "A pearly white resin coaster with a gold rim, a sparkling edge of Christmas red and green, and Merry Christmas in gold. Priced per coaster: choose how many you need.",
+      "highlights": [
+        "Pearly white with a gold rim",
+        "Red and green glitter edge",
+        "Merry Christmas in gold"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, glitter, gold leaf",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "white",
+        "gold",
+        "red",
+        "green"
+      ],
+      "tags": [
+        "christmas",
+        "coaster",
+        "merry christmas",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_023",
+      "slug": "glitter-tree-canvas",
+      "name": "Glitter Christmas Tree Canvas | Resin",
+      "type": "ready",
+      "category": "christmas-decor-gifts",
+      "subcategory": "Gifts & décor",
+      "occasions": [],
+      "images": [
+        "/products/glitter-tree-canvas/1.jpg"
+      ],
+      "video": null,
+      "description": "A small canvas with a green glitter Christmas tree, dressed with peppermints, baubles, little presents and a red star.",
+      "highlights": [
+        "Green glitter tree",
+        "Peppermints, baubles and presents",
+        "Ready to hang or stand"
+      ],
+      "dimensions": null,
+      "material": "Canvas, resin, glitter, decorations",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "green",
+        "red",
+        "white"
+      ],
+      "tags": [
+        "christmas",
+        "wall art",
+        "canvas",
+        "christmas tree",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_024",
+      "slug": "melted-snowman-coaster",
+      "name": "Melted Snowman Coaster | Resin",
+      "type": "ready",
+      "category": "christmas-decor-gifts",
+      "subcategory": "Coasters",
+      "occasions": [],
+      "images": [
+        "/products/melted-snowman-coaster/1.jpg"
+      ],
+      "video": null,
+      "description": "A clear, glittering resin coaster shaped like a melting snowman, with his top hat, button eyes, carrot nose and twig arms. Priced per coaster: choose how many you need.",
+      "highlights": [
+        "A melting snowman",
+        "Clear resin with glitter",
+        "Always a smile at tea time"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, glitter, pigment",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "clear",
+        "white"
+      ],
+      "tags": [
+        "christmas",
+        "coaster",
+        "snowman",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_025",
+      "slug": "candy-cane-hexagon-coaster",
+      "name": "Candy Cane Hexagon Coaster | Resin",
+      "type": "ready",
+      "category": "christmas-decor-gifts",
+      "subcategory": "Coasters",
+      "occasions": [],
+      "images": [
+        "/products/candy-cane-hexagon-coaster/1.jpg"
+      ],
+      "video": null,
+      "description": "A pink hexagon resin coaster with candy canes, pine and a red flower standing in white snow, with a sprinkle of glitter. Priced per coaster: choose how many you need.",
+      "highlights": [
+        "Candy canes in white snow",
+        "Pine sprigs and a red flower",
+        "Pink hexagon frame"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, pigment, decorative embeds",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "pink",
+        "white",
+        "red"
+      ],
+      "tags": [
+        "christmas",
+        "coaster",
+        "candy cane",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_026",
+      "slug": "sea-glass-tree-ornament",
+      "name": "Glitter Tree Ornament | Resin",
+      "type": "ready",
+      "category": "christmas-decor-gifts",
+      "subcategory": "Ornaments",
+      "occasions": [],
+      "images": [
+        "/products/sea-glass-tree-ornament/1.jpg"
+      ],
+      "video": null,
+      "description": "A clear resin disc with a tree of green glass chips, a tiny star on top and shells at the base, on a twine loop.",
+      "highlights": [
+        "Green glass-chip tree",
+        "A tiny star and shells",
+        "Ready to hang on twine"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, glass chips, shells, twine",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "clear",
+        "green"
+      ],
+      "tags": [
+        "christmas",
+        "ornament",
+        "christmas tree",
+        "tree decoration",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_027",
+      "slug": "pink-pooja-gift-box",
+      "name": "Pink Pooja Gift Box | Resin",
+      "type": "ready",
+      "category": "diwali-decor-gifts",
+      "subcategory": "Gift boxes & sets",
+      "occasions": [
+        "diwali"
+      ],
+      "images": [],
+      "video": null,
+      "description": "A pink Diwali gift box: a pooja thali with two gold katoris, a pair of Shubh Labh hangings with gold leaves, pearls and tassels, a small Ganesh plate and a flower tealight holder.",
+      "highlights": [
+        "Thali, Shubh Labh pair, Ganesh plate, tealight holder",
+        "Pink with gold leaves and pearls",
+        "Packed in a gift box"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, metal katoris, pearls, gold-tone leaves",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from water and long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "pink",
+        "gold"
+      ],
+      "tags": [
+        "diwali",
+        "gift box",
+        "hamper",
+        "pooja",
+        "shubh labh",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights",
+        "images"
+      ]
+    },
+    {
+      "id": "p_028",
+      "slug": "ganesh-lakshmi-gift-box",
+      "name": "Ganesh Lakshmi Gift Box | Resin",
+      "type": "ready",
+      "category": "diwali-decor-gifts",
+      "subcategory": "Gift boxes & sets",
+      "occasions": [
+        "diwali"
+      ],
+      "images": [
+        "/products/ganesh-lakshmi-gift-box/1.jpg"
+      ],
+      "video": null,
+      "description": "Two red resin plaques with Ganesh ji and Lakshmi ji in gold, each on its own little stand, with two red lotus tealight holders, in a gold gift box.",
+      "highlights": [
+        "Ganesh and Lakshmi plaques with stands",
+        "Two red lotus tealight holders",
+        "Packed in a gold gift box"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, gold foil, tealights",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from water and long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "red",
+        "gold"
+      ],
+      "tags": [
+        "diwali",
+        "gift box",
+        "hamper",
+        "ganesh",
+        "lakshmi",
+        "tealight",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_029",
+      "slug": "shubh-labh-candle-gift-box",
+      "name": "Shubh Labh & Candle Gift Box",
+      "type": "ready",
+      "category": "diwali-decor-gifts",
+      "subcategory": "Gift boxes & sets",
+      "occasions": [
+        "diwali"
+      ],
+      "images": [
+        "/products/shubh-labh-candle-gift-box/1.jpg"
+      ],
+      "video": null,
+      "description": "A Diwali gift box with a pair of gold Shubh Labh hangings with bead tassels, two laddoo candles and a flower candle in a gold holder.",
+      "highlights": [
+        "Shubh Labh pair with bead tassels",
+        "Two laddoo candles",
+        "Flower candle in a gold holder"
+      ],
+      "dimensions": null,
+      "material": "Resin, beads, wax candles",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from water and long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "gold",
+        "orange",
+        "white"
+      ],
+      "tags": [
+        "diwali",
+        "gift box",
+        "hamper",
+        "candle",
+        "shubh labh",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_030",
+      "slug": "pink-shubh-labh-gift-box",
+      "name": "Pink Shubh Labh Gift Box | Resin",
+      "type": "ready",
+      "category": "diwali-decor-gifts",
+      "subcategory": "Gift boxes & sets",
+      "occasions": [
+        "diwali"
+      ],
+      "images": [
+        "/products/pink-shubh-labh-gift-box/1.jpg"
+      ],
+      "video": null,
+      "description": "A bright Diwali gift box: a pair of pink Shubh Labh hangings with pearl borders, a small Ganesh plaque and two pink resin tealight holders with gold flakes.",
+      "highlights": [
+        "Shubh Labh pair with pearl borders",
+        "Ganesh plaque",
+        "Two pink tealight holders"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, pearls, gold flakes, tealights",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from water and long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "pink",
+        "gold"
+      ],
+      "tags": [
+        "diwali",
+        "gift box",
+        "hamper",
+        "shubh labh",
+        "tealight",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_031",
+      "slug": "pink-lotus-pooja-set",
+      "name": "Pink Lotus Pooja Set | Resin",
+      "type": "ready",
+      "category": "diwali-decor-gifts",
+      "subcategory": "Gift boxes & sets",
+      "occasions": [
+        "diwali"
+      ],
+      "images": [
+        "/products/pink-lotus-pooja-set/1.jpg"
+      ],
+      "video": null,
+      "description": "A pink lotus pooja set on a wooden tray: a pooja thali with gold katoris, two lotus tealight holders, and Shubh and Labh plaques with painted lotuses and pearls.",
+      "highlights": [
+        "Thali, two tealight holders, Shubh Labh plaques",
+        "Painted lotuses, pearls and gold",
+        "Arrives on a wooden tray"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, metal katoris, pearls, wooden tray",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from water and long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "pink",
+        "gold"
+      ],
+      "tags": [
+        "diwali",
+        "pooja set",
+        "thali",
+        "lotus",
+        "shubh labh",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_032",
+      "slug": "lotus-pearl-pooja-thali",
+      "name": "Lotus Pearl Pooja Thali | Resin",
+      "type": "ready",
+      "category": "diwali-decor-gifts",
+      "subcategory": "Pooja thalis",
+      "occasions": [
+        "diwali"
+      ],
+      "images": [
+        "/products/lotus-pearl-pooja-thali/1.jpg"
+      ],
+      "video": null,
+      "description": "A blush pink pooja thali with painted lotuses, gold leaves and a border of pearls, with two gold katoris.",
+      "highlights": [
+        "Painted lotuses and gold leaves",
+        "Pearl border",
+        "Two gold katoris"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, pearls, metal katoris",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from water and long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "pink",
+        "gold",
+        "white"
+      ],
+      "tags": [
+        "diwali",
+        "thali",
+        "pooja",
+        "lotus",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_033",
+      "slug": "peacock-feather-pooja-thali",
+      "name": "Peacock Feather Pooja Thali | Resin",
+      "type": "ready",
+      "category": "diwali-decor-gifts",
+      "subcategory": "Pooja thalis",
+      "occasions": [
+        "diwali"
+      ],
+      "images": [
+        "/products/peacock-feather-pooja-thali/1.jpg"
+      ],
+      "video": null,
+      "description": "A turquoise and clear pooja thali with a peacock feather, gold flakes and two gold katoris, lovely for Janmashtami as well as Diwali.",
+      "highlights": [
+        "Peacock feather design",
+        "Turquoise with gold flakes",
+        "Two gold katoris"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, gold flakes, metal katoris",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from water and long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "teal",
+        "gold",
+        "clear"
+      ],
+      "tags": [
+        "diwali",
+        "thali",
+        "pooja",
+        "peacock",
+        "krishna",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_034",
+      "slug": "namokar-mantra-thali",
+      "name": "Namokar Mantra Pooja Thali | Resin",
+      "type": "ready",
+      "category": "diwali-decor-gifts",
+      "subcategory": "Pooja thalis",
+      "occasions": [
+        "diwali"
+      ],
+      "images": [
+        "/products/namokar-mantra-thali/1.jpg"
+      ],
+      "video": null,
+      "description": "A red and green pooja thali with the Namokar Mantra in gold, two swastikas, gold leaves, gold flakes and a pearl border, with two gold katoris.",
+      "highlights": [
+        "Namokar Mantra in gold",
+        "Gold flakes and pearl border",
+        "Two gold katoris"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, gold foil, pearls, metal katoris",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from water and long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "red",
+        "green",
+        "gold"
+      ],
+      "tags": [
+        "diwali",
+        "thali",
+        "pooja",
+        "jain",
+        "namokar",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_035",
+      "slug": "shubh-labh-hangings",
+      "name": "Shubh Labh Hangings | Resin | Pair",
+      "type": "ready",
+      "category": "diwali-decor-gifts",
+      "subcategory": "Shubh Labh hangings",
+      "occasions": [
+        "diwali"
+      ],
+      "images": [
+        "/products/shubh-labh-hangings/1.jpg"
+      ],
+      "video": null,
+      "description": "A pair of white Shubh Labh hangings with gold lettering, gold leaves, little pink flowers and gold chain tassels, on pearl rings.",
+      "highlights": [
+        "Pair: Shubh and Labh",
+        "Gold lettering, leaves and flowers",
+        "Gold chain tassels and pearl rings"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, gold-tone leaves, pearls, chain",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from water and long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "white",
+        "gold",
+        "pink"
+      ],
+      "tags": [
+        "diwali",
+        "shubh labh",
+        "door hanging",
+        "wall hanging",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_036",
+      "slug": "ganesh-lakshmi-shubh-labh",
+      "name": "Ganesh Lakshmi Shubh Labh | Resin | Pair",
+      "type": "ready",
+      "category": "diwali-decor-gifts",
+      "subcategory": "Shubh Labh hangings",
+      "occasions": [
+        "diwali"
+      ],
+      "images": [
+        "/products/ganesh-lakshmi-shubh-labh/1.jpg"
+      ],
+      "video": null,
+      "description": "A pair of white resin hangings with Ganesh ji and Lakshmi ji, Shubh and Labh, gold flowers, pearl rings and soft tassels.",
+      "highlights": [
+        "Pair with Ganesh ji and Lakshmi ji",
+        "Gold and white flowers",
+        "Pearl rings and tassels"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, printed pictures, pearls, tassels",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from water and long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "white",
+        "gold",
+        "pink"
+      ],
+      "tags": [
+        "diwali",
+        "shubh labh",
+        "ganesh",
+        "lakshmi",
+        "door hanging",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_037",
+      "slug": "lotus-tealight-holder",
+      "name": "Lotus Tealight Holder | Resin",
+      "type": "ready",
+      "category": "diwali-decor-gifts",
+      "subcategory": "Tealight holders",
+      "occasions": [
+        "diwali"
+      ],
+      "images": [
+        "/products/lotus-tealight-holder/1.jpg",
+        "/products/lotus-tealight-holder/2.jpg"
+      ],
+      "video": null,
+      "description": "A lotus of resin petals with gold edges and gold flakes, holding a tealight in a gold lattice cup. Choose your colour.",
+      "highlights": [
+        "Lotus petals with gold edges",
+        "Gold lattice tealight cup",
+        "Gold, purple, pink or red"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, gold flakes, metal cup, tealight",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from water and long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 3,
+        "max": 5
+      },
+      "stock": null,
+      "variants": [
+        {
+          "name": "Colour",
+          "options": [
+            "Gold",
+            "Purple",
+            "Pink",
+            "Red"
+          ]
+        }
+      ],
+      "colours": [
+        "gold",
+        "pink",
+        "red"
+      ],
+      "tags": [
+        "diwali",
+        "tealight",
+        "diya",
+        "candle",
+        "lotus",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights",
+        "variants"
+      ]
+    },
+    {
+      "id": "p_038",
+      "slug": "krishna-mantra-led-plaque",
+      "name": "Krishna Mantra LED Plaque | Resin with Easel",
+      "type": "ready",
+      "category": "diwali-decor-gifts",
+      "subcategory": "Plaques & frames",
+      "occasions": [
+        "diwali"
+      ],
+      "images": [
+        "/products/krishna-mantra-led-plaque/1.jpg"
+      ],
+      "video": null,
+      "description": "A green resin plaque with the Krishna mantra in gold, a peacock feather and little LED lights, on a wooden easel.",
+      "highlights": [
+        "Krishna mantra in gold",
+        "Peacock feather and LED lights",
+        "Stands on a wooden easel"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, gold foil, LED string, wooden easel",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from water and long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "green",
+        "teal",
+        "gold"
+      ],
+      "tags": [
+        "diwali",
+        "krishna",
+        "mantra",
+        "led",
+        "plaque",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_039",
+      "slug": "ganesha-rose-petal-plaque",
+      "name": "Ganesha Rose Petal Plaque | Resin with Stand",
+      "type": "ready",
+      "category": "diwali-decor-gifts",
+      "subcategory": "Plaques & frames",
+      "occasions": [
+        "diwali"
+      ],
+      "images": [
+        "/products/ganesha-rose-petal-plaque/1.jpg"
+      ],
+      "video": null,
+      "description": "A clear resin plaque with Ganesh ji in copper gold and real rose petals sealed inside, on a round resin stand.",
+      "highlights": [
+        "Ganesh ji in copper gold",
+        "Real rose petals inside",
+        "Round resin stand"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, dried rose petals, gold foil",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from water and long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "clear",
+        "red",
+        "gold"
+      ],
+      "tags": [
+        "diwali",
+        "ganesh",
+        "rose",
+        "plaque",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_040",
+      "slug": "radha-krishna-frame",
+      "name": "Radha Krishna Frame | Resin with Stand",
+      "type": "ready",
+      "category": "diwali-decor-gifts",
+      "subcategory": "Plaques & frames",
+      "occasions": [
+        "diwali"
+      ],
+      "images": [
+        "/products/radha-krishna-frame/1.jpg"
+      ],
+      "video": null,
+      "description": "A round resin frame with a picture of Radha Krishna, a sparkling gold-flake border and a white stand.",
+      "highlights": [
+        "Radha Krishna picture",
+        "Gold-flake border",
+        "White stand"
+      ],
+      "dimensions": null,
+      "material": "Epoxy resin, printed picture, gold flakes",
+      "weight": null,
+      "care": "Wipe with a soft dry cloth. Keep away from water and long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "gold",
+        "white",
+        "multicolour"
+      ],
+      "tags": [
+        "diwali",
+        "radha krishna",
+        "frame",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
       ]
     }
   ]

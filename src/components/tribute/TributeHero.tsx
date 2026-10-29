@@ -9,7 +9,7 @@ export function TributeHero({ products }: { products: Product[] }) {
       <div className="container-x pt-24 pb-12 md:pb-14 lg:pt-28">
         <div className="hero-copy mx-auto max-w-2xl text-center">
           <p className="eyebrow" style={{ "--i": 0 } as React.CSSProperties}>
-            For our Army, Navy and Air Force
+            A Special Tribute to Defence Personnel
           </p>
           <h1 id="hero-title" className="mt-3 text-[28px] font-semibold leading-[1.12] md:text-[42px]" style={{ "--i": 1 } as React.CSSProperties}>
             They served the nation. <span className="shimmer">They deserve the best.</span>

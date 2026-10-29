@@ -6,7 +6,7 @@ import { AppLink } from "@/components/ui/AppLink";
 import { WhatsAppIcon } from "@/components/ui/Icons";
 import { site } from "@/config/site";
 import { formatINR } from "@/lib/format";
-import type { CartProduct } from "@/lib/pricing";
+import { lineCode, type CartProduct } from "@/lib/pricing";
 import { messages, whatsappLink } from "@/lib/whatsapp";
 import { CartLines, SavedForLater } from "./CartLines";
 import { CouponField } from "./CouponField";
@@ -46,7 +46,7 @@ export function CartView({ catalogue }: { catalogue: CartProduct[] }) {
   }
 
   const waText = messages.cart(
-    totals.lines.map((l) => ({ name: l.product.name.split(" | ")[0], variant: l.line.variant, quantity: l.quantity, total: formatINR(l.lineTotal) })),
+    totals.lines.map((l) => ({ name: l.product.name.split(" | ")[0], variant: l.line.variant, code: lineCode(l.product, l.line), quantity: l.quantity, total: formatINR(l.lineTotal) })),
     formatINR(totals.subtotal),
   );
 

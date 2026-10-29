@@ -4,7 +4,7 @@ import { cartCatalog, getProduct } from "@/lib/catalog";
 import { validateCheckout, type CheckoutErrors, type CheckoutInput, type Order } from "@/lib/checkout";
 import { checkPincode } from "@/lib/delivery";
 import { normaliseMobile } from "@/lib/india";
-import { describeOptions, priceCart, type CartLine } from "@/lib/pricing";
+import { describeOptions, lineCode, priceCart, type CartLine } from "@/lib/pricing";
 import { upiAvailable } from "@/lib/upi";
 import { razorpayKeys } from "./razorpay";
 
@@ -133,6 +133,7 @@ export function buildOrder(input: CheckoutInput, now: number): BuildResult {
       items: totals.lines.map((l) => ({
         slug: l.product.slug,
         name: l.product.name,
+        code: lineCode(l.product, l.line),
         variant: l.line.variant,
         options: l.line.options,
         image: l.product.image,

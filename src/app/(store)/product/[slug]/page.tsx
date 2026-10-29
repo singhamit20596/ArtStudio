@@ -11,6 +11,7 @@ import { Breadcrumbs, type Crumb } from "@/components/listing/Breadcrumbs";
 import { ProductCarousel } from "@/components/home/ProductCarousel";
 import { CustomRequestButton } from "@/components/custom/CustomRequestButton";
 import { launch } from "@/config/launch";
+import { festiveFor } from "@/config/festive";
 import { ProcessTimeline } from "@/components/tribute/ProcessTimeline";
 import { RequestFrameButton } from "@/components/tribute/RequestFrameButton";
 import { TributeBuyPanel } from "@/components/tribute/TributeBuyPanel";
@@ -59,7 +60,10 @@ async function ProductView({ params }: { params: PageProps<"/product/[slug]">["p
   const custom = product.type === "custom";
   const path = productHref(product);
   const focus = product.category === launch.focus;
-  const crumbs: Crumb[] = focus ? [] : custom ? [{ label: "Custom", href: "/custom" }] : [{ label: "Shop", href: "/shop" }];
+  // Festive pieces (Diwali, Christmas) get their line's colours (globals.css) and its page as parent.
+  const festive = festiveFor(product.category);
+  const madeToOrder = !custom && product.stock == null;
+  const crumbs: Crumb[] = focus || festive ? [] : custom ? [{ label: "Custom", href: "/custom" }] : [{ label: "Shop", href: "/shop" }];
   if (category) crumbs.push({ label: category.name, href: categoryHref(category) });
   crumbs.push({ label: shortName(product) });
   const similar = similarProducts(product);
@@ -67,13 +71,14 @@ async function ProductView({ params }: { params: PageProps<"/product/[slug]">["p
   if (product.sizes?.length) return <TributeProductView product={product} crumbs={crumbs} path={path} />;
 
   return (
-    <>
+    <div className={festive ? festive.theme : "contents"}>
       <div className="container-x pt-5 pb-16 md:pt-6 md:pb-24">
         <Breadcrumbs items={crumbs} />
 
         <div className="mt-5 grid gap-8 md:mt-8 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:gap-12 lg:gap-16">
           <div className="md:sticky md:top-24 md:self-start">
             <Gallery images={product.images} video={product.video} name={shortName(product)} fallbackNote={custom ? "Made to order" : "Photo coming soon"} />
+            {product.samplePhoto && festive && <p className="mt-2 text-[12px] text-muted">{festive.samplePhotoNote}</p>}
           </div>
 
           <div className="min-w-0">
@@ -88,7 +93,7 @@ async function ProductView({ params }: { params: PageProps<"/product/[slug]">["p
               <Price product={product} className="text-[20px]" />
               <p className="mt-1 text-[12.5px] text-muted">
                 {custom ? "Final price depends on size and details." : "Inclusive of all taxes."}{" "}
-                {custom ? `Made by hand in ${formatDays(product.makingTimeDays)}.` : `Ships in ${formatDays(product.makingTimeDays)}.`}
+                {custom || madeToOrder ? `Made by hand in ${formatDays(product.makingTimeDays)}.` : `Ships in ${formatDays(product.makingTimeDays)}.`}
               </p>
             </div>
 
@@ -132,7 +137,7 @@ async function ProductView({ params }: { params: PageProps<"/product/[slug]">["p
       )}
 
       <RecentlyViewed current={product.slug} products={products} />
-    </>
+    </div>
   );
 }
 

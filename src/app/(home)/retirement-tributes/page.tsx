@@ -6,7 +6,7 @@ import { TributeHero } from "@/components/tribute/TributeHero";
 
 export const metadata: Metadata = {
   title: "Retirement Tributes",
-  description: "Newspaper tributes, box frames and resin frames for Army, Navy and Air Force retirements, made by hand around their medals, photographs and story.",
+  description: "Newspaper tributes, box frames and resin frames for retiring defence personnel, made by hand around their medals, photographs and story.",
 };
 
 /** All three tributes on one page: the "Retirement Tributes" menu label opens it. */

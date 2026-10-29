@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { Product } from "@/lib/types";
 import { formatINR } from "@/lib/format";
-import { MAX_QTY } from "@/lib/pricing";
+import { lineCode, MAX_QTY } from "@/lib/pricing";
 import { shortName } from "@/lib/product";
 import { useOrigin } from "@/lib/use-origin";
 import { messages, whatsappLink } from "@/lib/whatsapp";
@@ -29,14 +29,19 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
   const { addToCart: add, setCartOpen } = useShop();
 
   const name = shortName(product);
-  const stock = product.stock ?? 0;
+  // No stock count means the piece is made to order (Christmas pieces): never sold out.
+  const madeToOrder = product.stock == null;
+  const stock = product.stock ?? MAX_QTY;
   const soldOut = stock <= 0;
   const maxQty = Math.max(1, Math.min(stock, MAX_QTY));
   const unmet = product.variants.find((v) => !choice[v.name]);
   const variantText = product.variants.map((v) => (choice[v.name] ? `${v.name}: ${choice[v.name]}` : null)).filter(Boolean).join(", ");
   const total = product.price != null ? formatINR(product.price * qty) : null;
 
-  const orderHref = whatsappLink(messages.order(variantText ? `${name} (${variantText})` : name, qty, total, origin ? `${origin}${path}` : undefined));
+  // The full code (with the letter or style) once every choice is made.
+  const code = unmet ? null : lineCode(product, { variant: variantText || undefined });
+  const item = `${name}${variantText ? ` (${variantText})` : ""}${code ? ` [${code}]` : ""}`;
+  const orderHref = whatsappLink(messages.order(item, qty, total, origin ? `${origin}${path}` : undefined));
 
   /** Returns false (and points at the selector) when a variant still needs choosing. */
   const ready = () => {
@@ -100,7 +105,7 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
         </fieldset>
       ))}
 
-      <StockNote stock={stock} />
+      {madeToOrder ? <p className="text-[13px] text-muted">Made to order, by hand</p> : <StockNote stock={stock} />}
 
       <div id={ACTIONS_ID} className="space-y-3">
         <div className="flex gap-3">

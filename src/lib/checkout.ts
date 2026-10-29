@@ -65,6 +65,8 @@ export interface Personalisation {
 export interface OrderItem {
   slug: string;
   name: string;
+  /** Product code, e.g. "RTBF2424" (missing on orders placed before codes existed). */
+  code?: string | null;
   variant?: string;
   options?: LineOptions;
   image: string | null;

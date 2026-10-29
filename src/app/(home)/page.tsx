@@ -15,6 +15,13 @@ import { Newsletter } from "@/components/home/Newsletter";
 import { TrustRow } from "@/components/home/TrustRow";
 import { Marquee } from "@/components/home/Marquee";
 import { TributeHero } from "@/components/tribute/TributeHero";
+import { Flame, Snowflake } from "lucide-react";
+import { ChristmasDecor } from "@/components/christmas/ChristmasDecor";
+import { DiwaliDecor } from "@/components/diwali/DiwaliDecor";
+import { FestiveBand } from "@/components/festive/FestiveBand";
+import { christmas } from "@/config/christmas";
+import { diwali } from "@/config/diwali";
+import { festiveFor, type FestiveLine } from "@/config/festive";
 
 const CARD_SIZES = "(min-width: 1024px) 25vw, (min-width: 640px) 31vw, 46vw";
 
@@ -27,13 +34,25 @@ export default function HomePage() {
   const focus = getCategory(launch.focus);
   if (!focus) notFound();
   const tributes = products.filter((p) => p.category === launch.focus);
-  const arrivals = newArrivals(8).filter((p) => p.category !== launch.focus);
-  const festive = forOccasions(["diwali", "karwa-chauth"], 8);
+  const picks = (line: FestiveLine) => line.featured.map((slug) => products.find((p) => p.slug === slug)).filter((p) => p != null);
+  const diwaliPicks = picks(diwali);
+  const christmasPicks = picks(christmas);
+  // Tributes, Diwali and Christmas pieces have their own sections above, so these lists leave them out.
+  const ownSection = (category: string) => category === launch.focus || festiveFor(category) != null;
+  const arrivals = newArrivals(40)
+    .filter((p) => !ownSection(p.category))
+    .slice(0, 8);
+  const festive = forOccasions(["diwali", "karwa-chauth"], 40)
+    .filter((p) => !ownSection(p.category))
+    .slice(0, 8);
 
   return (
     <>
       {/* 1. The featured line */}
       <TributeHero products={tributes} />
+      {/* 1b. The festivals, right below the tributes (owner, 29 Oct 2026): Diwali first, then Christmas */}
+      {diwaliPicks.length > 0 && <FestiveBand line={diwali} products={diwaliPicks} decor={<DiwaliDecor />} Icon={Flame} cta="See all Diwali" />}
+      {christmasPicks.length > 0 && <FestiveBand line={christmas} products={christmasPicks} decor={<ChristmasDecor />} Icon={Snowflake} cta="See all Christmas" />}
       {/* 2. The rest of the studio */}
       <section aria-labelledby="studio-title" className="container-x pt-16 text-center md:pt-24">
         <p className="eyebrow">Art Studio · Art with Soul</p>

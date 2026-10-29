@@ -6,7 +6,7 @@ import { ShopProvider } from "@/components/providers/ShopProvider";
 import { Toaster } from "@/components/ui/Toaster";
 import { PreviewLinkGuard } from "@/components/layout/PreviewLinkGuard";
 
-const title = `${site.name} · Retirement tributes for the Army, Navy & Air Force`;
+const title = `${site.name} · Retirement tributes for defence personnel`;
 
 export const metadata: Metadata = {
   ...(site.url ? { metadataBase: new URL(site.url) } : {}),

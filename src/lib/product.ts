@@ -1,3 +1,4 @@
+import { festiveFor } from "@/config/festive";
 import { launch } from "@/config/launch";
 import type { Category, Product } from "./types";
 
@@ -13,6 +14,9 @@ export function productHref(p: Pick<Product, "slug">) {
 export function categoryHref(c: Pick<Category, "slug" | "type">) {
   // The featured line (Retirement Tributes) has its own page.
   if (c.slug === launch.focus) return "/retirement-tributes";
+  // Festive lines (Diwali, Christmas) have their own pages too.
+  const festive = festiveFor(c.slug);
+  if (festive) return festive.path;
   if (c.type === "ready") return c.slug === "gifts" ? "/gifts" : `/shop/${c.slug}`;
   return `/custom/${c.slug}`;
 }

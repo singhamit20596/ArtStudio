@@ -1,4 +1,4 @@
-import { festiveFor } from "@/config/festive";
+import { themedLineFor } from "@/config/lines";
 import { launch } from "@/config/launch";
 import type { Category, Product } from "./types";
 
@@ -12,12 +12,12 @@ export function productHref(p: Pick<Product, "slug">) {
 }
 
 export function categoryHref(c: Pick<Category, "slug" | "type">) {
-  // The featured line (Retirement Tributes) has its own page.
-  if (c.slug === launch.focus) return "/retirement-tributes";
-  // Festive lines (Diwali, Christmas) have their own pages too.
-  const festive = festiveFor(c.slug);
-  if (festive) return festive.path;
-  if (c.type === "ready") return c.slug === "gifts" ? "/gifts" : `/shop/${c.slug}`;
+  // The featured line (Retirement Gifts) has its own page.
+  if (c.slug === launch.focus) return "/retirement-gifts";
+  // Themed lines (Diwali, Christmas, Car Gifts) have their own pages too.
+  const themed = themedLineFor(c.slug);
+  if (themed) return themed.path;
+  if (c.type === "ready") return `/shop/${c.slug}`;
   return `/custom/${c.slug}`;
 }
 

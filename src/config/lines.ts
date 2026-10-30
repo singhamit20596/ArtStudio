@@ -1,17 +1,18 @@
 /**
- * Festive lines: seasonal collections with their own page, colours, menu item and homepage
- * section (Diwali and Christmas, added 29 Oct 2026). Each line's copy lives in its own file;
- * the shared page parts are in src/components/festive/.
+ * Themed lines: collections with their own page, colours, decoration, menu item and homepage
+ * section (Diwali, Christmas and Car Gifts, added 29–30 Oct 2026). Each line's copy lives in its
+ * own file; the shared page parts are in src/components/lines/.
  */
+import { cars } from "./cars";
 import { christmas } from "./christmas";
 import { diwali } from "./diwali";
 
-export interface FestiveLine {
+export interface ThemedLine {
   /** The shop category holding the line's products (seed.json). */
   category: string;
   /** The line's own page. */
   path: string;
-  /** Class on the page and its product pages that swaps in the festive colours (globals.css). */
+  /** Class on the page and its product pages that swaps in the line's colours (globals.css). */
   theme: string;
   eyebrow: string;
   /** The heading: the second part gets the gold shimmer. */
@@ -30,8 +31,8 @@ export interface FestiveLine {
   taglines: Record<string, string>;
 }
 
-/** In homepage order: the sooner festival first. */
-export const festiveLines: FestiveLine[] = [diwali, christmas];
+/** In homepage order: the festivals (sooner first), then the year-round lines. */
+export const themedLines: ThemedLine[] = [diwali, christmas, cars];
 
-/** The festive line a category belongs to, if any. */
-export const festiveFor = (category: string) => festiveLines.find((l) => l.category === category);
+/** The themed line a category belongs to, if any. */
+export const themedLineFor = (category: string) => themedLines.find((l) => l.category === category);

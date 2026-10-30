@@ -3,7 +3,8 @@
 import clsx from "clsx";
 import Image from "next/image";
 import { Play } from "lucide-react";
-import { useRef, useState } from "react";
+import { useRef, useState, type ReactNode } from "react";
+import { useLang } from "@/i18n/use-lang";
 import { ProductImage } from "./ProductImage";
 
 type Media = { kind: "image"; src: string } | { kind: "video"; src: string };
@@ -14,7 +15,7 @@ interface GalleryProps {
   /** Product name, used for alt text and the no-photo card. */
   name: string;
   /** Shown on the no-photo card ("Photo coming soon", "Made to order"). */
-  fallbackNote?: string;
+  fallbackNote?: ReactNode;
 }
 
 const SIZES = "(min-width: 768px) 50vw, 100vw";
@@ -29,6 +30,7 @@ export function Gallery({ images, video, name, fallbackNote }: GalleryProps) {
 
   const track = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const hi = useLang() === "hi";
 
   const goTo = (i: number) => {
     const el = track.current;
@@ -49,13 +51,13 @@ export function Gallery({ images, video, name, fallbackNote }: GalleryProps) {
   return (
     <div className={clsx(media.length > 1 && "md:grid md:grid-cols-[72px_minmax(0,1fr)] md:gap-4")}>
       {media.length > 1 && (
-        <ul className="order-first hidden flex-col gap-3 md:flex" aria-label="Choose a photo">
+        <ul className="order-first hidden flex-col gap-3 md:flex" aria-label={hi ? "फ़ोटो चुनें" : "Choose a photo"}>
           {media.map((m, i) => (
             <li key={m.src}>
               <button
                 type="button"
                 onClick={() => goTo(i)}
-                aria-label={m.kind === "video" ? "Play the video" : `Photo ${i + 1} of ${media.length}`}
+                aria-label={m.kind === "video" ? (hi ? "वीडियो चलाएँ" : "Play the video") : hi ? `फ़ोटो ${i + 1} / ${media.length}` : `Photo ${i + 1} of ${media.length}`}
                 aria-current={active === i}
                 className={clsx("relative block aspect-[4/5] w-full overflow-hidden bg-brown ring-offset-2 ring-offset-sage transition", active === i ? "ring-1 ring-ink" : "opacity-70 hover:opacity-100")}
               >
@@ -82,10 +84,10 @@ export function Gallery({ images, video, name, fallbackNote }: GalleryProps) {
           className="scroller -mx-4 [scroll-padding-inline:0] md:mx-0"
           role="region"
           aria-roledescription="carousel"
-          aria-label={`${name} photos`}
+          aria-label={hi ? `${name}: फ़ोटो` : `${name} photos`}
         >
           {media.map((m, i) => (
-            <div key={m.src} className="w-full shrink-0" aria-roledescription="slide" aria-label={`${i + 1} of ${media.length}`}>
+            <div key={m.src} className="w-full shrink-0" aria-roledescription="slide" aria-label={hi ? `${i + 1} / ${media.length}` : `${i + 1} of ${media.length}`}>
               {m.kind === "image" ? <ZoomImage src={m.src} alt={i === 0 ? name : `${name}, photo ${i + 1}`} priority={i === 0} /> : <Video src={m.src} />}
             </div>
           ))}

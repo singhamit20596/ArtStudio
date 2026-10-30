@@ -1,4 +1,6 @@
 import { site } from "@/config/site";
+import { T } from "@/i18n/T";
+import { tr } from "@/i18n/ui";
 
 /** Thin amber bar above the header; four messages rotate with CSS only. */
 export function AnnouncementBar() {
@@ -13,7 +15,7 @@ export function AnnouncementBar() {
               style={{ "--i": i } as React.CSSProperties}
               aria-hidden={i > 0 ? "true" : undefined}
             >
-              {msg}
+              <T en={msg} hi={tr(msg)} />
             </li>
           ))}
         </ul>

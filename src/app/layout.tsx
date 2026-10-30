@@ -5,8 +5,9 @@ import { site } from "@/config/site";
 import { ShopProvider } from "@/components/providers/ShopProvider";
 import { Toaster } from "@/components/ui/Toaster";
 import { PreviewLinkGuard } from "@/components/layout/PreviewLinkGuard";
+import { LANG_SCRIPT } from "@/i18n/lang";
 
-const title = `${site.name} · Retirement tributes for defence personnel`;
+const title = `${site.name} · Retirement gifts for defence personnel`;
 
 export const metadata: Metadata = {
   ...(site.url ? { metadataBase: new URL(site.url) } : {}),
@@ -33,7 +34,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={`${poppins.variable} ${poppinsDevanagari.variable}`}>
+    // suppressHydrationWarning: the language script below may switch lang/data-lang before React hydrates.
+    <html lang="en-IN" className={`${poppins.variable} ${poppinsDevanagari.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Hindi or English (src/i18n/lang.ts): applied before the first paint, so there is no flash. */}
+        <script dangerouslySetInnerHTML={{ __html: LANG_SCRIPT }} />
+      </head>
       <body>
         <ShopProvider>
           {children}

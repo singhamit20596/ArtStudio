@@ -1,22 +1,23 @@
 import Image from "next/image";
 import { AppLink } from "@/components/ui/AppLink";
 import { Sparkle } from "@/components/ui/Icons";
+import { T } from "@/i18n/T";
 
-const tiles: { label: string; href: string; image: string | null }[] = [
-  { label: "Pooja & Festive", href: "/shop/pooja-festive", image: "/products/lal-pooja-thali/1.jpg" },
-  { label: "Trays & Coasters", href: "/shop/trays-coasters", image: "/products/blush-agate-resin-tray/1.jpg" },
-  { label: "Wall Décor", href: "/shop/wall-decor", image: "/products/marble-noir-wall-clock/1.jpg" },
-  { label: "Keychains", href: "/shop/keychains-accessories", image: "/products/botanical-initial-keychain/1.jpg" },
-  { label: "Shadow Boxes", href: "/custom/shadow-boxes", image: "/products/birthday-shadow-box-led/1.jpg" },
-  { label: "Photo Magnets", href: "/custom/fridge-magnets", image: "/products/resin-photo-blocks-magnets/1.jpg" },
-  { label: "Made to Order", href: "/custom", image: null },
+const tiles: { label: string; hi: string; href: string; image: string | null }[] = [
+  { label: "Pooja & Festive", hi: "पूजा और त्योहार", href: "/shop/pooja-festive", image: "/products/lal-pooja-thali/1.jpg" },
+  { label: "Trays & Coasters", hi: "ट्रे और कोस्टर", href: "/shop/trays-coasters", image: "/products/blush-agate-resin-tray/1.jpg" },
+  { label: "Wall Décor", hi: "दीवार की सजावट", href: "/shop/wall-decor", image: "/products/marble-noir-wall-clock/1.jpg" },
+  { label: "Keychains", hi: "कीचेन", href: "/shop/keychains-accessories", image: "/products/botanical-initial-keychain/1.jpg" },
+  { label: "Shadow Boxes", hi: "शैडो बॉक्स", href: "/custom/shadow-boxes", image: "/products/birthday-shadow-box-led/1.jpg" },
+  { label: "Photo Magnets", hi: "फ़ोटो मैग्नेट", href: "/custom/fridge-magnets", image: "/products/resin-photo-blocks-magnets/1.jpg" },
+  { label: "Made to Order", hi: "ऑर्डर पर तैयार", href: "/custom", image: null },
 ];
 
 export function CategoryStrip() {
   return (
     <section aria-labelledby="cat-title" className="pt-10 pb-4 md:pt-14">
       <h2 id="cat-title" className="sr-only">
-        Shop by category
+        <T en="Shop by category" hi="कैटेगरी के हिसाब से देखें" />
       </h2>
       <ul className="scroller container-x gap-5 sm:gap-7 lg:justify-between lg:gap-4">
         {tiles.map((t) => (
@@ -31,7 +32,9 @@ export function CategoryStrip() {
                   </span>
                 )}
               </span>
-              <span className="text-[10.5px] font-semibold uppercase leading-snug tracking-[0.16em]">{t.label}</span>
+              <span className="text-[10.5px] font-semibold uppercase leading-snug tracking-[0.16em]">
+                <T en={t.label} hi={t.hi} />
+              </span>
             </AppLink>
           </li>
         ))}

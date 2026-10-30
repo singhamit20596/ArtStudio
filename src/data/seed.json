@@ -97,17 +97,17 @@
       "status": "active"
     },
     {
-      "slug": "gifts",
+      "slug": "car-gifts",
       "type": "ready",
-      "name": "Gifts",
-      "description": "A curated edit of pieces that make easy, thoughtful gifts.",
-      "image": "/products/resin-alphabet-letters/1.jpg",
+      "name": "Resin Car Gifts",
+      "description": "Diecast cars and bikes set in resin frames, canvases, clocks and displays, made by hand.",
+      "image": "/products/bmw-drift-smoke-canvas/1.jpg",
       "status": "active"
     },
     {
       "slug": "retirement-tribute-frames",
       "type": "custom",
-      "name": "Retirement Tributes",
+      "name": "Retirement Gifts",
       "description": "Newspaper tributes, box frames and resin frames for retiring defence personnel, made by hand.",
       "image": "/products/box-frame/frame.jpg",
       "status": "active",
@@ -1964,61 +1964,6 @@
       ]
     },
     {
-      "id": "p_027",
-      "slug": "pink-pooja-gift-box",
-      "name": "Pink Pooja Gift Box | Resin",
-      "type": "ready",
-      "category": "diwali-decor-gifts",
-      "subcategory": "Gift boxes & sets",
-      "occasions": [
-        "diwali"
-      ],
-      "images": [],
-      "video": null,
-      "description": "A pink Diwali gift box: a pooja thali with two gold katoris, a pair of Shubh Labh hangings with gold leaves, pearls and tassels, a small Ganesh plate and a flower tealight holder.",
-      "highlights": [
-        "Thali, Shubh Labh pair, Ganesh plate, tealight holder",
-        "Pink with gold leaves and pearls",
-        "Packed in a gift box"
-      ],
-      "dimensions": null,
-      "material": "Epoxy resin, metal katoris, pearls, gold-tone leaves",
-      "weight": null,
-      "care": "Wipe with a soft dry cloth. Keep away from water and long hours of direct sunlight.",
-      "makingTimeDays": {
-        "min": 7,
-        "max": 10
-      },
-      "stock": null,
-      "variants": [],
-      "colours": [
-        "pink",
-        "gold"
-      ],
-      "tags": [
-        "diwali",
-        "gift box",
-        "hamper",
-        "pooja",
-        "shubh labh",
-        "gift"
-      ],
-      "isNew": true,
-      "isBestseller": false,
-      "isCustomisable": false,
-      "instagramUrl": null,
-      "createdAt": "2026-10-29",
-      "published": true,
-      "placeholders": [
-        "dimensions",
-        "weight",
-        "makingTimeDays",
-        "material",
-        "highlights",
-        "images"
-      ]
-    },
-    {
       "id": "p_028",
       "slug": "ganesh-lakshmi-gift-box",
       "name": "Ganesh Lakshmi Gift Box | Resin",
@@ -2767,6 +2712,770 @@
       "isCustomisable": false,
       "instagramUrl": null,
       "createdAt": "2026-10-29",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_041",
+      "slug": "hot-wheels-smoke-frame",
+      "name": "Hot Wheels Smoke Frame | Resin",
+      "type": "ready",
+      "category": "car-gifts",
+      "subcategory": "Frames",
+      "occasions": [
+        "birthday"
+      ],
+      "images": [
+        "/products/hot-wheels-smoke-frame/1.jpg"
+      ],
+      "video": null,
+      "description": "A diecast car bursting out of a cloud of black resin smoke, on a white background in a black frame. Want a different car? Tell us on WhatsApp after you order.",
+      "highlights": [
+        "Diecast car in 3D",
+        "Black resin smoke",
+        "Black frame, ready to hang"
+      ],
+      "dimensions": null,
+      "material": "Resin, diecast model, frame",
+      "weight": null,
+      "care": "Dust with a soft dry cloth. Keep out of long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "black",
+        "white"
+      ],
+      "tags": [
+        "car",
+        "car gift",
+        "for him",
+        "hot wheels",
+        "smoke",
+        "frame",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-30",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_042",
+      "slug": "bmw-m-smoke-frame",
+      "name": "BMW M Smoke Frame | Resin",
+      "type": "ready",
+      "category": "car-gifts",
+      "subcategory": "Frames",
+      "occasions": [
+        "birthday"
+      ],
+      "images": [
+        "/products/bmw-m-smoke-frame/1.jpg"
+      ],
+      "video": null,
+      "description": "A diecast BMW drifting out of a white resin smoke cloud on a black background, with the BMW and M logos, in a black frame. Want a different car? Tell us on WhatsApp after you order.",
+      "highlights": [
+        "Diecast car in 3D",
+        "White resin smoke on black",
+        "Black frame, ready to hang"
+      ],
+      "dimensions": null,
+      "material": "Resin, diecast model, frame",
+      "weight": null,
+      "care": "Dust with a soft dry cloth. Keep out of long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "black",
+        "white"
+      ],
+      "tags": [
+        "car",
+        "car gift",
+        "for him",
+        "bmw",
+        "smoke",
+        "frame",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-30",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_043",
+      "slug": "hot-wheels-tyre-track-frame",
+      "name": "Hot Wheels Tyre Track Frame | Resin",
+      "type": "ready",
+      "category": "car-gifts",
+      "subcategory": "Frames",
+      "occasions": [
+        "birthday"
+      ],
+      "images": [
+        "/products/hot-wheels-tyre-track-frame/1.jpg"
+      ],
+      "video": null,
+      "description": "A diecast car racing down a splattered black tyre track on white, in a black frame. Want a different car? Tell us on WhatsApp after you order.",
+      "highlights": [
+        "Diecast car in 3D",
+        "Tyre track and splatter",
+        "Black frame, ready to hang"
+      ],
+      "dimensions": null,
+      "material": "Resin, diecast model, frame",
+      "weight": null,
+      "care": "Dust with a soft dry cloth. Keep out of long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 5,
+        "max": 7
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "black",
+        "white"
+      ],
+      "tags": [
+        "car",
+        "car gift",
+        "for him",
+        "hot wheels",
+        "tyre track",
+        "frame",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-30",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_044",
+      "slug": "hot-wheels-twin-drift-frame",
+      "name": "Hot Wheels Twin Drift Shadow Box | Resin",
+      "type": "ready",
+      "category": "car-gifts",
+      "subcategory": "Frames",
+      "occasions": [
+        "birthday"
+      ],
+      "images": [
+        "/products/hot-wheels-twin-drift-frame/1.jpg"
+      ],
+      "video": null,
+      "description": "Two diecast cars drifting side by side over curving tyre tracks, in a deep metallic shadow box. Want a different car? Tell us on WhatsApp after you order.",
+      "highlights": [
+        "Two diecast cars in 3D",
+        "Curving tyre tracks",
+        "Deep metallic shadow box"
+      ],
+      "dimensions": null,
+      "material": "Resin, diecast models, shadow box",
+      "weight": null,
+      "care": "Dust with a soft dry cloth. Keep out of long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "black",
+        "white",
+        "red"
+      ],
+      "tags": [
+        "car",
+        "car gift",
+        "for him",
+        "hot wheels",
+        "drift",
+        "shadow box",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-30",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_045",
+      "slug": "three-cars-spotlight-frame",
+      "name": "Three Cars Spotlight Frame | Resin",
+      "type": "ready",
+      "category": "car-gifts",
+      "subcategory": "Frames",
+      "occasions": [
+        "birthday"
+      ],
+      "images": [
+        "/products/three-cars-spotlight-frame/1.jpg"
+      ],
+      "video": null,
+      "description": "Three diecast cars in blue, white and red, each in its own beam of coloured headlight, in a gold frame. Want a different car? Tell us on WhatsApp after you order.",
+      "highlights": [
+        "Three diecast cars in 3D",
+        "Coloured headlight beams",
+        "Gold frame"
+      ],
+      "dimensions": null,
+      "material": "Resin, diecast models, frame",
+      "weight": null,
+      "care": "Dust with a soft dry cloth. Keep out of long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "blue",
+        "white",
+        "red",
+        "gold"
+      ],
+      "tags": [
+        "car",
+        "car gift",
+        "for him",
+        "three cars",
+        "spotlight",
+        "frame",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-30",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_046",
+      "slug": "ferrari-flame-burnout-frame",
+      "name": "Ferrari Flame Burnout Frame | Resin",
+      "type": "ready",
+      "category": "car-gifts",
+      "subcategory": "Frames",
+      "occasions": [
+        "birthday"
+      ],
+      "images": [
+        "/products/ferrari-flame-burnout-frame/1.jpg"
+      ],
+      "video": null,
+      "description": "A red Ferrari tearing through red and yellow paint flames on a carbon-fibre background, with the prancing horse in the smoke. Want a different car? Tell us on WhatsApp after you order.",
+      "highlights": [
+        "Red diecast Ferrari in 3D",
+        "Red and yellow flames",
+        "Carbon-fibre background"
+      ],
+      "dimensions": null,
+      "material": "Resin, paint, diecast model, frame",
+      "weight": null,
+      "care": "Dust with a soft dry cloth. Keep out of long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "red",
+        "yellow",
+        "black"
+      ],
+      "tags": [
+        "car",
+        "car gift",
+        "for him",
+        "ferrari",
+        "flames",
+        "frame",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-30",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_047",
+      "slug": "ferrari-racing-stripe-canvas",
+      "name": "Ferrari Racing Stripe Canvas | Resin",
+      "type": "ready",
+      "category": "car-gifts",
+      "subcategory": "Canvases",
+      "occasions": [
+        "birthday"
+      ],
+      "images": [
+        "/products/ferrari-racing-stripe-canvas/1.jpg"
+      ],
+      "video": null,
+      "description": "A glossy white resin canvas with twin red racing stripes, black splatter, the Ferrari name and a red diecast Ferrari. Want a different car? Tell us on WhatsApp after you order.",
+      "highlights": [
+        "Red diecast Ferrari in 3D",
+        "Twin red racing stripes",
+        "Glossy resin finish"
+      ],
+      "dimensions": null,
+      "material": "Resin, diecast model, canvas",
+      "weight": null,
+      "care": "Dust with a soft dry cloth. Keep out of long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "white",
+        "red",
+        "black"
+      ],
+      "tags": [
+        "car",
+        "car gift",
+        "for him",
+        "ferrari",
+        "racing stripe",
+        "canvas",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-30",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_049",
+      "slug": "bmw-drift-smoke-canvas",
+      "name": "BMW M760Li Drift Canvas | Resin",
+      "type": "ready",
+      "category": "car-gifts",
+      "subcategory": "Canvases",
+      "occasions": [
+        "birthday"
+      ],
+      "images": [
+        "/products/bmw-drift-smoke-canvas/1.jpg"
+      ],
+      "video": null,
+      "description": "A large glossy black resin canvas with a silver diecast BMW M760Li drifting out of a cloud of white smoke. Want a different car? Tell us on WhatsApp after you order.",
+      "highlights": [
+        "Silver diecast BMW in 3D",
+        "White resin smoke",
+        "Large glossy canvas"
+      ],
+      "dimensions": null,
+      "material": "Resin, diecast model, canvas",
+      "weight": null,
+      "care": "Dust with a soft dry cloth. Keep out of long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 10,
+        "max": 14
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "black",
+        "white",
+        "silver"
+      ],
+      "tags": [
+        "car",
+        "car gift",
+        "for him",
+        "bmw",
+        "drift",
+        "smoke",
+        "canvas",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-30",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_050",
+      "slug": "pagani-ocean-wave-canvas",
+      "name": "Pagani Ocean Wave Canvas | Resin",
+      "type": "ready",
+      "category": "car-gifts",
+      "subcategory": "Canvases",
+      "occasions": [
+        "birthday"
+      ],
+      "images": [
+        "/products/pagani-ocean-wave-canvas/1.jpg"
+      ],
+      "video": null,
+      "description": "A black diecast Pagani driving out of white resin waves on a deep black canvas, with the Pagani name below. Want a different car? Tell us on WhatsApp after you order.",
+      "highlights": [
+        "Black diecast Pagani in 3D",
+        "White resin waves",
+        "Glossy black canvas"
+      ],
+      "dimensions": null,
+      "material": "Resin, diecast model, canvas",
+      "weight": null,
+      "care": "Dust with a soft dry cloth. Keep out of long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 10,
+        "max": 14
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "black",
+        "white"
+      ],
+      "tags": [
+        "car",
+        "car gift",
+        "for him",
+        "pagani",
+        "wave",
+        "canvas",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-30",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_051",
+      "slug": "emerald-splash-car-board",
+      "name": "Emerald Splash Car Board | Resin",
+      "type": "ready",
+      "category": "car-gifts",
+      "subcategory": "Canvases",
+      "occasions": [
+        "birthday"
+      ],
+      "images": [
+        "/products/emerald-splash-car-board/1.jpg"
+      ],
+      "video": null,
+      "description": "A deep emerald and black resin board with gold shimmer and a diecast car throwing up a white splash. Want a different car? Tell us on WhatsApp after you order.",
+      "highlights": [
+        "Diecast car in 3D",
+        "Emerald, black and gold shimmer",
+        "White resin splash"
+      ],
+      "dimensions": null,
+      "material": "Resin, diecast model, board",
+      "weight": null,
+      "care": "Dust with a soft dry cloth. Keep out of long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "green",
+        "black",
+        "white"
+      ],
+      "tags": [
+        "car",
+        "car gift",
+        "for him",
+        "splash",
+        "resin board",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-30",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_052",
+      "slug": "vintage-car-wheat-canvas",
+      "name": "Zaporozhets Vintage Car Canvas | Resin",
+      "type": "ready",
+      "category": "car-gifts",
+      "subcategory": "Canvases",
+      "occasions": [
+        "birthday"
+      ],
+      "images": [
+        "/products/vintage-car-wheat-canvas/1.jpg"
+      ],
+      "video": null,
+      "description": "A red vintage Zaporozhets on a white resin canvas with a red stripe, real wheat ears and the Zaporozhets name in black. Want a different car? Tell us on WhatsApp after you order.",
+      "highlights": [
+        "Red vintage diecast car in 3D",
+        "Real wheat ears",
+        "Glossy white resin"
+      ],
+      "dimensions": null,
+      "material": "Resin, diecast model, dried wheat, canvas",
+      "weight": null,
+      "care": "Dust with a soft dry cloth. Keep out of long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 10,
+        "max": 14
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "white",
+        "red",
+        "gold"
+      ],
+      "tags": [
+        "car",
+        "car gift",
+        "for him",
+        "vintage",
+        "classic car",
+        "canvas",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-30",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_054",
+      "slug": "harley-davidson-plaque",
+      "name": "Harley-Davidson Motorbike Plaque | Resin",
+      "type": "ready",
+      "category": "car-gifts",
+      "subcategory": "Plaques & displays",
+      "occasions": [
+        "birthday"
+      ],
+      "images": [
+        "/products/harley-davidson-plaque/1.jpg"
+      ],
+      "video": null,
+      "description": "A glossy black resin plaque with a diecast Harley-Davidson motorbike over the bar-and-shield logo, the Harley-Davidson name and the skull. Want a different car? Tell us on WhatsApp after you order.",
+      "highlights": [
+        "Diecast motorbike in 3D",
+        "Bar-and-shield logo in white",
+        "Glossy black resin"
+      ],
+      "dimensions": null,
+      "material": "Resin, diecast model, board",
+      "weight": null,
+      "care": "Dust with a soft dry cloth. Keep out of long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 7,
+        "max": 10
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "black",
+        "white"
+      ],
+      "tags": [
+        "car",
+        "car gift",
+        "for him",
+        "harley davidson",
+        "motorbike",
+        "bike",
+        "plaque",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-30",
+      "samplePhoto": true,
+      "published": true,
+      "placeholders": [
+        "dimensions",
+        "weight",
+        "makingTimeDays",
+        "material",
+        "highlights"
+      ]
+    },
+    {
+      "id": "p_055",
+      "slug": "tyre-display-shelf",
+      "name": "Tyre Display Shelf with LED",
+      "type": "ready",
+      "category": "car-gifts",
+      "subcategory": "Plaques & displays",
+      "occasions": [
+        "birthday"
+      ],
+      "images": [
+        "/products/tyre-display-shelf/1.jpg"
+      ],
+      "video": null,
+      "description": "A real tyre turned into a round wall shelf for a diecast car collection, with rows of little shelves and a red LED glow. Want a different car? Tell us on WhatsApp after you order.",
+      "highlights": [
+        "Holds a diecast collection",
+        "Rows of little shelves",
+        "Red LED glow"
+      ],
+      "dimensions": null,
+      "material": "Tyre, wood, LED strip",
+      "weight": null,
+      "care": "Dust with a soft dry cloth. Keep out of long hours of direct sunlight.",
+      "makingTimeDays": {
+        "min": 10,
+        "max": 14
+      },
+      "stock": null,
+      "variants": [],
+      "colours": [
+        "black",
+        "red"
+      ],
+      "tags": [
+        "car",
+        "car gift",
+        "for him",
+        "display",
+        "shelf",
+        "collection",
+        "led",
+        "gift"
+      ],
+      "isNew": true,
+      "isBestseller": false,
+      "isCustomisable": false,
+      "instagramUrl": null,
+      "createdAt": "2026-10-30",
       "samplePhoto": true,
       "published": true,
       "placeholders": [

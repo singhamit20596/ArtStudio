@@ -735,6 +735,22 @@ svg .pop-in {
     animation: shimmer-text 5s linear infinite;
   }
 }
+/*
+  Themed shimmer colours. Unlayered and inside the motion query like the base .shimmer above:
+  inside @layer they lost to the base rule, and with reduced motion they painted a box behind
+  the heading. The Retirement Gifts one sits in its own block at the end.
+*/
+@media (prefers-reduced-motion: no-preference) {
+  .theme-christmas .shimmer {
+    background-image: linear-gradient(100deg, #ecc768 40%, #fff3cf 50%, #ecc768 60%);
+  }
+  .theme-diwali .shimmer {
+    background-image: linear-gradient(100deg, #f4c35a 40%, #fff1c9 50%, #f4c35a 60%);
+  }
+  .theme-racing .shimmer {
+    background-image: linear-gradient(100deg, #ffcc00 40%, #fff6c2 50%, #ffcc00 60%);
+  }
+}
 
 /* LED lights on the product gallery */
 @keyframes twinkle {
@@ -828,9 +844,6 @@ svg .pop-in {
   }
   .theme-christmas .btn-outline-light:hover {
     color: #ffffff;
-  }
-  .theme-christmas .shimmer {
-    background-image: linear-gradient(100deg, #ecc768 40%, #fff3cf 50%, #ecc768 60%);
   }
 
   /* Falling snow: two layers of dots drifting down. Static dots when motion is reduced. */
@@ -984,9 +997,6 @@ svg .pop-in {
   }
   .theme-diwali .btn-outline-light {
     border-color: var(--color-gold);
-  }
-  .theme-diwali .shimmer {
-    background-image: linear-gradient(100deg, #f4c35a 40%, #fff1c9 50%, #f4c35a 60%);
   }
 
   /* Gold sparkles drifting up through a Diwali section. Still dots when motion is reduced. */
@@ -1162,3 +1172,682 @@ svg .pop-in {
     animation-delay: var(--d, 0s);
   }
 }
+
+/*
+  Car Gifts (owner, 30 Oct 2026: "car theme like sports"). Inside .theme-racing the brand tokens
+  become: sage → track white (page), brown → carbon black (dark sections, primary buttons),
+  amber → racing red (accents, secondary buttons), and gold → racing yellow.
+*/
+@layer components {
+  .theme-racing {
+    --color-sage: #f1f1ef; /* track white */
+    --color-brown: #141518; /* carbon black */
+    --color-amber: #d71920; /* racing red */
+    --color-gold: #ffcc00; /* racing yellow */
+    --color-ink: #121316; /* 16.4:1 on track white */
+    --color-muted: #44464c; /* 8.3:1 */
+    --color-eyebrow: #b3141b; /* red, 6.1:1 */
+    --color-line: rgb(20 21 24 / 0.18);
+    background-color: var(--color-sage);
+    color: var(--color-ink);
+  }
+  .theme-racing .surface-sage {
+    --color-ink: #121316;
+    --color-muted: #44464c;
+    --color-eyebrow: #b3141b;
+    --color-line: rgb(20 21 24 / 0.18);
+  }
+  .theme-racing .surface-amber,
+  .theme-racing .mount {
+    --color-ink: #ffffff; /* 5.2:1 on racing red */
+    --color-muted: #fff2f2; /* 4.8:1 */
+    --color-eyebrow: #ffe08a;
+    --color-line: rgb(255 255 255 / 0.35);
+    --mount-icon: #ffcc00;
+  }
+  .theme-racing .surface-brown {
+    --color-ink: #ffffff;
+    --color-muted: #d4d6db;
+    --color-eyebrow: #ffcc00;
+    --color-line: rgb(255 204 0 / 0.4);
+  }
+  .theme-racing .btn-light,
+  .theme-racing .btn-whatsapp {
+    color: #ffffff;
+  }
+  .theme-racing .btn-outline-light {
+    border-color: var(--color-gold);
+  }
+  .theme-racing .btn-outline-light:hover {
+    color: #ffffff;
+  }
+
+  /* Carbon-fibre weave with a red glow from below */
+  .carbon-weave {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(120% 70% at 50% 120%, rgb(215 25 32 / 0.35), transparent 60%),
+      linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px / 20px 20px,
+      linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0 / 20px 20px,
+      linear-gradient(27deg, #222 5px, transparent 5px) 0 10px / 20px 20px,
+      linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px / 20px 20px,
+      linear-gradient(90deg, #1b1b1b 10px, transparent 10px) 0 0 / 20px 20px,
+      linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%) 0 0 / 20px 20px;
+    opacity: 0.55;
+  }
+
+  /* Speed lines streaking past (every layer repeats every 240px, so the loop is seamless) */
+  .speed-lines {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background-image:
+      linear-gradient(90deg, transparent 0 30%, rgb(255 255 255 / 0.4) 80%, transparent 100%),
+      linear-gradient(90deg, transparent 0 55%, rgb(255 204 0 / 0.45) 90%, transparent 100%),
+      linear-gradient(90deg, transparent 0 10%, rgb(255 255 255 / 0.25) 60%, transparent 100%),
+      linear-gradient(90deg, transparent 0 45%, rgb(215 25 32 / 0.6) 85%, transparent 100%),
+      linear-gradient(90deg, transparent 0 20%, rgb(255 255 255 / 0.3) 70%, transparent 100%);
+    background-size: 240px 1px, 240px 1px, 240px 1px, 240px 2px, 240px 1px;
+    background-position: 0 18%, 90px 34%, 160px 57%, 40px 74%, 200px 90%;
+    background-repeat: repeat-x;
+  }
+
+  /* A chequered flag along the top */
+  .chequered-flag {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 18px;
+    background: repeating-conic-gradient(#f4f4f4 0 25%, #111111 0 50%) 0 0 / 18px 18px;
+    opacity: 0.92;
+    pointer-events: none;
+  }
+
+  /* Five race start lights under the heading */
+  .start-lights {
+    display: flex;
+    justify-content: center;
+    gap: clamp(8px, 2vw, 14px);
+    margin-top: 28px;
+  }
+  .start-light {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 7px;
+    border-radius: 9px;
+    background: #0b0b0c;
+    box-shadow:
+      inset 0 0 0 1px rgb(255 255 255 / 0.08),
+      0 8px 18px rgb(0 0 0 / 0.5);
+  }
+  /* Lit by default (and when motion is reduced); the animation switches them on and off. */
+  .start-light i {
+    display: block;
+    width: clamp(16px, 3.4vw, 22px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #ff2a2a;
+    box-shadow: 0 0 14px 3px rgb(255 40 40 / 0.65);
+  }
+}
+@keyframes speed-past {
+  to {
+    background-position-x: -240px, -150px, -80px, -200px, -40px;
+  }
+}
+@keyframes flag-run {
+  to {
+    background-position-x: -36px;
+  }
+}
+/* Start lights: one more pair lights every 0.6 s, then all go out together and wait. */
+@keyframes start-1 { 0%, 9.9% { background: #2a0b0c; box-shadow: none } 10%, 59.9% { background: #ff2a2a; box-shadow: 0 0 14px 3px rgb(255 40 40 / 0.65) } 60%, 100% { background: #2a0b0c; box-shadow: none } }
+@keyframes start-2 { 0%, 19.9% { background: #2a0b0c; box-shadow: none } 20%, 59.9% { background: #ff2a2a; box-shadow: 0 0 14px 3px rgb(255 40 40 / 0.65) } 60%, 100% { background: #2a0b0c; box-shadow: none } }
+@keyframes start-3 { 0%, 29.9% { background: #2a0b0c; box-shadow: none } 30%, 59.9% { background: #ff2a2a; box-shadow: 0 0 14px 3px rgb(255 40 40 / 0.65) } 60%, 100% { background: #2a0b0c; box-shadow: none } }
+@keyframes start-4 { 0%, 39.9% { background: #2a0b0c; box-shadow: none } 40%, 59.9% { background: #ff2a2a; box-shadow: 0 0 14px 3px rgb(255 40 40 / 0.65) } 60%, 100% { background: #2a0b0c; box-shadow: none } }
+@keyframes start-5 { 0%, 49.9% { background: #2a0b0c; box-shadow: none } 50%, 59.9% { background: #ff2a2a; box-shadow: 0 0 14px 3px rgb(255 40 40 / 0.65) } 60%, 100% { background: #2a0b0c; box-shadow: none } }
+@media (prefers-reduced-motion: no-preference) {
+  .speed-lines {
+    animation: speed-past 0.9s linear infinite;
+  }
+  .chequered-flag {
+    animation: flag-run 1.6s linear infinite;
+  }
+  .start-light:nth-child(1) i { animation: start-1 6s infinite; }
+  .start-light:nth-child(2) i { animation: start-2 6s infinite; }
+  .start-light:nth-child(3) i { animation: start-3 6s infinite; }
+  .start-light:nth-child(4) i { animation: start-4 6s infinite; }
+  .start-light:nth-child(5) i { animation: start-5 6s infinite; }
+}
+
+/* ---------- Homepage product showcase (src/components/home/ProductShowcase.tsx) ----------
+   The first block on the homepage: every piece on a "wall", in rows that drift slowly in
+   turn left and right. CSS only. Hover pauses the rows; keyboard focus stops them at the
+   start so the focused card can scroll into view. Reduced motion: still rows you scroll. */
+.showcase {
+  --card-w: 104px;
+  --card-gap: 10px;
+}
+@media (min-width: 640px) {
+  .showcase {
+    --card-w: 124px;
+    --card-gap: 12px;
+  }
+}
+@media (min-width: 1024px) {
+  /* Sized from the screen height, so heading and wall fill about one desktop screen. */
+  .showcase {
+    --card-w: clamp(116px, calc((100svh - 380px) / 3.75), 156px);
+    --card-gap: 14px;
+  }
+}
+/* A warm light on the wall: amber glow behind the heading, a softer one along the bottom. */
+.showcase::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 42% at 50% 14%, rgb(213 133 31 / 0.22), transparent 72%),
+    radial-gradient(70% 34% at 50% 100%, rgb(213 133 31 / 0.12), transparent 72%);
+}
+
+/* Collection chips */
+.showcase-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 32px;
+  padding-inline: 10px;
+  border: 1px solid rgb(213 133 31 / 0.65);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    background-color 0.25s var(--ease-soft),
+    border-color 0.25s var(--ease-soft),
+    color 0.25s var(--ease-soft);
+}
+@media (min-width: 640px) {
+  .showcase-chip {
+    min-height: 34px;
+    padding-inline: 13px;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+  }
+}
+.showcase-chip:hover,
+.showcase-chip-all {
+  background: var(--color-amber);
+  border-color: var(--color-amber);
+  color: #1e140d;
+}
+.showcase-chip-all:hover {
+  background: transparent;
+  color: #ffffff;
+}
+
+/* The wall: rows fade out at both sides. */
+.showcase-wall {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+/* Room above and below each card for the hover lift and the focus ring. */
+.showcase-row {
+  overflow: hidden;
+  padding-block: calc(var(--card-gap) / 2 + 2px);
+}
+.showcase-track {
+  display: flex;
+  width: max-content;
+}
+.showcase-set {
+  display: flex;
+  gap: var(--card-gap);
+  margin: 0;
+  padding: 0 var(--card-gap) 0 0;
+  list-style: none;
+}
+.showcase-card {
+  flex: none;
+  width: var(--card-w);
+}
+/* Each piece hangs a touch off-straight, as if put up by hand; hover straightens it. */
+.showcase-card:nth-child(5n + 1) {
+  --tilt: -1.1deg;
+}
+.showcase-card:nth-child(5n + 2) {
+  --tilt: 0.7deg;
+}
+.showcase-card:nth-child(5n + 3) {
+  --tilt: -0.4deg;
+}
+.showcase-card:nth-child(5n + 4) {
+  --tilt: 1deg;
+}
+.showcase-card:nth-child(5n) {
+  --tilt: -0.7deg;
+}
+.showcase-link {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--color-brown);
+  box-shadow:
+    0 16px 28px -16px rgb(20 12 6 / 0.95),
+    0 0 0 1px rgb(213 133 31 / 0.22);
+  rotate: var(--tilt, 0deg);
+  transition:
+    rotate 0.5s var(--ease-soft),
+    translate 0.5s var(--ease-soft),
+    scale 0.5s var(--ease-soft),
+    box-shadow 0.5s var(--ease-soft);
+}
+/* A fine amber mount line inside each photo, like a framed print. */
+.showcase-link::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgb(242 180 98 / 0.4);
+  transition: box-shadow 0.5s var(--ease-soft);
+}
+.showcase-photo {
+  transition: scale 0.9s var(--ease-soft);
+}
+.showcase-label {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 1;
+  padding: 18px 9px 9px;
+  background: linear-gradient(to top, rgb(90 62 43 / 0.96), rgb(90 62 43 / 0.88) calc(100% - 18px), transparent);
+}
+/* One line at rest; the whole name on hover or focus. */
+.showcase-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.showcase-link:hover .showcase-name,
+.showcase-link:focus-visible .showcase-name {
+  white-space: normal;
+}
+.showcase-link:hover,
+.showcase-link:focus-visible {
+  z-index: 2;
+  rotate: 0deg;
+  translate: 0 -3px;
+  scale: 1.05;
+  box-shadow:
+    0 22px 34px -16px rgb(20 12 6 / 1),
+    0 0 0 1px rgb(213 133 31 / 0.85);
+}
+.showcase-link:hover::after {
+  box-shadow: inset 0 0 0 1px rgb(242 180 98 / 0.75);
+}
+.showcase-link:hover .showcase-photo {
+  scale: 1.06;
+}
+
+@keyframes showcase-drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .showcase-track {
+    animation: showcase-drift calc(var(--n) * var(--pace)) linear infinite;
+  }
+  .showcase-row[data-reverse] .showcase-track {
+    animation-direction: reverse;
+  }
+  .showcase-wall:hover .showcase-track {
+    animation-play-state: paused;
+  }
+  /* Keyboard focus: stop at the start, so the browser can scroll the focused card into view. */
+  .showcase-wall:has(:focus-visible) .showcase-track {
+    animation: none;
+  }
+}
+/* While a card has keyboard focus, no edge fade, and every card can scroll fully into view. */
+.showcase-wall:has(:focus-visible) {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.showcase-wall:has(:focus-visible) .showcase-row {
+  padding-inline: 16px;
+  scroll-padding-inline: 16px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .showcase-wall {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .showcase-row {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-inline: 16px;
+    scroll-padding-inline: 16px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-amber) transparent;
+  }
+  .showcase-set[aria-hidden="true"] {
+    display: none;
+  }
+  .showcase-card {
+    scroll-snap-align: start;
+  }
+  .showcase-link,
+  .showcase-link::after,
+  .showcase-photo {
+    transition: none;
+  }
+}
+/* ---------- End of homepage product showcase ---------- */
+
+/* ---------- Hindi / English (src/i18n: T.tsx, LanguageToggle.tsx) ----------
+   Every <T> puts both languages in the HTML; html[data-lang="hi"] (set before the first paint by
+   the script in layout.tsx) decides which one shows. */
+html[data-lang="hi"] [data-l="en"],
+html:not([data-lang="hi"]) [data-l="hi"] {
+  display: none !important;
+}
+/* Letter-spacing pulls Devanagari apart (it breaks the headline bar and the joined letters), so
+   Hindi text never gets any, even inside the uppercase letter-spaced labels and buttons. */
+html[data-lang="hi"] body,
+[lang="hi"]:not(html) {
+  letter-spacing: 0;
+}
+/* Matras sit above and below the letters: Hindi headings need more line height than Latin ones. */
+:is(h1, h2, h3, .section-title) [lang="hi"] {
+  line-height: 1.4;
+}
+/* The small uppercase labels (10–12 px) are too small for Devanagari at the same size. */
+:is(.eyebrow, .nav-label, .btn, .uppercase, .showcase-chip) [lang="hi"] {
+  font-size: 1.12em;
+}
+/* ---------- End of Hindi / English ---------- */
+
+/* ---------- Retirement Gifts (src/components/tribute/ServiceDecor.tsx) ----------
+   Owner, 30 Oct 2026: a look of its own, like Diwali, Christmas and Car Gifts, with a dignified
+   defence-service feel. Worn by /retirement-gifts (the (retirement) route group), the homepage
+   retirement section and the tribute product pages. Inside .theme-service the brand tokens become:
+   sage → parchment (page), brown → deep navy (dark sections, primary buttons), amber → medal brass
+   (accents, secondary buttons, the "Questions?" box), plus gold. Decoration: a band of medal-ribbon
+   stripes, a few gold stars and a row of hanging medals, all made-up and generic: no national flag,
+   national emblem, Ashoka Chakra or service crest or insignia (their use is restricted by law). */
+@layer components {
+  .theme-service {
+    --color-sage: #f3ecdc; /* parchment */
+    --color-brown: #14233f; /* deep navy */
+    --color-amber: #c9a043; /* medal brass */
+    --color-gold: #d9b45a;
+    --color-ink: #121826; /* 15.1:1 on parchment */
+    --color-muted: #454c5b; /* 7.3:1 */
+    --color-eyebrow: #7a1e2c; /* ribbon maroon, 8.7:1 */
+    --color-line: rgb(20 35 63 / 0.22);
+    --glow: rgb(217 180 90 / 0.14); /* PointerGlow: a brass light instead of amber */
+    background-color: var(--color-sage);
+    color: var(--color-ink);
+  }
+  .theme-service .surface-sage {
+    --color-ink: #121826;
+    --color-muted: #454c5b;
+    --color-eyebrow: #7a1e2c;
+    --color-line: rgb(20 35 63 / 0.22);
+  }
+  .theme-service .surface-amber,
+  .theme-service .mount {
+    --color-ink: #17130a; /* 7.6:1 on brass */
+    --color-muted: #2e2410; /* 6.2:1 */
+    --color-eyebrow: #2e2410;
+    --color-line: rgb(23 19 10 / 0.3);
+    --mount-icon: #14233f;
+  }
+  .theme-service .surface-brown {
+    --color-ink: #ffffff; /* 15.6:1 on navy */
+    --color-muted: #d3d9e5; /* 11:1 */
+    --color-eyebrow: #e3c16f; /* gold, 9:1 */
+    --color-line: rgb(217 180 90 / 0.45);
+  }
+  /* Buttons keep their text colours: .btn-dark white on navy 15.6:1; .btn-light and .btn-whatsapp
+     near-black on brass 7.4:1. The outline button on navy gets a gold border. */
+  .theme-service .btn-outline-light {
+    border-color: var(--color-gold);
+  }
+
+  /* A band of medal-ribbon stripes along the top, edged in gold, with a satin sheen. */
+  .service-ribbon {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 12px;
+    overflow: hidden;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      90deg,
+      #7a1e2c 0 18px,
+      #d9b45a 18px 22px,
+      #24427a 22px 40px,
+      #6f9be0 40px 46px,
+      #24427a 46px 64px,
+      #d9b45a 64px 68px
+    );
+    box-shadow:
+      0 1px 0 rgb(217 180 90 / 0.75),
+      0 4px 12px rgb(0 0 0 / 0.35);
+  }
+  .service-ribbon::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 42%, rgb(255 255 255 / 0.3) 50%, transparent 58%) 200% 0 / 200% 100% no-repeat;
+  }
+
+  /* A few small gold stars near the sides of the section. */
+  .service-stars {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .service-stars > span {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    background: #e3c16f;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    opacity: 0.6;
+  }
+  /* Phones: the text runs nearly edge to edge, so the stars would sit on it; the ribbon and medals stay. */
+  @media (max-width: 639px) {
+    .service-stars {
+      display: none;
+    }
+  }
+
+  /* Medals hanging under the heading: striped ribbon, brass clasp, ring and a gold star medal. */
+  .medal-row {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: clamp(14px, 3.4vw, 28px);
+    margin-top: 18px;
+  }
+  .medal {
+    width: clamp(22px, 4.4vw, 30px);
+    height: auto;
+    overflow: visible;
+    transform-origin: 50% 0;
+    filter: drop-shadow(0 6px 8px rgb(0 0 0 / 0.35));
+  }
+}
+@keyframes service-glint {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+}
+@keyframes medal-sway {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+@keyframes medal-glint {
+  0%,
+  70%,
+  100% {
+    opacity: 0.2;
+  }
+  82% {
+    opacity: 0.75;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Unlayered, like the base .shimmer rule it adjusts, so the gold gradient wins only while it animates. */
+  .theme-service .shimmer {
+    background-image: linear-gradient(100deg, #e3c16f 40%, #fff4cf 50%, #e3c16f 60%);
+  }
+  .service-ribbon::after {
+    animation: shimmer-text 8s linear infinite;
+  }
+  .service-stars > span {
+    animation: service-glint 4.2s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+  .medal {
+    animation: medal-sway 5s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+  .medal-glint {
+    animation: medal-glint 6s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+}
+/* ---------- End of Retirement Gifts ---------- */
+
+/* ---------- Product grids (owner, 30 Oct 2026) ---------- */
+/* Product cards used to slide in one by one (a swipe row on phones, a scroll-driven reveal per card
+   with staggered delays). Now every product list is a grid, two side by side on phones, and the cards
+   show at once. `.cards-reveal` (TributeCards, LineCards, ProductCarousel, CustomMadeGrid) lets a whole
+   grid rise together as it scrolls in, and only from 768px: on phones nothing waits for the scroll. */
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+  @supports (animation-timeline: view()) {
+    .cards-reveal {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+/* ---------- End of Product grids ---------- */
+
+/* ---------- Page-wide collection effects (owner, 30 Oct 2026; src/components/effects/) ---------- */
+/* One canvas over the whole page while a collection's effect plays (snow, fireworks, racing cars,
+   gold stars): under the header (z-40) and the floating buttons, never catching clicks, gone with
+   reduced motion and in print. 100lvh keeps its size steady while a phone's address bar slides. */
+.fx-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  display: none;
+  width: 100%;
+  height: 100vh;
+  height: 100lvh;
+  pointer-events: none;
+}
+.fx-canvas[data-fx-on] {
+  display: block;
+}
+/* The sound button (and, while an animation shows, "Stop animation"), just above the WhatsApp button. */
+.fx-controls {
+  position: fixed;
+  z-index: 50;
+  right: calc(28px + env(safe-area-inset-right, 0px));
+  bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  gap: 8px;
+  transition: bottom 0.3s;
+}
+@media (max-width: 767px) {
+  body:has([data-sticky-bar="shown"]) .fx-controls {
+    bottom: calc(160px + env(safe-area-inset-bottom, 0px));
+  }
+}
+.fx-button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background: var(--color-brown);
+  color: var(--color-paper);
+  box-shadow: 0 8px 22px rgb(0 0 0 / 0.28);
+  transition: transform 0.2s;
+}
+.fx-button:hover {
+  transform: scale(1.06);
+}
+.fx-tip {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  display: none;
+  padding: 6px 12px;
+  background: var(--color-brown);
+  color: var(--color-paper);
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+@media (min-width: 768px) {
+  .fx-tip {
+    display: block;
+  }
+  .fx-button:hover .fx-tip,
+  .fx-button:focus-visible .fx-tip {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-canvas {
+    display: none !important;
+  }
+  .fx-button,
+  .fx-button:hover {
+    transform: none;
+    transition: none;
+  }
+}
+@media print {
+  .fx-canvas,
+  .fx-controls {
+    display: none !important;
+  }
+}
+/* ---------- End of Page-wide collection effects ---------- */

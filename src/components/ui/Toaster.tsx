@@ -1,17 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { T } from "@/i18n/T";
 
 const EVENT = "app:toast";
 
-/** Show a short message at the bottom of the screen. Safe to call from any client code. */
-export function toast(message: string) {
-  window.dispatchEvent(new CustomEvent<string>(EVENT, { detail: message }));
+interface Message {
+  message: string;
+  /** The same message in Hindi, shown while the site is in Hindi. */
+  hi?: string;
 }
 
-interface Item {
+/** Show a short message at the bottom of the screen. Safe to call from any client code. */
+export function toast(message: string, hi?: string) {
+  window.dispatchEvent(new CustomEvent<Message>(EVENT, { detail: { message, hi } }));
+}
+
+interface Item extends Message {
   id: number;
-  message: string;
 }
 
 export function Toaster() {
@@ -20,9 +26,9 @@ export function Toaster() {
   useEffect(() => {
     let seq = 0;
     const onToast = (e: Event) => {
-      const message = (e as CustomEvent<string>).detail;
+      const { message, hi } = (e as CustomEvent<Message>).detail;
       const id = ++seq;
-      setItems((list) => [...list.filter((t) => t.message !== message).slice(-1), { id, message }]);
+      setItems((list) => [...list.filter((t) => t.message !== message).slice(-1), { id, message, hi }]);
       window.setTimeout(() => setItems((list) => list.filter((t) => t.id !== id)), 3800);
     };
     window.addEventListener(EVENT, onToast);
@@ -37,7 +43,7 @@ export function Toaster() {
     >
       {items.map((t) => (
         <div key={t.id} role="status" className="anim-drop pointer-events-auto max-w-md bg-brown px-5 py-3 text-center text-[13px] leading-snug text-paper shadow-[0_10px_30px_rgb(90_62_43/0.3)]">
-          {t.message}
+          <T en={t.message} hi={t.hi} />
         </div>
       ))}
     </div>

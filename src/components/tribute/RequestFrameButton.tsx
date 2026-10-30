@@ -1,16 +1,19 @@
 import clsx from "clsx";
 import { ArrowRight } from "lucide-react";
+import type { ReactNode } from "react";
 import { AppLink } from "@/components/ui/AppLink";
+import { T } from "@/i18n/T";
 
 /** The main call to action with a sliding arrow; by default it jumps to the tribute choices. */
 export function RequestFrameButton({
-  label = "Choose your tribute",
-  href = "/retirement-tributes",
+  label = <T en="Choose your tribute" hi="अपना ट्रिब्यूट चुनें" />,
+  href = "/retirement-gifts",
   variant = "dark",
   query,
   className,
 }: {
-  label?: string;
+  /** Button text; pass a <T> for both languages. */
+  label?: ReactNode;
   href?: string;
   variant?: "dark" | "light";
   query?: Record<string, string>;

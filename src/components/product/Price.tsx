@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import type { Product } from "@/lib/types";
 import { discountPercent, formatINR } from "@/lib/format";
+import { T } from "@/i18n/T";
 
 /** Ready-made: price (with MRP and % off when set). Custom: "From ₹…". */
 export function Price({ product, className }: { product: Pick<Product, "type" | "price" | "mrp" | "startingPrice">; className?: string }) {
@@ -8,12 +9,24 @@ export function Price({ product, className }: { product: Pick<Product, "type" | 
     return (
       <p className={clsx("tabular-nums", className)}>
         {product.startingPrice ? (
-          <>
-            <span className="text-muted">From </span>
-            <span className="font-medium">{formatINR(product.startingPrice)}</span>
-          </>
+          <T
+            en={
+              <>
+                <span className="text-muted">From </span>
+                <span className="font-medium">{formatINR(product.startingPrice)}</span>
+              </>
+            }
+            hi={
+              <>
+                <span className="font-medium">{formatINR(product.startingPrice)}</span>
+                <span className="text-muted"> से शुरू</span>
+              </>
+            }
+          />
         ) : (
-          <span className="text-muted">Price on request</span>
+          <span className="text-muted">
+            <T en="Price on request" hi="कीमत पूछने पर" />
+          </span>
         )}
       </p>
     );
@@ -26,7 +39,9 @@ export function Price({ product, className }: { product: Pick<Product, "type" | 
       {off && product.mrp && (
         <>
           <s className="text-[12px] text-muted">{formatINR(product.mrp)}</s>
-          <span className="text-[12px] font-semibold text-ink">{off}% off</span>
+          <span className="text-[12px] font-semibold text-ink">
+            <T en={`${off}% off`} hi={`${off}% छूट`} />
+          </span>
         </>
       )}
     </p>

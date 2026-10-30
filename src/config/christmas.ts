@@ -1,11 +1,11 @@
-import type { FestiveLine } from "./festive";
+import type { ThemedLine } from "./lines";
 
 /**
  * Christmas Décor & Gifts (added 29 Oct 2026): page /christmas, a menu item and a homepage
  * section. Products live in seed.json (category below), prices in src/config/prices.ts.
  * Copy here is a draft for the owner. Photos are other makers' work, used with their approval.
  */
-export const christmas: FestiveLine = {
+export const christmas: ThemedLine = {
   category: "christmas-decor-gifts",
   path: "/christmas",
   theme: "theme-christmas",

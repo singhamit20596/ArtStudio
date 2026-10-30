@@ -1,9 +1,9 @@
 # Art Studio website: what I still need from you
 
-Everything below is a placeholder. Reply with whatever you have. The top section matters most for the Retirement Tributes launch.
+Everything below is a placeholder. Reply with whatever you have. The top section matters most for the Retirement Gifts launch.
 Product data lives in `src/data/seed.json`, business settings in `src/config/site.ts`, coupon codes in `src/config/coupons.ts`.
 
-## Retirement Tributes launch: please check
+## Retirement Gifts launch: please check
 
 Retirement Tributes (Newspaper Tribute, Box Frame and Resin Frame) are the featured line: they open the homepage with one heartfelt line and lead every menu. The rest of the shop is back below them, still with the placeholders listed further down.
 
@@ -21,7 +21,7 @@ Retirement Tributes (Newspaper Tribute, Box Frame and Resin Frame) are the featu
 | Newspaper Tribute (framed front page) | 7–10 days |
 | Resin Frame (photo and crest in resin) | 7–10 days |
 
-- [ ] **Prices and sizes** for every product, size and extra now live in one price list, `src/config/prices.ts` (`placeholder(…)` = still to confirm, `confirmed(…)` = yours). We are going through them one by one. Making times are in `src/data/seed.json`.
+- [ ] **Prices and sizes** for every product, size and extra are in the price catalogue (`catalogue/Art-Studio-Price-Catalogue.xlsx`; Confirmed = No means still to confirm). Making times are in `src/data/seed.json`.
   - [x] Box Frame (29 Oct 2026): 18 × 15 in ₹2,500 (`RTBF1815`), 24 × 24 in ₹3,500 (`RTBF2424`).
   - [x] Resin Frame (29 Oct 2026): 12 × 9 in ₹2,000 (`RTRF1209`), 10 × 10 in ₹2,000 (`RTRF1010`), 18 × 15 in ₹3,000 (`RTRF1815`), 24 × 24 in ₹5,000 (`RTRF2424`).
   - [ ] Newspaper Tribute: sizes and prices still placeholders.
@@ -67,57 +67,58 @@ After paying, the customer gets a private link (on the order page and in their e
 - [ ] **Copy to check** in `src/config/tribute.ts`: "What goes inside" notes, the five "How it works" steps and the FAQs.
 - [ ] **Hotspot positions** sit on the blue shadow box mockup (`frame-detail.jpg`). If that photo changes, the numbered points need moving to match it.
 
+## Effects, music and PDF (added 30 Oct 2026)
+
+- [ ] **Listen to the four tunes** (tap the speaker button above WhatsApp to turn sound on): Christmas "Jingle Bells", Diwali flute tune, Car Gifts engine and start beeps, Retirement Gifts brass fanfare. Tell me if any is too loud, too long or not right. Sound starts only after the visitor taps the page (browsers require this).
+- [ ] **Check the animations** (snow, crackers, racing car, gold stars): they run about 11 seconds, then fade. Tell me if they should be shorter, longer or quieter.
+- [ ] **Try sound on an iPhone** (Safari); it hasn't been tested there.
+- [ ] **Client PDF catalogue:** `catalogue/Art-Studio-Catalogue.pdf` (photo, name, sizes, prices). After price changes, run `npm run catalogue:pdf` with the site running to make a fresh one.
+
+## Hindi version (added 30 Oct 2026)
+
+- [ ] **Please read the site in Hindi** (the "हिन्दी" button at the top) and tell me any word or line that doesn't sound right. Order emails, WhatsApp messages and page titles stay in English.
+
+## Retirement Gifts look (added 30 Oct 2026)
+
+- [ ] "Retirement Tributes" is now **Retirement Gifts** (page `/retirement-gifts`; the old address still works). It has its own look: navy, parchment and brass, with medal ribbons, stars and medals (no flag or official emblems, which the law restricts). Tell me if you'd like changes.
+
+## Price catalogue: how to change prices (added 30 Oct 2026)
+
+- Open `catalogue/Art-Studio-Price-Catalogue.xlsx` (Excel, Google Sheets or Numbers). Each tab is a collection with the product photo, code, size or option, **Price ₹**, **Confirmed** and, for Diwali and Car Gifts, **Market estimate ₹** (our price is 20% below it). Change the orange columns only; leave the grey Key column alone.
+- Set **Confirmed** to Yes for every price you agree with; all prices marked No are still my placeholders.
+- Send the file back (or run `npm run catalogue:import`), and the site's prices update from it. **Deleting a product's rows takes it off the site**; deleting a size row stops that size being offered.
+- [ ] After closing Excel, run `npm run catalogue:export` once to refresh the file (the tab is now called "Retirement Gifts"). Your 30 Oct edits are already on the site.
+
+## Removed (30 Oct 2026)
+
+- The **Festive** and **Gifts** menus, the homepage festive edit and gifting sections, and the gift shop page (`/gifts` now opens the shop). All products are still in the shop.
+
+## Resin Car Gifts: please check (added 30 Oct 2026)
+
+Its own page at `/car-gifts` (racing look: carbon black, racing red and yellow, a chequered flag, speed lines and race start lights), the **Car Gifts** menu item (in place of "Custom", as you asked), and a homepage section below Christmas. Car Gifts product pages use the same colours. Copy lives in `src/config/cars.ts`.
+
+- [ ] **Brand names and logos.** As you chose, the pieces use brand names (Hot Wheels, BMW, Audi, Ferrari, Harley-Davidson, Pagani, Zaporozhets). These are trademarks: the brands can send legal notices or ask marketplaces to remove listings. The page says these are handmade fan pieces, not official products. Consider offering each design with the customer's own text instead of logos.
+- [ ] **Prices** are yours from the catalogue (30 Oct 2026: ₹1,399–₹1,999), still marked Confirmed = No. Set Confirmed to Yes in the catalogue when they're final. Each price includes a standard diecast model of the car shown.
+- [x] **Photos** are the ones you sent, used with their makers' approval, fitted whole. The Hot Wheels Wall Clock and Audi A6 canvas were removed (you deleted them from the catalogue, 30 Oct 2026).
+- [ ] **Sizes** (frame and canvas sizes, diecast scale) are not set yet. Customers can ask for a different car on WhatsApp after ordering.
+- [ ] **"Custom" is no longer in the header menu** (Car Gifts took its place). The custom-order pages are still reachable from the homepage and the footer.
+
 ## Diwali Décor & Gifts: please check (added 29 Oct 2026)
 
 Its own page at `/diwali` (Diwali colours: deep maroon, marigold, gold and warm cream, with a marigold garland, gold sparkles and flickering diyas), the **Diwali** menu item (in place of "Shop", as you asked), and a homepage section right below the retirement tributes, above Christmas. Diwali product pages use the same colours. Copy lives in `src/config/diwali.ts`, products in `src/data/seed.json`, prices in `src/config/prices.ts`.
 
 - [ ] **Diwali is on 8 November.** Making times are placeholders (3–10 days) and delivery takes a few more days, so orders placed now may not arrive in time. Can you make some pieces in advance, or shorten the making times? I can add an "order by" date to the page.
-- [ ] **Prices** are 20% below my estimate of the market price for each piece (you asked for 20% below market). I found few resin listings with prices in India, so the market figures are my estimates; each is written next to its price in `prices.ts` (`belowMarket(…)`). Please confirm or change:
-
-  | Code | Piece | Market (est.) | Our price |
-  |---|---|---|---|
-  | `DDPB` | Pink Pooja Gift Box (thali, Shubh Labh, Ganesh plate, tealight) | ₹2,999 | ₹2,399 |
-  | `DDGL` | Ganesh Lakshmi Gift Box (2 plaques, 2 lotus tealights) | ₹1,999 | ₹1,599 |
-  | `DDSC` | Shubh Labh & Candle Gift Box | ₹1,499 | ₹1,199 |
-  | `DDPS` | Pink Shubh Labh Gift Box (Shubh Labh, Ganesh plaque, 2 tealights) | ₹1,999 | ₹1,599 |
-  | `DDLS` | Pink Lotus Pooja Set (thali, 2 tealights, Shubh Labh, tray) | ₹3,499 | ₹2,799 |
-  | `DDLP` | Lotus Pearl Pooja Thali | ₹1,799 | ₹1,439 |
-  | `DDPF` | Peacock Feather Pooja Thali | ₹1,499 | ₹1,199 |
-  | `DDNM` | Namokar Mantra Pooja Thali | ₹1,999 | ₹1,599 |
-  | `DDSW` | Shubh Labh Hangings, white & gold (pair) | ₹999 | ₹799 |
-  | `DDGS` | Ganesh Lakshmi Shubh Labh (pair) | ₹1,099 | ₹879 |
-  | `DDLT` | Lotus Tealight Holder (gold, purple, pink or red) | ₹399 | ₹319 |
-  | `DDKM` | Krishna Mantra LED Plaque with easel | ₹1,499 | ₹1,199 |
-  | `DDGR` | Ganesha Rose Petal Plaque with stand | ₹1,249 | ₹999 |
-  | `DDRK` | Radha Krishna Frame with stand | ₹1,249 | ₹999 |
-
-- [x] **Photos** are the ones you sent, used with their makers' approval (you confirmed, 29 Oct 2026), fitted whole so the makers' marks stay visible (e.g. the ASTRID box). The **Pink Pooja Gift Box** photo was left out because it carries a wholesaler's name and phone number; that piece shows "Photo coming soon" until you send your own photo. Two of the photos were the same gift box, so there are 14 pieces.
+- [x] **Prices** are yours from the catalogue, confirmed (30 Oct 2026).
+- [x] **Photos** are the ones you sent, used with their makers' approval (you confirmed, 29 Oct 2026), fitted whole so the makers' marks stay visible (e.g. the ASTRID box). The Pink Pooja Gift Box was removed (you deleted it from the catalogue, 30 Oct 2026), so there are 13 pieces.
 - [ ] **Details I guessed:** the tealight holder colours (gold, purple, pink, red), and that the candle box's laddoo candles are wax. Tell me what to change.
-- [ ] **"Shop" is no longer in the header menu** (Diwali took its place). The shop is still reachable from the homepage, footer, search and the Festive and Gifts menus.
+- [ ] **"Shop" is no longer in the header menu** (Diwali took its place). The shop is still reachable from the homepage, footer and search.
 
 ## Christmas Décor & Gifts: please check (added 29 Oct 2026)
 
 A new seasonal line: its own page at `/christmas` (full Christmas colours: evergreen, red, gold and snow white, with falling snow and fairy lights), a **Christmas** menu item, and a section on the homepage right below the retirement tributes. Christmas product pages use the same colours. Copy lives in `src/config/christmas.ts`, products in `src/data/seed.json`, prices in `src/config/prices.ts`.
 
 - [ ] **The pieces** are the 13 from the photos you sent (29 Oct 2026). Remove any you won't make.
-- [ ] **Prices** are placeholders between ₹300 and ₹500, as you asked. **Coasters are priced per coaster** (customers pick how many); say if you meant a set price instead.
-
-  | Code | Piece | Choices | Placeholder |
-  |---|---|---|---|
-  | `CDHT` | Holographic Christmas Tree | — | ₹449 |
-  | `CDRO` | Marble Reindeer Ornament | — | ₹399 |
-  | `CDCC` | Candy Cane Christmas Coaster (sky blue) | — | ₹399 each |
-  | `CDSK` | Christmas Stocking Keychain | — | ₹349 |
-  | `CDSP` | Santa & Reindeer Plaque with stand | — | ₹499 |
-  | `CDDM` | Christmas Dome Magnet | Santa / Snowman / Christmas tree / Red house | ₹349 |
-  | `CDSC` | Snowflake Coaster | — | ₹399 each |
-  | `CDDO` | Christmas Disc Ornament (name on request) | Red / Green / Blue / Gold / Silver | ₹349 |
-  | `CDMC` | Merry Christmas Coaster (white and gold) | — | ₹449 each |
-  | `CDTC` | Glitter Christmas Tree Canvas | — | ₹499 |
-  | `CDMS` | Melted Snowman Coaster | — | ₹349 each |
-  | `CDCH` | Candy Cane Hexagon Coaster (pink) | — | ₹399 each |
-  | `CDGT` | Glitter Tree Ornament (glass chips and shells) | — | ₹349 |
-
+- [x] **Prices** are yours from the catalogue, confirmed (30 Oct 2026). **Coasters are priced per coaster** (customers pick how many); say if you meant a set price instead.
 - [x] **Photos** are the ones you sent, used with their makers' approval (you confirmed, 29 Oct 2026). Each is fitted whole into the 4:5 frame, so the makers' marks (e.g. the TikTok tag) stay visible, and each product page notes that pieces are handmade and may differ a little from the photo. Please keep the makers' approval in writing.
 - [ ] Replace them with photos of your own pieces when you can (`public/products/<slug>/1.jpg`; use a new filename so the image cache updates).
 - [ ] **Details I guessed:** the choices (dome designs, disc colours), that the domes are fridge magnets, and the canvas size. Tell me what to change.

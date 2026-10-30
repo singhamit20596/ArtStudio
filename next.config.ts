@@ -14,14 +14,19 @@ const nextConfig: NextConfig = {
   // The static preview has no server, so it leaves out the API routes (route.ts files).
   ...(previewExport ? { pageExtensions: ["tsx"] } : {}),
   images: previewExport ? { unoptimized: true } : { qualities: [75, 85], formats: ["image/avif", "image/webp"] },
-  // The tributes used to have a made-to-order page; they now have their own page.
+  // Old addresses: the retirement page's old name (Retirement Tributes became Retirement Gifts,
+  // 30 Oct 2026), the tributes' made-to-order page, the themed lines' shop pages, and the
+  // gift shop (removed by the owner, 30 Oct 2026), which now sends visitors to the shop.
   ...(previewExport
     ? {}
     : {
         redirects: async () => [
-          { source: "/custom/retirement-tribute-frames", destination: "/retirement-tributes", permanent: false },
+          { source: "/retirement-tributes", destination: "/retirement-gifts", permanent: false },
+          { source: "/custom/retirement-tribute-frames", destination: "/retirement-gifts", permanent: false },
           { source: "/shop/christmas-decor-gifts", destination: "/christmas", permanent: false },
           { source: "/shop/diwali-decor-gifts", destination: "/diwali", permanent: false },
+          { source: "/shop/car-gifts", destination: "/car-gifts", permanent: false },
+          { source: "/gifts", destination: "/shop", permanent: false },
         ],
       }),
   experimental: {

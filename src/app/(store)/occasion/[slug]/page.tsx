@@ -6,6 +6,9 @@ import { getOccasion, listingLabels, occasionHref, occasions, productsForOccasio
 import { EmptyListing } from "@/components/listing/EmptyListing";
 import { Listing } from "@/components/listing/Listing";
 import { ListingHeader, Pill, PillLinks } from "@/components/listing/ListingHeader";
+import { hiOccasionDescription } from "@/i18n/catalogue";
+import { hiOccasion } from "@/i18n/names";
+import { T } from "@/i18n/T";
 
 export function generateStaticParams() {
   return occasions.map((o) => ({ slug: o.slug }));
@@ -33,15 +36,15 @@ async function OccasionView({ params }: { params: PageProps<"/occasion/[slug]">[
   return (
     <div className="container-x pb-20 md:pb-28">
       <ListingHeader
-        crumbs={[{ label: "Gifts", href: "/gifts" }, { label: occasion.name }]}
-        eyebrow="Shop by occasion"
-        title={occasion.name}
-        description={occasion.description}
+        crumbs={[{ label: "Shop", hi: "दुकान", href: "/shop" }, { label: occasion.name, hi: hiOccasion(occasion.slug) }]}
+        eyebrow={<T en="Shop by occasion" hi="मौक़े के हिसाब से" />}
+        title={<T en={occasion.name} hi={hiOccasion(occasion.slug)} />}
+        description={<T en={occasion.description} hi={hiOccasionDescription(occasion.slug)} />}
         links={
           <PillLinks label="Occasions">
             {occasions.map((o) => (
               <Pill key={o.slug} href={occasionHref(o.slug)} active={o.slug === occasion.slug}>
-                {o.name}
+                <T en={o.name} hi={hiOccasion(o.slug)} />
               </Pill>
             ))}
           </PillLinks>
@@ -51,7 +54,7 @@ async function OccasionView({ params }: { params: PageProps<"/occasion/[slug]">[
         products={productsForOccasion(occasion.slug)}
         facets={["category", "type", "price", "colour", "stock"]}
         labels={listingLabels()}
-        empty={<EmptyListing title={`Nothing listed for ${occasion.name} yet`} />}
+        empty={<EmptyListing title={<T en={`Nothing listed for ${occasion.name} yet`} hi={`${hiOccasion(occasion.slug) ?? occasion.name} के लिए अभी कुछ नहीं है`} />} />}
       />
     </div>
   );

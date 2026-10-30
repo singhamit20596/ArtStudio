@@ -62,7 +62,7 @@ export interface Product {
   variants: Variant[];
   /** Colour families for the listing filter (see COLOURS in listing.ts). Empty for custom pieces. */
   colours: string[];
-  /** Search keywords. The "gift" tag puts a product in the /gifts collection. */
+  /** Search keywords. */
   tags: string[];
   isNew: boolean;
   isBestseller: boolean;

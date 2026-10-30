@@ -5,9 +5,9 @@ import { toast } from "@/components/ui/Toaster";
 import { isPreview } from "@/lib/preview";
 
 /** Routes that do not exist yet. Remove a pattern when its pages are built. */
-const PHASE_BY_PATH: [RegExp, string][] = [
-  [/^\/(account|track-order|admin)(\/|$)/, "Accounts and order tracking arrive in Phase 4."],
-  [/^\/(about|contact|faq|bulk-gifting|shipping-returns|privacy|terms)(\/|$)/, "About, FAQ and policy pages arrive in a later phase."],
+const PHASE_BY_PATH: [RegExp, string, string][] = [
+  [/^\/(account|track-order|admin)(\/|$)/, "Accounts and order tracking arrive in Phase 4.", "अकाउंट और ऑर्डर ट्रैकिंग जल्द आ रहे हैं।"],
+  [/^\/(about|contact|faq|bulk-gifting|shipping-returns|privacy|terms)(\/|$)/, "About, FAQ and policy pages arrive in a later phase.", "हमारे बारे में, सवाल-जवाब और नीतियों के पेज जल्द आ रहे हैं।"],
 ];
 
 /**
@@ -24,11 +24,11 @@ export function PreviewLinkGuard() {
       const href = a.getAttribute("href") ?? "";
       if (!href.startsWith("/")) return; // external links, wa.me, Instagram, #anchors
       const path = href.split(/[?#]/)[0];
-      const note = PHASE_BY_PATH.find(([re]) => re.test(path))?.[1];
-      if (!note) return;
+      const match = PHASE_BY_PATH.find(([re]) => re.test(path));
+      if (!match) return;
       e.preventDefault();
       e.stopPropagation();
-      toast(note);
+      toast(match[1], match[2]);
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);

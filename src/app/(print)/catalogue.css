@@ -1,0 +1,396 @@
+/*
+  Price catalogue (/price-catalogue): fixed A4 sheets, printed to PDF by `npm run catalogue:pdf`.
+  Sizes come from src/app/(print)/price-catalogue/plan.ts as --cat-* custom properties, so the page
+  maths and the layout stay in step. Colours come from the theme classes in globals.css
+  (.theme-service, .theme-diwali, .theme-christmas, .theme-racing, or the brand sage/brown/amber).
+  Everything here is scoped to .catalogue; the named page keeps @page off the rest of the site.
+*/
+
+@page catalogue {
+  size: A4;
+  margin: 0;
+}
+
+.catalogue {
+  font-size: 9pt;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Backgrounds print, and the decorations stand still. */
+.catalogue *,
+.catalogue *::before,
+.catalogue *::after {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  animation: none !important;
+  transition: none !important;
+}
+
+/* ---------- Sheets ---------- */
+
+.cat-sheet {
+  page: catalogue;
+  position: relative;
+  width: var(--cat-page-w);
+  height: var(--cat-page-h);
+  overflow: hidden;
+  background-color: var(--color-sage);
+  color: var(--color-ink);
+  break-after: page;
+  break-inside: avoid;
+}
+.cat-sheet:last-child {
+  break-after: auto;
+}
+.cat-fill {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen {
+  body:has(.catalogue) {
+    background: #2a1d14;
+  }
+  .catalogue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10mm;
+    padding: 10mm 0;
+  }
+  .cat-sheet {
+    box-shadow: 0 12px 40px rgb(0 0 0 / 0.5);
+  }
+}
+
+@media print {
+  html:has(.catalogue),
+  body:has(.catalogue) {
+    margin: 0;
+    padding: 0;
+    background: var(--color-brown);
+  }
+  body:has(.catalogue)::before,
+  body:has(.catalogue) nextjs-portal {
+    display: none !important;
+  }
+  .catalogue {
+    display: block;
+  }
+}
+
+/* ---------- Bands: a collection's opening, its later pages, and a second collection part-way down ---------- */
+
+.cat-hero,
+.cat-cont,
+.cat-subhead {
+  position: relative;
+  flex: none;
+  overflow: hidden;
+  text-align: center;
+}
+.cat-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10mm var(--cat-pad-x) 6mm;
+  margin-bottom: var(--cat-header-gap);
+}
+.cat-cont {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: var(--cat-cont-h);
+  padding-bottom: 4.2mm;
+  margin-bottom: var(--cat-header-gap);
+}
+.cat-subhead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: var(--cat-subhead-h);
+  margin: var(--cat-subhead-gap) var(--cat-pad-x) var(--cat-header-gap);
+}
+
+.catalogue .eyebrow {
+  font-size: 7.5pt;
+  line-height: 1.3;
+  letter-spacing: 0.28em;
+}
+.cat-title {
+  margin-top: 3mm;
+  max-width: 160mm;
+  font-size: 22pt;
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.cat-subhead .cat-title {
+  margin-top: 1.5mm;
+  font-size: 15pt;
+}
+.cat-gold {
+  color: var(--color-eyebrow);
+}
+
+/* The site's decorations, sized for the page */
+.cat-hero .medal-row,
+.cat-hero .diya-row,
+.cat-hero .start-lights {
+  margin-top: 6mm;
+}
+.cat-cont .marigold-garland,
+.cat-cont .fairy-lights {
+  height: 8mm;
+}
+/* The garland and the fairy lights have more flowers and bulbs than a sheet is wide. On the site the
+   extra ones are clipped, but Chrome's print still counts them and shrinks every page to fit, so
+   only as many as fit 210mm are drawn: 18 × 44px and 14 × 56px. */
+.catalogue .marigold-garland > span:nth-child(n + 19),
+.catalogue .fairy-lights > span:nth-child(n + 15) {
+  display: none;
+}
+
+/* Brand collections: amber "mount board" rules inside the brown band, and three small diamonds */
+.cat-studio-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 0 2.6mm var(--color-brown),
+    inset 0 0 0 3mm var(--color-amber),
+    inset 0 0 0 4.2mm var(--color-brown),
+    inset 0 0 0 4.4mm rgb(213 133 31 / 0.6);
+}
+.cat-ornament {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 4mm;
+  margin-top: 6mm;
+}
+.cat-ornament span {
+  width: 2.4mm;
+  height: 2.4mm;
+  background: var(--color-amber);
+  transform: rotate(45deg);
+}
+.cat-ornament span:nth-child(2) {
+  width: 3.2mm;
+  height: 3.2mm;
+}
+
+/* ---------- Cards ---------- */
+
+.cat-row {
+  flex: none;
+  display: flex;
+  justify-content: center;
+  gap: var(--cat-col-gap);
+  padding-inline: var(--cat-pad-x);
+}
+.cat-row + .cat-row {
+  margin-top: var(--cat-row-gap);
+}
+.cat-card {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  width: var(--cat-card-w);
+}
+.cat-photo {
+  position: relative;
+  flex: none;
+  height: var(--cat-photo-h);
+  overflow: hidden;
+  background: var(--color-brown);
+}
+.cat-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cat-text {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2.5mm;
+  height: var(--cat-text-h);
+  padding-top: 2.4mm;
+}
+.cat-name {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  font-size: 8.8pt;
+  font-weight: 600;
+  line-height: 1.28;
+}
+.cat-price {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.15;
+  text-align: right;
+}
+.cat-amount {
+  font-size: 10pt;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.cat-unit {
+  font-size: 6.3pt;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+/* Sized pieces (the retirement gifts): every size with its price */
+.cat-sized {
+  padding-top: 3mm;
+}
+.cat-sized .cat-name {
+  font-size: 10.5pt;
+  line-height: 1.25;
+}
+.cat-sizes li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--cat-size-row-h);
+  border-bottom: 0.25mm dotted var(--color-line);
+  font-size: 8.8pt;
+  color: var(--color-muted);
+}
+.cat-sizes .cat-amount {
+  font-size: 9.5pt;
+  color: var(--color-ink);
+}
+
+/* ---------- Footer on every page ---------- */
+
+.cat-footer {
+  position: absolute;
+  left: var(--cat-pad-x);
+  right: var(--cat-pad-x);
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4mm;
+  height: calc(var(--cat-footer-h) - 4mm);
+  border-top: 0.25mm solid var(--color-line);
+  font-size: 7pt;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+}
+.cat-footer strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+/* ---------- Cover ---------- */
+
+.cat-cover {
+  align-items: center;
+  justify-content: center;
+  padding: 24mm 30mm;
+  text-align: center;
+}
+.cat-cover-frame {
+  position: absolute;
+  inset: 9mm;
+  pointer-events: none;
+  border: 0.5mm solid var(--color-amber);
+  box-shadow:
+    inset 0 0 0 1.6mm var(--color-brown),
+    inset 0 0 0 1.85mm rgb(213 133 31 / 0.6);
+}
+.cat-cover-logo {
+  position: relative;
+  width: 58mm;
+  height: 58mm;
+  border-radius: 50%;
+  /* Crisp rings only: blurred shadows print as grey boxes in some PDF viewers. */
+  box-shadow:
+    0 0 0 1.2mm var(--color-brown),
+    0 0 0 1.6mm var(--color-amber);
+}
+.catalogue .cat-cover-brand {
+  margin-top: 10mm;
+  font-size: 8.5pt;
+}
+.cat-cover-title {
+  margin-top: 3mm;
+  font-size: 36pt;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.cat-cover-month {
+  margin-top: 3mm;
+  min-height: 1.3em;
+  font-size: 11pt;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.cat-contents {
+  width: 104mm;
+  margin-top: 12mm;
+  font-size: 10pt;
+}
+.cat-contents li {
+  display: flex;
+  align-items: baseline;
+  gap: 2.5mm;
+  padding: 1.6mm 0;
+}
+.cat-leader {
+  flex: 1;
+  border-bottom: 0.3mm dotted var(--color-line);
+  transform: translateY(-1mm);
+}
+
+.cat-cover-order {
+  position: relative;
+  width: 104mm;
+  margin-top: 12mm;
+  padding: 5mm 6mm;
+}
+.cat-cover-phone {
+  margin-top: 1.5mm;
+  font-size: 19pt;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.cat-cover-insta {
+  margin-top: 1mm;
+  font-size: 8.5pt;
+  color: var(--color-muted);
+}
+.cat-cover-note {
+  margin-top: 8mm;
+  font-size: 8.5pt;
+  color: var(--color-muted);
+}

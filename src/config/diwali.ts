@@ -1,12 +1,12 @@
-import type { FestiveLine } from "./festive";
+import type { ThemedLine } from "./lines";
 
 /**
  * Diwali Décor & Gifts (added 29 Oct 2026): page /diwali in the Diwali colours, the "Diwali" menu
- * item (in place of "Shop", owner's choice) and a homepage section below the retirement tributes.
+ * item (in place of "Shop", owner's choice) and a homepage section below the retirement gifts.
  * Products live in seed.json (category below), prices in src/config/prices.ts (20% below market).
  * Copy here is a draft for the owner. Photos are other makers' work, used with their approval.
  */
-export const diwali: FestiveLine = {
+export const diwali: ThemedLine = {
   category: "diwali-decor-gifts",
   path: "/diwali",
   theme: "theme-diwali",
@@ -20,7 +20,6 @@ export const diwali: FestiveLine = {
   samplePhotoNote: "Every piece is made by hand to order, so yours may differ a little from the photo.",
   noPhoto: "Photo coming soon",
   taglines: {
-    "pink-pooja-gift-box": "Thali, Shubh Labh, Ganesh plate and a diya.",
     "ganesh-lakshmi-gift-box": "Ganesh and Lakshmi plaques with lotus diyas.",
     "shubh-labh-candle-gift-box": "Shubh Labh, laddoo candles and a flower candle.",
     "pink-shubh-labh-gift-box": "Shubh Labh, a Ganesh plaque and two diyas.",

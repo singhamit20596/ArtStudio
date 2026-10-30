@@ -1,6 +1,6 @@
 import seed from "@/data/seed.json";
 import { launch } from "@/config/launch";
-import { customCategoryPrices, productCodeProblems, productPrices } from "@/config/prices";
+import { customCategoryPrices, productCodeProblems, productPrices, removedProducts } from "@/config/prices";
 import { categoryHref, occasionHref, slugify } from "./product";
 import { MAX_QTY, type CartProduct } from "./pricing";
 import type { Category, Occasion, Product, SearchItem, SearchLink, Seed } from "./types";
@@ -20,10 +20,12 @@ if (codeProblems.length) throw new Error(`Product codes in src/config/prices.ts:
 /**
  * Puts the price list (src/config/prices.ts) onto a product: its sizes, price, starting price and
  * light price. seed.json holds no prices. With launch.lights off, no product offers lights.
+ * A product taken off the site in the price catalogue (removedProducts) is hidden like a draft.
  */
 function withPrices(p: Product): Product {
   const entry = productPrices[p.slug];
-  const base: Product = { ...p, code: entry?.code ?? null, variantCodes: entry?.variantCodes, price: null, mrp: null, startingPrice: null, sizes: undefined, lightPrice: null };
+  const published = p.published && !removedProducts.has(p.slug);
+  const base: Product = { ...p, published, code: entry?.code ?? null, variantCodes: entry?.variantCodes, price: null, mrp: null, startingPrice: null, sizes: undefined, lightPrice: null };
   if (!entry) return base;
   if (entry.kind === "sizes") {
     const sizes = entry.sizes.flatMap(({ price, ...s }) => (price.amount == null ? [] : [{ ...s, price: price.amount }]));
@@ -61,8 +63,8 @@ export const products: Product[] = allProducts.filter((p) => p.published && onSa
 
 export const categories: Category[] = allCategories.filter((c) => onSale(c.slug));
 export const readyCategories = categories.filter((c) => c.type === "ready");
-/** Ready-made categories with their own /shop/[slug] page ("Gifts" lives at /gifts). */
-export const shopCategories = readyCategories.filter((c) => c.slug !== "gifts");
+/** Ready-made categories, each with its own /shop/[slug] page. */
+export const shopCategories = readyCategories;
 export const customCategories = categories.filter((c) => c.type === "custom");
 export const occasions: Occasion[] = data.occasions;
 
@@ -84,24 +86,12 @@ export function newArrivals(limit = 8) {
   return products.filter((p) => p.type === "ready").sort(newestFirst).slice(0, limit);
 }
 
-export function forOccasions(slugs: string[], limit = 8) {
-  return products
-    .filter((p) => p.type === "ready" && p.occasions.some((o) => slugs.includes(o)))
-    .sort(newestFirst)
-    .slice(0, limit);
-}
-
 export function productsInCategory(slug: string) {
   return products.filter((p) => p.category === slug);
 }
 
 export function productsForOccasion(slug: string) {
   return products.filter((p) => p.occasions.includes(slug));
-}
-
-/** The curated gift shop: every product tagged "gift". */
-export function giftProducts() {
-  return products.filter((p) => p.tags.includes("gift"));
 }
 
 /** Same category first, then pieces that share an occasion. */

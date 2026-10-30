@@ -63,6 +63,14 @@ export function priceLabel(min: number | null, max: number | null) {
   return "Any price";
 }
 
+/** priceLabel in Hindi. */
+export function priceLabelHi(min: number | null, max: number | null) {
+  if (min != null && max != null) return `${formatINR(min)} – ${formatINR(max)}`;
+  if (max != null) return `${formatINR(max)} से कम`;
+  if (min != null) return `${formatINR(min)} और उससे ज़्यादा`;
+  return "कोई भी कीमत";
+}
+
 const list = (v: string | null) => (v ? v.split(",").filter(Boolean) : []);
 const num = (v: string | null) => {
   if (!v) return null;

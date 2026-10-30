@@ -26,7 +26,7 @@ export interface NavMenu {
   features: NavFeature[];
 }
 
-/** The three Retirement Tributes, the featured line. Used in the header menu, footer and mobile menu. */
+/** The three Retirement Gifts (the tributes), the featured line. Used in the header menu, footer and mobile menu. */
 export const launchNav: NavLink[] = [
   { label: "Newspaper Tribute", href: "/product/newspaper-tribute" },
   { label: "Box Frame", href: "/product/box-frame" },
@@ -35,7 +35,7 @@ export const launchNav: NavLink[] = [
 
 export const launchFooterNav: NavColumn[] = [
   {
-    title: "Retirement tributes",
+    title: "Retirement gifts",
     links: launchNav,
   },
   {
@@ -49,12 +49,12 @@ export const launchFooterNav: NavColumn[] = [
   },
 ];
 
-/** Header menus. Retirement Tributes come first (the featured line), then the shop. */
+/** Header menus. Retirement Gifts come first (the featured line), then the shop. */
 export const mainNav: NavMenu[] = [
   {
     id: "tributes",
-    label: "Retirement Tributes",
-    href: "/retirement-tributes",
+    label: "Retirement Gifts",
+    href: "/retirement-gifts",
     columns: [],
     features: [
       { eyebrow: "Front page", title: "Newspaper Tribute", href: "/product/newspaper-tribute", image: "/products/newspaper-tribute/tile.jpg", alt: "Newspaper tribute frame" },
@@ -104,7 +104,7 @@ export const mainNav: NavMenu[] = [
   },
   {
     // Diwali took the place of "Shop" in the header (owner, 29 Oct 2026). The shop pages are
-    // still linked from the homepage, the footer, search and the Festive and Gifts menus.
+    // still linked from the homepage, the footer and search.
     id: "diwali",
     label: "Diwali",
     href: "/diwali",
@@ -113,7 +113,6 @@ export const mainNav: NavMenu[] = [
         title: "Gift boxes & sets",
         links: [
           { label: "Ganesh Lakshmi gift box", href: "/product/ganesh-lakshmi-gift-box" },
-          { label: "Pink pooja gift box", href: "/product/pink-pooja-gift-box" },
           { label: "Pink Shubh Labh gift box", href: "/product/pink-shubh-labh-gift-box" },
           { label: "Shubh Labh & candle box", href: "/product/shubh-labh-candle-gift-box" },
           { label: "Pink lotus pooja set", href: "/product/pink-lotus-pooja-set" },
@@ -145,96 +144,44 @@ export const mainNav: NavMenu[] = [
     ],
   },
   {
-    id: "custom",
-    label: "Custom",
+    // Car Gifts took the place of "Custom" in the header (owner, 30 Oct 2026). The custom-order
+    // pages are still linked from the homepage and the footer.
+    id: "car-gifts",
+    label: "Car Gifts",
+    href: "/car-gifts",
     columns: [
       {
-        title: "Keepsakes",
+        title: "Frames",
         links: [
-          { label: "Personalised Shadow Boxes", href: "/custom/shadow-boxes" },
-          { label: "Resin Photo Frames", href: "/custom/resin-photo-frames" },
-          { label: "Flower Preservation", href: "/custom/flower-preservation" },
-          { label: "Pet Memorials", href: "/custom/pet-memorials" },
+          { label: "Hot Wheels smoke frame", href: "/product/hot-wheels-smoke-frame" },
+          { label: "BMW M smoke frame", href: "/product/bmw-m-smoke-frame" },
+          { label: "Hot Wheels tyre track", href: "/product/hot-wheels-tyre-track-frame" },
+          { label: "Twin drift shadow box", href: "/product/hot-wheels-twin-drift-frame" },
+          { label: "Three cars spotlight", href: "/product/three-cars-spotlight-frame" },
+          { label: "Ferrari flame burnout", href: "/product/ferrari-flame-burnout-frame" },
         ],
       },
       {
-        title: "For the home",
+        title: "Canvases",
         links: [
-          { label: "Resin Trays", href: "/custom/resin-trays" },
-          { label: "Wall Clocks", href: "/custom/wall-clocks" },
-          { label: "Name Plates", href: "/custom/name-plates" },
-          { label: "Resin Rangoli", href: "/custom/resin-rangoli" },
-          { label: "Rakhi & Festive Customs", href: "/custom/rakhi-festive-customs" },
+          { label: "Ferrari racing stripe", href: "/product/ferrari-racing-stripe-canvas" },
+          { label: "BMW M760Li drift", href: "/product/bmw-drift-smoke-canvas" },
+          { label: "Pagani ocean wave", href: "/product/pagani-ocean-wave-canvas" },
+          { label: "Emerald splash", href: "/product/emerald-splash-car-board" },
+          { label: "Zaporozhets vintage", href: "/product/vintage-car-wheat-canvas" },
         ],
       },
       {
-        title: "Small gifts",
+        title: "Plaques & displays",
         links: [
-          { label: "Fridge Magnets", href: "/custom/fridge-magnets" },
-          { label: "Initial & Name Keychains", href: "/custom/initial-keychains" },
-          { label: "Resin Jewellery", href: "/custom/resin-jewellery" },
-          { label: "Phone Covers", href: "/custom/phone-covers", note: "Coming soon" },
-          { label: "Bookmarks & Desk", href: "/custom/bookmarks-coasters-desk" },
+          { label: "Harley-Davidson plaque", href: "/product/harley-davidson-plaque" },
+          { label: "Tyre display shelf", href: "/product/tyre-display-shelf" },
+          { label: "All car gifts", href: "/car-gifts" },
         ],
       },
     ],
     features: [
-      { eyebrow: "Your photos", title: "Photo blocks & magnets", href: "/custom/fridge-magnets", image: "/products/resin-photo-blocks-magnets/1.jpg", alt: "Resin photo blocks and fridge magnets" },
-    ],
-  },
-  {
-    id: "festive",
-    label: "Festive",
-    columns: [
-      {
-        title: "Festivals",
-        links: [
-          { label: "Diwali", href: "/diwali" },
-          { label: "Karwa Chauth", href: "/occasion/karwa-chauth" },
-          { label: "Raksha Bandhan", href: "/occasion/raksha-bandhan" },
-        ],
-      },
-      {
-        title: "Pooja & décor",
-        links: [
-          { label: "Pooja thalis", href: "/shop/pooja-festive?sub=pooja-thalis" },
-          { label: "Torans & door hangings", href: "/shop/pooja-festive?sub=torans-door-hangings" },
-          { label: "Karwa Chauth sets", href: "/shop/pooja-festive?sub=karwa-chauth" },
-          { label: "All Pooja & Festive", href: "/shop/pooja-festive" },
-        ],
-      },
-    ],
-    features: [
-      { eyebrow: "Diwali", title: "Shubh Labh toran", href: "/product/shubh-labh-toran", image: "/products/shubh-labh-toran/1.jpg", alt: "Pair of Shubh Labh resin door hangings" },
-      { eyebrow: "Karwa Chauth", title: "Chalni & thali set", href: "/product/karwa-chauth-chalni-thali-set", image: "/products/karwa-chauth-chalni-thali-set/1.jpg", alt: "Teal resin Karwa Chauth chalni and thali" },
-    ],
-  },
-  {
-    id: "gifts",
-    label: "Gifts",
-    columns: [
-      {
-        title: "By occasion",
-        links: [
-          { label: "Retirement", href: "/occasion/retirement" },
-          { label: "Birthday", href: "/occasion/birthday" },
-          { label: "Anniversary", href: "/occasion/anniversary" },
-          { label: "Wedding", href: "/occasion/wedding" },
-          { label: "Housewarming", href: "/occasion/housewarming" },
-        ],
-      },
-      {
-        title: "Gifting",
-        links: [
-          { label: "The gift shop", href: "/gifts" },
-          { label: "Bulk & corporate gifting", href: "/bulk-gifting" },
-          { label: "Corporate gifting ideas", href: "/occasion/corporate-gifting" },
-        ],
-      },
-    ],
-    features: [
-      { eyebrow: "Personalised", title: "Shadow boxes", href: "/custom/shadow-boxes", image: "/products/birthday-shadow-box-led/1.jpg", alt: "LED-lit birthday shadow box" },
-      { eyebrow: "Pressed flowers", title: "Initial keychains", href: "/product/botanical-initial-keychain", image: "/products/botanical-initial-keychain/1.jpg", alt: "Resin initial keychains with pressed flowers" },
+      { eyebrow: "Canvas", title: "BMW Drift", href: "/product/bmw-drift-smoke-canvas", image: "/products/bmw-drift-smoke-canvas/1.jpg", alt: "Silver diecast BMW drifting out of white resin smoke on a black canvas" },
     ],
   },
   {
@@ -264,7 +211,7 @@ export const mainNav: NavMenu[] = [
 
 export const footerNav: NavColumn[] = [
   {
-    title: "Retirement tributes",
+    title: "Retirement gifts",
     links: launchNav,
   },
   {
@@ -274,7 +221,6 @@ export const footerNav: NavColumn[] = [
       { label: "Pooja & Festive", href: "/shop/pooja-festive" },
       { label: "Wall Décor", href: "/shop/wall-decor" },
       { label: "Keychains & Accessories", href: "/shop/keychains-accessories" },
-      { label: "Gifts", href: "/gifts" },
     ],
   },
   {

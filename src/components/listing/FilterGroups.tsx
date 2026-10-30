@@ -3,7 +3,10 @@
 import clsx from "clsx";
 import type { ReactNode } from "react";
 import type { Product } from "@/lib/types";
-import { COLOURS, facetCounts, PRICE_PRESETS, priceLabel, TYPE_LABELS, type FacetKey, type ListingFilters } from "@/lib/listing";
+import { COLOURS, facetCounts, PRICE_PRESETS, priceLabel, priceLabelHi, TYPE_LABELS, type FacetKey, type ListingFilters } from "@/lib/listing";
+import { colourLabels, facetLegends, hiListingLabel, typeLabels } from "@/i18n/names";
+import { T } from "@/i18n/T";
+import { useLang } from "@/i18n/use-lang";
 
 interface FilterGroupsProps {
   products: Product[];
@@ -32,14 +35,16 @@ export function FilterGroups({ products, filters, facets, labels, onChange }: Fi
         return body ? (
           <details key={key} open className="group/f py-4">
             <summary className="flex cursor-pointer list-none items-center justify-between text-[12px] font-semibold uppercase tracking-[0.16em] [&::-webkit-details-marker]:hidden">
-              {LEGENDS[key]}
+              <T en={LEGENDS[key]} hi={facetLegends[key]} />
               <span aria-hidden="true" className="w-3 text-center text-[16px] font-normal leading-none">
                 <span className="group-open/f:hidden">+</span>
                 <span className="hidden group-open/f:inline">−</span>
               </span>
             </summary>
             <fieldset className="mt-3">
-              <legend className="sr-only">{LEGENDS[key]}</legend>
+              <legend className="sr-only">
+                <T en={LEGENDS[key]} hi={facetLegends[key]} />
+              </legend>
               {body}
             </fieldset>
           </details>
@@ -56,7 +61,12 @@ function renderFacet(key: FacetKey, { products, filters, labels, onChange }: Omi
     const hasReady = products.some((p) => p.type === "ready");
     if (!hasReady && !filters.stock) return null;
     return (
-      <Option checked={filters.stock} onToggle={() => onChange({ stock: !filters.stock })} label="In stock" hint="Ready to ship" />
+      <Option
+        checked={filters.stock}
+        onToggle={() => onChange({ stock: !filters.stock })}
+        label={<T en="In stock" hi="स्टॉक में" />}
+        hint={<T en="Ready to ship" hi="भेजने के लिए तैयार" />}
+      />
     );
   }
 
@@ -78,7 +88,8 @@ function renderFacet(key: FacetKey, { products, filters, labels, onChange }: Omi
     <ul className="space-y-0.5">
       {options.map((value) => {
         const colour = key === "colour" ? COLOURS.find((c) => c.slug === value) : undefined;
-        const label = key === "type" ? TYPE_LABELS[value] : (colour?.label ?? labels[value] ?? value);
+        const en = key === "type" ? TYPE_LABELS[value] : (colour?.label ?? labels[value] ?? value);
+        const label = <T en={en} hi={key === "type" ? typeLabels[value] : colour ? colourLabels[value] : hiListingLabel(value)} />;
         return (
           <li key={value}>
             <Option
@@ -105,9 +116,9 @@ function Option({
 }: {
   checked: boolean;
   onToggle: () => void;
-  label: string;
+  label: ReactNode;
   count?: number;
-  hint?: string;
+  hint?: ReactNode;
   swatch?: string;
 }) {
   const dim = count === 0 && !checked;
@@ -125,6 +136,7 @@ function Option({
 }
 
 function PriceFacet({ products, filters, onChange }: Pick<FilterGroupsProps, "products" | "filters" | "onChange">) {
+  const hi = useLang() === "hi";
   if (!products.some((p) => p.price != null || p.startingPrice != null)) return null;
   const isPreset = (p: (typeof PRICE_PRESETS)[number]) => p.min === filters.min && p.max === filters.max;
 
@@ -146,25 +158,29 @@ function PriceFacet({ products, filters, onChange }: Pick<FilterGroupsProps, "pr
       <ul className="space-y-0.5">
         {PRICE_PRESETS.map((p) => (
           <li key={priceLabel(p.min, p.max)}>
-            <Option checked={isPreset(p)} onToggle={() => onChange(isPreset(p) ? { min: null, max: null } : { min: p.min, max: p.max })} label={priceLabel(p.min, p.max)} />
+            <Option
+              checked={isPreset(p)}
+              onToggle={() => onChange(isPreset(p) ? { min: null, max: null } : { min: p.min, max: p.max })}
+              label={<T en={priceLabel(p.min, p.max)} hi={priceLabelHi(p.min, p.max)} />}
+            />
           </li>
         ))}
       </ul>
       <form key={`${filters.min}-${filters.max}`} onSubmit={submit} className="mt-3 flex items-center gap-2">
-        <PriceInput name="min" label="Minimum price" placeholder="Min" defaultValue={filters.min} />
+        <PriceInput name="min" label={<T en="Minimum price" hi="कम से कम कीमत" />} placeholder={hi ? "कम से कम" : "Min"} defaultValue={filters.min} />
         <span aria-hidden="true" className="text-muted">
           –
         </span>
-        <PriceInput name="max" label="Maximum price" placeholder="Max" defaultValue={filters.max} />
+        <PriceInput name="max" label={<T en="Maximum price" hi="ज़्यादा से ज़्यादा कीमत" />} placeholder={hi ? "ज़्यादा से ज़्यादा" : "Max"} defaultValue={filters.max} />
         <button type="submit" className="h-9 shrink-0 border border-ink px-3 text-[12px] font-semibold uppercase tracking-[0.14em] transition-colors hover:bg-brown hover:border-brown hover:text-paper">
-          Go
+          <T en="Go" hi="देखें" />
         </button>
       </form>
     </div>
   );
 }
 
-function PriceInput({ name, label, placeholder, defaultValue }: { name: string; label: string; placeholder: string; defaultValue: number | null }) {
+function PriceInput({ name, label, placeholder, defaultValue }: { name: string; label: ReactNode; placeholder: string; defaultValue: number | null }) {
   return (
     <label className="flex h-9 min-w-0 flex-1 items-center border border-ink/20 px-2 focus-within:border-ink">
       <span aria-hidden="true" className="text-muted">

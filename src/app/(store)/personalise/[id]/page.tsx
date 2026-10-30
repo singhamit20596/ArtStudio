@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Loader2 } from "lucide-react";
 import { Suspense } from "react";
 import { PersonaliseFlow } from "@/components/tribute/PersonaliseFlow";
+import { T } from "@/i18n/T";
 
 export const metadata: Metadata = {
   title: "Personalise your tribute",
@@ -15,7 +16,7 @@ export default function PersonalisePage() {
       <Suspense
         fallback={
           <p className="flex items-center gap-3 py-24" role="status">
-            <Loader2 className="animate-spin" size={18} aria-hidden="true" /> Opening your order…
+            <Loader2 className="animate-spin" size={18} aria-hidden="true" /> <T en="Opening your order…" hi="आपका ऑर्डर खुल रहा है…" />
           </p>
         }
       >

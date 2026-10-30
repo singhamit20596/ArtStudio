@@ -7,6 +7,7 @@ import type { NavLink, NavMenu } from "@/config/nav";
 import { site } from "@/config/site";
 import type { CartProduct } from "@/lib/pricing";
 import type { SearchItem, SearchLink } from "@/lib/types";
+import type { LinkHindi, SearchHindi } from "@/i18n/names";
 import { useShop } from "@/components/providers/ShopProvider";
 import { AppLink } from "@/components/ui/AppLink";
 import { Logo } from "./Logo";
@@ -15,6 +16,10 @@ import { MobileMenu } from "./MobileMenu";
 import { SearchOverlay } from "./SearchOverlay";
 import { CartDrawer } from "./CartDrawer";
 import { OffersDrawer } from "@/components/cart/OffersDrawer";
+import { LanguageToggle } from "@/i18n/LanguageToggle";
+import { T } from "@/i18n/T";
+import { tr } from "@/i18n/ui";
+import { useT } from "@/i18n/use-lang";
 
 interface HeaderProps {
   /** Transparent over the hero until the visitor scrolls (homepage). */
@@ -28,8 +33,8 @@ interface HeaderProps {
   shop: boolean;
   /** Cart icon, cart drawer and offers. */
   cart: boolean;
-  searchItems: SearchItem[];
-  searchLinks: SearchLink[];
+  searchItems: (SearchItem & SearchHindi)[];
+  searchLinks: (SearchLink & LinkHindi)[];
   cartCatalogue: CartProduct[];
 }
 
@@ -43,6 +48,7 @@ export function Header({ overlay = false, menus, links = [], cta, shop, cart, se
   const closeTimer = useRef<number | undefined>(undefined);
   const hoverOpenedAt = useRef(0);
   const triggerRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const t = useT();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -122,25 +128,29 @@ export function Header({ overlay = false, menus, links = [], cta, shop, cart, se
         <div className="container-x grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-3 lg:h-[76px] xl:grid-cols-[auto_1fr_auto]">
           {/* Left: menu button (mobile) / logo (desktop) */}
           <div className="flex items-center">
-            <button type="button" onClick={() => setMobileOpen(true)} aria-label="Open menu" className={clsx(iconButton, "-ml-2 xl:hidden")}>
+            <button type="button" onClick={() => setMobileOpen(true)} aria-label={t("Open menu", "मेनू खोलें")} className={clsx(iconButton, "-ml-2 xl:hidden")}>
               <Menu size={22} strokeWidth={1.6} />
             </button>
-            <AppLink href="/" aria-label={`${site.name} home`} className="hidden xl:block">
+            {/* Phones and tablets: the language switch sits by the menu button (the right side holds search and cart). */}
+            <div className="-ml-1 sm:ml-0.5 xl:hidden">
+              <LanguageToggle />
+            </div>
+            <AppLink href="/" aria-label={t(`${site.name} home`, `${site.name} होम`)} className="hidden xl:block">
               <Logo inverted />
             </AppLink>
           </div>
 
           {/* Centre: logo (mobile) / main navigation (desktop) */}
           <div className="flex justify-center">
-            <AppLink href="/" aria-label={`${site.name} home`} className="xl:hidden">
+            <AppLink href="/" aria-label={t(`${site.name} home`, `${site.name} होम`)} className="xl:hidden">
               <Logo inverted compact />
             </AppLink>
-            <nav aria-label="Main" className="hidden xl:block">
+            <nav aria-label={t("Main", "मुख्य मेनू")} className="hidden xl:block">
               <ul className="flex items-center justify-center gap-0.5 2xl:gap-3">
                 {links.map((link) => (
                   <li key={link.href}>
                     <AppLink href={link.href} className="nav-label flex h-[76px] items-center px-2.5 tracking-[0.22em] 2xl:px-3 2xl:tracking-[0.3em]">
-                      <span className="link-grow">{link.label}</span>
+                      <span className="link-grow"><T en={link.label} hi={tr(link.label)} /></span>
                     </AppLink>
                   </li>
                 ))}
@@ -149,7 +159,7 @@ export function Header({ overlay = false, menus, links = [], cta, shop, cart, se
                     {menu.href ? (
                       // A menu with its own page: the label is a link; hovering still shows the panel.
                       <AppLink href={menu.href} onClick={closeMenu} className="nav-label flex h-[76px] items-center gap-1.5 px-2.5 tracking-[0.22em] 2xl:px-3 2xl:tracking-[0.3em]">
-                        <span className={clsx("link-grow", openMenu === menu.id && "bg-[length:100%_1px]")}>{menu.label}</span>
+                        <span className={clsx("link-grow", openMenu === menu.id && "bg-[length:100%_1px]")}><T en={menu.label} hi={tr(menu.label)} /></span>
                         <ChevronDown size={13} strokeWidth={2} aria-hidden="true" className={clsx("transition-transform", openMenu === menu.id && "rotate-180")} />
                       </AppLink>
                     ) : (
@@ -163,7 +173,7 @@ export function Header({ overlay = false, menus, links = [], cta, shop, cart, se
                       onClick={(e) => clickToggle(menu.id, e.timeStamp)}
                       className="nav-label flex h-[76px] items-center gap-1.5 px-2.5 tracking-[0.22em] 2xl:px-3 2xl:tracking-[0.3em]"
                     >
-                      <span className={clsx("link-grow", openMenu === menu.id && "bg-[length:100%_1px]")}>{menu.label}</span>
+                      <span className={clsx("link-grow", openMenu === menu.id && "bg-[length:100%_1px]")}><T en={menu.label} hi={tr(menu.label)} /></span>
                       <ChevronDown size={13} strokeWidth={2} aria-hidden="true" className={clsx("transition-transform", openMenu === menu.id && "rotate-180")} />
                     </button>
                     )}
@@ -177,26 +187,30 @@ export function Header({ overlay = false, menus, links = [], cta, shop, cart, se
           <div className="-mr-2 flex items-center justify-end">
             {cta && (
               <AppLink href={cta.href} className="btn btn-light btn-press mr-2 min-h-10 px-4 text-[11px] sm:px-5">
-                <span className="sm:hidden">Tributes</span>
-                <span className="hidden sm:inline">{cta.label}</span>
+                <span className="sm:hidden"><T en="Tributes" hi="ट्रिब्यूट" /></span>
+                <span className="hidden sm:inline"><T en={cta.label} hi={tr(cta.label)} /></span>
               </AppLink>
             )}
+            {/* Wide screens: the language switch leads the icons on the right. */}
+            <div className="mr-1.5 hidden xl:block">
+              <LanguageToggle />
+            </div>
             {shop && (
               <>
-            <button type="button" onClick={() => setSearchOpen(true)} aria-label="Search" className={iconButton}>
+            <button type="button" onClick={() => setSearchOpen(true)} aria-label={t("Search", "खोजें")} className={iconButton}>
               <Search size={20} strokeWidth={1.6} />
             </button>
-            <AppLink href="/account" aria-label="Account" className={clsx(iconButton, "hidden sm:grid")}>
+            <AppLink href="/account" aria-label={t("Account", "अकाउंट")} className={clsx(iconButton, "hidden sm:grid")}>
               <User size={20} strokeWidth={1.6} />
             </AppLink>
-            <AppLink href="/wishlist" aria-label={`Wishlist, ${wishlist.length} items`} className={clsx(iconButton, "hidden sm:grid")}>
+            <AppLink href="/wishlist" aria-label={t(`Wishlist, ${wishlist.length} items`, `विशलिस्ट, ${wishlist.length} चीज़ें`)} className={clsx(iconButton, "hidden sm:grid")}>
               <Heart size={20} strokeWidth={1.6} />
               {wishlist.length > 0 && <Count n={wishlist.length} />}
             </AppLink>
               </>
             )}
             {cart && (
-              <button type="button" onClick={() => setCartOpen(true)} aria-label={`Cart, ${cartCount} items`} className={iconButton}>
+              <button type="button" onClick={() => setCartOpen(true)} aria-label={t(`Cart, ${cartCount} items`, `कार्ट, ${cartCount} चीज़ें`)} className={iconButton}>
                 <ShoppingBag size={20} strokeWidth={1.6} />
                 {cartCount > 0 && <Count n={cartCount} />}
               </button>

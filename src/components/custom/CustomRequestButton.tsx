@@ -1,18 +1,20 @@
 "use client";
 
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { site } from "@/config/site";
 import { WhatsAppIcon } from "@/components/ui/Icons";
 import { isPreview } from "@/lib/preview";
 import { messages, whatsappLink } from "@/lib/whatsapp";
+import { T } from "@/i18n/T";
 
 interface CustomRequestButtonProps {
   /** Product or category name used in the WhatsApp message. */
   productName: string;
   /** Path of the page being enquired about, e.g. "/custom/retirement-tribute-frames". */
   path: string;
-  label?: string;
+  /** Button text (a <T> for both languages); defaults to "Request this custom piece". */
+  label?: ReactNode;
   variant?: "dark" | "light" | "whatsapp";
   className?: string;
 }
@@ -24,7 +26,13 @@ interface CustomRequestButtonProps {
  * Kept deliberately self-contained: the full custom-order flow (photo upload,
  * medal selection, live preview) will replace this one component later.
  */
-export function CustomRequestButton({ productName, path, label = "Request this custom piece", variant = "dark", className }: CustomRequestButtonProps) {
+export function CustomRequestButton({
+  productName,
+  path,
+  label = <T en="Request this custom piece" hi="यह कस्टम पीस बनवाएँ" />,
+  variant = "dark",
+  className,
+}: CustomRequestButtonProps) {
   const [origin, setOrigin] = useState<string>(site.url);
 
   useEffect(() => {

@@ -7,6 +7,9 @@ import { toast } from "@/components/ui/Toaster";
 import type { Order } from "@/lib/checkout";
 import { formatINR } from "@/lib/format";
 import { cleanUtr, isPreviewUpi, isUtr, upiId, upiLink } from "@/lib/upi";
+import { hiMessage } from "@/i18n/messages";
+import { T } from "@/i18n/T";
+import { useLang } from "@/i18n/use-lang";
 
 /**
  * Pay by UPI: a button that opens the customer's UPI app (phones) and a QR code to scan
@@ -18,6 +21,7 @@ export function UpiPayPanel({ order, onClaimed }: { order: Order; onClaimed: (or
   const [ref, setRef] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const hi = useLang() === "hi";
 
   useEffect(() => {
     let alive = true;
@@ -56,7 +60,7 @@ export function UpiPayPanel({ order, onClaimed }: { order: Order; onClaimed: (or
   const copyId = async () => {
     try {
       await navigator.clipboard.writeText(upiId());
-      toast("UPI ID copied");
+      toast("UPI ID copied", "UPI ID कॉपी हो गई");
     } catch {
       toast(`UPI ID: ${upiId()}`);
     }
@@ -64,30 +68,41 @@ export function UpiPayPanel({ order, onClaimed }: { order: Order; onClaimed: (or
 
   return (
     <section aria-labelledby="upi-title" className="surface-amber p-6 md:p-8">
-      <p className="eyebrow">Step 1 of 2</p>
+      <p className="eyebrow">
+        <T en="Step 1 of 2" hi="चरण 1 / 2" />
+      </p>
       <h2 id="upi-title" className="mt-2 text-[22px] font-semibold md:text-[26px]">
-        Pay {formatINR(order.totals.total)} by UPI
+        <T en={`Pay ${formatINR(order.totals.total)} by UPI`} hi={`UPI से ${formatINR(order.totals.total)} चुकाएँ`} />
       </h2>
       {isPreviewUpi() && (
-        <p className="mt-3 border border-line px-3 py-2 text-[12.5px]">Preview: no UPI ID is set yet (src/config/site.ts), so this uses a placeholder that cannot receive money.</p>
+        <p className="mt-3 border border-line px-3 py-2 text-[12.5px]">
+          <T
+            en="Preview: no UPI ID is set yet (src/config/site.ts), so this uses a placeholder that cannot receive money."
+            hi="प्रीव्यू: अभी कोई UPI ID सेट नहीं है (src/config/site.ts), इसलिए यहाँ एक नमूना ID है जिस पर पैसा नहीं आ सकता।"
+          />
+        </p>
       )}
       <div className="mt-6 grid gap-8 md:grid-cols-[200px_minmax(0,1fr)] md:items-center">
         <div className="mx-auto w-[200px] border-4 border-brown bg-sage p-2">
-          {qr ? <div aria-label="UPI QR code" role="img" dangerouslySetInnerHTML={{ __html: qr }} /> : <div className="grid aspect-square place-items-center"><Loader2 className="animate-spin" /></div>}
+          {qr ? <div aria-label={hi ? "UPI QR कोड" : "UPI QR code"} role="img" dangerouslySetInnerHTML={{ __html: qr }} /> : <div className="grid aspect-square place-items-center"><Loader2 className="animate-spin" /></div>}
         </div>
         <div>
           <a href={link} className="btn btn-dark btn-press w-full md:hidden">
-            <Smartphone size={17} aria-hidden="true" /> Open UPI app
+            <Smartphone size={17} aria-hidden="true" /> <T en="Open UPI app" hi="UPI ऐप खोलें" />
           </a>
           <p className="mt-3 text-[14px] leading-relaxed md:mt-0">
-            <span className="hidden md:inline">Scan the code with GPay, PhonePe, Paytm or any UPI app. </span>
-            <span className="md:hidden">Or scan the code from another phone. </span>
-            The amount and order number are filled in for you.
+            <span className="hidden md:inline">
+              <T en="Scan the code with GPay, PhonePe, Paytm or any UPI app. " hi="GPay, PhonePe, Paytm या किसी भी UPI ऐप से कोड स्कैन करें। " />
+            </span>
+            <span className="md:hidden">
+              <T en="Or scan the code from another phone. " hi="या किसी दूसरे फ़ोन से कोड स्कैन करें। " />
+            </span>
+            <T en="The amount and order number are filled in for you." hi="रकम और ऑर्डर नंबर अपने आप भर जाते हैं।" />
           </p>
           <p className="mt-3 flex flex-wrap items-center gap-2 text-[13px]">
             UPI ID <strong className="font-semibold">{upiId()}</strong>
             <button type="button" onClick={copyId} className="inline-flex items-center gap-1 underline underline-offset-4">
-              <Copy size={13} aria-hidden="true" /> Copy
+              <Copy size={13} aria-hidden="true" /> <T en="Copy" hi="कॉपी" />
             </button>
           </p>
         </div>
@@ -95,7 +110,7 @@ export function UpiPayPanel({ order, onClaimed }: { order: Order; onClaimed: (or
 
       <form onSubmit={claim} className="mt-8 border-t border-line pt-6">
         <label htmlFor="upi-ref" className="block text-[13px] font-semibold">
-          Paid? Enter the UPI reference (UTR) from your app
+          <T en="Paid? Enter the UPI reference (UTR) from your app" hi="भुगतान कर दिया? अपने ऐप से UPI रेफ़रेंस (UTR) डालें" />
         </label>
         <div className="mt-2 flex flex-col gap-3 sm:flex-row">
           <input
@@ -106,19 +121,21 @@ export function UpiPayPanel({ order, onClaimed }: { order: Order; onClaimed: (or
             autoComplete="off"
             aria-invalid={Boolean(error) || undefined}
             aria-describedby={error ? "upi-ref-error" : undefined}
-            placeholder="12-digit UTR (optional)"
+            placeholder={hi ? "12 अंकों का UTR (ज़रूरी नहीं)" : "12-digit UTR (optional)"}
             className="h-12 min-w-0 flex-1 border border-line bg-transparent px-3 text-[14px] outline-none placeholder:text-muted focus:border-ink"
           />
           <button type="submit" disabled={busy} className="btn btn-dark btn-press shrink-0 px-6 disabled:opacity-70">
-            {busy && <Loader2 size={16} className="animate-spin" aria-hidden="true" />} I&apos;ve paid
+            {busy && <Loader2 size={16} className="animate-spin" aria-hidden="true" />} <T en="I've paid" hi="मैंने भुगतान कर दिया" />
           </button>
         </div>
         {error && (
           <p id="upi-ref-error" role="alert" className="mt-2 text-[12.5px] text-error">
-            {error}
+            <T en={error} hi={hiMessage(error)} />
           </p>
         )}
-        <p className="mt-2 text-[12px] text-muted">We check the payment and confirm it on WhatsApp. Then we start making your tribute.</p>
+        <p className="mt-2 text-[12px] text-muted">
+          <T en="We check the payment and confirm it on WhatsApp. Then we start making your tribute." hi="हम भुगतान जाँचकर WhatsApp पर पुष्टि करते हैं। फिर आपका ट्रिब्यूट बनाना शुरू करते हैं।" />
+        </p>
       </form>
     </section>
   );

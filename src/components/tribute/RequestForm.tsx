@@ -8,6 +8,10 @@ import { frameItems, services, type FrameItemId, type ServiceId } from "@/config
 import { isLocalPreview, isPreview } from "@/lib/preview";
 import { emptyRequest, itemLabels, REQUEST_STEPS, validateRequest, type FrameRequest, type FrameRequestInput, type RequestErrors, type RequestField } from "@/lib/requests";
 import { FramePreview } from "./FramePreview";
+import { hiMessage } from "@/i18n/messages";
+import { T } from "@/i18n/T";
+import { frameItemsHi, servicesHi, stepTitlesHi } from "@/i18n/tribute";
+import { useLang } from "@/i18n/use-lang";
 
 type Done = { request: FrameRequest; whatsappUrl: string };
 
@@ -22,6 +26,7 @@ export function RequestForm({ initial }: { initial: Partial<Pick<FrameRequestInp
   const honeypot = useRef<HTMLInputElement>(null);
   const stepRef = useRef<HTMLDivElement>(null);
   const firstRender = useRef(true);
+  const hi = useLang() === "hi";
 
   // Move focus to the new step's heading so keyboard and screen-reader users follow along.
   useEffect(() => {
@@ -91,25 +96,41 @@ export function RequestForm({ initial }: { initial: Partial<Pick<FrameRequestInp
     return (
       <div ref={stepRef} className="pop-in mx-auto max-w-2xl text-center">
         <CheckCircle2 size={44} strokeWidth={1.4} className="mx-auto text-brown" aria-hidden="true" />
-        <p className="eyebrow mt-5">Request {r.id}</p>
+        <p className="eyebrow mt-5">
+          <T en="Request" hi="अनुरोध" /> {r.id}
+        </p>
         <h2 tabIndex={-1} className="mt-3 text-[28px] font-semibold leading-tight outline-none md:text-[38px]">
-          One last step: send it on WhatsApp
+          <T en="One last step: send it on WhatsApp" hi="बस एक आख़िरी कदम: इसे WhatsApp पर भेजें" />
         </h2>
         <p className="mx-auto mt-4 max-w-lg text-[15px] leading-relaxed text-muted">
-          Tap below to send your request to us, then attach photos of the medals, badges and the photograph in the chat. We reply with the layout and the final price.
+          <T
+            en="Tap below to send your request to us, then attach photos of the medals, badges and the photograph in the chat. We reply with the layout and the final price."
+            hi="नीचे टैप करके अपना अनुरोध हमें भेजें, फिर चैट में मेडल, बैज और तस्वीर की फ़ोटो लगाएँ। हम लेआउट और आख़िरी कीमत के साथ जवाब देंगे।"
+          />
         </p>
         <a href={done.whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp btn-press mt-8">
-          <WhatsAppIcon size={18} /> Send on WhatsApp
+          <WhatsAppIcon size={18} /> <T en="Send on WhatsApp" hi="WhatsApp पर भेजें" />
         </a>
-        {r.customer.email && r.emailsSent && <p className="mt-4 text-[13px] text-muted">We have emailed a copy to {r.customer.email}.</p>}
+        {r.customer.email && r.emailsSent && (
+          <p className="mt-4 text-[13px] text-muted">
+            <T en={`We have emailed a copy to ${r.customer.email}.`} hi={`हमने इसकी कॉपी ${r.customer.email} पर ईमेल कर दी है।`} />
+          </p>
+        )}
         {isPreview && !r.emailsSent && (
           <p className="surface-amber mx-auto mt-6 max-w-lg px-4 py-2.5 text-[12.5px]">
-            {isLocalPreview ? "Preview: saved in .data/requests.jsonl, with the emails in .data/emails/." : "Preview: this test request was not saved or emailed."}
+            {isLocalPreview ? (
+              <T en="Preview: saved in .data/requests.jsonl, with the emails in .data/emails/." hi="प्रीव्यू: .data/requests.jsonl में सेव हुआ, ईमेल .data/emails/ में।" />
+            ) : (
+              <T en="Preview: this test request was not saved or emailed." hi="प्रीव्यू: यह टेस्ट अनुरोध न सेव हुआ, न ईमेल हुआ।" />
+            )}
           </p>
         )}
         <div className="mx-auto mt-10 max-w-md">{preview}</div>
         <p className="mt-3 text-[12px] text-muted">
-          {r.officer.rank} {r.officer.name} · {r.service} · {itemLabels(r.items).join(", ")}
+          <T
+            en={`${r.officer.rank} ${r.officer.name} · ${r.service} · ${itemLabels(r.items).join(", ")}`}
+            hi={`${r.officer.rank} ${r.officer.name} · ${servicesHi[services.find((s) => s.label === r.service)?.id ?? ""]?.label ?? r.service} · ${r.items.map((id) => frameItemsHi[id] ?? id).join(", ")}`}
+          />
         </p>
       </div>
     );
@@ -121,7 +142,7 @@ export function RequestForm({ initial }: { initial: Partial<Pick<FrameRequestInp
     <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-14">
       <div className="min-w-0">
         {/* Progress */}
-        <ol className="grid grid-cols-4 gap-2" aria-label="Steps">
+        <ol className="grid grid-cols-4 gap-2" aria-label={hi ? "चरण" : "Steps"}>
           {REQUEST_STEPS.map((s, i) => (
             <li key={s.title}>
               <button
@@ -132,12 +153,14 @@ export function RequestForm({ initial }: { initial: Partial<Pick<FrameRequestInp
                 className={clsx("w-full text-left text-[11px] font-semibold uppercase tracking-[0.14em] transition-opacity disabled:cursor-default", i <= step ? "opacity-100" : "opacity-50")}
               >
                 <span className="block tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-                <span className="block truncate">{s.title}</span>
+                <span className="block truncate">
+                  <T en={s.title} hi={stepTitlesHi[s.title]} />
+                </span>
               </button>
             </li>
           ))}
         </ol>
-        <div className="mt-3 h-1 bg-brown/20" role="progressbar" aria-label="Request progress" aria-valuemin={1} aria-valuemax={REQUEST_STEPS.length} aria-valuenow={step + 1}>
+        <div className="mt-3 h-1 bg-brown/20" role="progressbar" aria-label={hi ? "अनुरोध की प्रगति" : "Request progress"} aria-valuemin={1} aria-valuemax={REQUEST_STEPS.length} aria-valuenow={step + 1}>
           <div className="h-full bg-brown transition-[width] duration-500 ease-out" style={{ width: `${pct}%` }} />
         </div>
 
@@ -146,9 +169,11 @@ export function RequestForm({ initial }: { initial: Partial<Pick<FrameRequestInp
         <form onSubmit={submit} noValidate className="mt-8">
           <div ref={stepRef} key={step} className="step-in">
             {step === 0 && (
-              <Step title="Which service did they retire from?">
+              <Step title={<T en="Which service did they retire from?" hi="वे किस सेना से रिटायर हुए?" />}>
                 <fieldset>
-                  <legend className="sr-only">Service</legend>
+                  <legend className="sr-only">
+                    <T en="Service" hi="सेवा" />
+                  </legend>
                   <div className="grid gap-3 sm:grid-cols-2">
                     {services.map((s) => (
                       <label
@@ -159,13 +184,15 @@ export function RequestForm({ initial }: { initial: Partial<Pick<FrameRequestInp
                         )}
                       >
                         <input id={s.id === "army" ? "rq-service" : undefined} type="radio" name="service" checked={values.service === s.id} onChange={() => set("service", s.id as ServiceId)} />
-                        <span className="text-[15px] font-medium">{s.label}</span>
+                        <span className="text-[15px] font-medium">
+                          <T en={s.label} hi={servicesHi[s.id]?.label} />
+                        </span>
                       </label>
                     ))}
                   </div>
                 </fieldset>
                 {values.service === "other" && (
-                  <Field id="serviceOther" label="Which service?" error={errors.serviceOther} className="pop-in mt-5">
+                  <Field id="serviceOther" label={<T en="Which service?" hi="कौन-सी सेवा?" />} error={errors.serviceOther} className="pop-in mt-5">
                     <input id="rq-serviceOther" value={values.serviceOther} onChange={(e) => set("serviceOther", e.target.value)} className={input(errors.serviceOther)} />
                   </Field>
                 )}
@@ -173,23 +200,26 @@ export function RequestForm({ initial }: { initial: Partial<Pick<FrameRequestInp
             )}
 
             {step === 1 && (
-              <Step title="Who is the frame for?" hint="This is what we engrave on the name plate.">
+              <Step
+                title={<T en="Who is the frame for?" hi="फ़्रेम किसके लिए है?" />}
+                hint={<T en="This is what we engrave on the name plate." hi="यही हम नेम प्लेट पर खुदवाएँगे।" />}
+              >
                 <div className="grid gap-4 sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-                  <Field id="rank" label="Rank" error={errors.rank}>
-                    <input id="rq-rank" value={values.rank} onChange={(e) => set("rank", e.target.value)} placeholder="e.g. Col, Cdr, Wg Cdr" className={input(errors.rank)} />
+                  <Field id="rank" label={<T en="Rank" hi="रैंक" />} error={errors.rank}>
+                    <input id="rq-rank" value={values.rank} onChange={(e) => set("rank", e.target.value)} placeholder={hi ? "जैसे Col, Cdr, Wg Cdr" : "e.g. Col, Cdr, Wg Cdr"} className={input(errors.rank)} />
                   </Field>
-                  <Field id="name" label="Full name" error={errors.name}>
+                  <Field id="name" label={<T en="Full name" hi="पूरा नाम" />} error={errors.name}>
                     <input id="rq-name" value={values.name} onChange={(e) => set("name", e.target.value)} className={input(errors.name)} />
                   </Field>
                 </div>
-                <Field id="unit" label="Unit, squadron, ship or regiment (optional)" error={errors.unit} className="mt-4">
+                <Field id="unit" label={<T en="Unit, squadron, ship or regiment (optional)" hi="यूनिट, स्क्वाड्रन, जहाज़ या रेजिमेंट (ज़रूरी नहीं)" />} error={errors.unit} className="mt-4">
                   <input id="rq-unit" value={values.unit} onChange={(e) => set("unit", e.target.value)} className={input(errors.unit)} />
                 </Field>
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  <Field id="years" label="Years of service (optional)" error={errors.years}>
-                    <input id="rq-years" value={values.years} onChange={(e) => set("years", e.target.value)} placeholder="e.g. 1994–2026" className={input(errors.years)} />
+                  <Field id="years" label={<T en="Years of service (optional)" hi="सेवा के साल (ज़रूरी नहीं)" />} error={errors.years}>
+                    <input id="rq-years" value={values.years} onChange={(e) => set("years", e.target.value)} placeholder={hi ? "जैसे 1994–2026" : "e.g. 1994–2026"} className={input(errors.years)} />
                   </Field>
-                  <Field id="neededBy" label="Needed by (optional)" error={errors.neededBy}>
+                  <Field id="neededBy" label={<T en="Needed by (optional)" hi="कब तक चाहिए (ज़रूरी नहीं)" />} error={errors.neededBy}>
                     <input id="rq-neededBy" type="date" value={values.neededBy} onChange={(e) => set("neededBy", e.target.value)} className={input(errors.neededBy)} />
                   </Field>
                 </div>
@@ -197,9 +227,14 @@ export function RequestForm({ initial }: { initial: Partial<Pick<FrameRequestInp
             )}
 
             {step === 2 && (
-              <Step title="What should go inside?" hint="Tick what they have. We plan the layout around it.">
+              <Step
+                title={<T en="What should go inside?" hi="अंदर क्या रखना है?" />}
+                hint={<T en="Tick what they have. We plan the layout around it." hi="जो उनके पास है, उस पर टिक करें। हम उसी के हिसाब से लेआउट बनाते हैं।" />}
+              >
                 <fieldset>
-                  <legend className="sr-only">Include in the frame</legend>
+                  <legend className="sr-only">
+                    <T en="Include in the frame" hi="फ़्रेम में शामिल करें" />
+                  </legend>
                   <div className="grid gap-2 sm:grid-cols-2">
                     {frameItems.map((f, i) => (
                       <label
@@ -211,24 +246,26 @@ export function RequestForm({ initial }: { initial: Partial<Pick<FrameRequestInp
                         style={{ "--i": i } as React.CSSProperties}
                       >
                         <input id={i === 0 ? "rq-items" : undefined} type="checkbox" checked={values.items.includes(f.id)} onChange={() => toggleItem(f.id)} />
-                        <span className="text-[14px]">{f.label}</span>
+                        <span className="text-[14px]">
+                          <T en={f.label} hi={frameItemsHi[f.id]} />
+                        </span>
                       </label>
                     ))}
                   </div>
                   {errors.items && (
                     <p role="alert" className="mt-2 text-[12.5px] text-error">
-                      {errors.items}
+                      <T en={errors.items} hi={hiMessage(errors.items)} />
                     </p>
                   )}
                 </fieldset>
-                <Field id="notes" label="Anything else? (optional)" error={errors.notes} className="mt-5" hint={`${values.notes.length}/600`}>
+                <Field id="notes" label={<T en="Anything else? (optional)" hi="कुछ और? (ज़रूरी नहीं)" />} error={errors.notes} className="mt-5" hint={`${values.notes.length}/600`}>
                   <textarea
                     id="rq-notes"
                     rows={4}
                     maxLength={600}
                     value={values.notes}
                     onChange={(e) => set("notes", e.target.value)}
-                    placeholder="Size you have in mind, colours, a line you would like added…"
+                    placeholder={hi ? "आपके मन का साइज़, रंग, कोई पंक्ति जो जोड़नी हो…" : "Size you have in mind, colours, a line you would like added…"}
                     className={clsx(input(errors.notes), "h-auto py-2.5")}
                   />
                 </Field>
@@ -236,12 +273,15 @@ export function RequestForm({ initial }: { initial: Partial<Pick<FrameRequestInp
             )}
 
             {step === 3 && (
-              <Step title="Where can we reach you?" hint="We reply on WhatsApp with the layout and the final price.">
-                <Field id="customerName" label="Your name" error={errors.customerName}>
+              <Step
+                title={<T en="Where can we reach you?" hi="हम आपसे कहाँ संपर्क करें?" />}
+                hint={<T en="We reply on WhatsApp with the layout and the final price." hi="हम WhatsApp पर लेआउट और आख़िरी कीमत के साथ जवाब देते हैं।" />}
+              >
+                <Field id="customerName" label={<T en="Your name" hi="आपका नाम" />} error={errors.customerName}>
                   <input id="rq-customerName" autoComplete="name" value={values.customerName} onChange={(e) => set("customerName", e.target.value)} className={input(errors.customerName)} />
                 </Field>
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  <Field id="phone" label="WhatsApp number" error={errors.phone}>
+                  <Field id="phone" label={<T en="WhatsApp number" hi="WhatsApp नंबर" />} error={errors.phone}>
                     <div className={clsx(input(errors.phone), "flex items-center gap-2 px-0")}>
                       <span className="border-r border-line px-3 text-muted">+91</span>
                       <input
@@ -255,16 +295,25 @@ export function RequestForm({ initial }: { initial: Partial<Pick<FrameRequestInp
                       />
                     </div>
                   </Field>
-                  <Field id="city" label="City (optional)" error={errors.city}>
+                  <Field id="city" label={<T en="City (optional)" hi="शहर (ज़रूरी नहीं)" />} error={errors.city}>
                     <input id="rq-city" autoComplete="address-level2" value={values.city} onChange={(e) => set("city", e.target.value)} className={input(errors.city)} />
                   </Field>
                 </div>
-                <Field id="email" label="Email (optional)" error={errors.email} className="mt-4" hint="For a copy of your request">
+                <Field
+                  id="email"
+                  label={<T en="Email (optional)" hi="ईमेल (ज़रूरी नहीं)" />}
+                  error={errors.email}
+                  className="mt-4"
+                  hint={<T en="For a copy of your request" hi="आपके अनुरोध की कॉपी के लिए" />}
+                >
                   <input id="rq-email" type="email" autoComplete="email" value={values.email} onChange={(e) => set("email", e.target.value)} className={input(errors.email)} />
                 </Field>
                 {isPreview && (
                   <p className="surface-amber mt-5 px-4 py-3 text-[12.5px]">
-                    Preview: {isLocalPreview ? "requests are saved on this computer only." : "requests sent here are tests and go nowhere."} WhatsApp opens a real chat with the studio.
+                    <T
+                      en={`Preview: ${isLocalPreview ? "requests are saved on this computer only." : "requests sent here are tests and go nowhere."} WhatsApp opens a real chat with the studio.`}
+                      hi={`प्रीव्यू: ${isLocalPreview ? "अनुरोध सिर्फ़ इसी कंप्यूटर पर सेव होते हैं।" : "यहाँ भेजे गए अनुरोध टेस्ट हैं और कहीं नहीं जाते।"} WhatsApp से स्टूडियो के साथ असली चैट खुलती है।`}
+                    />
                   </p>
                 )}
               </Step>
@@ -280,31 +329,36 @@ export function RequestForm({ initial }: { initial: Partial<Pick<FrameRequestInp
 
           {message && (
             <p role="alert" className="mt-6 border border-error px-3 py-2.5 text-[13px] text-error">
-              {message}
+              <T en={message} hi={hiMessage(message)} />
             </p>
           )}
 
           <div className="mt-8 flex items-center justify-between gap-3">
             {step > 0 ? (
               <button type="button" onClick={() => setStep((s) => s - 1)} className="btn btn-outline btn-press px-5">
-                <ArrowLeft size={16} aria-hidden="true" /> Back
+                <ArrowLeft size={16} aria-hidden="true" /> <T en="Back" hi="पीछे" />
               </button>
             ) : (
               <span />
             )}
             <button type="submit" disabled={busy} className="btn btn-dark btn-press px-6 disabled:opacity-70">
               {busy ? <Loader2 size={16} className="animate-spin" aria-hidden="true" /> : null}
-              {busy ? "Sending…" : last ? "Send request" : "Continue"}
+              {busy ? <T en="Sending…" hi="भेजा जा रहा है…" /> : last ? <T en="Send request" hi="अनुरोध भेजें" /> : <T en="Continue" hi="आगे बढ़ें" />}
               {!busy && !last && <ArrowRight size={16} aria-hidden="true" />}
             </button>
           </div>
         </form>
       </div>
 
-      <aside aria-label="Preview" className="hidden md:block">
+      <aside aria-label={hi ? "प्रीव्यू" : "Preview"} className="hidden md:block">
         <div className="sticky top-28">
           <div className="shadow-[0_30px_60px_-30px_rgb(90_62_43/0.9)]">{preview}</div>
-          <p className="mt-3 text-[12px] text-muted">A sketch of the idea. We plan the real layout with you around their own medals and photograph.</p>
+          <p className="mt-3 text-[12px] text-muted">
+            <T
+              en="A sketch of the idea. We plan the real layout with you around their own medals and photograph."
+              hi="यह सिर्फ़ एक झलक है। असली लेआउट हम आपके साथ, उनके अपने मेडल और तस्वीर के हिसाब से तय करते हैं।"
+            />
+          </p>
         </div>
       </aside>
     </div>
@@ -317,7 +371,7 @@ const input = (error?: string) =>
     error ? "border-error" : "border-line",
   );
 
-function Step({ title, hint, children }: { title: string; hint?: string; children: ReactNode }) {
+function Step({ title, hint, children }: { title: ReactNode; hint?: ReactNode; children: ReactNode }) {
   return (
     <div>
       <h2 tabIndex={-1} className="text-[22px] font-semibold leading-snug outline-none md:text-[26px]">
@@ -329,7 +383,7 @@ function Step({ title, hint, children }: { title: string; hint?: string; childre
   );
 }
 
-function Field({ id, label, error, hint, className, children }: { id: string; label: string; error?: string; hint?: string; className?: string; children: ReactNode }) {
+function Field({ id, label, error, hint, className, children }: { id: string; label: ReactNode; error?: string; hint?: ReactNode; className?: string; children: ReactNode }) {
   return (
     <div className={className}>
       <label htmlFor={`rq-${id}`} className="mb-1.5 block text-[12.5px] font-medium">
@@ -337,7 +391,7 @@ function Field({ id, label, error, hint, className, children }: { id: string; la
       </label>
       {children}
       <p className={clsx("mt-1.5 min-h-[1em] text-[12px]", error ? "text-error" : "text-muted")} role={error ? "alert" : undefined}>
-        {error ?? hint}
+        {error ? <T en={error} hi={hiMessage(error)} /> : hint}
       </p>
     </div>
   );

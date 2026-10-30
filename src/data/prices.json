@@ -1,0 +1,109 @@
+{
+  "_about": [
+    "Every price on the site, in whole rupees, taxes included. src/config/prices.ts reads this file;",
+    "product codes, sizes and kinds of product live there. Update it with the price catalogue:",
+    "npm run catalogue:export, edit catalogue/Art-Studio-Price-Catalogue.xlsx, npm run catalogue:import.",
+    "amount: the price (null = price on request). confirmed: false while it is a placeholder.",
+    "market: our estimate of the market price (Diwali, Car Gifts); the price is 80% of it unless the owner set one.",
+    "note: shown in the catalogue only."
+  ],
+  "products": {
+    "newspaper-tribute": {
+      "sizes": {
+        "12x16": { "amount": 2999, "confirmed": false },
+        "16x20": { "amount": 3999, "confirmed": false },
+        "18x24": { "amount": 4999, "confirmed": false },
+        "20x30": { "amount": 6499, "confirmed": false }
+      },
+      "lights": { "amount": 799, "confirmed": false }
+    },
+    "box-frame": {
+      "sizes": {
+        "18x15": { "amount": 2500, "confirmed": true },
+        "24x24": { "amount": 3500, "confirmed": true }
+      },
+      "lights": { "amount": 200, "confirmed": true }
+    },
+    "resin-frame": {
+      "sizes": {
+        "12x9": { "amount": 2000, "confirmed": true },
+        "10x10": { "amount": 2000, "confirmed": true },
+        "18x15": { "amount": 3000, "confirmed": true },
+        "24x24": { "amount": 5000, "confirmed": true }
+      },
+      "lights": { "amount": 200, "confirmed": true }
+    },
+    "shubh-labh-toran": { "price": { "amount": 1299, "confirmed": false } },
+    "blush-agate-resin-tray": { "price": { "amount": 1899, "confirmed": false } },
+    "rose-marble-resin-tray": { "price": { "amount": 2199, "confirmed": false } },
+    "karwa-chauth-chalni-thali-set": { "price": { "amount": 2499, "confirmed": false } },
+    "lal-pooja-thali": { "price": { "amount": 1499, "confirmed": false } },
+    "resin-alphabet-letters": { "price": { "amount": 149, "confirmed": false }, "note": "Per letter" },
+    "botanical-initial-keychain": { "price": { "amount": 249, "confirmed": false } },
+    "marble-noir-wall-clock": { "price": { "amount": 3499, "confirmed": false } },
+    "holo-christmas-tree": { "price": { "amount": 299, "confirmed": true } },
+    "marble-reindeer-ornament": { "price": { "amount": 199, "confirmed": true } },
+    "candy-cane-christmas-coaster": { "price": { "amount": 99, "confirmed": true }, "note": "Per coaster" },
+    "stocking-keychain": { "price": { "amount": 99, "confirmed": true } },
+    "santa-reindeer-plaque": { "price": { "amount": 299, "confirmed": true } },
+    "christmas-dome-magnet": { "price": { "amount": 199, "confirmed": true } },
+    "snowflake-coaster": { "price": { "amount": 99, "confirmed": true }, "note": "Per coaster" },
+    "christmas-disc-ornament": { "price": { "amount": 99, "confirmed": true } },
+    "merry-christmas-coaster": { "price": { "amount": 99, "confirmed": true }, "note": "Per coaster" },
+    "glitter-tree-canvas": { "price": { "amount": 199, "confirmed": true } },
+    "melted-snowman-coaster": { "price": { "amount": 99, "confirmed": true }, "note": "Per coaster" },
+    "candy-cane-hexagon-coaster": { "price": { "amount": 99, "confirmed": true }, "note": "Per coaster" },
+    "sea-glass-tree-ornament": { "price": { "amount": 199, "confirmed": true } },
+    "ganesh-lakshmi-gift-box": { "price": { "amount": 999, "confirmed": true, "market": 1999 } },
+    "shubh-labh-candle-gift-box": { "price": { "amount": 699, "confirmed": true, "market": 1499 } },
+    "pink-shubh-labh-gift-box": { "price": { "amount": 1199, "confirmed": true, "market": 1999 } },
+    "pink-lotus-pooja-set": { "price": { "amount": 1799, "confirmed": true, "market": 3499 } },
+    "lotus-pearl-pooja-thali": { "price": { "amount": 699, "confirmed": true, "market": 1799 } },
+    "peacock-feather-pooja-thali": { "price": { "amount": 799, "confirmed": true, "market": 1499 } },
+    "namokar-mantra-thali": { "price": { "amount": 699, "confirmed": true, "market": 1999 } },
+    "shubh-labh-hangings": { "price": { "amount": 399, "confirmed": true, "market": 999 } },
+    "ganesh-lakshmi-shubh-labh": { "price": { "amount": 399, "confirmed": true, "market": 1099 } },
+    "lotus-tealight-holder": { "price": { "amount": 299, "confirmed": true, "market": 399 } },
+    "krishna-mantra-led-plaque": { "price": { "amount": 499, "confirmed": true, "market": 1499 } },
+    "ganesha-rose-petal-plaque": { "price": { "amount": 399, "confirmed": true, "market": 1249 } },
+    "radha-krishna-frame": { "price": { "amount": 499, "confirmed": true, "market": 1249 } },
+    "hot-wheels-smoke-frame": { "price": { "amount": 1399, "confirmed": false, "market": 1999 } },
+    "bmw-m-smoke-frame": { "price": { "amount": 1399, "confirmed": false, "market": 1999 } },
+    "hot-wheels-tyre-track-frame": { "price": { "amount": 1399, "confirmed": false, "market": 1799 } },
+    "hot-wheels-twin-drift-frame": { "price": { "amount": 1599, "confirmed": false, "market": 2499 } },
+    "three-cars-spotlight-frame": { "price": { "amount": 1599, "confirmed": false, "market": 3499 } },
+    "ferrari-flame-burnout-frame": { "price": { "amount": 1599, "confirmed": false, "market": 5999 } },
+    "ferrari-racing-stripe-canvas": { "price": { "amount": 1399, "confirmed": false, "market": 6999 } },
+    "bmw-drift-smoke-canvas": { "price": { "amount": 1399, "confirmed": false, "market": 7999 } },
+    "pagani-ocean-wave-canvas": { "price": { "amount": 1399, "confirmed": false, "market": 7499 } },
+    "emerald-splash-car-board": { "price": { "amount": 1399, "confirmed": false, "market": 4499 } },
+    "vintage-car-wheat-canvas": { "price": { "amount": 1399, "confirmed": false, "market": 5999 } },
+    "harley-davidson-plaque": { "price": { "amount": 1399, "confirmed": false, "market": 4999 } },
+    "tyre-display-shelf": { "price": { "amount": 1999, "confirmed": false, "market": 5999 } },
+    "birthday-shadow-box-led": { "startingPrice": { "amount": 2999, "confirmed": false } },
+    "memory-photo-frame-easel": { "startingPrice": { "amount": 1499, "confirmed": false } },
+    "resin-photo-blocks-magnets": { "startingPrice": { "amount": 599, "confirmed": false } }
+  },
+  "customCategories": {
+    "resin-trays": { "amount": 1999, "confirmed": false },
+    "fridge-magnets": { "amount": 599, "confirmed": false },
+    "phone-covers": { "amount": null, "confirmed": false },
+    "shadow-boxes": { "amount": 2999, "confirmed": false },
+    "resin-photo-frames": { "amount": 1499, "confirmed": false },
+    "name-plates": { "amount": null, "confirmed": false },
+    "flower-preservation": { "amount": null, "confirmed": false },
+    "initial-keychains": { "amount": 249, "confirmed": false },
+    "wall-clocks": { "amount": 2999, "confirmed": false },
+    "resin-jewellery": { "amount": null, "confirmed": false },
+    "pet-memorials": { "amount": null, "confirmed": false },
+    "rakhi-festive-customs": { "amount": null, "confirmed": false },
+    "resin-rangoli": { "amount": null, "confirmed": false },
+    "bookmarks-coasters-desk": { "amount": null, "confirmed": false }
+  },
+  "extras": {
+    "freeShippingFrom": { "amount": 3000, "confirmed": true },
+    "shippingFee": { "amount": 100, "confirmed": true },
+    "giftWrap": { "amount": 49, "confirmed": false },
+    "codFee": { "amount": 0, "confirmed": false }
+  }
+}

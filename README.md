@@ -41,14 +41,15 @@ npm run lint
 
 | To change… | Edit |
 |---|---|
-| **Festive pages** (Diwali, Christmas): copy, product taglines, homepage picks | `src/config/diwali.ts`, `src/config/christmas.ts` (pages `/diwali`, `/christmas`; shared parts in `src/components/festive/`) |
-| **Prices**: every product, size and option, "From" prices for made-to-order categories, gift wrap, COD fee, delivery fee, free-shipping threshold | `src/config/prices.ts` |
+| **Client PDF price catalogue** | `npm run catalogue:pdf` (site running) writes `catalogue/Art-Studio-Catalogue.pdf` from `/price-catalogue` |
+| **Collection effects and tunes** | `src/components/effects/` (scenes and tunes per collection) |
+| **Themed pages** (Diwali, Christmas, Car Gifts): copy, product taglines, homepage picks | `src/config/diwali.ts`, `src/config/christmas.ts`, `src/config/cars.ts` (pages `/diwali`, `/christmas`, `/car-gifts`; shared parts in `src/components/lines/`, list in `src/config/lines.ts`) |
+| **Prices**: every product, size and option, "From" prices for made-to-order categories, gift wrap, COD fee, delivery fee, free-shipping threshold | `src/data/prices.json`, edited through the price catalogue: `npm run catalogue:export`, edit `catalogue/Art-Studio-Price-Catalogue.xlsx`, `npm run catalogue:import` (add `-- --dry-run` to only check). Product kinds, sizes and codes: `src/config/prices.ts` |
 | Business name, WhatsApp, email, courier days, announcement bar, hero images/video | `src/config/site.ts` |
 | Offer (coupon) codes | `src/config/coupons.ts` |
 | Menu and footer links | `src/config/nav.ts` |
 | Products, categories, occasions (until the database arrives; no prices) | `src/data/seed.json` |
 | "Featured" order on shop pages | the order of products in `src/data/seed.json` |
-| What appears in the gift shop (`/gifts`) | add or remove the `"gift"` tag on a product |
 | Colours, type, buttons, motion | `src/app/globals.css` |
 | Homepage section order | `src/app/(home)/page.tsx` |
 | Product photos | `public/products/<product-slug>/1.jpg, 2.jpg …` |
@@ -58,7 +59,7 @@ npm run lint
 
 1. Copy one product block in `src/data/seed.json` and give it a new `id` and `slug`.
 2. Put its photos in `public/products/<slug>/` as `1.jpg`, `2.jpg`…, and list them in `images`.
-3. `type` is `"ready"` (Add to cart) or `"custom"` (made to order, WhatsApp request). Add its price and product code to `src/config/prices.ts`: `kind: "fixed"` for ready items, `"from"` for custom ones, or `sized(code("RT", "BF"), [[w, h, price], …])` for pieces sold in sizes. The code is the product line (2 letters, from `productLines`; add a line for a new category) + 2 letters for the product; sizes, variants (`variantCodes`) and lights are added to it automatically (e.g. `RTBF1815`). The build checks the rules.
+3. `type` is `"ready"` (Add to cart) or `"custom"` (made to order, WhatsApp request). Add its shape and product code to `productShapes` in `src/config/prices.ts` (`fixed(...)` for ready items, `madeToOrder(...)` for custom ones, `sized(code("RT", "BF"), [[w, h], …], lights)` for pieces sold in sizes) and its prices to `src/data/prices.json`, then run `npm run catalogue:export`. The code is the product line (2 letters, from `productLines`; add a line for a new category) + 2 letters for the product; sizes, variants (`variantCodes`) and lights are added to it automatically (e.g. `RTBF1815`). The build checks the rules.
 4. `colours` drive the colour filter (use the names in `COLOURS` in `src/lib/listing.ts`); add the `"gift"` tag to show it in the gift shop.
 
 From Phase 4 this moves to the admin panel at `/admin`; `seed.json` is imported into the database once.
@@ -69,13 +70,13 @@ The featured line is **Retirement Tributes** for Army, Navy and Air Force retire
 
 | URL | What it is |
 |---|---|
-| `/` | Opens with one heartfelt line about their service and the three tributes (hovering a card turns its lights on), then the rest of the studio |
-| `/retirement-tributes` | All three tributes on one page (the "Retirement Tributes" menu label opens it) |
+| `/` | Opens with a drifting wall of every product and collection buttons, then the Retirement Gifts, Diwali, Christmas and Car Gifts sections, then the rest of the studio. The header button "हिन्दी" switches the whole site to Hindi |
+| `/retirement-gifts` | All three tributes on one page, in the Retirement Gifts look (the "Retirement Gifts" menu label opens it; `/retirement-tributes` redirects here) |
 | `/product/newspaper-tribute`, `/product/box-frame`, `/product/resin-frame` | One main photo plus sample photos on the left; size, "Ask on WhatsApp", add to cart and buy now on the right. The LED lights option is switched off for now (`lights` in `src/config/launch.ts`) |
 | `/cart`, `/checkout`, `/checkout/confirmation` | Cart and guest checkout. Pay by UPI (QR code or "Open UPI app"), Cash on Delivery or Order on WhatsApp |
 | `/personalise/<order>?t=<token>` | Private link sent after the order: choose the layout, name plate (rank, name, unit, years), upload photos, background colour, notes. Can be changed until making starts |
 
-- Sizes, prices and light prices: `src/config/prices.ts` (the only price list). Photos: `gallery` on the same product, files in `public/products/<slug>/`, built by `python3 scripts/make-tribute-photos.py` from the mockups in `exports/iaf-frames/` (see `PHOTO-CREDITS.md` there); the newspaper photos are a drawn sample. When you replace a photo, give it a new filename so browsers and the image cache pick it up.
+- Sizes and codes: `src/config/prices.ts`; prices and light prices: `src/data/prices.json` (edit through the price catalogue). Photos: `gallery` on the same product, files in `public/products/<slug>/`, built by `python3 scripts/make-tribute-photos.py` from the mockups in `exports/iaf-frames/` (see `PHOTO-CREDITS.md` there); the newspaper photos are a drawn sample. When you replace a photo, give it a new filename so browsers and the image cache pick it up.
 - Copy (services, what goes inside, steps, FAQs, layouts, background colours): `src/config/tribute.ts`.
 - Which line is live: `src/config/launch.ts`.
 

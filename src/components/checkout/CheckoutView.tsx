@@ -21,6 +21,11 @@ import type { CartProduct, PaymentMethod } from "@/lib/pricing";
 import { saveConfirmation } from "./confirmation-store";
 import { isPreviewUpi, upiAvailable } from "@/lib/upi";
 import { payWithRazorpay } from "./razorpay-client";
+import { formatDateRangeHi } from "@/i18n/format";
+import { hiMessage } from "@/i18n/messages";
+import { hiProductName, hiVariant, stateNames } from "@/i18n/names";
+import { T } from "@/i18n/T";
+import { useLang } from "@/i18n/use-lang";
 
 type Fields = Pick<CheckoutInput, "name" | "phone" | "email" | "pincode" | "line1" | "line2" | "landmark" | "city" | "state" | "giftMessage">;
 const EMPTY: Fields = { name: "", phone: "", email: "", pincode: "", line1: "", line2: "", landmark: "", city: "", state: "", giftMessage: "" };
@@ -40,7 +45,9 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
   const [busy, setBusy] = useState(false);
   const [placed, setPlaced] = useState(false);
   const [pinState, setPinState] = useState<{ pin: string; status: "loading" | "found" | "missing" } | null>(null);
-  const [estimate, setEstimate] = useState<string | null>(null);
+  /** Estimated arrival, in English and Hindi. */
+  const [estimate, setEstimate] = useState<{ en: string; hi: string } | null>(null);
+  const hi = useLang() === "hi";
   const autoFilled = useRef({ city: false, state: false });
   const honeypot = useRef<HTMLInputElement>(null);
 
@@ -67,7 +74,7 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
     }
     // event.timeStamp is measured from page load; add the page's start time for "now".
     const check = checkPincode(pin, totals.making, performance.timeOrigin + e.timeStamp);
-    setEstimate(check.status === "ok" ? formatDateRange(check.from, check.to) : null);
+    setEstimate(check.status === "ok" ? { en: formatDateRange(check.from, check.to), hi: formatDateRangeHi(check.from, check.to) } : null);
     setPinState({ pin, status: "loading" });
     try {
       const res = await fetch(`/api/pincode/${pin}`);
@@ -148,7 +155,7 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
   if (placed) {
     return (
       <p className="flex items-center gap-3 py-24 text-[15px]" role="status">
-        <Loader2 className="animate-spin" size={18} aria-hidden="true" /> Placing your order…
+        <Loader2 className="animate-spin" size={18} aria-hidden="true" /> <T en="Placing your order…" hi="आपका ऑर्डर हो रहा है…" />
       </p>
     );
   }
@@ -156,42 +163,59 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
   if (totals.lines.length === 0) {
     return (
       <div className="mount mb-20 flex flex-col items-center px-8 py-16 text-center">
-        <p className="text-[18px] font-medium">Your cart is empty</p>
-        <p className="mt-2 text-muted">Add a piece to your cart to check out.</p>
+        <p className="text-[18px] font-medium">
+          <T en="Your cart is empty" hi="आपका कार्ट ख़ाली है" />
+        </p>
+        <p className="mt-2 text-muted">
+          <T en="Add a piece to your cart to check out." hi="चेकआउट के लिए कार्ट में कोई पीस डालें।" />
+        </p>
         <AppLink href="/shop" className="btn btn-dark mt-7">
-          Shop all
+          <T en="Shop all" hi="सभी चीज़ें देखें" />
         </AppLink>
       </div>
     );
   }
 
+  const total = formatINR(totals.total);
   const submitLabel =
-    payment === "whatsapp"
-      ? "Continue to WhatsApp"
-      : payment === "online"
-        ? `Pay ${formatINR(totals.total)}`
-        : payment === "upi"
-          ? `Continue to pay · ${formatINR(totals.total)}`
-          : `Place order · ${formatINR(totals.total)}`;
+    payment === "whatsapp" ? (
+      <T en="Continue to WhatsApp" hi="WhatsApp पर आगे बढ़ें" />
+    ) : payment === "online" ? (
+      <T en={`Pay ${total}`} hi={`${total} चुकाएँ`} />
+    ) : payment === "upi" ? (
+      <T en={`Continue to pay · ${total}`} hi={`भुगतान के लिए आगे बढ़ें · ${total}`} />
+    ) : (
+      <T en={`Place order · ${total}`} hi={`ऑर्डर करें · ${total}`} />
+    );
 
   return (
     <div className="grid gap-10 pb-20 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-16 md:pb-28">
       <form id="checkout" onSubmit={submit} noValidate className="min-w-0 space-y-10">
         {isPreview && (
           <p className="surface-amber px-4 py-3 text-[12.5px] leading-relaxed">
-            <strong className="font-semibold">Preview checkout.</strong>{" "}
-            {isLocalPreview
-              ? "Orders are saved on this computer only (in .data/), emails are saved as files, and no money is taken."
-              : "Orders placed here are tests: they are not saved or sent to the studio, and no money is taken. “Order on WhatsApp” does open a real chat with the studio."}
+            <strong className="font-semibold">
+              <T en="Preview checkout." hi="प्रीव्यू चेकआउट।" />
+            </strong>{" "}
+            {isLocalPreview ? (
+              <T
+                en="Orders are saved on this computer only (in .data/), emails are saved as files, and no money is taken."
+                hi="ऑर्डर सिर्फ़ इसी कंप्यूटर पर (.data/ में) सेव होते हैं, ईमेल फ़ाइल के रूप में सेव होते हैं, और कोई पैसा नहीं कटता।"
+              />
+            ) : (
+              <T
+                en="Orders placed here are tests: they are not saved or sent to the studio, and no money is taken. “Order on WhatsApp” does open a real chat with the studio."
+                hi="यहाँ किए गए ऑर्डर टेस्ट हैं: ये न सेव होते हैं, न स्टूडियो तक जाते हैं, और कोई पैसा नहीं कटता। “WhatsApp पर ऑर्डर करें” से स्टूडियो के साथ असली चैट खुलती है।"
+              />
+            )}
           </p>
         )}
 
-        <Section n={1} title="Contact">
+        <Section n={1} title={<T en="Contact" hi="संपर्क" />}>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field id="name" label="Full name" error={errors.name} className="sm:col-span-2">
+            <Field id="name" label={<T en="Full name" hi="पूरा नाम" />} error={errors.name} className="sm:col-span-2">
               <input id="co-name" autoComplete="name" value={fields.name} onChange={(e) => set("name", e.target.value)} {...aria("name", errors)} className={input(errors.name)} />
             </Field>
-            <Field id="phone" label="Mobile number" error={errors.phone} hint="For delivery updates">
+            <Field id="phone" label={<T en="Mobile number" hi="मोबाइल नंबर" />} error={errors.phone} hint={<T en="For delivery updates" hi="डिलीवरी की जानकारी के लिए" />}>
               <div className={clsx(input(errors.phone), "flex items-center gap-2 px-0")}>
                 <span className="border-r border-ink/15 px-3 text-muted">+91</span>
                 <input
@@ -206,46 +230,50 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
                 />
               </div>
             </Field>
-            <Field id="email" label="Email (optional)" error={errors.email} hint="For your order confirmation">
+            <Field id="email" label={<T en="Email (optional)" hi="ईमेल (ज़रूरी नहीं)" />} error={errors.email} hint={<T en="For your order confirmation" hi="ऑर्डर की पुष्टि के लिए" />}>
               <input id="co-email" type="email" autoComplete="email" value={fields.email} onChange={(e) => set("email", e.target.value)} {...aria("email", errors)} className={input(errors.email)} />
             </Field>
           </div>
         </Section>
 
-        <Section n={2} title="Delivery address">
+        <Section n={2} title={<T en="Delivery address" hi="डिलीवरी का पता" />}>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field
               id="pincode"
-              label="Pincode"
+              label={<T en="Pincode" hi="पिनकोड" />}
               error={errors.pincode}
               hint={
-                pinState?.status === "loading"
-                  ? "Looking up your area…"
-                  : estimate
-                    ? `Estimated arrival ${estimate}`
-                    : "We fill in the city and state for you"
+                pinState?.status === "loading" ? (
+                  <T en="Looking up your area…" hi="आपका इलाका ढूँढ़ रहे हैं…" />
+                ) : estimate ? (
+                  <T en={`Estimated arrival ${estimate.en}`} hi={`अनुमानित पहुँच ${estimate.hi}`} />
+                ) : (
+                  <T en="We fill in the city and state for you" hi="शहर और राज्य हम अपने आप भर देते हैं" />
+                )
               }
             >
               <input id="co-pincode" inputMode="numeric" autoComplete="postal-code" maxLength={6} value={fields.pincode} onChange={onPincode} {...aria("pincode", errors)} className={input(errors.pincode)} />
             </Field>
             <div className="hidden sm:block" />
-            <Field id="line1" label="House or flat number, building" error={errors.line1} className="sm:col-span-2">
+            <Field id="line1" label={<T en="House or flat number, building" hi="मकान या फ़्लैट नंबर, बिल्डिंग" />} error={errors.line1} className="sm:col-span-2">
               <input id="co-line1" autoComplete="address-line1" value={fields.line1} onChange={(e) => set("line1", e.target.value)} {...aria("line1", errors)} className={input(errors.line1)} />
             </Field>
-            <Field id="line2" label="Street, area or colony" error={errors.line2} className="sm:col-span-2">
+            <Field id="line2" label={<T en="Street, area or colony" hi="गली, इलाका या कॉलोनी" />} error={errors.line2} className="sm:col-span-2">
               <input id="co-line2" autoComplete="address-line2" value={fields.line2} onChange={(e) => set("line2", e.target.value)} {...aria("line2", errors)} className={input(errors.line2)} />
             </Field>
-            <Field id="landmark" label="Landmark (optional)" error={errors.landmark} className="sm:col-span-2">
+            <Field id="landmark" label={<T en="Landmark (optional)" hi="पास की कोई पहचान (ज़रूरी नहीं)" />} error={errors.landmark} className="sm:col-span-2">
               <input id="co-landmark" value={fields.landmark} onChange={(e) => set("landmark", e.target.value)} className={input(errors.landmark)} />
             </Field>
-            <Field id="city" label="City or town" error={errors.city}>
+            <Field id="city" label={<T en="City or town" hi="शहर या कस्बा" />} error={errors.city}>
               <input id="co-city" autoComplete="address-level2" value={fields.city} onChange={(e) => set("city", e.target.value)} {...aria("city", errors)} className={input(errors.city)} />
             </Field>
-            <Field id="state" label="State" error={errors.state}>
+            <Field id="state" label={<T en="State" hi="राज्य" />} error={errors.state}>
               <select id="co-state" autoComplete="address-level1" value={fields.state} onChange={(e) => set("state", e.target.value)} {...aria("state", errors)} className={clsx(input(errors.state), "cursor-pointer")}>
-                <option value="">Choose…</option>
+                <option value="">{hi ? "चुनें…" : "Choose…"}</option>
                 {INDIAN_STATES.map((s) => (
-                  <option key={s}>{s}</option>
+                  <option key={s} value={s}>
+                    {hi ? (stateNames[s] ?? s) : s}
+                  </option>
                 ))}
               </select>
             </Field>
@@ -253,46 +281,67 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
         </Section>
 
         {site.giftWrap.enabled && (
-          <Section n={3} title="Gift options">
+          <Section n={3} title={<T en="Gift options" hi="गिफ़्ट के विकल्प" />}>
             <label className="flex cursor-pointer items-start gap-3 text-[14px]">
               <input type="checkbox" checked={giftWrap} onChange={(e) => setGiftWrap(e.target.checked)} className="mt-1 h-4 w-4 accent-brown" />
               <span>
-                Gift wrap this order <span className="text-muted">(+{formatINR(site.giftWrap.price)})</span>
+                <T en="Gift wrap this order" hi="इस ऑर्डर को गिफ़्ट रैप करें" /> <span className="text-muted">(+{formatINR(site.giftWrap.price)})</span>
               </span>
             </label>
-            <Field id="giftMessage" label="Gift message (optional)" error={errors.giftMessage} className="mt-4" hint={`${fields.giftMessage.length}/${site.giftWrap.messageMaxLength}`}>
+            <Field id="giftMessage" label={<T en="Gift message (optional)" hi="गिफ़्ट संदेश (ज़रूरी नहीं)" />} error={errors.giftMessage} className="mt-4" hint={`${fields.giftMessage.length}/${site.giftWrap.messageMaxLength}`}>
               <textarea
                 id="co-giftMessage"
                 rows={3}
                 maxLength={site.giftWrap.messageMaxLength}
                 value={fields.giftMessage}
                 onChange={(e) => set("giftMessage", e.target.value)}
-                placeholder="A short note to send with the gift"
+                placeholder={hi ? "तोहफ़े के साथ भेजने के लिए एक छोटा संदेश" : "A short note to send with the gift"}
                 className={clsx(input(errors.giftMessage), "h-auto py-2.5")}
               />
             </Field>
           </Section>
         )}
 
-        <Section n={site.giftWrap.enabled ? 4 : 3} title="Payment">
+        <Section n={site.giftWrap.enabled ? 4 : 3} title={<T en="Payment" hi="भुगतान" />}>
           <fieldset className="space-y-3">
-            <legend className="sr-only">Payment method</legend>
+            <legend className="sr-only">
+              <T en="Payment method" hi="भुगतान का तरीक़ा" />
+            </legend>
             {upiAvailable() && (
-              <PayOption value="upi" current={payment} onChange={setPayment} title="Pay by UPI" badge={isPreviewUpi() ? "Preview" : undefined}>
-                GPay, PhonePe, Paytm or any UPI app. You pay on the next screen; scan the QR code on a computer.
+              <PayOption
+                value="upi"
+                current={payment}
+                onChange={setPayment}
+                title={<T en="Pay by UPI" hi="UPI से भुगतान करें" />}
+                badge={isPreviewUpi() ? <T en="Preview" hi="प्रीव्यू" /> : undefined}
+              >
+                <T
+                  en="GPay, PhonePe, Paytm or any UPI app. You pay on the next screen; scan the QR code on a computer."
+                  hi="GPay, PhonePe, Paytm या कोई भी UPI ऐप। भुगतान अगली स्क्रीन पर होगा; कंप्यूटर पर QR कोड स्कैन करें।"
+                />
               </PayOption>
             )}
             {site.payments.cashOnDelivery && (
-              <PayOption value="cod" current={payment} onChange={setPayment} title="Cash on Delivery">
-                Pay when your order arrives{site.payments.codFee ? ` (+${formatINR(site.payments.codFee)} fee)` : ""}.
+              <PayOption value="cod" current={payment} onChange={setPayment} title={<T en="Cash on Delivery" hi="कैश ऑन डिलीवरी" />}>
+                <T
+                  en={`Pay when your order arrives${site.payments.codFee ? ` (+${formatINR(site.payments.codFee)} fee)` : ""}.`}
+                  hi={`ऑर्डर पहुँचने पर भुगतान करें${site.payments.codFee ? ` (+${formatINR(site.payments.codFee)} शुल्क)` : ""}।`}
+                />
               </PayOption>
             )}
-            <PayOption value="online" current={payment} onChange={setPayment} title="Pay online" disabled={!site.payments.razorpayEnabled} badge={site.payments.razorpayEnabled ? undefined : "Coming soon"}>
-              UPI, cards, netbanking and wallets, through Razorpay.
+            <PayOption
+              value="online"
+              current={payment}
+              onChange={setPayment}
+              title={<T en="Pay online" hi="ऑनलाइन भुगतान" />}
+              disabled={!site.payments.razorpayEnabled}
+              badge={site.payments.razorpayEnabled ? undefined : <T en="Coming soon" hi="जल्द आ रहा है" />}
+            >
+              <T en="UPI, cards, netbanking and wallets, through Razorpay." hi="Razorpay से UPI, कार्ड, नेटबैंकिंग और वॉलेट।" />
             </PayOption>
             {site.payments.orderOnWhatsApp && (
-              <PayOption value="whatsapp" current={payment} onChange={setPayment} title="Order on WhatsApp">
-                Send the order to us in a chat. We confirm it with you there.
+              <PayOption value="whatsapp" current={payment} onChange={setPayment} title={<T en="Order on WhatsApp" hi="WhatsApp पर ऑर्डर करें" />}>
+                <T en="Send the order to us in a chat. We confirm it with you there." hi="ऑर्डर हमें चैट में भेजें। हम वहीं आपके साथ उसकी पुष्टि करेंगे।" />
               </PayOption>
             )}
           </fieldset>
@@ -306,13 +355,17 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
         </div>
       </form>
 
-      <aside aria-label="Order summary" className="lg:sticky lg:top-24 lg:self-start">
+      <aside aria-label={hi ? "ऑर्डर का सारांश" : "Order summary"} className="lg:sticky lg:top-24 lg:self-start">
         <div className="border border-line p-6">
-          <h2 className="nav-label">Order summary</h2>
+          <h2 className="nav-label">
+            <T en="Order summary" hi="ऑर्डर का सारांश" />
+          </h2>
           {totals.unavailable.length > 0 && (
             <p className="mt-4 surface-amber px-3 py-2 text-[12.5px]" role="status">
-              {totals.unavailable.length === 1 ? "One piece in your cart is" : `${totals.unavailable.length} pieces in your cart are`} no longer available, so{" "}
-              {totals.unavailable.length === 1 ? "it is" : "they are"} left out of this order.
+              <T
+                en={`${totals.unavailable.length === 1 ? "One piece in your cart is" : `${totals.unavailable.length} pieces in your cart are`} no longer available, so ${totals.unavailable.length === 1 ? "it is" : "they are"} left out of this order.`}
+                hi={`आपके कार्ट के ${totals.unavailable.length === 1 ? "एक पीस" : `${totals.unavailable.length} पीस`} अब उपलब्ध नहीं ${totals.unavailable.length === 1 ? "है" : "हैं"}, इसलिए ${totals.unavailable.length === 1 ? "उसे" : "उन्हें"} इस ऑर्डर में शामिल नहीं किया गया।`}
+              />
             </p>
           )}
           <ul className="mt-5 space-y-4">
@@ -323,8 +376,14 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
                   <span className="absolute -right-0 -top-0 grid h-5 min-w-5 place-items-center bg-brown px-1 text-[10.5px] font-semibold text-paper tabular-nums">{l.quantity}</span>
                 </span>
                 <span className="min-w-0 flex-1 text-[13px] leading-snug">
-                  <span className="line-clamp-2">{l.product.name}</span>
-                  {l.line.variant && <span className="block text-[12px] text-muted">{l.line.variant}</span>}
+                  <span className="line-clamp-2">
+                    <T en={l.product.name} hi={hiProductName(l.product.slug)} />
+                  </span>
+                  {l.line.variant && (
+                    <span className="block text-[12px] text-muted">
+                      <T en={l.line.variant} hi={hiVariant(l.line.variant)} />
+                    </span>
+                  )}
                 </span>
                 <span className="text-[13px] tabular-nums">{formatINR(l.lineTotal)}</span>
               </li>
@@ -336,11 +395,15 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
           <div className="mt-5">
             <TotalsTable totals={totals} final />
           </div>
-          {estimate && <p className="mt-3 text-[12.5px]">Estimated arrival {estimate}, including making time.</p>}
+          {estimate && (
+            <p className="mt-3 text-[12.5px]">
+              <T en={`Estimated arrival ${estimate.en}, including making time.`} hi={`बनने के समय को मिलाकर, अनुमानित पहुँच ${estimate.hi}।`} />
+            </p>
+          )}
 
           {message && (
             <p role="alert" className="mt-5 border border-error px-3 py-2.5 text-[13px] text-error">
-              {message}
+              <T en={message} hi={hiMessage(message)} />
             </p>
           )}
           <button
@@ -350,22 +413,41 @@ export function CheckoutView({ catalogue }: { catalogue: CartProduct[] }) {
             className={clsx("btn mt-6 w-full disabled:opacity-60", payment === "whatsapp" ? "btn-whatsapp" : "btn-dark")}
           >
             {busy ? <Loader2 className="animate-spin" size={17} aria-hidden="true" /> : payment === "whatsapp" ? <WhatsAppIcon size={17} /> : <Lock size={15} aria-hidden="true" />}
-            {busy ? "Placing order…" : submitLabel}
+            {busy ? <T en="Placing order…" hi="ऑर्डर हो रहा है…" /> : submitLabel}
           </button>
           <p className="mt-3 text-[11.5px] leading-relaxed text-muted">
-            By placing this order you agree to our{" "}
-            <AppLink href="/terms" className="underline underline-offset-2">
-              terms
-            </AppLink>{" "}
-            and{" "}
-            <AppLink href="/privacy" className="underline underline-offset-2">
-              privacy policy
-            </AppLink>
-            .
+            <T
+              en={
+                <>
+                  By placing this order you agree to our{" "}
+                  <AppLink href="/terms" className="underline underline-offset-2">
+                    terms
+                  </AppLink>{" "}
+                  and{" "}
+                  <AppLink href="/privacy" className="underline underline-offset-2">
+                    privacy policy
+                  </AppLink>
+                  .
+                </>
+              }
+              hi={
+                <>
+                  ऑर्डर करके आप हमारे{" "}
+                  <AppLink href="/terms" className="underline underline-offset-2">
+                    नियम और शर्तें
+                  </AppLink>{" "}
+                  और{" "}
+                  <AppLink href="/privacy" className="underline underline-offset-2">
+                    प्राइवेसी पॉलिसी
+                  </AppLink>{" "}
+                  मानते हैं।
+                </>
+              }
+            />
           </p>
         </div>
         <AppLink href="/cart" className="mt-4 inline-block text-[12.5px] underline underline-offset-4">
-          Back to cart
+          <T en="Back to cart" hi="कार्ट पर वापस जाएँ" />
         </AppLink>
       </aside>
     </div>
@@ -383,7 +465,7 @@ const aria = (key: CheckoutField, errors: CheckoutErrors) => ({
   "aria-describedby": `co-${key}-note`,
 });
 
-function Section({ n, title, children }: { n: number; title: string; children: ReactNode }) {
+function Section({ n, title, children }: { n: number; title: ReactNode; children: ReactNode }) {
   return (
     <section aria-labelledby={`step-${n}`}>
       <h2 id={`step-${n}`} className="mb-5 flex items-center gap-3 text-[13px] font-semibold uppercase tracking-[0.16em]">
@@ -397,7 +479,7 @@ function Section({ n, title, children }: { n: number; title: string; children: R
   );
 }
 
-function Field({ id, label, error, hint, className, children }: { id: string; label: string; error?: string; hint?: string; className?: string; children: ReactNode }) {
+function Field({ id, label, error, hint, className, children }: { id: string; label: ReactNode; error?: string; hint?: ReactNode; className?: string; children: ReactNode }) {
   return (
     <div className={className}>
       <label htmlFor={`co-${id}`} className="mb-1.5 block text-[12.5px] font-medium">
@@ -405,7 +487,7 @@ function Field({ id, label, error, hint, className, children }: { id: string; la
       </label>
       {children}
       <p id={`co-${id}-note`} className={clsx("mt-1.5 min-h-[1em] text-[12px]", error ? "text-error" : "text-muted")} role={error ? "alert" : undefined}>
-        {error ?? hint}
+        {error ? <T en={error} hi={hiMessage(error)} /> : hint}
       </p>
     </div>
   );
@@ -423,9 +505,9 @@ function PayOption({
   value: PaymentMethod;
   current: PaymentMethod;
   onChange: (v: PaymentMethod) => void;
-  title: string;
+  title: ReactNode;
   disabled?: boolean;
-  badge?: string;
+  badge?: ReactNode;
   children: ReactNode;
 }) {
   const selected = current === value;

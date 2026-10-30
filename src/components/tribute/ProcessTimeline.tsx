@@ -1,7 +1,10 @@
 import { processSteps } from "@/config/tribute";
+import { T } from "@/i18n/T";
+import { processStepsHi } from "@/i18n/tribute";
 
 /** "How it works": four steps on a line that fills in as the section scrolls by. */
-export function ProcessTimeline({ making }: { making: string }) {
+/** `making` is the making time ("10–14 days"); `makingHi` the same in Hindi ("10–14 दिन"). */
+export function ProcessTimeline({ making, makingHi }: { making: string; makingHi?: string }) {
   return (
     <ol className="timeline relative mt-12 space-y-10 md:space-y-12">
       {/* Track and its animated fill */}
@@ -11,8 +14,12 @@ export function ProcessTimeline({ making }: { making: string }) {
         <li key={step.title} className="reveal-left relative grid grid-cols-[40px_minmax(0,1fr)] gap-5 md:gap-8">
           <span className="relative z-10 grid h-10 w-10 place-items-center rounded-full bg-amber text-[14px] font-semibold text-[#1e140d] tabular-nums">{i + 1}</span>
           <div className="pt-1.5">
-            <h3 className="text-[19px] font-semibold leading-snug md:text-[22px]">{step.title}</h3>
-            <p className="mt-2 max-w-lg text-[14.5px] leading-relaxed text-muted">{step.text.replace("{making}", making)}</p>
+            <h3 className="text-[19px] font-semibold leading-snug md:text-[22px]">
+              <T en={step.title} hi={processStepsHi[i]?.title} />
+            </h3>
+            <p className="mt-2 max-w-lg text-[14.5px] leading-relaxed text-muted">
+              <T en={step.text.replace("{making}", making)} hi={processStepsHi[i]?.text.replace("{making}", makingHi ?? making)} />
+            </p>
           </div>
         </li>
       ))}

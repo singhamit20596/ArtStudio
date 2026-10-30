@@ -1,14 +1,17 @@
 import { Fragment } from "react";
 import { AppLink } from "@/components/ui/AppLink";
+import { T } from "@/i18n/T";
 
 export interface Crumb {
   label: string;
+  /** The label in Hindi (shown while the site is in Hindi). */
+  hi?: string;
   href?: string;
 }
 
 /** Home / Shop / Pooja & Festive. The last crumb is the current page. */
 export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: string }) {
-  const trail: Crumb[] = [{ label: "Home", href: "/" }, ...items];
+  const trail: Crumb[] = [{ label: "Home", hi: "होम", href: "/" }, ...items];
   return (
     <nav aria-label="Breadcrumb" className={className}>
       <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] text-muted">
@@ -19,10 +22,12 @@ export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: 
               <li className={last ? "line-clamp-1 text-ink" : undefined}>
                 {c.href && !last ? (
                   <AppLink href={c.href} className="link-grow hover:text-ink">
-                    {c.label}
+                    <T en={c.label} hi={c.hi} />
                   </AppLink>
                 ) : (
-                  <span aria-current={last ? "page" : undefined}>{c.label}</span>
+                  <span aria-current={last ? "page" : undefined}>
+                    <T en={c.label} hi={c.hi} />
+                  </span>
                 )}
               </li>
               {!last && (

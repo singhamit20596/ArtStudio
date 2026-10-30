@@ -9,6 +9,9 @@ import { toast } from "@/components/ui/Toaster";
 import { formatINR } from "@/lib/format";
 import { lineKey, maxQuantity, unitPrice, type CartLine, type CartProduct, type PricedLine } from "@/lib/pricing";
 import { productHref, shortName } from "@/lib/product";
+import { hiProductName, hiShortName, hiVariant } from "@/i18n/names";
+import { T } from "@/i18n/T";
+import { useLang } from "@/i18n/use-lang";
 
 const linkBtn = "text-[12px] text-muted underline underline-offset-4 transition-colors hover:text-ink";
 
@@ -23,6 +26,7 @@ function Thumb({ product, slug }: { product?: CartProduct; slug: string }) {
 /** Lines in the cart: quantity, remove, save for later. */
 export function CartLines({ lines, unavailable, className }: { lines: PricedLine[]; unavailable: CartLine[]; className?: string }) {
   const { setQuantity, removeFromCart, saveForLater } = useShop();
+  const hi = useLang() === "hi";
 
   return (
     <ul className={clsx("divide-y divide-line", className)}>
@@ -32,27 +36,39 @@ export function CartLines({ lines, unavailable, className }: { lines: PricedLine
           <div className="min-w-0 flex-1">
             <div className="flex items-start justify-between gap-3">
               <AppLink href={productHref(product)} className="line-clamp-2 text-[13.5px] leading-snug hover:underline">
-                {product.name}
+                <T en={product.name} hi={hiProductName(product.slug)} />
               </AppLink>
               <p className="shrink-0 text-[13.5px] font-medium tabular-nums">{formatINR(lineTotal)}</p>
             </div>
-            {line.variant && <p className="mt-0.5 text-[12.5px] text-muted">{line.variant}</p>}
-            {quantity > 1 && <p className="text-[12px] text-muted tabular-nums">{formatINR(each)} each</p>}
-            {product.stock <= 3 && <p className="mt-0.5 text-[12px] font-medium text-ink">Only {product.stock} left</p>}
+            {line.variant && (
+              <p className="mt-0.5 text-[12.5px] text-muted">
+                <T en={line.variant} hi={hiVariant(line.variant)} />
+              </p>
+            )}
+            {quantity > 1 && (
+              <p className="text-[12px] text-muted tabular-nums">
+                <T en={`${formatINR(each)} each`} hi={`${formatINR(each)} प्रति पीस`} />
+              </p>
+            )}
+            {product.stock <= 3 && (
+              <p className="mt-0.5 text-[12px] font-medium text-ink">
+                <T en={`Only ${product.stock} left`} hi={`सिर्फ़ ${product.stock} बचे हैं`} />
+              </p>
+            )}
             <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
-              <QuantityStepper size="sm" value={quantity} max={maxQuantity(product)} onChange={(q) => setQuantity(key, q)} itemName={shortName(product)} />
+              <QuantityStepper size="sm" value={quantity} max={maxQuantity(product)} onChange={(q) => setQuantity(key, q)} itemName={hi ? (hiShortName(product.slug) ?? shortName(product)) : shortName(product)} />
               <button
                 type="button"
                 className={linkBtn}
                 onClick={() => {
                   saveForLater(key);
-                  toast("Saved for later");
+                  toast("Saved for later", "बाद के लिए रख लिया");
                 }}
               >
-                Save for later
+                <T en="Save for later" hi="बाद के लिए रखें" />
               </button>
               <button type="button" className={linkBtn} onClick={() => removeFromCart(key)}>
-                Remove
+                <T en="Remove" hi="हटाएँ" />
               </button>
             </div>
           </div>
@@ -62,10 +78,16 @@ export function CartLines({ lines, unavailable, className }: { lines: PricedLine
         <li key={lineKey(line)} className="flex gap-4 py-5 opacity-70">
           <Thumb slug={line.slug} />
           <div className="min-w-0 flex-1">
-            <p className="text-[13.5px]">This piece is no longer available</p>
-            {line.variant && <p className="text-[12.5px] text-muted">{line.variant}</p>}
+            <p className="text-[13.5px]">
+              <T en="This piece is no longer available" hi="यह पीस अब उपलब्ध नहीं है" />
+            </p>
+            {line.variant && (
+              <p className="text-[12.5px] text-muted">
+                <T en={line.variant} hi={hiVariant(line.variant)} />
+              </p>
+            )}
             <button type="button" className={clsx(linkBtn, "mt-2")} onClick={() => removeFromCart(lineKey(line))}>
-              Remove
+              <T en="Remove" hi="हटाएँ" />
             </button>
           </div>
         </li>
@@ -82,7 +104,7 @@ export function SavedForLater({ catalogue }: { catalogue: CartProduct[] }) {
   return (
     <section aria-labelledby="saved-title">
       <h2 id="saved-title" className="text-[12px] font-semibold uppercase tracking-[0.16em]">
-        Saved for later ({saved.length})
+        <T en="Saved for later" hi="बाद के लिए रखे गए" /> ({saved.length})
       </h2>
       <ul className="mt-2 divide-y divide-line">
         {saved.map((line) => {
@@ -93,17 +115,25 @@ export function SavedForLater({ catalogue }: { catalogue: CartProduct[] }) {
             <li key={key} className="flex gap-4 py-4">
               <Thumb product={product} slug={line.slug} />
               <div className="min-w-0 flex-1">
-                <p className="line-clamp-2 text-[13px] leading-snug">{product?.name ?? "No longer available"}</p>
-                {line.variant && <p className="text-[12px] text-muted">{line.variant}</p>}
-                {product && <p className="mt-0.5 text-[13px] tabular-nums">{available ? formatINR(unitPrice(product, line.options)) : "Sold out"}</p>}
+                <p className="line-clamp-2 text-[13px] leading-snug">
+                  {product ? <T en={product.name} hi={hiProductName(product.slug)} /> : <T en="No longer available" hi="अब उपलब्ध नहीं है" />}
+                </p>
+                {line.variant && (
+                  <p className="text-[12px] text-muted">
+                    <T en={line.variant} hi={hiVariant(line.variant)} />
+                  </p>
+                )}
+                {product && (
+                  <p className="mt-0.5 text-[13px] tabular-nums">{available ? formatINR(unitPrice(product, line.options)) : <T en="Sold out" hi="बिक गया" />}</p>
+                )}
                 <div className="mt-2 flex gap-4">
                   {available && (
                     <button type="button" className={linkBtn} onClick={() => moveToCart(key)}>
-                      Move to cart
+                      <T en="Move to cart" hi="कार्ट में डालें" />
                     </button>
                   )}
                   <button type="button" className={linkBtn} onClick={() => removeSaved(key)}>
-                    Remove
+                    <T en="Remove" hi="हटाएँ" />
                   </button>
                 </div>
               </div>

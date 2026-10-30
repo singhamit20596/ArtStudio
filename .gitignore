@@ -48,3 +48,9 @@ next-env.d.ts
 
 # Netlify local build output
 /.netlify/
+
+# python
+__pycache__/
+
+# Excel lock file while the price catalogue is open
+catalogue/~$*

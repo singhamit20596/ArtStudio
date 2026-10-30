@@ -6,6 +6,9 @@ import Image from "next/image";
 import { useRef } from "react";
 import type { Product } from "@/lib/types";
 import { TributeArt } from "./TributeArt";
+import { hiShortName } from "@/i18n/names";
+import { T } from "@/i18n/T";
+import { useLang } from "@/i18n/use-lang";
 
 /** "frame", "lit" (only while lights are on offer), or "sample-1", "sample-2"… */
 export type TributeView = string;
@@ -13,6 +16,8 @@ export type TributeView = string;
 interface Slide {
   id: TributeView;
   label: string;
+  /** The caption in Hindi. */
+  labelHi?: string;
   src: string | null;
   alt: string;
 }
@@ -31,14 +36,22 @@ interface TributeGalleryProps {
 export function TributeGallery({ product, view, onView }: TributeGalleryProps) {
   const g = product.gallery;
   const name = product.name.split(" | ")[0];
+  const nameHi = hiShortName(product.slug);
+  const hi = useLang() === "hi";
   const ratio = g?.ratio ?? "4 / 5";
   const startX = useRef<number | null>(null);
 
   const lights = product.lightPrice != null;
   const slides: Slide[] = [
-    { id: "frame", label: name, src: g?.frame ?? null, alt: name },
-    ...(lights ? [{ id: "lit", label: "With light", src: g?.frameLit ?? null, alt: `${name} with its LED lights on` }] : []),
-    ...(g?.samples ?? []).map((s, i) => ({ id: `sample-${i + 1}`, label: `Sample ${i + 1} of ${g?.samples?.length}`, src: s.src, alt: s.alt })),
+    { id: "frame", label: name, labelHi: nameHi, src: g?.frame ?? null, alt: name },
+    ...(lights ? [{ id: "lit", label: "With light", labelHi: "लाइट के साथ", src: g?.frameLit ?? null, alt: `${name} with its LED lights on` }] : []),
+    ...(g?.samples ?? []).map((s, i) => ({
+      id: `sample-${i + 1}`,
+      label: `Sample ${i + 1} of ${g?.samples?.length}`,
+      labelHi: `नमूना ${i + 1} / ${g?.samples?.length}`,
+      src: s.src,
+      alt: s.alt,
+    })),
   ];
   const index = Math.max(0, slides.findIndex((s) => s.id === view));
   // Up to six thumbnails sit in one row; more split into two even rows.
@@ -69,7 +82,7 @@ export function TributeGallery({ product, view, onView }: TributeGalleryProps) {
         style={{ aspectRatio: ratio }}
         role="group"
         aria-roledescription="carousel"
-        aria-label={`${name} photos`}
+        aria-label={hi ? `${nameHi ?? name}: फ़ोटो` : `${name} photos`}
         onPointerDown={(e) => {
           if (e.pointerType !== "mouse") startX.current = e.clientX;
         }}
@@ -99,14 +112,14 @@ export function TributeGallery({ product, view, onView }: TributeGalleryProps) {
       {/* Caption and arrows */}
       <div className="mt-2 flex items-center justify-between gap-3">
         <p className="text-[11px] font-semibold uppercase tracking-[0.12em]" aria-live="polite">
-          {slides[index].label}
+          <T en={slides[index].label} hi={slides[index].labelHi} />
         </p>
         {slides.length > 1 && (
           <div className="flex items-center gap-1">
-            <button type="button" onClick={() => step(-1)} aria-label="Previous photo" className="btn-press grid h-8 w-8 place-items-center border border-line hover:border-ink">
+            <button type="button" onClick={() => step(-1)} aria-label={hi ? "पिछली फ़ोटो" : "Previous photo"} className="btn-press grid h-8 w-8 place-items-center border border-line hover:border-ink">
               <ChevronLeft size={16} aria-hidden="true" />
             </button>
-            <button type="button" onClick={() => step(1)} aria-label="Next photo" className="btn-press grid h-8 w-8 place-items-center border border-line hover:border-ink">
+            <button type="button" onClick={() => step(1)} aria-label={hi ? "अगली फ़ोटो" : "Next photo"} className="btn-press grid h-8 w-8 place-items-center border border-line hover:border-ink">
               <ChevronRight size={16} aria-hidden="true" />
             </button>
           </div>
@@ -114,9 +127,9 @@ export function TributeGallery({ product, view, onView }: TributeGalleryProps) {
       </div>
 
       {slides.length > 1 && (
-      <div className="mt-2 grid gap-1.5" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }} role="group" aria-label="Choose a photo">
+      <div className="mt-2 grid gap-1.5" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }} role="group" aria-label={hi ? "फ़ोटो चुनें" : "Choose a photo"}>
         {slides.map((s) => (
-          <button key={s.id} type="button" onClick={() => onView(s.id)} aria-label={s.label} aria-pressed={s.id === slides[index].id} className="btn-press group">
+          <button key={s.id} type="button" onClick={() => onView(s.id)} aria-label={hi ? (s.labelHi ?? s.label) : s.label} aria-pressed={s.id === slides[index].id} className="btn-press group">
             <span
               className={clsx(
                 "relative block overflow-hidden bg-brown transition",

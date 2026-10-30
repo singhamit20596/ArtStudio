@@ -16,6 +16,8 @@ import { toast } from "@/components/ui/Toaster";
 import { DeliveryCheck } from "./DeliveryCheck";
 import { StickyBar } from "./StickyBar";
 import { WishlistButton } from "./WishlistButton";
+import { hiShortName, variantNames, variantOptions } from "@/i18n/names";
+import { T } from "@/i18n/T";
 
 const ACTIONS_ID = "buy-actions";
 
@@ -60,7 +62,7 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
   const buyNow = () => {
     if (!ready()) return;
     if (putInCart()) router.push("/checkout");
-    else toast("This piece is no longer available.");
+    else toast("This piece is no longer available.", "यह पीस अब उपलब्ध नहीं है।");
   };
   const orderOnWhatsApp = (e: React.MouseEvent) => {
     if (!ready()) e.preventDefault();
@@ -71,8 +73,12 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
       {product.variants.map((v) => (
         <fieldset key={v.name} id={`variant-${v.name}`} className="scroll-mt-28">
           <legend className="text-[12px] font-semibold uppercase tracking-[0.16em]">
-            {v.name}
-            {choice[v.name] ? <span className="ml-2 font-normal normal-case tracking-normal text-muted">{choice[v.name]}</span> : null}
+            <T en={v.name} hi={variantNames[v.name]} />
+            {choice[v.name] ? (
+              <span className="ml-2 font-normal normal-case tracking-normal text-muted">
+                <T en={choice[v.name]} hi={variantOptions[choice[v.name]]} />
+              </span>
+            ) : null}
           </legend>
           <div className="mt-3 flex flex-wrap gap-2">
             {v.options.map((o) => {
@@ -92,20 +98,26 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
                     selected ? "border-brown bg-brown text-paper" : "border-ink/20 hover:border-ink",
                   )}
                 >
-                  {o}
+                  <T en={o} hi={variantOptions[o]} />
                 </button>
               );
             })}
           </div>
           {missing === v.name && (
             <p role="alert" className="mt-2 text-[12.5px] font-medium text-error">
-              Please choose a {v.name.toLowerCase()}.
+              <T en={`Please choose a ${v.name.toLowerCase()}.`} hi={`कृपया ${variantNames[v.name] ?? v.name} चुनें।`} />
             </p>
           )}
         </fieldset>
       ))}
 
-      {madeToOrder ? <p className="text-[13px] text-muted">Made to order, by hand</p> : <StockNote stock={stock} />}
+      {madeToOrder ? (
+        <p className="text-[13px] text-muted">
+          <T en="Made to order, by hand" hi="ऑर्डर पर, हाथ से बनता है" />
+        </p>
+      ) : (
+        <StockNote stock={stock} />
+      )}
 
       <div id={ACTIONS_ID} className="space-y-3">
         <div className="flex gap-3">
@@ -113,18 +125,18 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
             <QuantityStepper value={qty} max={maxQty} onChange={(q) => setQty(Math.max(1, Math.min(maxQty, q)))} />
           )}
           <button type="button" onClick={addToCart} disabled={soldOut} className="btn btn-dark flex-1 px-4 disabled:cursor-not-allowed disabled:bg-brown/40">
-            {soldOut ? "Sold out" : "Add to cart"}
+            {soldOut ? <T en="Sold out" hi="बिक गया" /> : <T en="Add to cart" hi="कार्ट में डालें" />}
           </button>
           <WishlistButton slug={product.slug} name={name} className="!h-12 !w-12 shrink-0 !rounded-none border border-ink/20 !shadow-none" />
         </div>
         {!soldOut && (
           <button type="button" onClick={buyNow} className="btn btn-outline w-full">
-            Buy now
+            <T en="Buy now" hi="अभी खरीदें" />
           </button>
         )}
         <a href={orderHref} onClick={orderOnWhatsApp} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp w-full">
           <WhatsAppIcon size={17} />
-          {soldOut ? "Ask us to make one" : "Order on WhatsApp"}
+          {soldOut ? <T en="Ask us to make one" hi="हमसे एक बनवाएँ" /> : <T en="Order on WhatsApp" hi="WhatsApp पर ऑर्डर करें" />}
         </a>
       </div>
 
@@ -133,11 +145,13 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
       {!soldOut && (
         <StickyBar watchId={ACTIONS_ID}>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-[13px] font-medium">{name}</p>
+            <p className="truncate text-[13px] font-medium">
+              <T en={name} hi={hiShortName(product.slug)} />
+            </p>
             {total && <p className="text-[13px] tabular-nums text-muted">{total}</p>}
           </div>
           <button type="button" onClick={addToCart} className="btn btn-dark min-h-11 px-5">
-            Add to cart
+            <T en="Add to cart" hi="कार्ट में डालें" />
           </button>
         </StickyBar>
       )}
@@ -146,12 +160,32 @@ export function BuyBox({ product, path }: { product: Product; path: string }) {
 }
 
 function StockNote({ stock }: { stock: number }) {
-  if (stock <= 0) return <p className="text-[13px] font-medium text-error">Sold out. Message us and we can make another.</p>;
+  if (stock <= 0)
+    return (
+      <p className="text-[13px] font-medium text-error">
+        <T en="Sold out. Message us and we can make another." hi="यह बिक गया। मैसेज करें, हम एक और बना सकते हैं।" />
+      </p>
+    );
   if (stock <= 3)
     return (
       <p className="text-[13px]">
-        <span className="font-semibold text-ink">Only {stock} left.</span> Each piece is handmade.
+        <T
+          en={
+            <>
+              <span className="font-semibold text-ink">Only {stock} left.</span> Each piece is handmade.
+            </>
+          }
+          hi={
+            <>
+              <span className="font-semibold text-ink">सिर्फ़ {stock} बचे हैं।</span> हर पीस हाथ से बनता है।
+            </>
+          }
+        />
       </p>
     );
-  return <p className="text-[13px] text-muted">In stock, ready to ship</p>;
+  return (
+    <p className="text-[13px] text-muted">
+      <T en="In stock, ready to ship" hi="स्टॉक में है, भेजने के लिए तैयार" />
+    </p>
+  );
 }

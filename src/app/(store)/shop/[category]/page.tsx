@@ -6,6 +6,9 @@ import { categoryHref, getCategory, listingLabels, productsInCategory, shopCateg
 import { EmptyListing } from "@/components/listing/EmptyListing";
 import { Listing } from "@/components/listing/Listing";
 import { ListingHeader, Pill, PillLinks } from "@/components/listing/ListingHeader";
+import { hiCategoryDescription } from "@/i18n/catalogue";
+import { hiCategory } from "@/i18n/names";
+import { T } from "@/i18n/T";
 
 export function generateStaticParams() {
   return shopCategories.map((c) => ({ category: c.slug }));
@@ -42,15 +45,15 @@ async function CategoryView({ params }: { params: PageProps<"/shop/[category]">[
   return (
     <div className="container-x pb-20 md:pb-28">
       <ListingHeader
-        crumbs={[{ label: "Shop", href: "/shop" }, { label: category.name }]}
-        eyebrow="Ready made"
-        title={category.name}
-        description={category.description}
+        crumbs={[{ label: "Shop", hi: "दुकान", href: "/shop" }, { label: category.name, hi: hiCategory(category.slug) }]}
+        eyebrow={<T en="Ready made" hi="तैयार पीस" />}
+        title={<T en={category.name} hi={hiCategory(category.slug)} />}
+        description={<T en={category.description} hi={hiCategoryDescription(category.slug)} />}
         links={
           <PillLinks label="Categories">
             {shopCategories.map((c) => (
               <Pill key={c.slug} href={categoryHref(c)} active={c.slug === category.slug}>
-                {c.name}
+                <T en={c.name} hi={hiCategory(c.slug)} />
               </Pill>
             ))}
           </PillLinks>

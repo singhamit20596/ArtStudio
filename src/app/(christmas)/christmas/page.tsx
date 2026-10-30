@@ -4,7 +4,7 @@ import { Snowflake } from "lucide-react";
 import { christmas } from "@/config/christmas";
 import { products } from "@/lib/catalog";
 import { ChristmasDecor } from "@/components/christmas/ChristmasDecor";
-import { FestiveHero } from "@/components/festive/FestiveHero";
+import { LineHero } from "@/components/lines/LineHero";
 
 export const metadata: Metadata = {
   title: "Christmas Décor & Gifts",
@@ -15,5 +15,5 @@ export const metadata: Metadata = {
 export default function ChristmasPage() {
   const items = products.filter((p) => p.category === christmas.category);
   if (items.length === 0) notFound();
-  return <FestiveHero line={christmas} products={items} decor={<ChristmasDecor lightsClassName="top-16 lg:top-[76px]" />} Icon={Snowflake} />;
+  return <LineHero line={christmas} products={items} decor={<ChristmasDecor lightsClassName="top-16 lg:top-[76px]" />} Icon={Snowflake} />;
 }

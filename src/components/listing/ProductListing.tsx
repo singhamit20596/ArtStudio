@@ -12,6 +12,7 @@ import {
   filtersToQuery,
   parseFilters,
   priceLabel,
+  priceLabelHi,
   sortProducts,
   SORTS,
   TYPE_LABELS,
@@ -21,6 +22,9 @@ import {
 import { Drawer } from "@/components/ui/Drawer";
 import { ProductCard } from "@/components/product/ProductCard";
 import { FilterGroups } from "./FilterGroups";
+import { colourLabels, hiListingLabel, sortLabels, typeLabels } from "@/i18n/names";
+import { T } from "@/i18n/T";
+import { useLang } from "@/i18n/use-lang";
 
 export interface ListingProps {
   /** The products this page covers, in "Featured" (or best-match) order. */
@@ -49,6 +53,7 @@ export function ListingView({ products, facets, labels, defaultSortLabel = "Feat
   const filters = useMemo(() => parseFilters(new URLSearchParams(query)), [query]);
   const results = useMemo(() => sortProducts(applyFilters(products, filters), filters.sort), [products, filters]);
   const active = activeFilterCount(filters);
+  const hi = useLang() === "hi";
 
   const update = (next: Partial<ListingFilters>) => {
     const qs = filtersToQuery({ ...filters, ...next }, new URLSearchParams(window.location.search));
@@ -60,12 +65,14 @@ export function ListingView({ products, facets, labels, defaultSortLabel = "Feat
   if (products.length === 0) return <>{empty}</>;
 
   const groups = <FilterGroups products={products} filters={filters} facets={facets} labels={labels} onChange={update} />;
-  const countLabel = `${results.length} ${results.length === 1 ? "piece" : "pieces"}`;
+  const countLabel = <T en={`${results.length} ${results.length === 1 ? "piece" : "pieces"}`} hi={`${results.length} पीस`} />;
 
   return (
     <div className="lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-12 xl:gap-16">
-      <aside aria-label="Filters" className="hidden lg:block">
-        <h2 className="nav-label border-b border-ink pb-3">Filter</h2>
+      <aside aria-label={hi ? "फ़िल्टर" : "Filters"} className="hidden lg:block">
+        <h2 className="nav-label border-b border-ink pb-3">
+          <T en="Filter" hi="फ़िल्टर" />
+        </h2>
         {groups}
       </aside>
 
@@ -77,12 +84,15 @@ export function ListingView({ products, facets, labels, defaultSortLabel = "Feat
           <div className="flex items-center gap-2">
             <button type="button" onClick={() => setSheetOpen(true)} className="nav-label flex h-10 items-center gap-2 border border-ink/20 px-3.5 lg:hidden">
               <SlidersHorizontal size={15} strokeWidth={1.8} aria-hidden="true" />
-              Filter{active > 0 && <span className="tabular-nums">({active})</span>}
+              <T en="Filter" hi="फ़िल्टर" />
+              {active > 0 && <span className="tabular-nums">({active})</span>}
             </button>
             <label className="relative flex h-10 items-center border border-ink/20 lg:border-transparent">
-              <span className="sr-only">Sort by</span>
+              <span className="sr-only">
+                <T en="Sort by" hi="क्रम बदलें" />
+              </span>
               <span aria-hidden="true" className="nav-label hidden pl-3.5 text-muted sm:inline">
-                Sort
+                <T en="Sort" hi="क्रम" />
               </span>
               <select
                 value={filters.sort}
@@ -91,7 +101,7 @@ export function ListingView({ products, facets, labels, defaultSortLabel = "Feat
               >
                 {SORTS.map((s) => (
                   <option key={s.key} value={s.key}>
-                    {s.key === "featured" ? defaultSortLabel : s.label}
+                    {hi ? (s.key === "featured" ? (sortLabels[defaultSortLabel] ?? sortLabels.featured) : sortLabels[s.key]) : s.key === "featured" ? defaultSortLabel : s.label}
                   </option>
                 ))}
               </select>
@@ -106,10 +116,14 @@ export function ListingView({ products, facets, labels, defaultSortLabel = "Feat
 
         {results.length === 0 ? (
           <div className="py-20 text-center">
-            <p className="text-[16px] font-medium">No pieces match these filters</p>
-            <p className="mt-2 text-muted">Try removing a filter, or message us for a custom piece.</p>
+            <p className="text-[16px] font-medium">
+              <T en="No pieces match these filters" hi="इन फ़िल्टर से मेल खाता कोई पीस नहीं मिला" />
+            </p>
+            <p className="mt-2 text-muted">
+              <T en="Try removing a filter, or message us for a custom piece." hi="कोई फ़िल्टर हटाकर देखें, या कस्टम पीस के लिए हमें मैसेज करें।" />
+            </p>
             <button type="button" onClick={clearAll} className="btn btn-dark mt-6">
-              Clear filters
+              <T en="Clear filters" hi="फ़िल्टर हटाएँ" />
             </button>
           </div>
         ) : (
@@ -117,20 +131,22 @@ export function ListingView({ products, facets, labels, defaultSortLabel = "Feat
         )}
       </div>
 
-      <Drawer open={sheetOpen} onClose={() => setSheetOpen(false)} side="bottom" label="Filters">
+      <Drawer open={sheetOpen} onClose={() => setSheetOpen(false)} side="bottom" label={hi ? "फ़िल्टर" : "Filters"}>
         <div className="flex items-center justify-between border-b border-line px-5 py-3">
-          <h2 className="nav-label">Filter</h2>
-          <button type="button" onClick={() => setSheetOpen(false)} aria-label="Close filters" className="-mr-2 grid h-10 w-10 place-items-center">
+          <h2 className="nav-label">
+            <T en="Filter" hi="फ़िल्टर" />
+          </h2>
+          <button type="button" onClick={() => setSheetOpen(false)} aria-label={hi ? "फ़िल्टर बंद करें" : "Close filters"} className="-mr-2 grid h-10 w-10 place-items-center">
             <X size={22} />
           </button>
         </div>
         <div className="flex-1 overflow-y-auto px-5 pb-4">{groups}</div>
         <div className="grid grid-cols-2 gap-3 border-t border-line px-5 py-4">
           <button type="button" onClick={clearAll} disabled={active === 0} className="btn btn-outline disabled:opacity-40">
-            Clear all
+            <T en="Clear all" hi="सब हटाएँ" />
           </button>
           <button type="button" onClick={() => setSheetOpen(false)} className="btn btn-dark">
-            Show {results.length}
+            <T en={`Show ${results.length}`} hi={`${results.length} दिखाएँ`} />
           </button>
         </div>
       </Drawer>
@@ -153,10 +169,10 @@ function Grid({ products }: { products: Product[] }) {
       {products.length > limit && (
         <div className="mt-14 flex flex-col items-center gap-4">
           <p className="text-[12.5px] text-muted">
-            Showing {shown.length} of {products.length}
+            <T en={`Showing ${shown.length} of ${products.length}`} hi={`${products.length} में से ${shown.length}`} />
           </p>
           <button type="button" onClick={() => setLimit((n) => n + PAGE)} className="btn btn-outline">
-            Show more
+            <T en="Show more" hi="और दिखाएँ" />
           </button>
         </div>
       )}
@@ -175,19 +191,21 @@ function ActiveChips({
   onChange: (next: Partial<ListingFilters>) => void;
   onClear: () => void;
 }) {
-  const chips: { key: string; label: string; remove: () => void }[] = [];
+  const hi = useLang() === "hi";
+  const chips: { key: string; label: string; labelHi?: string; remove: () => void }[] = [];
   (["category", "sub", "type", "occasion", "colour"] as const).forEach((k) =>
     filters[k].forEach((v) =>
       chips.push({
         key: `${k}:${v}`,
         label: k === "type" ? TYPE_LABELS[v] ?? v : k === "colour" ? COLOURS.find((c) => c.slug === v)?.label ?? v : labels[v] ?? v,
+        labelHi: k === "type" ? typeLabels[v] : k === "colour" ? colourLabels[v] : hiListingLabel(v),
         remove: () => onChange({ [k]: filters[k].filter((x) => x !== v) }),
       }),
     ),
   );
   if (filters.min != null || filters.max != null)
-    chips.push({ key: "price", label: priceLabel(filters.min, filters.max), remove: () => onChange({ min: null, max: null }) });
-  if (filters.stock) chips.push({ key: "stock", label: "In stock", remove: () => onChange({ stock: false }) });
+    chips.push({ key: "price", label: priceLabel(filters.min, filters.max), labelHi: priceLabelHi(filters.min, filters.max), remove: () => onChange({ min: null, max: null }) });
+  if (filters.stock) chips.push({ key: "stock", label: "In stock", labelHi: "स्टॉक में", remove: () => onChange({ stock: false }) });
 
   if (chips.length === 0) return null;
   return (
@@ -197,15 +215,15 @@ function ActiveChips({
           key={c.key}
           type="button"
           onClick={c.remove}
-          aria-label={`Remove filter: ${c.label}`}
+          aria-label={hi ? `फ़िल्टर हटाएँ: ${c.labelHi ?? c.label}` : `Remove filter: ${c.label}`}
           className={clsx("flex items-center gap-1.5 bg-amber px-3 py-1.5 text-[12.5px] text-[#1e140d] transition hover:brightness-95")}
         >
-          {c.label}
+          <T en={c.label} hi={c.labelHi} />
           <X size={13} aria-hidden="true" />
         </button>
       ))}
       <button type="button" onClick={onClear} className="ml-1 text-[12.5px] underline underline-offset-4 hover:no-underline">
-        Clear all
+        <T en="Clear all" hi="सब हटाएँ" />
       </button>
     </div>
   );

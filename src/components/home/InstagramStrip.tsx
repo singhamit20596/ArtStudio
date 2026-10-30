@@ -2,6 +2,7 @@ import Image from "next/image";
 import { site } from "@/config/site";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { InstagramIcon } from "@/components/ui/Icons";
+import { T } from "@/i18n/T";
 
 /** Six latest posts as static images (no API). Replace files in /public/instagram to update. */
 const posts = [
@@ -19,12 +20,12 @@ export function InstagramStrip() {
       <div className="container-x">
         <SectionHeader
           id="ig-title"
-          eyebrow="On Instagram"
+          eyebrow={<T en="On Instagram" hi="Instagram पर" />}
           title={site.social.instagramHandle}
-          subtitle="New pieces, behind-the-scenes pours and happy customers."
+          subtitle={<T en="New pieces, behind-the-scenes pours and happy customers." hi="नए पीस, बनते हुए पीस की झलकियाँ और ख़ुश ग्राहक।" />}
           action={
             <a href={site.social.instagramUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
-              <InstagramIcon size={17} /> Follow
+              <InstagramIcon size={17} /> <T en="Follow" hi="फ़ॉलो करें" />
             </a>
           }
         />

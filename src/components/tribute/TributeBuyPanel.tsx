@@ -15,6 +15,10 @@ import type { Product } from "@/lib/types";
 import { useOrigin } from "@/lib/use-origin";
 import { whatsappLink } from "@/lib/whatsapp";
 import { TributeGallery, type TributeView } from "./TributeGallery";
+import { formatDaysHi } from "@/i18n/format";
+import { hiShortName, hiVariant } from "@/i18n/names";
+import { T } from "@/i18n/T";
+import { useLang } from "@/i18n/use-lang";
 
 const ACTIONS_ID = "tribute-actions";
 
@@ -31,11 +35,13 @@ export function TributeBuyPanel({ product, path, children }: { product: Product;
   const router = useRouter();
   const origin = useOrigin();
   const { addToCart, setCartOpen } = useShop();
+  const hi = useLang() === "hi";
 
   const size = sizes.find((s) => s.id === sizeId) ?? sizes[0];
   const options = { size: size?.id, light };
   const price = unitPrice(product, options);
   const name = shortName(product);
+  const nameHi = hiShortName(product.slug);
   const lightOffered = product.lightPrice != null;
 
   const code = lineCode(product, { options });
@@ -67,13 +73,18 @@ export function TributeBuyPanel({ product, path, children }: { product: Product;
             {formatINR(price)}
           </p>
           <p className="mt-0.5 text-[12px] text-muted">
-            Inclusive of all taxes. Made to order in {formatDays(product.makingTimeDays)}.
+            <T
+              en={`Inclusive of all taxes. Made to order in ${formatDays(product.makingTimeDays)}.`}
+              hi={`सभी टैक्स सहित। ऑर्डर पर ${formatDaysHi(product.makingTimeDays)} में बनता है।`}
+            />
           </p>
         </div>
 
         {/* 1. Size */}
         <fieldset className="mt-5 border-t border-line pt-4">
-          <legend className="text-[11px] font-semibold uppercase tracking-[0.16em]">Size</legend>
+          <legend className="text-[11px] font-semibold uppercase tracking-[0.16em]">
+            <T en="Size" hi="साइज़" />
+          </legend>
           <div className="mt-2.5 grid grid-cols-3 gap-1.5">
             {sizes.map((s) => (
               <button
@@ -86,7 +97,9 @@ export function TributeBuyPanel({ product, path, children }: { product: Product;
                   s.id === size.id ? "border-brown bg-brown text-white" : "border-line hover:border-ink",
                 )}
               >
-                <span className="block text-[12.5px] font-semibold tabular-nums">{s.label}</span>
+                <span className="block text-[12.5px] font-semibold tabular-nums">
+                  <T en={s.label} hi={hiVariant(s.label)} />
+                </span>
                 <span className={clsx("block text-[11.5px] tabular-nums", s.id === size.id ? "text-white/80" : "text-muted")}>{formatINR(s.price)}</span>
               </button>
             ))}
@@ -96,12 +109,14 @@ export function TributeBuyPanel({ product, path, children }: { product: Product;
         {/* 2. Lights */}
         {lightOffered && (
           <fieldset className="mt-4">
-            <legend className="text-[11px] font-semibold uppercase tracking-[0.16em]">Lights</legend>
+            <legend className="text-[11px] font-semibold uppercase tracking-[0.16em]">
+              <T en="Lights" hi="लाइटें" />
+            </legend>
             <div className="mt-2.5 grid grid-cols-2 gap-1.5">
               {[
-                { on: false, label: "Without lights", note: "Included", Icon: LightbulbOff },
-                { on: true, label: "With LED lights", note: `+ ${formatINR(product.lightPrice ?? 0)}`, Icon: Lightbulb },
-              ].map(({ on, label, note, Icon }) => (
+                { on: false, label: "Without lights", labelHi: "बिना लाइट", note: "Included", noteHi: "शामिल", Icon: LightbulbOff },
+                { on: true, label: "With LED lights", labelHi: "LED लाइटों के साथ", note: `+ ${formatINR(product.lightPrice ?? 0)}`, noteHi: undefined, Icon: Lightbulb },
+              ].map(({ on, label, labelHi, note, noteHi, Icon }) => (
                 <button
                   key={label}
                   type="button"
@@ -117,8 +132,12 @@ export function TributeBuyPanel({ product, path, children }: { product: Product;
                 >
                   <Icon size={18} strokeWidth={1.6} aria-hidden="true" className={clsx(on && light && "text-amber")} />
                   <span>
-                    <span className="block text-[12.5px] font-semibold">{label}</span>
-                    <span className={clsx("block text-[11.5px] tabular-nums", light === on ? "text-white/80" : "text-muted")}>{note}</span>
+                    <span className="block text-[12.5px] font-semibold">
+                      <T en={label} hi={labelHi} />
+                    </span>
+                    <span className={clsx("block text-[11.5px] tabular-nums", light === on ? "text-white/80" : "text-muted")}>
+                      <T en={note} hi={noteHi} />
+                    </span>
                   </span>
                 </button>
               ))}
@@ -128,37 +147,42 @@ export function TributeBuyPanel({ product, path, children }: { product: Product;
 
         {/* 3. Questions: WhatsApp, front and centre */}
         <div className="surface-amber mt-5 flex items-center justify-between gap-3 px-4 py-3">
-          <p className="text-[13px] font-semibold leading-snug">Questions? Get them answered instantly.</p>
+          <p className="text-[13px] font-semibold leading-snug">
+            <T en="Questions? Get them answered instantly." hi="कोई सवाल? तुरंत जवाब पाएँ।" />
+          </p>
           <a href={whatsappLink(askText)} target="_blank" rel="noopener noreferrer" className="attention btn btn-dark btn-press shrink-0 px-4">
-            <WhatsAppIcon size={16} /> Ask
+            <WhatsAppIcon size={16} /> <T en="Ask" hi="पूछें" />
           </a>
         </div>
 
         {/* 4. Cart */}
         <div id={ACTIONS_ID} className="mt-5 space-y-2">
           <div className="flex gap-2">
-            <QuantityStepper value={qty} max={MAX_QTY} onChange={(q) => setQty(Math.max(1, Math.min(MAX_QTY, q)))} itemName={name} />
+            <QuantityStepper value={qty} max={MAX_QTY} onChange={(q) => setQty(Math.max(1, Math.min(MAX_QTY, q)))} itemName={hi ? (nameHi ?? name) : name} />
             <button type="button" onClick={add} className="btn btn-dark btn-press flex-1 px-3">
-              Add to cart
+              <T en="Add to cart" hi="कार्ट में डालें" />
             </button>
             <button type="button" onClick={buyNow} className="btn btn-outline btn-press flex-1 px-3">
-              Buy now
+              <T en="Buy now" hi="अभी खरीदें" />
             </button>
           </div>
           <p className="pt-1 text-[12px] leading-relaxed text-muted">
-            After you pay, you choose the design, add the name and rank, upload photos and pick the background colour.
+            <T
+              en="After you pay, you choose the design, add the name and rank, upload photos and pick the background colour."
+              hi="भुगतान के बाद आप डिज़ाइन चुनें, नाम और रैंक लिखें, फ़ोटो अपलोड करें और बैकग्राउंड का रंग चुनें।"
+            />
           </p>
         </div>
 
         <StickyBar watchId={ACTIONS_ID}>
           <div className="min-w-0 flex-1">
             <p className="truncate text-[13px] font-medium">
-              {name} · {size.label}
+              <T en={`${name} · ${size.label}`} hi={`${nameHi ?? name} · ${hiVariant(size.label)}`} />
             </p>
             <p className="text-[13px] tabular-nums text-muted">{formatINR(price)}</p>
           </div>
           <button type="button" onClick={add} className="btn btn-dark min-h-11 px-5">
-            Add to cart
+            <T en="Add to cart" hi="कार्ट में डालें" />
           </button>
         </StickyBar>
       </div>
